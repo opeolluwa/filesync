@@ -1,13 +1,13 @@
 {
   "build": {
     "beforeDevCommand": "yarn dev",
-    "beforeBuildCommand": "yarn build",
+    "beforeBuildCommand": "yarn build && yarn export",
     "devPath": "http://localhost:1420",
-    "distDir": "../dist",
+    "distDir": "../out",
     "withGlobalTauri": false
   },
   "package": {
-    "productName": "tauri-app",
+    "productName": "breeze",
     "version": "0.0.0"
   },
   "tauri": {

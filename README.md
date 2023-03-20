@@ -10,8 +10,7 @@ Offline file-sharing application for Windows, Mac and Linux operating systems
 - [Rust](rust-lang.org/) -  A language empowering everyone
 to build reliable and efficient software.
 - [Typescript](https://typescript-lang.org) - A strongly-typed programming language that builds on JavaScript
-
-
+- [TailwindCSS]()
 ## Getting Started
 The following are required to run the application in development 
 - [Node.js](https://nodejs.org) - The JavaScript Runtime environment
