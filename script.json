@@ -1,0 +1,17 @@
+{
+  
+
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+}
+
+
+{
+    "build": {
+        "beforeBuildCommand": "npm run build && npm run export",
+        "beforeDevCommand": "npm run dev",
+        "devPath": "http://localhost:3000",
+        "distDir": "../out"
+    },
