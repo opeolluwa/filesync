@@ -83,10 +83,9 @@ const quickAccessTabs: QuickAccessTab[] = [
 ]
 export default function Home() {
   return (
-    <div className='grid grid-cols-12 h-full' id='container' style={
+    <div className='grid grid-cols-12 h-full mb-0'  id='container' style={
       {
-        height: '100vh',
-        overflowY: 'hidden'
+        minHeight: '100vh',
       }
     }>
       <nav className='col-span-1 bg-[#fafbfd] text-gray-600 dark:text-gray-300 dark:bg-[#1a1b1b] pt-10'>
@@ -114,7 +113,7 @@ export default function Home() {
 
         {  /*quick access section*/}
         <section className='my-12'>
-          <h2 className='mt-20 mb-8  font-medium'>
+          <h2 className='mt-20 mb-8  font-medium dark:text-gray-300'>
             Quick Access
           </h2>
           <ul className='flex flex-wrap gap-4 items-center justify-around mt-4'>
@@ -127,7 +126,7 @@ export default function Home() {
                     {tab.icon}
                   </div>
                 </a>
-                <span className='text-gray-600 block mt-2 text-small'>
+                <span className='text-gray-600 dark:text-gray-500 block mt-2 text-small'>
                   {tab.name}
                 </span>
               </li>
@@ -137,7 +136,7 @@ export default function Home() {
 
         {/*recent files section*/}
         <section className='my-12'>
-          <h2 className='mt-20 mb-8  font-medium'>
+          <h2 className='mt-20 mb-8  font-medium dark:text-gray-400'>
             Recent Files
           </h2>
           <ul className='flex flex-wrap gap-4 items-center justify-around mt-4'>
