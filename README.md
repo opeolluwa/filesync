@@ -1,7 +1,6 @@
 
-# Pancakes
-
-A project to explore building cross-platform desktop applications in [Tauri](https://tauri.app/), [React](https://react.dev/) and [Rust](rust-lang.org/)
+# Breeze
+Offline file-sharing application for Windows, Mac and Linux operating systems
 
 
 ## Tech Stack
@@ -21,4 +20,3 @@ The following are required to run the application in development
 to build reliable and efficient software.
 
 In addition, this project uses Tauri v1.2, see prerequisite for your operating system.
-# pancakes
