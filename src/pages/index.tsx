@@ -40,7 +40,7 @@ export default function Home() {
         height: '100vh',
       }
     }>
-      <nav className='col-span-1 bg-[#fafbfd] pt-4'>
+      <nav className='col-span-1 bg-[#fafbfd] dark:bg-[#1a1b1b] pt-4'>
         <AppLogo />
         <ul className=' h-full flex flex-col items-center'>
           {routes.map((route, index) => (
@@ -55,11 +55,10 @@ export default function Home() {
           ))}
         </ul>
       </nav>
-      <main className='col-span-7 pt-4 bg-[#eff3fe] rounded'>
+      <main className='col-span-7 pt-4  dark:bg-[#1f2222] '>
        
       </main>
-      <aside className='col-span-4 pt-4 bg-[#fafbfc]'>
-        <h2>Aside</h2>
+      <aside className='col-span-4 pt-4  bg-[#fafbfd] dark:bg-[#1a1b1b] dark:tet-gray-400'>
       </aside>
     </div>
   )
