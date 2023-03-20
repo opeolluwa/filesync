@@ -81,11 +81,31 @@ const quickAccessTabs: QuickAccessTab[] = [
 
   }
 ]
+
+const recentFiles = [
+  {
+    name: 'image1.jpg',
+    size: '1.2MB',
+    lastModified: 'Aug 26 2022'
+  },
+  {
+    name: 'image2.jpg',
+    size: '1.2MB',
+    lastModified: 'Oct 6 2022'
+  },
+  {
+    name: 'image3.jpg',
+    size: '1.2MB',
+    lastModified: 'Oct 6 2022'
+  },
+
+]
 export default function Home() {
   return (
-    <div className='grid grid-cols-12 h-full mb-0'  id='container' style={
+    <div className='grid grid-cols-12 h-full mb-0' id='container' style={
       {
-        minHeight: '100vh',
+        height: '100vh',
+        overflowY: 'hidden'
       }
     }>
       <nav className='col-span-1 bg-[#fafbfd] text-gray-600 dark:text-gray-300 dark:bg-[#1a1b1b] pt-10'>
@@ -122,7 +142,7 @@ export default function Home() {
                 <a href={tab.name.toLowerCase()} className='rounded-lg shadow-md  px-3' style={{
                   backgroundColor: tab.color
                 }}>
-                  <div className='rounded-sm my-4 mx-2 flex w-[45px]  shadow text-gray-100'>
+                  <div className='rounded-full my-4 mx-2 flex w-[45px]   text-gray-100'>
                     {tab.icon}
                   </div>
                 </a>
@@ -135,20 +155,46 @@ export default function Home() {
         </section>
 
         {/*recent files section*/}
-        <section className='my-12'>
-          <h2 className='mt-20 mb-8  font-medium dark:text-gray-400'>
-            Recent Files
+        <section className='my-16 hidden'>
+          <h2 className='flex justify-between mt-20 mb-8 '>
+            <span className=' font-medium dark:text-gray-400'>
+              Recent Files
+            </span>
+            <span className='text-gray-500 dark:text-violet'>
+              view all
+            </span>
           </h2>
-          <ul className='flex flex-wrap gap-4 items-center justify-around mt-4'>
-            {quickAccessTabs.map((tab, index) => (
-              <li key={index} className='flex flex-col items-center justify-center w-20 h-20 ' >
+          <table className='w-full'>
+            <tbody>
+              <tr>
+                <th>Name</th>
+                <th>Size</th>
+                <th>Last Modified</th>
+              </tr>
 
-              </li>
-            ))}
-          </ul>
+              {recentFiles.map((file, index) => (
+                <tr key={index}>
+                  <td>
+                    {file.name}
+                  </td>
+                  <td>
+                    {file.size}
+                  </td>
+                  <td>
+                    {file.lastModified}
+                  </td>
+                </tr>
+              ))}
+             
+            </tbody>
+          </table>
         </section>
       </main>
-      <aside className='col-span-4 pt-10  bg-[#fafbfd] dark:bg-[#1a1b1b] dark:tet-gray-400'>
+      <aside className='col-span-4 pt-10 px-8  bg-[#fafbfd] dark:bg-[#1a1b1b] dark:tet-gray-400'>
+        <h2 className='font-medium dark:text-gray-400'>
+          Downloads
+        </h2>
+
       </aside>
     </div>
   )

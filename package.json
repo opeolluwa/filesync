@@ -6,8 +6,9 @@
   "license": "MIT",
   "version": "0.0.0",
   "scripts": {
-    "dev": "next dev -p 1420",
+    "dev": "next dev",
     "build": "next build",
+    "export": "next export",
     "start": "next start",
     "tauri": "tauri",
     "lint": "next lint"
