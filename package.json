@@ -1,6 +1,6 @@
 {
-  "name": "pancakes",
-  "description": "exploring cross-platform desktop application in Rust and React",
+  "name": "breeze",
+  "description": "offline file sharing application Windows, Mac and Linux operating systems",
   "private": false,
   "author": "adeoye adefemi adefemiadeoye@yahoo.com",
   "license": "MIT",
@@ -13,6 +13,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.16",
     "@tauri-apps/api": "^1.2.0",
     "next": "^13.2.4",
     "react": "^18.2.0",
