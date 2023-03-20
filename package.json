@@ -6,9 +6,9 @@
   "license": "MIT",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "preview": "vite preview",
+    "dev": "next dev -p 1420",
+    "build": "next build",
+    "start": "next start",
     "tauri": "tauri",
     "lint": "next lint"
   },
