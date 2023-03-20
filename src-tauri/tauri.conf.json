@@ -27,7 +27,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.pancakes.dev",
+      "identifier": "com.breeze.dev",
       "targets": "all"
     },
     "security": {
@@ -40,7 +40,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "pancakes",
+        "title": "breeze",
         "width": 800,
         "height": 600
       }
