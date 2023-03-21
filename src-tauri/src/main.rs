@@ -13,7 +13,8 @@ fn main() {
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             commands::greet,
-            commands::get_ip_addr
+            commands::get_ip_addr,
+            commands::fetch_audio_files
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
