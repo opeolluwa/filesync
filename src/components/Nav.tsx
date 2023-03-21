@@ -1,6 +1,7 @@
 import Home from '@/pages/Home'
 import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, WifiIcon, ArrowRightOnRectangleIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
 import AppLogo from './AppLogo'
+import Link from 'next/link'
 
 interface Route {
     path: string,
@@ -49,12 +50,12 @@ export default function Nav() {
             <ul className=' h-full flex flex-col items-center'>
                 {routes.map((route, index) => (
                     <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500'>
-                        <a href={route.path}>
+                        <Link href={route.path}>
                             <span className='sr-only'>
                                 {route.path}
                             </span>
                             {route.icon}
-                        </a>
+                        </Link>
                     </li>
                 ))}
             </ul>
