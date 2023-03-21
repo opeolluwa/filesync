@@ -3,17 +3,16 @@
 
 mod commands;
 
-// // Learn more about Tauri commands at https://tauri.app/v1/guides/features/command
-// #[tauri::command]
-// fn greet(name: &str) -> String {
-//     format!("Hello, {}! You've been greeted from Rust!", name)
-// }
-
 fn main() {
+    let aud_files = commands::fetch_audio_files().ok().unwrap();
+    println!("the audio files {:?}", aud_files);
+
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             commands::greet,
-            commands::get_ip_addr
+            commands::get_ip_addr,
+            commands::fetch_audio_files,
+            commands::fetch_video_files
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
