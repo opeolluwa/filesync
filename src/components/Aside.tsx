@@ -19,6 +19,18 @@ const sampleFIles: FileInterface[] = [
         fileName: "IreneJennie.xls",
         fileSize: 57889,
         downloadInProgress: true
+    },
+    {
+        fileType: "docs",
+        fileName: "memo.docx",
+        fileSize: 52146,
+        downloadInProgress: false
+    },
+    {
+        fileType: "exe",
+        fileName: "FloraMabel.exe",
+        fileSize: 24790181,
+        downloadInProgress: false
     }
 ]
 export default function () {

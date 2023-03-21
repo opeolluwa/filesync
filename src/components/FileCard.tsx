@@ -48,7 +48,7 @@ export default function FileCard({ fileName, fileSize, fileType, downloadInProgr
     const __downloadStatus__ = downloadInProgress == true ? "downloading ..." : "Waiting for download";
 
     return (
-        <div className="flex justify-between items-center my-6 flex-wrap bg-[#edeffb] p-3 rounded-lg shadow-sm shadow-gray-300 cursor-pointer hover:shadow-lg hover:shadow-gray-400 transition-shadow ease-in-out">
+        <div className="flex justify-between items-center my-6 flex-wrap bg-[#edeffb] p-3 rounded-lg shadow-sm shadow-gray-300 cursor-pointer hover:shadow-sm hover:shadow-gray-400 transition-shadow ease-in-out">
             {/**flex one of three -> holding the image */}
             <Image
                 src={__filetype__} // Route of the image file
