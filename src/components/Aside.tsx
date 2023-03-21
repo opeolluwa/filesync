@@ -50,7 +50,7 @@ export default function () {
             }
             {
                 sampleFIles.map((file, index) => (
-                    <FileCard fileType={file.fileType} fileName={file.fileName} fileSize={file.fileSize} downloadInProgress={file.downloadInProgress} />
+                    <FileCard key={index} fileType={file.fileType} fileName={file.fileName} fileSize={file.fileSize} downloadInProgress={file.downloadInProgress} />
                 ))
             }
 
