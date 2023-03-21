@@ -10,7 +10,7 @@ Offline file-sharing application for Windows, Mac and Linux operating systems
 - [Rust](rust-lang.org/) -  A language empowering everyone
 to build reliable and efficient software.
 - [Typescript](https://typescript-lang.org) - A strongly-typed programming language that builds on JavaScript
-- [TailwindCSS]()
+- [TailwindCSS](https://tailwindcss.com) - A utility-first CSS framework 
 ## Getting Started
 The following are required to run the application in development 
 - [Node.js](https://nodejs.org) - The JavaScript Runtime environment
@@ -18,4 +18,4 @@ The following are required to run the application in development
 - [Rust v1.67 or greater](rust-lang.org/) -  A language empowering everyone
 to build reliable and efficient software.
 
-In addition, this project uses Tauri v1.2, see prerequisite for your operating system.
+In addition, this project uses Tauri v1.2, see [prerequisite](https://tauri.app/v1/guides/getting-started/prerequisites/) for your operating system.
