@@ -41,7 +41,8 @@ pub fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
-// get the audio file form the
+// get the audio file form the default audio dir of the OS
+// return an instance of the CommandData and vector of the path if any
 #[tauri::command]
 pub fn fetch_audio_files() -> Result<CommandData<Vec<PathBuf>>, CommandData<()>> {
     let audio_dir = dirs::audio_dir();
@@ -51,7 +52,7 @@ pub fn fetch_audio_files() -> Result<CommandData<Vec<PathBuf>>, CommandData<()>>
         return Err(CommandData::new("error getting the audio dir", false, ()));
     };
 
-//
+    //
     let mut entries: Vec<PathBuf> = vec![];
     for entry in fs::read_dir(audio_dir).expect("error reading file") {
         let dir = entry.expect("could not read dir");
@@ -61,9 +62,40 @@ pub fn fetch_audio_files() -> Result<CommandData<Vec<PathBuf>>, CommandData<()>>
 }
 
 // get the video files
-// #[tauri::command]
-// async fn fetch_video_files()  {
+#[tauri::command]
+pub fn fetch_video_files() -> Result<CommandData<Vec<PathBuf>>, CommandData<()>> {
+    let video_dir = dirs::video_dir();
 
-// }
+    // if there is an error getting the video path, fire an error
+    let Some(video_dir) = video_dir else{
+        return Err(CommandData::new("error reading the video dir", false, ()));
+    };
+
+    //
+    let mut entries: Vec<PathBuf> = vec![];
+    for entry in fs::read_dir(video_dir).expect("error reading file") {
+        let dir = entry.expect("could not read dir");
+        entries.push(dir.path());
+    }
+    Ok(CommandData::new("retrieved all audio files", true, entries))
+}
 
 // get
+
+#[cfg(test)]
+mod tests {
+    use crate::commands;
+
+    #[test]// see if there are files in the audio directory path
+    fn _fetch_audio_files_() {
+        let aud_files = commands::fetch_audio_files().ok();
+        assert!(aud_files.is_some())
+    }
+
+    #[test]// see if there are files in the video directory path
+    fn _fetch_video_files_() {
+        let vid_files: Option<commands::CommandData<Vec<std::path::PathBuf>>> =
+            commands::fetch_audio_files().ok();
+        assert!(vid_files.is_some())
+    }
+}
