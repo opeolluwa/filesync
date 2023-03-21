@@ -39,7 +39,7 @@ export default function Home() {
     <div className='grid grid-cols-12 mb-0 pb-0' id='container' style={
       {
         height: '100vh',
-        overflowY: 'scroll',
+        overflowY: 'hidden',
         marginBottom: 0
       }
     }>
