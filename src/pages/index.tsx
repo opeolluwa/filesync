@@ -135,7 +135,8 @@ export default function Home() {
     <div className='grid grid-cols-12 h-full mb-0' id='container' style={
       {
         height: '100vh',
-        overflowY: 'scroll'
+        overflowY: 'scroll',
+        marginBottom:0
       }
     }>
       <nav className='col-span-1 bg-[#fafbfd] text-gray-600 dark:text-gray-300 dark:bg-[#1a1b1b] pt-10'>
