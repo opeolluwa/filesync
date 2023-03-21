@@ -36,7 +36,7 @@ isClient && invoke('fetch_audio_files').then((result) => {
 
 export default function Home() {
   return (
-    <div className='grid grid-cols-12 mb-0 pb-0' id='container' style={
+    <div className='grid grid-cols-12 mb-0 pb-0 divide-x-1' id='container' style={
       {
         height: '100vh',
         overflowY: 'hidden',
