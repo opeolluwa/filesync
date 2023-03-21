@@ -15,11 +15,17 @@ const sampleFIles: FileInterface[] = [
         downloadInProgress: true
     },
     {
+        fileType: "zip",
+        fileName: "IreneJennie.zip",
+        fileSize: 57889,
+        downloadInProgress: true
+    },
+   /*  {
         fileType: "xls",
         fileName: "IreneJennie.xls",
         fileSize: 57889,
         downloadInProgress: true
-    },
+    }, */
     {
         fileType: "docs",
         fileName: "memo.docx",
@@ -35,7 +41,7 @@ const sampleFIles: FileInterface[] = [
 ]
 export default function Aside() {
     return (
-        <aside className='col-span-4 pt-10 px-8  bg-[rgba(226,233,252,255)] dark:bg-[#1a1b1b] dark:tet-gray-400' >
+        <aside className='col-span-4 pt-10 px-8  bg-[rgba(226,233,252,255)]   dark:border-l-mirage-x-700 dark:border-l dark:bg-mirage-600' >
             <h2 className='font-medium dark:text-gray-400 flex items-center justify-between mb-10'>
                 Downloads
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 font-extrabold">

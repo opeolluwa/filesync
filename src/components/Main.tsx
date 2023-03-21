@@ -67,7 +67,7 @@ const recentFiles = [
 
 export default function Main() {
     return (
-        <main className='col-span-7 pt-10 px-20 bg-[rgba(241,246,251,255)] rounded-r-lg  dark:bg-[#1f2222] '>
+        <main className='col-span-7 pt-10 px-20 bg-[rgba(241,246,251,255)]   dark:bg-mirage-600 '>
             {/* search bar goes here */}
             <section>
                 <SearchBar onSearch={function (city: string): void {
@@ -83,10 +83,10 @@ export default function Main() {
                 <ul className='flex flex-wrap gap-10 items-center justify-around mt-4'>
                     {quickAccessTabs.map((tab, index) => (
                         <li key={index} className='flex flex-col items-center justify-center w-20 h-20' >
-                            <a href={tab.name.toLowerCase()} className='rounded-[20px] shadow-md shadow-gray-400  px-3' style={{
+                            <a href={tab.name.toLowerCase()} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{
                                 backgroundColor: tab.color
                             }}>
-                                <div className='rounded-full my-4 mx-2 flex w-[47.5px]   text-gray-100'>
+                                <div className='rounded-full my-4 mx-2 flex w-[47.5px]  dark:text-shilo-300 text-gray-100'>
                                     {tab.icon}
                                 </div>
                             </a>
@@ -109,7 +109,7 @@ export default function Main() {
                 </h2>
 
 
-                <div className="relative overflow-x-auto bg-white rounded-[24px] shadow-lg px-4 py-8">
+                <div className="relative overflow-x-auto bg-white rounded-[24px] shadow-lg px-4 py-8 dark:bg-mirage-500">
                     <table className="w-full text-sm text-left">
                         <thead className="text-gray-500">
                             <tr>
