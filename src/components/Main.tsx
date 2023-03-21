@@ -82,7 +82,7 @@ export default function Main() {
                 </h2>
                 <ul className='flex flex-wrap gap-10 items-center justify-around mt-4'>
                     {quickAccessTabs.map((tab, index) => (
-                        <li key={index} className='flex flex-col items-center justify-center w-20 h-20 ' >
+                        <li key={index} className='flex flex-col items-center justify-center w-20 h-20' >
                             <a href={tab.name.toLowerCase()} className='rounded-[20px] shadow-md shadow-gray-400  px-3' style={{
                                 backgroundColor: tab.color
                             }}>
@@ -139,41 +139,6 @@ export default function Main() {
                                     </td>
                                 </tr>
                             ))}
-                        </tbody>
-                        <tbody className='hidden'>
-                            <tr className="bg-white dark:bg-gray-800">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Apple MacBook Pro 17"
-                                </th>
-                                <td className="px-6 py-4">
-                                    1
-                                </td>
-                                <td className="px-6 py-4">
-                                    $2999
-                                </td>
-                            </tr>
-                            <tr className="bg-white dark:bg-gray-800">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Microsoft Surface Pro
-                                </th>
-                                <td className="px-6 py-4">
-                                    1
-                                </td>
-                                <td className="px-6 py-4">
-                                    $1999
-                                </td>
-                            </tr>
-                            <tr className="bg-white dark:bg-gray-800">
-                                <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    Magic Mouse 2
-                                </th>
-                                <td className="px-6 py-4">
-                                    1
-                                </td>
-                                <td className="px-6 py-4">
-                                    $99
-                                </td>
-                            </tr>
                         </tbody>
                     </table>
                 </div>

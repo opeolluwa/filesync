@@ -44,11 +44,11 @@ const routes: Route[] = [{
 
 export default function Nav() {
     return (
-        <nav className='col-span-1 bg-[rgba(249,250,254,255)] text-gray-600 dark:text-gray-300 dark:bg-[#1a1b1b] pt-10'>
+        <nav className='col-span-1 bg-[rgba(249,250,254,255)] text-gray-600 dark:text-gray-300 dark:bg-sf_dark-500 pt-10'>
             <AppLogo />
             <ul className=' h-full flex flex-col items-center'>
                 {routes.map((route, index) => (
-                    <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500dark:text-gray-300'>
+                    <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500'>
                         <a href={route.path}>
                             <span className='sr-only'>
                                 {route.path}

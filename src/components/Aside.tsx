@@ -33,7 +33,7 @@ const sampleFIles: FileInterface[] = [
         downloadInProgress: false
     }
 ]
-export default function () {
+export default function Aside() {
     return (
         <aside className='col-span-4 pt-10 px-8  bg-[rgba(226,233,252,255)] dark:bg-[#1a1b1b] dark:tet-gray-400' >
             <h2 className='font-medium dark:text-gray-400 flex items-center justify-between mb-10'>
