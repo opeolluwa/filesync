@@ -1,7 +1,7 @@
-use glob::glob;
+// use glob::glob;
 use local_ip_address::local_ip;
 use serde::{Deserialize, Serialize};
-use std::path::PathBuf;
+use std::{fs, path::PathBuf};
 extern crate dirs;
 
 #[derive(Debug, Serialize, Deserialize)]
@@ -51,12 +51,11 @@ pub fn fetch_audio_files() -> Result<CommandData<Vec<PathBuf>>, CommandData<()>>
         return Err(CommandData::new("error getting the audio dir", false, ()));
     };
 
+//
     let mut entries: Vec<PathBuf> = vec![];
-    for entry in glob(&format!("{:?}/*", audio_dir)).expect("Failed to read glob pattern") {
-        match entry {
-            Ok(path) => entries.push(path),
-            Err(e) => println!("{:?}", e),
-        }
+    for entry in fs::read_dir(audio_dir).expect("error reading file") {
+        let dir = entry.expect("could not read dir");
+        entries.push(dir.path());
     }
     Ok(CommandData::new("retrieved all audio files", true, entries))
 }

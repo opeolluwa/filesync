@@ -10,6 +10,9 @@ mod commands;
 // }
 
 fn main() {
+    let aud_files = commands::fetch_audio_files().ok().unwrap();
+    println!("the audio files {:?}", aud_files);
+
     tauri::Builder::default()
         .invoke_handler(tauri::generate_handler![
             commands::greet,
