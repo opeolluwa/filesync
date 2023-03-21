@@ -2,6 +2,36 @@ import AppLogo from '@/components/AppLogo'
 import SearchBar from '@/components/SearchBar'
 import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, WifiIcon, ArrowRightOnRectangleIcon } from '@heroicons/react/24/outline'
 import { ArrowDownIcon, Bars3BottomLeftIcon, ComputerDesktopIcon, MusicalNoteIcon, PhotoIcon, PlayIcon } from '@heroicons/react/24/outline'
+import { invoke } from '@tauri-apps/api/tauri'
+import { NextPage } from 'next'
+
+
+// // Note: When working with Next.js in development you have 2 execution contexts:
+// // - The server (nodejs), where Tauri cannot be reached, because the current context is inside of nodejs.
+// // - The client (webview), where it is possible to interact with the Tauri rust backend.
+// // To check if we are currently executing in the client context, we can check the type of the window object;
+const isClient = typeof window !== 'undefined'
+
+// // Now we can call our Command!
+// // Right-click on the application background and open the developer tools.
+// // You will see "Hello, World!" printed in the console.
+// isClient &&
+//   invoke('fetch_audio_files', ).then(console.log).catch(console.error)
+
+
+// const Home: NextPage = () => {
+//   useEffect(() => {
+//     invoke('greet', { name: 'World' })
+//       .then(console.log)
+//       .catch(console.error)
+//   }, []);
+// Invoke the command
+isClient && invoke('fetch_audio_files').then((result) => {
+  console.log(JSON.stringify(result))
+}).catch((error) => {
+  console.error(error)
+})
+
 
 interface Route {
   path: string,
@@ -105,7 +135,7 @@ export default function Home() {
     <div className='grid grid-cols-12 h-full mb-0' id='container' style={
       {
         height: '100vh',
-        overflowY: 'hidden'
+        overflowY: 'scroll'
       }
     }>
       <nav className='col-span-1 bg-[#fafbfd] text-gray-600 dark:text-gray-300 dark:bg-[#1a1b1b] pt-10'>
@@ -136,7 +166,7 @@ export default function Home() {
           <h2 className='mt-20 mb-8  font-medium dark:text-gray-300'>
             Quick Access
           </h2>
-          <ul className='flex flex-wrap gap-4 items-center justify-around mt-4'>
+          <ul className='flex flex-wrap gap-10 items-center justify-around mt-4'>
             {quickAccessTabs.map((tab, index) => (
               <li key={index} className='flex flex-col items-center justify-center w-20 h-20 ' >
                 <a href={tab.name.toLowerCase()} className='rounded-lg shadow-md  px-3' style={{
@@ -185,16 +215,18 @@ export default function Home() {
                   </td>
                 </tr>
               ))}
-             
+
             </tbody>
           </table>
         </section>
       </main>
-      <aside className='col-span-4 pt-10 px-8  bg-[#fafbfd] dark:bg-[#1a1b1b] dark:tet-gray-400'>
+      <aside className='col-span-4 pt-10 px-8  bg-[#fafbfd] dark:bg-[#1a1b1b] dark:tet-gray-400' >
         <h2 className='font-medium dark:text-gray-400'>
-          Downloads
+          Preview
         </h2>
+        <button>
 
+        </button>
       </aside>
     </div>
   )
