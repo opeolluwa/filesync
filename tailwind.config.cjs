@@ -19,7 +19,7 @@ module.exports = {
       emerald: colors.emerald,
       indigo: colors.indigo,
       yellow: colors.yellow,
-      'app': {
+      'sf_orange': {
         DEFAULT: '#E95420',
         50: '#F9D4C7',
         100: '#F8C6B5',
@@ -31,6 +31,19 @@ module.exports = {
         700: '#8B2E0E',
         800: '#581D09',
         900: '#250C04'
+      },
+      'sf_green': {
+        DEFAULT: '#5BC5AE',
+        50: '#E3F5F1',
+        100: '#D4F0EA',
+        200: '#B5E5DB',
+        300: '#97DACC',
+        400: '#79D0BD',
+        500: '#5BC5AE',
+        600: '#3DAB93',
+        700: '#2E8270',
+        800: '#1F584C',
+        900: '#112F28'
       },
     },
     extend: {},
