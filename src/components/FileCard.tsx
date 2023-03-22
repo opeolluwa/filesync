@@ -18,7 +18,7 @@ import Image from 'next/image';
  * @returns file size and extension e.g 3.5 MB
  */
 
-function computeFileSize(size: number) {
+export function computeFileSize(size: number) {
     if (size > 1024 * 1024 * 1024) {
         return (size / (1024 * 1024 * 1024)).toFixed(1).toString() + " TB";
     } else if (size > 1024 * 1024) {

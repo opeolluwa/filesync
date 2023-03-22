@@ -1,7 +1,12 @@
-import React from 'react'
+import MusicFile from '@/components/MusicFile'
+import QuickAccessLayout from '@/components/QuickAccessLayout'
 
-export default function Music() {
+export default function Images() {
   return (
-    <div>Music</div>
+    <QuickAccessLayout pageTitle={'Music'}>
+      <div>
+        <MusicFile name={'dax-alchhol.pm4'} format={"avi"} duration={0} size={0} />
+      </div>
+    </QuickAccessLayout>
   )
 }
