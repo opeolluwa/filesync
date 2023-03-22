@@ -1,3 +1,4 @@
+import { goToPrevPage, goToNextPage } from "@/utils"
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline"
 
 interface Props {
@@ -6,13 +7,7 @@ interface Props {
 }
 
 
-function goToPrevPage() {
-    window.history.back()
-}
 
-function goToNextPage() {
-    window.history.forward()
-}
 export default function QuickAccessLayout({ children, pageTitle }: Props) {
     return (
         <>

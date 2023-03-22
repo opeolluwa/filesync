@@ -590,6 +590,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "filesize"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "12d741e2415d4e2e5bd1c1d00409d1a8865a57892c2d689b504365655d237d43"
+dependencies = [
+ "winapi",
+]
+
+[[package]]
 name = "filetime"
 version = "0.2.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2432,6 +2441,7 @@ name = "tauri-app"
 version = "0.0.0"
 dependencies = [
  "dirs",
+ "filesize",
  "glob",
  "local-ip-address",
  "serde",
