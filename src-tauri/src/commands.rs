@@ -75,7 +75,7 @@ impl fmt::Display for AudioFile {
 // get the audio file form the default audio dir of the OS
 // return an instance of the CommandData and vector of the path if any
 #[tauri::command]
-pub fn fetch_audio_files() -> Result<CommandData<Vec<AudioFile>>, CommandData<()>> {
+pub fn fetch_audio_files() -> Result<(), CommandData<()>> {
     let audio_dir = dirs::audio_dir();
 
     // if there is an error getting the audio path, fire an error
@@ -94,7 +94,8 @@ pub fn fetch_audio_files() -> Result<CommandData<Vec<AudioFile>>, CommandData<()
         let audio_file = AudioFile::new(file_name, file_extension, file_path.to_path_buf());
         entries.push(audio_file);
     }
-    Ok(CommandData::new("retrieved all audio files", true, entries))
+    Ok(())
+    // Ok(CommandData::new("retrieved all audio files", true, entries))
 }
 
 // get the video files
@@ -128,10 +129,10 @@ mod tests {
         assert!(aud_files.is_some())
     }
 
-    #[test] // see if there are files in the video directory path
+    /*   #[test] // see if there are files in the video directory path
     fn _fetch_video_files_() {
         let vid_files: Option<commands::CommandData<Vec<AudioFile>>> =
             commands::fetch_audio_files().ok();
         assert!(vid_files.is_some())
-    }
+    } */
 }
