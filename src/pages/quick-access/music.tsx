@@ -30,16 +30,25 @@ export default function Music() {
   }, []);
 
   // typecast the response into AppData type
-  const __music__data__: AppData = data;
-
-  // render the files
+  const __music__data__ = data as unknown as AppData;
   if (isLoading) {
-    return (<h2>fetch you audi files</h2>)
+    return (<h2>fetch you audio files</h2>)
   }
+
+  let fetchedData = Array(__music__data__?.data)
+  let rr =
+    fetchedData.map((file: any) => {
+      return (
+        <MusicFile
+          key={file.id}
+          name={file.name}
+          size={file.size} format={file.name.split('.')[1]} duration={0} />
+      )
+    });
+
   return (
     <QuickAccessLayout pageTitle={'Music'}>
-      {JSON.stringify(__music__data__)}
-      {/* <MusicFile name={'dax-alchhol.pm4'} format={"avi"} duration={0} size={0} /> */}
+      {Boolean(__music__data__?.status) == true ? rr : "nay"}
     </QuickAccessLayout>
   )
 }
