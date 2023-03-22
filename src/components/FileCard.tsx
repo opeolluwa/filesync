@@ -8,27 +8,10 @@
  * and the file status 
  */
 
+import { computeFileSize } from '@/utils';
 import { ArrowDownCircleIcon, PauseCircleIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 
-/**
- * 
- * @function computeFileSize - compute file size to human readable format
- * @param size - file size in byte
- * @returns file size and extension e.g 3.5 MB
- */
-
-export function computeFileSize(size: number) {
-    if (size > 1024 * 1024 * 1024) {
-        return (size / (1024 * 1024 * 1024)).toFixed(1).toString() + " TB";
-    } else if (size > 1024 * 1024) {
-        return (size / (1024 * 1024)).toFixed(1).toString() + " GB";
-    } else if (size > 1024) {
-        return (size / 1024).toFixed(1).toString() + " MB";
-    } else {
-        return size.toString() + " KB";
-    }
-}
 
 // the reqired data to render the file card component
 // the data will be passed dynamically

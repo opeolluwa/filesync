@@ -1,14 +1,9 @@
 import MusicFile from '@/components/MusicFile'
 import QuickAccessLayout from '@/components/QuickAccessLayout'
+import { AppData, AudioFile } from '@/types';
 import { invoke } from '@tauri-apps/api/tauri'
 import { useEffect, useState } from 'react';
-import { AppData } from '..';
-// import { AppData } from '..';
 
-
-// async function getMusicFiles() {
-//   return typeof window !== 'undefined' && await invoke('fetch_audio_files')
-// }
 
 export default function Music() {
   const [data, setData] = useState(null);
@@ -30,25 +25,24 @@ export default function Music() {
   }, []);
 
   // typecast the response into AppData type
-  const __music__data__ = data as unknown as AppData;
+  const __music__data__ = data as unknown as AppData<Array<AudioFile>>;
   if (isLoading) {
     return (<h2>fetch you audio files</h2>)
   }
-
-  let fetchedData = Array(__music__data__?.data)
-  let rr =
-    fetchedData.map((file: any) => {
-      return (
-        <MusicFile
-          key={file.id}
-          name={file.name}
-          size={file.size} format={file.name.split('.')[1]} duration={0} />
-      )
-    });
-
   return (
     <QuickAccessLayout pageTitle={'Music'}>
-      {Boolean(__music__data__?.status) == true ? rr : "nay"}
+      <div>
+        <div className='flex flex-wrap gap-4'>
+
+          {__music__data__?.data.map((file, index) => (
+            <MusicFile
+              key={index}
+              fileName={file.fileName}
+              fileSize={file.fileSize} fileFormat={file.fileFormat} filePath={file.filePath} />
+
+          ))}
+        </div>
+      </div>
     </QuickAccessLayout>
   )
 }
