@@ -10,37 +10,39 @@ interface QuickAccessTab {
 }
 
 
+
+
 const quickAccessTabs: QuickAccessTab[] = [
   {
     name: 'Images',
-    icon: <PhotoIcon />,
+    icon: <PhotoIcon className='rounded-full my-4 mx-2 flex w-[47.5px]  dark:text-shilo-300 text-gray-100' />,
     color: '#6166fe'
   },
   {
     name: 'Music',
-    icon: <MusicalNoteIcon />,
+    icon: <MusicalNoteIcon className='rounded-full my-4 mx-2 flex w-[47.5px]  dark:text-shilo-300 text-gray-100' />,
     color: '#6166fe'
 
   },
   {
     name: 'Videos',
-    icon: <PlayIcon />,
+    icon: <PlayIcon className='rounded-full my-4 mx-2 flex w-[47.5px]  dark:text-shilo-300 text-gray-100' />,
     color: '#3074f5'
   },
   {
     name: 'Documents',
-    icon: <Bars3BottomLeftIcon />,
+    icon: <Bars3BottomLeftIcon className='rounded-full my-4 mx-2 flex w-[47.5px]  dark:text-shilo-300 text-gray-100' />,
     color: '#3074f5'
 
   },
   {
     name: 'Downloads',
-    icon: <ArrowDownIcon />,
+    icon: <ArrowDownIcon className='rounded-full my-4 mx-2 flex w-[47.5px]  dark:text-shilo-300 text-gray-100' />,
     color: '#22244a'
   },
   {
     name: 'Desktop',
-    icon: <ComputerDesktopIcon />,
+    icon: <ComputerDesktopIcon className='rounded-full my-4 mx-2 flex w-[47.5px]  dark:text-shilo-300 text-gray-100' />,
     color: '#22244a'
 
   }
@@ -65,10 +67,12 @@ const recentFiles = [
 
 ]
 
+
+
 export default function Main() {
   return (
     <>
-     {/* search bar goes here */}
+      {/* search bar goes here */}
       <section>
         <SearchBar onSearch={function (city: string): void {
           throw new Error('Function not implemented.')
@@ -83,10 +87,10 @@ export default function Main() {
         <ul className='flex flex-wrap gap-10 items-center justify-around mt-4'>
           {quickAccessTabs.map((tab, index) => (
             <li key={index} className='flex flex-col items-center justify-center w-20 h-20' >
-              <a href={tab.name.toLowerCase()} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{
+              <a href={'quick-access/' + tab.name.toLowerCase()} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{
                 backgroundColor: tab.color
               }}>
-                <div className='rounded-full my-4 mx-2 flex w-[47.5px]  dark:text-shilo-300 text-gray-100'>
+                <div>
                   {tab.icon}
                 </div>
               </a>
