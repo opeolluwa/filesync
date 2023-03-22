@@ -9,6 +9,14 @@ interface QuickAccessTab {
   action?: (path: string) => void
 }
 
+// the structure of data tha will be returned from the application core
+ interface AppState {
+  data: any,
+  message: string,
+  status: boolean
+}
+export type AppData = AppState | null;
+
 
 const quickAccessTabs: QuickAccessTab[] = [
   {
@@ -64,6 +72,8 @@ const recentFiles = [
   },
 
 ]
+
+
 
 export default function Main() {
   return (

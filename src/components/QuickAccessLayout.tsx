@@ -7,11 +7,15 @@ interface Props {
 
 
 function goToPrevPage() {
-    window.history.back()
+    // window.history.back()
+    console.log("hey");
+    
 }
 
 function goToNextPage() {
-    window.history.forward()
+    // window.history.forward()
+    console.log("hey");
+
 }
 export default function QuickAccessLayout({ children, pageTitle }: Props) {
     return (

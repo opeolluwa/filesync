@@ -1,8 +1,10 @@
 import Image from 'next/image';
 import { computeFileSize } from './FileCard';
+
 // allowed audio  types 
 // display type not listed here as broken file
 type AudioFile = 'au' | 'aif' | 'aifc' | 'aiff' | 'wav' | 'flac' | 'la' | 'pac' | 'm4a' | 'ape' | 'wv' | 'wma' | 'ast' | 'mp2' | 'mp3' | 'spx' | 'aac' | 'mpc' | 'ra' | 'ogg' | 'mid' | 'm3u' | 'pls';
+
 
 interface Props {
     name: string,

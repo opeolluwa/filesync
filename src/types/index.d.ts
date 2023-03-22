@@ -1,8 +1,8 @@
 
-// export { };
+export { };
 
-// declare global {
-//     interface Window {
-//         __TAURI__: any;
-//     }
-// }
+declare global {
+    interface Window {
+        __TAURI__: any;
+    }
+}
