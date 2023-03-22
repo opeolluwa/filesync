@@ -1,5 +1,5 @@
-import Aside from "./Aside";
-import Nav from "./Nav";
+import Aside from "./AppAside";
+import Nav from "./AppNavigation";
 
 interface Props {
     children: React.ReactNode
