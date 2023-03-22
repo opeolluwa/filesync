@@ -4,7 +4,7 @@
   "private": false,
   "author": "adeoye adefemi adefemiadeoye@yahoo.com",
   "license": "MIT",
-  "version": "0.0.0",
+  "version": "0.4.0",
   "scripts": {
     "dev": "next dev -p 1420",
     "build": "next build",
