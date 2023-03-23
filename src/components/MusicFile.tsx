@@ -1,6 +1,7 @@
 import Image from 'next/image';
 import { AudioFile } from '@/types';
 import { computeFileSize } from '@/utils';
+import { shareMusicFile } from '@/pages/quick-access/music';
 
 // allowed audio  types 
 // display type not listed here as broken file
@@ -14,8 +15,8 @@ export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: 
     const __fileSize__ = computeFileSize(fileSize);
 
     return (
-        <div className='flex w-full  flex-wrap items-center gap-2 border-b border-b-shilo-100 dark:border-b-mirage-600 hover:dark:border-b-mirage-400 hover:dark:brightness-75 cursor-pointer px-4 py-2' >
-            <div>
+        <div onClick={()=>shareMusicFile(filePath)} className='flex w-full  flex-wrap items-center gap-2 border-b border-b-shilo-100 dark:border-b-mirage-600 hover:dark:border-b-mirage-400 hover:dark:brightness-75 cursor-pointer px-4 py-2' >
+            <div >
                 {
                     <Image
                         src={__file_icon__} // Route of the image file

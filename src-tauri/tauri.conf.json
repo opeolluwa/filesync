@@ -1,14 +1,14 @@
 {
   "build": {
     "beforeDevCommand": "yarn dev",
-    "beforeBuildCommand": "sh build-ui.sh",
+    "beforeBuildCommand": "yarn build &&  yarn export && cp public/splashscreen.html out/ ",
     "devPath": "http://localhost:1420",
     "distDir": "../out",
     "withGlobalTauri": true
   },
   "package": {
     "productName": "breeze",
-    "version": "0.4.5"
+    "version": "0.4.7"
   },
   "tauri": {
     "allowlist": {
