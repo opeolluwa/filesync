@@ -29,7 +29,7 @@ async fn main() {
     // println!("the audio files {:?}", aud_files.data.unwrap()[6]);
 
     // initialize tracing
-    tracing_subscriber::fmt::init();
+    // tracing_subscriber::fmt::init();
     tracing_subscriber::registry()
         .with(tracing_subscriber::EnvFilter::new(
             std::env::var("RUST_LOG")
