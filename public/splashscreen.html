@@ -9,12 +9,12 @@
     <style>
         @media screen and (prefers-color-scheme: dark) {
             body {
-                background-color: #1A1B1B!important;
+                background-color: #1A1B1B !important;
 
             }
 
             .lds-roller div:after {
-                background: #E9A6A6!important;
+                background: #E9A6A6 !important;
 
             }
         }
@@ -148,6 +148,20 @@
         <div></div>
         <div></div>
     </div>
+
+    <script>
+        const { invoke } = window.__TAURI__.tauri
+        // close the splash screen when this page content has been loaded 
+        document.addEventListener('DOMContentLoaded', () => {
+            // This will wait for the window to load, but you could
+            // run this function on whatever trigger you want
+            setTimeout(() => {
+                invoke('close_splashscreen')
+            }, 3500);
+        })
+
+
+    </script>
 </body>
 
 </html>

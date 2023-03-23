@@ -4,11 +4,11 @@
     "beforeBuildCommand": "sh build-ui.sh",
     "devPath": "http://localhost:1420",
     "distDir": "../out",
-    "withGlobalTauri": false
+    "withGlobalTauri": true
   },
   "package": {
     "productName": "breeze",
-    "version": "0.4.4"
+    "version": "0.4.5"
   },
   "tauri": {
     "allowlist": {
@@ -42,7 +42,15 @@
         "resizable": true,
         "title": "breeze",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "visible": false
+      },
+      {
+        "width": 400,
+        "height": 200,
+        "decorations": false,
+        "url": "splashscreen.html",
+        "label": "splashscreen"
       }
     ]
   }

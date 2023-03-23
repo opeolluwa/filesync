@@ -2,6 +2,7 @@ import SearchBar from '@/components/SearchBar'
 import { ArrowDownIcon, Bars3BottomLeftIcon, ComputerDesktopIcon, MusicalNoteIcon, PhotoIcon, PlayIcon } from '@heroicons/react/24/outline'
 
 
+
 interface QuickAccessTab {
   name: string,
   icon: any,
@@ -160,6 +161,7 @@ export default function Main() {
         </h2>
 
       </section>
+
     </>
   )
 }
