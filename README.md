@@ -2,7 +2,7 @@
 # Breeze
 Offline file-sharing application for Windows, Mac and Linux operating systems
 
-<img src="screenshots/home-light.png" width=640 height =320 alt="screenshot"/>
+![screen shot](screenshots/home-light.png) 
 
 ## Tech Stack
 - [Tauri](https://tauri.app/) is a framework for building cross-platform desktop applications with front-end web technologies.
