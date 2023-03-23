@@ -14,7 +14,7 @@ export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: 
     const __fileSize__ = computeFileSize(fileSize);
 
     return (
-        <div className='flex flex-col w-fit items-center justify-between bg-shilo-200 dark:bg-mirage-x-600 hover:brightness-75 cursor-pointer rounded-lg p-4 my-4'>
+        <div className='flex flex-col flex-wrap w-fit items-center justify-between bg-shilo-200 dark:bg-mirage-x-600 hover:brightness-75 cursor-pointer rounded-lg p-4 my-4'>
             <div>
                 {
                     <Image
@@ -22,12 +22,12 @@ export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: 
                         height={144} // Desired size with correct aspect ratio
                         width={144} // Desired size with correct aspect ratio
                         alt="file card icon"
-                        className='w-[32px] dark:brightness-75'// automatic height calculation
+                        className='w-[32px] dark:brightness-75 '// automatic height calculation
                     />
                 }
             </div>
-            <div className='flex flex-col justify-between'>
-                <h5 className='font-semibold dark:text-gray-500 hidden w-1/3'>{fileName}</h5>
+            <div className='flex flex-col justify-between mt-3'>
+                <h5 className='font-semibold dark:text-gray-500 small overflow-clip text-ellipsis w-[10px] hidden'>{fileName}</h5>
                 <div className='flex gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
                 width={30} '>
                     <span>{__fileSize__}</span> <span>
