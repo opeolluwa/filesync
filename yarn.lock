@@ -2777,6 +2777,18 @@ tapable@^2.2.0:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.2.1.tgz#1967a73ef4060a82f12ab96af86d52fdb76eeca0"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
+"tauri-plugin-store-api@https://github.com/tauri-apps/tauri-plugin-store":
+  version "0.0.0"
+  resolved "https://github.com/tauri-apps/tauri-plugin-store#971c3d86fb614871c49e27a30124454c66ca3a53"
+  dependencies:
+    "@tauri-apps/api" "^1.2.0"
+
+"tauri-plugin-upload-api@https://github.com/tauri-apps/tauri-plugin-upload":
+  version "0.0.0"
+  resolved "https://github.com/tauri-apps/tauri-plugin-upload#483a46c5df6a4ef3918726fa22e3f5df29c54aef"
+  dependencies:
+    "@tauri-apps/api" "^1.2.0"
+
 text-table@^0.2.0:
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"

@@ -4,8 +4,20 @@ import SearchBar from '@/components/SearchBar';
 import { AppData, AudioFile } from '@/types';
 import { invoke } from '@tauri-apps/api/tauri'
 import { useEffect, useState } from 'react';
+import { upload } from 'tauri-plugin-upload-api'
 
 
+// send file to server
+export function shareMusicFile(path: string) {
+  console.log("sharing music files");
+  
+  upload(
+    'http://localhost/3000/upload',
+    path, // the path to the file to upload
+    (progress, total) => console.log(`Downloaded ${progress} of ${total} bytes`) // a callback that will be called with the upload progress
+    // { 'ContentType': 'text/plain' } // optional headers to send with the request
+  )
+}
 export default function Music() {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -35,7 +47,7 @@ export default function Music() {
             <MusicFile
               key={index}
               fileName={file.fileName}
-              fileSize={file.fileSize} fileFormat={file.fileFormat} filePath={file.filePath} />
+              fileSize={file.fileSize} fileFormat={file.fileFormat} filePath={file.filePath}  />
           ))}
         </div>
       </div>

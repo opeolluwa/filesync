@@ -1,31 +1,32 @@
 [package]
-name = "tauri-app"
-version = "0.4.0"
-description = "A Tauri App"
 authors = ["you"]
-license = ""
-repository = ""
+description = "A Tauri App"
 edition = "2021"
+license = ""
+name = "tauri-app"
+repository = ""
+version = "0.4.0"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [build-dependencies]
-tauri-build = { version = "1.2", features = [] }
+tauri-build = {version = "1.2", features = [] }
 
 [dependencies]
-tauri = { version = "1.2", features = ["dialog-all", "fs-all", "path-all", "shell-open"] }
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0"
-local-ip-address = "0.5.1"
+axum = {version = "0.6.12", features = ["multipart"] }
 dirs = "5.0.0"
-glob = "0.3.1"
 filesize = "0.2.0"
-tokio = { version = "1.26.0", features = ["full"] }
-tracing-subscriber = { version = "0.3.16", features = ["env-filter"] }
-axum = { version = "0.6.12", features = ["multipart"] }
+glob = "0.3.1"
+local-ip-address = "0.5.1"
+serde = {version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+tauri = {version = "1.2", features = ["dialog-all", "fs-all", "path-all", "shell-open"] }
+tauri-plugin-store = {git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev"}
+tauri-plugin-upload = {git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev"}
+tokio = {version = "1.26.0", features = ["full"] }
+tower-http = {version = "0.4.0", features = ["cors", "limit", "trace"] }
 tracing = "0.1.37"
-tower-http = { version = "0.4.0", features = ["cors", "limit", "trace"] }
-
+tracing-subscriber = {version = "0.3.16", features = ["env-filter"] }
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
 # DO NOT REMOVE!!

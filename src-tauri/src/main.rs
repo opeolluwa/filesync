@@ -1,9 +1,10 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 use axum::{
+    extract::Multipart,
     response::IntoResponse,
     routing::{get, post},
-    Router, extract::Multipart,
+    Router,
 };
 use std::net::SocketAddr;
 use tauri::Manager;
@@ -29,7 +30,6 @@ async fn main() {
     // println!("the audio files {:?}", aud_files.data.unwrap()[6]);
 
     // initialize tracing
-    // tracing_subscriber::fmt::init();
     tracing_subscriber::registry()
         .with(tracing_subscriber::EnvFilter::new(
             std::env::var("RUST_LOG")
@@ -67,7 +67,7 @@ async fn main() {
     println!("Ignition started on http://{}", &ip_address);
 
     tauri::Builder::default()
-        // .invoke_handler(tauri::generate_handler![])
+        .plugin(tauri_plugin_upload::init())
         .invoke_handler(tauri::generate_handler![
             commands::greet,
             commands::get_ip_addr,
