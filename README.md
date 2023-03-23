@@ -1,6 +1,6 @@
 
 # Breeze
-Offline file-sharing application for Windows, Mac and Linux operating systems
+An experimental offline file-sharing application for Windows, Mac and Linux operating systems
 
 ![screen shot](screenshots/home-light.png) 
 
