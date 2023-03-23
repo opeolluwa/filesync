@@ -14,7 +14,7 @@ export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: 
     const __fileSize__ = computeFileSize(fileSize);
 
     return (
-        <div className='flex w-full  flex-wrap items-center gap-2 border-b border-b-mirage-600 hover:dark:border-b-mirage-400 hover:dark:brightness-75 cursor-pointer px-4 py-2' >
+        <div className='flex w-full  flex-wrap items-center gap-2 border-b border-b-shilo-100 dark:border-b-mirage-600 hover:dark:border-b-mirage-400 hover:dark:brightness-75 cursor-pointer px-4 py-2' >
             <div>
                 {
                     <Image
@@ -27,7 +27,7 @@ export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: 
                 }
             </div>
             <div className='flex flex-col justify-between mt-3'>
-                <h6 className=' dark:text-gray-500 small overflow-clip w-full text-nowrap text-ellipsis'>{fileName}</h6>
+                <h6 className=' dark:text-gray-500 small overflow-clip  w-[240px] lg:w-[400px]  truncate'>{fileName}</h6>
                 <div className='flex  gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
                 width={30} '>
                     <span>{__fileSize__}</span> <span>

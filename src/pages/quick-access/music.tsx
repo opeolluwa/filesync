@@ -19,14 +19,8 @@ export default function Music() {
     });
   }, []);
 
-  useEffect(() => {
-    invoke('greet', { name: 'World geng' })
-      .then(console.log)
-      .catch(console.error)
-  }, []);
-
   // typecast the response into AppData type
-  const __music__data__ = data as unknown as AppData<Array<AudioFile>>;
+  const musicData = data as unknown as AppData<Array<AudioFile>>;
   if (isLoading) {
     return (<h2>fetch you audio files</h2>)
   }
@@ -37,7 +31,7 @@ export default function Music() {
           throw new Error('Function not implemented.');
         }} />
         <div className='flex flex-wrap  flex-grow gap-4 justify-start mt-12'>
-          {__music__data__?.data.map((file, index) => (
+          {musicData?.data.map((file, index) => (
             <MusicFile
               key={index}
               fileName={file.fileName}

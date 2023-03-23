@@ -84,7 +84,7 @@ export default function Main() {
         <h2 className='mt-20 mb-8  font-medium dark:text-gray-300'>
           Quick Access
         </h2>
-        <ul className='flex flex-wrap gap-10 items-center justify-around mt-4'>
+        <ul className='flex flex-wrap gap-10 items-center justify-start mt-4'>
           {quickAccessTabs.map((tab, index) => (
             <li key={index} className='flex flex-col items-center justify-center w-20 h-20' >
               <a href={'quick-access/' + tab.name.toLowerCase()} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{
