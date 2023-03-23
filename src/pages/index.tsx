@@ -90,7 +90,7 @@ export default function Main() {
               <a href={'quick-access/' + tab.name.toLowerCase()} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{
                 backgroundColor: tab.color
               }}>
-                <div>
+                <div className='hover:brightness-50 sepia-0'>
                   {tab.icon}
                 </div>
               </a>
