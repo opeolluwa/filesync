@@ -20,7 +20,11 @@ local-ip-address = "0.5.1"
 dirs = "5.0.0"
 glob = "0.3.1"
 filesize = "0.2.0"
-tokio = "1.26.0"
+tokio = { version = "1.26.0", features = ["full"] }
+tracing-subscriber = { version = "0.3.16", features = ["env-filter"] }
+axum = { version = "0.6.12", features = ["multipart"] }
+tracing = "0.1.37"
+tower-http = { version = "0.4.0", features = ["cors", "limit", "trace"] }
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
