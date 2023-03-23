@@ -1,4 +1,4 @@
-import Home from '@/pages/splashscreen'
+import Home from '@/pages/home'
 import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, WifiIcon, ArrowRightOnRectangleIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
 import AppLogo from './AppLogo'
 import Link from 'next/link'
