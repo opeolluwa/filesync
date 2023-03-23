@@ -39,22 +39,24 @@ export default function FileCard({ fileName, fileSize, fileType, downloadInProgr
                     height={144} // Desired size with correct aspect ratio
                     width={144} // Desired size with correct aspect ratio
                     alt="file card icon"
-                    className='w-[64px] dark:brightness-75'// automatic height calculation
+                    className='w-[32px] dark:brightness-75 col-span-1 '// automatic height calculation
                 />
                 {/**flex two of three - holding the file description or download progess */}
-                <div className='flex flex-col'>
-                    <h5 className='font-semibold dark:text-gray-500'>{fileName}</h5>
+                <div className='flex flex-col text-ellipsis'>
+                    <h5 className='font-semibold dark:text-gray-500 overflow-clip text-ellipsis'>{fileName}</h5>
                     <div className='flex gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
                 width={30} '>
                         <span>{__fileSize__}</span> <span>{__downloadStatus__}</span>
                     </div>
                 </div>
                 {/**flex three of three holding the file  download progress of waiting icon */}
-                {
-                    downloadInProgress == true ?
-                        <PauseCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-shilo-900' /> :
-                        <ArrowDownCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-sf_green-900' />
-                }
+                <div className="hidden lg:block">
+                    {
+                        downloadInProgress == true ?
+                            <PauseCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-shilo-900' /> :
+                            <ArrowDownCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-sf_green-900' />
+                    }
+                </div>
             </div>
         </>
     )
