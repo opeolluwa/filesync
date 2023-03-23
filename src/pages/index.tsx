@@ -1,15 +1,48 @@
 import SearchBar from '@/components/SearchBar'
 import { ArrowDownIcon, Bars3BottomLeftIcon, ComputerDesktopIcon, MusicalNoteIcon, PhotoIcon, PlayIcon } from '@heroicons/react/24/outline'
-
-
+import { message } from '@tauri-apps/api/dialog';
+import { readDir, BaseDirectory } from '@tauri-apps/api/fs';
+import { audioDir } from '@tauri-apps/api/path';
+// const audioDirPath = await audioDir();
 
 interface QuickAccessTab {
   name: string,
   icon: any,
   color: string,
-  action?: (path: string) => void
+  action?: () => any // action that will be executed when the route is clicked 
 }
 
+// get image files 
+async function getImageFiles() {
+  // todo read dir
+  const files = await readDir('/', { dir: BaseDirectory.Picture, recursive: true }).catch((err) => {
+    message('error opening file manager', {
+      title: 'Access error',
+      type: 'error'
+    })
+    console.log(err.message);
+
+  });
+}
+// get music files
+// const musicFiles = await getFiles('music')
+
+// get video files
+// const videoFiles = await getFiles('videos')
+
+// get document files
+// const documentFiles = await getFiles('documents')
+
+// get download files
+// const downloadFiles = await getFiles('downloads')
+
+// get desktop files
+// const desktopFiles = await getFiles('desktop')
+
+async function getFiles() {
+  // const files = await readdir('C:\\Users\\user\\Desktop')
+  // console.log(files)
+}
 
 
 
@@ -17,7 +50,8 @@ const quickAccessTabs: QuickAccessTab[] = [
   {
     name: 'Images',
     icon: <PhotoIcon className='rounded-full my-4 mx-2 flex w-[47.5px]  dark:text-shilo-300 text-gray-100' />,
-    color: '#6166fe'
+    color: '#6166fe',
+    action: getImageFiles
   },
   {
     name: 'Music',
@@ -73,6 +107,7 @@ const recentFiles = [
 export default function Main() {
   return (
     <>
+
       {/* search bar goes here */}
       <section>
         <SearchBar onSearch={function (city: string): void {
@@ -87,8 +122,10 @@ export default function Main() {
         </h2>
         <ul className='flex flex-wrap gap-10 items-center justify-start mt-4'>
           {quickAccessTabs.map((tab, index) => (
-            <li key={index} className='flex flex-col items-center justify-center w-20 h-20' >
-              <a href={'quick-access/' + tab.name.toLowerCase()} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{
+            <li key={index} className='flex flex-col items-center justify-center w-20 h-20' onClick={tab.action} >
+              {/* <a href={'quick-access/' + tab.name.toLowerCase()} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{ */}
+              <a href={'#'} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{
+
                 backgroundColor: tab.color
               }}>
                 <div className='hover:brightness-50 sepia-0'>

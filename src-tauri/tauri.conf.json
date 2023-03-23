@@ -13,6 +13,29 @@
   "tauri": {
     "allowlist": {
       "all": false,
+      "dialog": {
+        "all": true,
+        "open": true,
+        "save": true
+      },
+      "fs": {
+        "all": true,
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "exists": true,
+        "scope": [
+          "$APPDATA/databases/*"
+        ]
+      },
+      "path": {
+        "all": true
+      },
       "shell": {
         "all": false,
         "open": true
@@ -42,15 +65,7 @@
         "resizable": true,
         "title": "breeze",
         "width": 800,
-        "height": 600,
-        "visible": false
-      },
-      {
-        "width": 400,
-        "height": 200,
-        "decorations": false,
-        "url": "splashscreen.html",
-        "label": "splashscreen"
+        "height": 600
       }
     ]
   }
