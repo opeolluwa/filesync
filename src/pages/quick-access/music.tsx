@@ -36,7 +36,7 @@ export default function Music() {
         <SearchBar onSearch={function (city: string): void {
           throw new Error('Function not implemented.');
         }} />
-        <div className='flex flex-wrap  flex-grow gap-4 justify-between mt-12'>
+        <div className='flex flex-wrap  flex-grow gap-4 justify-start mt-12'>
           {__music__data__?.data.map((file, index) => (
             <MusicFile
               key={index}

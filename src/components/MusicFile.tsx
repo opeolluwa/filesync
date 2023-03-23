@@ -10,7 +10,7 @@ import { computeFileSize } from '@/utils';
 type Props = AudioFile;
 
 export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: Props) {
-    const __known__filetype__ = `/images/mime/${fileFormat}.png`;
+    const __file_icon__ = "/images/mime/music-player.png";
     const __fileSize__ = computeFileSize(fileSize);
 
     return (
@@ -18,11 +18,11 @@ export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: 
             <div>
                 {
                     <Image
-                        src={__known__filetype__} // Route of the image file
+                        src={__file_icon__} // Route of the image file
                         height={144} // Desired size with correct aspect ratio
                         width={144} // Desired size with correct aspect ratio
                         alt="file card icon"
-                        className='w-[64px] dark:brightness-75'// automatic height calculation
+                        className='w-[32px] dark:brightness-75'// automatic height calculation
                     />
                 }
             </div>

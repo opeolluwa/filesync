@@ -45,7 +45,12 @@ const routes: Route[] = [{
 
 export default function Nav() {
     return (
-        <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10'>
+        <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10' style={
+            {
+                height: "calc(100vh-200px)",
+                overflowY:"hidden"
+            }
+        }>
             <AppLogo />
             <ul className=' h-full flex flex-col items-center'>
                 {routes.map((route, index) => (

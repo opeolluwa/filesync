@@ -39,7 +39,7 @@ export default function FileCard({ fileName, fileSize, fileType, downloadInProgr
                     height={144} // Desired size with correct aspect ratio
                     width={144} // Desired size with correct aspect ratio
                     alt="file card icon"
-                    className='w-[64px] dark:brightness-75'// automatic height calculation
+                    className='w-[32px] dark:brightness-75'// automatic height calculation
                 />
                 {/**flex two of three - holding the file description or download progess */}
                 <div className='flex flex-col'>

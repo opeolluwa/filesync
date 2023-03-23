@@ -12,6 +12,7 @@ fn main() {
             commands::greet,
             commands::get_ip_addr,
             commands::audio::fetch_audio_files,
+            commands::video::fetch_video_files
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

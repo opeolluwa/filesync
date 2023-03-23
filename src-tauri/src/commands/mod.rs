@@ -1,7 +1,6 @@
 use local_ip_address::local_ip;
 use serde::{Deserialize, Serialize};
-use std::{fs, path::PathBuf};
-extern crate dirs;
+
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CommandData<T> {
