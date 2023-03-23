@@ -11,7 +11,6 @@ type Props = AudioFile;
 
 export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: Props) {
     const __known__filetype__ = `/images/mime/${fileFormat}.png`;
-    const __unknown__filetype__ = `/images/mime/file.png`;
     const __fileSize__ = computeFileSize(fileSize);
 
     return (
@@ -24,13 +23,6 @@ export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: 
                         width={144} // Desired size with correct aspect ratio
                         alt="file card icon"
                         className='w-[64px] dark:brightness-75'// automatic height calculation
-                    /> ||
-                    <Image
-                        src={__unknown__filetype__} // Route of the image file
-                        height={144} // Desired size with correct aspect ratio
-                        width={144} // Desired size with correct aspect ratio
-                        alt="file card icon"
-                        className='w-[64px] dark:brightness-75'// automatic height calculation
                     />
                 }
             </div>
@@ -38,7 +30,9 @@ export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: 
                 <h5 className='font-semibold dark:text-gray-500 hidden w-1/3'>{fileName}</h5>
                 <div className='flex gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
                 width={30} '>
-                    <span>{__fileSize__}</span> <span>{0}</span>
+                    <span>{__fileSize__}</span> <span>
+                        {/**file duration goes here */}
+                    </span>
                 </div>
             </div>
         </div>
