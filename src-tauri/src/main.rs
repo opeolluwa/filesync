@@ -57,14 +57,15 @@ async fn main() {
 
     // run our app with hyper
     // `axum::Server` is a re-export of `hyper::Server`
-    let ip_address = SocketAddr::from(([0, 0, 0, 0], 3000));
-    tracing::debug!("listening on {}", ip_address);
+    let port = portpicker::pick_unused_port().expect("failed to get an unused port");
+    let ip_address = SocketAddr::from(([0, 0, 0, 0], port));
+
+    //launch the server
+    println!("Ignition started dd on http://{}", &ip_address);
     axum::Server::bind(&ip_address)
         .serve(app.into_make_service())
         .await
         .unwrap();
-    //launch the server
-    println!("Ignition started on http://{}", &ip_address);
 
     tauri::Builder::default()
         .plugin(tauri_plugin_upload::init())
