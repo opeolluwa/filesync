@@ -14,6 +14,7 @@ use tracing_subscriber::{prelude::__tracing_subscriber_SubscriberExt, util::Subs
 
 mod commands;
 
+
 #[tauri::command]
 fn close_splashscreen(window: tauri::Window) {
     // Close splashscreen
@@ -60,12 +61,13 @@ async fn main() {
     let port = portpicker::pick_unused_port().expect("failed to get an unused port");
     let ip_address = SocketAddr::from(([0, 0, 0, 0], port));
 
-    //launch the server
+    //launch the server on a parallel process
     println!("Ignition started dd on http://{}", &ip_address);
-    axum::Server::bind(&ip_address)
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
+    /*  axum::Server::bind(&ip_address)
+    .serve(app.into_make_service())
+    .await
+    .unwrap() */
+   
 
     tauri::Builder::default()
         .plugin(tauri_plugin_upload::init())
@@ -78,6 +80,11 @@ async fn main() {
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+
+     tokio::task::spawn(
+        axum::Server::bind(&ip_address).serve(app.into_make_service()), /*  .await
+                                                                        .unwrap() */
+    );
 }
 
 //recieve a file
