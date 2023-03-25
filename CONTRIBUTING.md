@@ -23,7 +23,6 @@ All types of contributions are encouraged and valued. See the [Table of Contents
   - [Improving The Documentation](#improving-the-documentation)
 - [Styleguides](#styleguides)
   - [Commit Messages](#commit-messages)
-- [Join The Project Team](#join-the-project-team)
 
 
 ## Code of Conduct
@@ -134,25 +133,22 @@ Enhancement suggestions are tracked as [GitHub issues](https://github.com/opeoll
 <!-- You might want to create an issue template for enhancement suggestions that can be used as a guide and that defines the structure of the information to be included. If you do so, reference it here in the description. -->
 
 ### Your First Code Contribution
-<!-- TODO
-include Setup of env, IDE and typical getting started instructions?
+Please see [getting started section](https://github.com/opeolluwa/send-file/blob/master/README.md) of the README for instruction on environment set up 
 
--->
+
 
 ### Improving The Documentation
-<!-- TODO
-Updating, improving and correcting the documentation
 
--->
+Updating, improving and correcting the documentation is encouraged, please make a pull request if you spot any error.
+
+
 
 ## Styleguides
 ### Commit Messages
-<!-- TODO
+A subject which contain the title of the git commit. This should be capitalized and not more that 50 characters. 
 
--->
+The commit message should also contain an explanatory message of what changed in past sentence. for example "implemented modal using Tauri Dialog API". 
 
-## Join The Project Team
-<!-- TODO -->
 
 <!-- omit in toc -->
 ## Attribution

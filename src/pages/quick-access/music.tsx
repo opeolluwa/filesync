@@ -6,14 +6,19 @@ import { invoke } from '@tauri-apps/api/tauri'
 import { useEffect, useState } from 'react';
 import { upload } from 'tauri-plugin-upload-api'
 
-
 // send file to server
-export function shareMusicFile(path: string) {
+export async function shareMusicFile(filePath: string) {
   console.log("sharing music files");
-  
+  const ipAddr = await invoke('get_ip_address').catch((err) => {
+    console.log("error getting ip addr due to ", (err as Error).message);
+
+  })
+  const uploadPath = `${ipAddr}/upload`
+  console.log("the upload path is ", uploadPath);
+
   upload(
-    'http://localhost/3000/upload',
-    path, // the path to the file to upload
+    uploadPath,
+    filePath, // the path to the file to upload
     (progress, total) => console.log(`Downloaded ${progress} of ${total} bytes`) // a callback that will be called with the upload progress
     // { 'ContentType': 'text/plain' } // optional headers to send with the request
   )
@@ -47,7 +52,7 @@ export default function Music() {
             <MusicFile
               key={index}
               fileName={file.fileName}
-              fileSize={file.fileSize} fileFormat={file.fileFormat} filePath={file.filePath}  />
+              fileSize={file.fileSize} fileFormat={file.fileFormat} filePath={file.filePath} />
           ))}
         </div>
       </div>
