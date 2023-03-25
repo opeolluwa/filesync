@@ -30,7 +30,12 @@
         "renameFile": true,
         "exists": true,
         "scope": [
-          "$APPDATA/databases/*"
+          "$AUDIO/*",
+          "$VIDEO/*",
+          "$PICTURE/*",
+          "$DESKTOP/*",
+          "$DOWNLOAD/*",
+          "$DOCUMENT/*"
         ]
       },
       "path": {
@@ -50,7 +55,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.breeze.dev",
+      "identifier": "com.sendfile.dev",
       "targets": "all"
     },
     "security": {
@@ -63,7 +68,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "breeze",
+        "title": "SendFile",
         "width": 800,
         "height": 600
       }

@@ -1,29 +1,30 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+#![feature(const_option)]
 use axum::{
     extract::Multipart,
     response::IntoResponse,
     routing::{get, post},
     Router,
 };
+use once_cell::sync::Lazy;
 use std::net::SocketAddr;
-use tauri::Manager;
 use tower_http::cors::{Any, CorsLayer};
 use tower_http::limit::RequestBodyLimitLayer;
 use tracing_subscriber::{prelude::__tracing_subscriber_SubscriberExt, util::SubscriberInitExt};
 
+// tauri apis
+use crate::commands::{
+    audio::fetch_audio_files,
+    utils::{close_splashscreen, get_ip_addr},
+    video::fetch_video_files,
+};
+
 mod commands;
 
-
-#[tauri::command]
-fn close_splashscreen(window: tauri::Window) {
-    // Close splashscreen
-    if let Some(splashscreen) = window.get_window("splashscreen") {
-        splashscreen.close().unwrap();
-    }
-    // Show main window
-    window.get_window("main").unwrap().show().unwrap();
-}
+// assign a port to the application core
+pub static SERVER_PORT: Lazy<u16> =
+    Lazy::new(|| portpicker::pick_unused_port().expect("failed to get an unused port"));
 
 #[tokio::main]
 async fn main() {
@@ -57,34 +58,25 @@ async fn main() {
         .layer(cors_layer);
 
     // run our app with hyper
-    // `axum::Server` is a re-export of `hyper::Server`
-    let port = portpicker::pick_unused_port().expect("failed to get an unused port");
+    let port: u16 = *SERVER_PORT;
     let ip_address = SocketAddr::from(([0, 0, 0, 0], port));
+    println!("Ignition started on http://{}", &ip_address);
 
-    //launch the server on a parallel process
-    println!("Ignition started dd on http://{}", &ip_address);
-    /*  axum::Server::bind(&ip_address)
-    .serve(app.into_make_service())
-    .await
-    .unwrap() */
-   
-
+    // fire up tauri
     tauri::Builder::default()
         .plugin(tauri_plugin_upload::init())
         .invoke_handler(tauri::generate_handler![
             commands::greet,
-            commands::get_ip_addr,
-            commands::audio::fetch_audio_files,
-            commands::video::fetch_video_files,
+            get_ip_addr,
+            fetch_audio_files,
+            fetch_video_files,
             close_splashscreen
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 
-     tokio::task::spawn(
-        axum::Server::bind(&ip_address).serve(app.into_make_service()), /*  .await
-                                                                        .unwrap() */
-    );
+    //launch the server on a parallel process
+    tokio::task::spawn(axum::Server::bind(&ip_address).serve(app.into_make_service()));
 }
 
 //recieve a file

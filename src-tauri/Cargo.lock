@@ -2529,6 +2529,30 @@ dependencies = [
 ]
 
 [[package]]
+name = "send-file-core"
+version = "0.4.0"
+dependencies = [
+ "axum",
+ "dirs",
+ "filesize",
+ "glob",
+ "local-ip-address",
+ "once_cell",
+ "portpicker",
+ "serde",
+ "serde_json",
+ "tauri",
+ "tauri-build",
+ "tauri-plugin-localhost",
+ "tauri-plugin-store",
+ "tauri-plugin-upload",
+ "tokio",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+]
+
+[[package]]
 name = "serde"
 version = "1.0.157"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2943,29 +2967,6 @@ dependencies = [
  "webkit2gtk",
  "webview2-com",
  "windows 0.39.0",
-]
-
-[[package]]
-name = "tauri-app"
-version = "0.4.0"
-dependencies = [
- "axum",
- "dirs",
- "filesize",
- "glob",
- "local-ip-address",
- "portpicker",
- "serde",
- "serde_json",
- "tauri",
- "tauri-build",
- "tauri-plugin-localhost",
- "tauri-plugin-store",
- "tauri-plugin-upload",
- "tokio",
- "tower-http",
- "tracing",
- "tracing-subscriber",
 ]
 
 [[package]]
