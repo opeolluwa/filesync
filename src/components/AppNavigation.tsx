@@ -5,16 +5,24 @@ import Link from 'next/link'
 import { DialogFilter, message } from '@tauri-apps/api/dialog';
 import { open } from '@tauri-apps/api/dialog';
 import { appDir } from '@tauri-apps/api/path';
+import { invoke } from '@tauri-apps/api';
 
 
 //  @function promptConnection - prompt app to give connection details
-function promptConnection() {
-    message('share files', {
-        title: 'Connection',
-        type: 'info'
-    }).then((result) => {
-        console.log(result)
-    })
+async function promptConnection() {
+   /*  if (typeof window !== 'undefined') {
+        const ipAddr = await invoke('get_ip_address').catch((err) => {
+            console.log("error getting ip addr due to ", (err as Error).message);
+
+        })
+
+        message('connect to ' + ipAddr, {
+            title: 'Connection',
+            type: 'info'
+        }).then((result) => {
+            console.log(result)
+        })
+    } */
 }
 
 

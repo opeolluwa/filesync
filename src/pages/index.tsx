@@ -123,9 +123,7 @@ export default function Main() {
         <ul className='flex flex-wrap gap-10 items-center justify-start mt-4'>
           {quickAccessTabs.map((tab, index) => (
             <li key={index} className='flex flex-col items-center justify-center w-20 h-20' onClick={tab.action} >
-              {/* <a href={'quick-access/' + tab.name.toLowerCase()} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{ */}
-              <a href={'#'} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{
-
+              <a href={'quick-access/' + tab.name.toLowerCase()} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{
                 backgroundColor: tab.color
               }}>
                 <div className='hover:brightness-50 sepia-0'>

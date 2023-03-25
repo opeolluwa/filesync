@@ -1,8 +1,8 @@
 
-# Breeze
+# SendFile
 An experimental offline file-sharing application for Windows, Mac and Linux operating systems
 
-![screen shot](screenshots/home-light.png) 
+![screenshot](screenshots/home-light.png) 
 
 ## Tech Stack
 - [Tauri](https://tauri.app/) is a framework for building cross-platform desktop applications with front-end web technologies.
