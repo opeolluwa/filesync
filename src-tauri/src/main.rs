@@ -1,6 +1,7 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 #![feature(const_option)]
+// #[allow(unused_variables)]
 use axum::{
     extract::Multipart,
     response::IntoResponse,
@@ -58,11 +59,11 @@ async fn main() {
         .layer(cors_layer);
 
     // run our app with hyper
-    let port: u16 = *SERVER_PORT;
-    let ip_address = SocketAddr::from(([0, 0, 0, 0], port));
-    println!("Ignition started on http://{}", &ip_address);
 
-    // fire up tauri
+    let port: u16 = portpicker::pick_unused_port().expect("failed to get an unused port");
+    let ip_address = SocketAddr::from(([127, 0, 0, 1], port));
+    tracing::debug!("Ignition started on http://{}", &ip_address);
+
     tauri::Builder::default()
         .plugin(tauri_plugin_upload::init())
         .invoke_handler(tauri::generate_handler![
@@ -75,8 +76,14 @@ async fn main() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 
-    //launch the server on a parallel process
-    tokio::task::spawn(axum::Server::bind(&ip_address).serve(app.into_make_service()));
+    // fire up the core server
+    axum::Server::bind(&ip_address)
+        .serve(app.into_make_service())
+        .await
+        .unwrap();
+    // let core_server =
+    // tokio::task::spawn(axum::Server::bind(&ip_address).serve(app.into_make_service()));
+    // core_server.await.unwrap();
 }
 
 //recieve a file

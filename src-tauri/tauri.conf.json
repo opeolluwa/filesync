@@ -30,12 +30,12 @@
         "renameFile": true,
         "exists": true,
         "scope": [
-          "$AUDIO/*",
-          "$VIDEO/*",
-          "$PICTURE/*",
-          "$DESKTOP/*",
-          "$DOWNLOAD/*",
-          "$DOCUMENT/*"
+          "$AUDIO",
+          "$VIDEO",
+          "$PICTURE",
+          "$DESKTOP",
+          "$DOWNLOAD",
+          "$DOCUMENT"
         ]
       },
       "path": {
