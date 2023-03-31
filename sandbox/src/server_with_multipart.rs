@@ -1,3 +1,4 @@
+use axum::extract::DefaultBodyLimit;
 use axum::extract::Multipart;
 use axum::http::StatusCode;
 use axum::response::Html;
@@ -7,18 +8,45 @@ use axum::Json;
 use axum::Router;
 use local_ip_address::local_ip;
 use serde_json::json;
+use tower_http::cors::Any;
+use tower_http::cors::CorsLayer;
+use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
+use tracing_subscriber::util::SubscriberInitExt;
 
 #[tokio::main]
 async fn main() {
+    // initialize tracing
+    tracing_subscriber::registry()
+        .with(tracing_subscriber::EnvFilter::new(
+            std::env::var("RUST_LOG")
+                .unwrap_or_else(|_| "send_file_core=debug,tower_http=debug".into()),
+        ))
+        .with(tracing_subscriber::fmt::layer())
+        .init();
+
+    // define cors scope
+    let cors_layer = CorsLayer::new()
+        .allow_headers(Any)
+        .allow_methods(Any)
+        .allow_origin(Any);
+    // define file limit layer as 10GB
+    // see information here <https://docs.rs/axum/0.6.2/axum/extract/struct.DefaultBodyLimit.html#%E2%80%A6>
+    let file_limit = DefaultBodyLimit::max(10 * 1024 * 1024 * 1024);
+
     let my_local_ip = local_ip().unwrap();
     let port: u16 = portpicker::pick_unused_port().expect("failed to get an unused port");
     let ip_address = format!("{:?}:{:?}", my_local_ip, port);
-    println!("server running on {:?}", ip_address);
+    println!("server running on http://{:?}", ip_address);
 
-    // build our application with a route
+    // build our application with the required routes
+    // the index route for debugging
+    // and the upload route for file upload
     let app = Router::new()
         .route("/", get(handler))
-        .route("/upload", post(recieve_files));
+        .route("/upload", post(recieve_files))
+        .layer(file_limit)
+        .layer(cors_layer)
+        .layer(tower_http::trace::TraceLayer::new_for_http());
 
     // run it
     axum::Server::bind(&ip_address.parse().unwrap())
@@ -30,10 +58,11 @@ async fn main() {
 async fn handler() -> Html<String> {
     Html(format!(
         "
+         <!doctype html>
    <html>
+<head>
 
-<head></head>
-
+</head>
 <body>
 <h1> hey man </h1>
     <form action='/upload' method='post' enctype='multipart/form-data'>
@@ -58,11 +87,11 @@ async fn recieve_files(mut multipart: Multipart) -> impl IntoResponse {
         let data = field.bytes().await.unwrap();
 
         println!(
-            "Length of `{}` (`{}`: `{}`) is {} bytes",
+            "Length of `{}` (`{}`: `{}` {}) is bytes",
             name,
             file_name,
             content_type,
-            data.len()
+            compute_file_size(data.len().try_into().unwrap())
         );
     }
     (
@@ -71,4 +100,20 @@ async fn recieve_files(mut multipart: Multipart) -> impl IntoResponse {
             "Success":true
         })),
     )
+}
+
+// a function to compute file size
+// accept files size in byte and parse it to human readable KB, MB, TB, GB e.t.c
+pub fn compute_file_size(size: u64) -> String {
+    if size > (1024 * 1024 * 1024 * 1024) {
+        return format!("{:.2} TB", size / (1024 * 1024 * 1024 * 1024));
+    } else if size > (1024 * 1024 * 1024) {
+        return format!("{:.2} GB", size / (1024 * 1024 * 1024));
+    } else if size > (1024 * 1024) {
+        return format!("{:.2} MB", size / (1024 * 1024));
+    } else if size > 1024 {
+        return format!("{:.2} KB", size / (1024));
+    } else {
+        return format!("{:.2} B", size);
+    }
 }
