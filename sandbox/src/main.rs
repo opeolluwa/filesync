@@ -30,6 +30,7 @@ async fn main() {
         .allow_methods(Any)
         .allow_origin(Any);
     // define file limit layer as 10GB
+    // see information here <https://docs.rs/axum/0.6.2/axum/extract/struct.DefaultBodyLimit.html#%E2%80%A6>
     let file_limit = DefaultBodyLimit::max(10 * 1024 * 1024 * 1024);
 
     let my_local_ip = local_ip().unwrap();
@@ -90,7 +91,7 @@ async fn recieve_files(mut multipart: Multipart) -> impl IntoResponse {
             name,
             file_name,
             content_type,
-            data.len()
+            compute_file_size(data.len().try_into().unwrap())
         );
     }
     (
@@ -99,4 +100,20 @@ async fn recieve_files(mut multipart: Multipart) -> impl IntoResponse {
             "Success":true
         })),
     )
+}
+
+// a function to compute file size
+// accept files size in byte and parse it to human readable KB, MB, TB, GB e.t.c
+pub fn compute_file_size(size: u64) -> String {
+    if size > (1024 * 1024 * 1024 * 1024) {
+        return format!("{:.2} TB", size / (1024 * 1024 * 1024 * 1024));
+    } else if size > (1024 * 1024 * 1024) {
+        return format!("{:.2} GB", size / (1024 * 1024 * 1024));
+    } else if size > (1024 * 1024) {
+        return format!("{:.2} MB", size / (1024 * 1024));
+    } else if size > 1024 {
+        return format!("{:.2} KB", size / (1024));
+    } else {
+        return format!("{:.2} B", size);
+    }
 }
