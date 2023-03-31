@@ -9,21 +9,21 @@ interface QuickAccessTab {
   name: string,
   icon: any,
   color: string,
-  action?: () => any // action that will be executed when the route is clicked 
+  // action?: () => any // action that will be executed when the route is clicked 
 }
 
 // get image files 
-async function getImageFiles() {
-  // todo read dir
-  const files = await readDir('/', { dir: BaseDirectory.Picture, recursive: true }).catch((err) => {
-    message('error opening file manager', {
-      title: 'Access error',
-      type: 'error'
-    })
-    console.log(err.message);
+// async function getImageFiles() {
+//   // todo read dir
+//   const files = await readDir('/', { dir: BaseDirectory.Picture, recursive: true }).catch((err) => {
+//     message('error opening file manager', {
+//       title: 'Access error',
+//       type: 'error'
+//     })
+//     console.log(err.message);
 
-  });
-}
+//   });
+// }
 // get music files
 // const musicFiles = await getFiles('music')
 
@@ -51,7 +51,7 @@ const quickAccessTabs: QuickAccessTab[] = [
     name: 'Images',
     icon: <PhotoIcon className='rounded-full my-4 mx-2 flex w-[47.5px]  dark:text-shilo-300 text-gray-100' />,
     color: '#6166fe',
-    action: getImageFiles
+    // action: getImageFiles
   },
   {
     name: 'Music',
@@ -122,7 +122,7 @@ export default function Main() {
         </h2>
         <ul className='flex flex-wrap gap-10 items-center justify-start mt-4'>
           {quickAccessTabs.map((tab, index) => (
-            <li key={index} className='flex flex-col items-center justify-center w-20 h-20' onClick={tab.action} >
+            <li key={index} className='flex flex-col items-center justify-center w-20 h-20'>
               <a href={'quick-access/' + tab.name.toLowerCase()} className='rounded-[20px] shadow-md dark:shadow-none shadow-gray-400  px-3' style={{
                 backgroundColor: tab.color
               }}>

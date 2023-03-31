@@ -3,19 +3,17 @@ import { AudioFile } from '@/types';
 import { computeFileSize } from '@/utils';
 import { shareMusicFile } from '@/pages/quick-access/music';
 
-// allowed audio  types 
-// display type not listed here as broken file
-// type AudioFile = 'au' | 'aif' | 'aifc' | 'aiff' | 'wav' | 'flac' | 'la' | 'pac' | 'm4a' | 'ape' | 'wv' | 'wma' | 'ast' | 'mp2' | 'mp3' | 'spx' | 'aac' | 'mpc' | 'ra' | 'ogg' | 'mid' | 'm3u' | 'pls';
-
-
-type Props = AudioFile;
+// type Props = AudioFile;
+interface Props extends AudioFile {
+    onClick: (argz: string) => void
+}
 
 export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: Props) {
     const __file_icon__ = "/images/mime/music-player.png";
     const __fileSize__ = computeFileSize(fileSize);
 
     return (
-        <div onClick={()=>shareMusicFile(filePath)} className='flex w-full  flex-wrap items-center gap-2 border-b border-b-shilo-100 dark:border-b-mirage-600 hover:dark:border-b-mirage-400 hover:dark:brightness-75 cursor-pointer px-4 py-2' >
+        <div onClick={() => shareMusicFile(filePath)} className='flex w-full  flex-wrap items-center gap-2 border-b border-b-shilo-100 dark:border-b-mirage-600 hover:dark:border-b-mirage-400 hover:dark:brightness-75 cursor-pointer px-4 py-2' >
             <div >
                 {
                     <Image
