@@ -19,4 +19,8 @@ fn main() {
 
     let video_dir = dirs::video_dir().unwrap();
     println!("Home dir! {video_dir:?}");
+
+    let download_dir = dirs::download_dir().unwrap();
+    println!("download dir! {download_dir:?}");
+    
 }
