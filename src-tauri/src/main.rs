@@ -3,6 +3,7 @@
 #![feature(const_option)]
 // #[allow(unused_variables)]
 
+use std::thread;
 use std::{fs, path::Path};
 
 use axum::extract::DefaultBodyLimit;
@@ -70,7 +71,20 @@ async fn main() {
     println!("server running on http://{:?}", ip_address);
 
     // initialize the tauri app here
-    init_tauri();
+    // tokio::task::spawn(init_tauri());
+    // init_tauri();
+    tauri::Builder::default()
+        .plugin(tauri_plugin_upload::init())
+        .invoke_handler(tauri::generate_handler![
+            commands::greet,
+            get_ip_addr,
+            fetch_audio_files,
+            fetch_video_files,
+            close_splashscreen
+        ])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+    // let tauri_handler = thread::spawn(move || init_tauri());
 
     // build our application with the required routes
     // the index route for debugging
@@ -83,14 +97,15 @@ async fn main() {
         .layer(tower_http::trace::TraceLayer::new_for_http());
 
     // run it
-    axum::Server::bind(&ip_address.parse().unwrap())
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
+    let core_server = thread::spawn(move || async move {
+        axum::Server::bind(&ip_address.parse().unwrap())
+            .serve(app.into_make_service())
+            .await
+            .unwrap();
+    });
 
     // let core_server =
-    // tokio::task::spawn(axum::Server::bind(&ip_address).serve(app.into_make_service()));
-    // core_server.await.unwrap();
+    core_server.join().unwrap();
 }
 
 async fn handler() -> Html<String> {
@@ -154,17 +169,17 @@ async fn handle_file_upload(
 }
 
 // fire up the tauri server
-fn init_tauri() {
-    /*  tauri::Builder::default()
-    .plugin(tauri_plugin_upload::init())
-    .invoke_handler(tauri::generate_handler![
-        commands::greet,
-        get_ip_addr,
-        fetch_audio_files,
-        fetch_video_files,
-        close_splashscreen
-    ])
-    .run(tauri::generate_context!())
-    .expect("error while running tauri application"); */
-    println!("hey famz");
+fn _init_tauri() {
+    tauri::Builder::default()
+        .plugin(tauri_plugin_upload::init())
+        .invoke_handler(tauri::generate_handler![
+            commands::greet,
+            get_ip_addr,
+            fetch_audio_files,
+            fetch_video_files,
+            close_splashscreen
+        ])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+    // println!("hey famz");
 }
