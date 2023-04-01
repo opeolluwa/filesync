@@ -22,6 +22,7 @@ use tower_http::cors::CorsLayer;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 
+use crate::commands::send_file::share_file_with_peer;
 // tauri APIs
 use crate::commands::{
     audio::fetch_audio_files,
@@ -80,7 +81,8 @@ async fn main() {
             get_ip_addr,
             fetch_audio_files,
             fetch_video_files,
-            close_splashscreen
+            close_splashscreen,
+            share_file_with_peer
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
