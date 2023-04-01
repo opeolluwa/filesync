@@ -3,7 +3,7 @@
 #![feature(const_option)]
 // #[allow(unused_variables)]
 
-use std::path::Path;
+use std::{fs, path::Path};
 
 use axum::extract::DefaultBodyLimit;
 use axum::http::StatusCode;
@@ -125,8 +125,15 @@ async fn handle_file_upload(
     // println!("download dir! {download_dir:?}");
     //create send-file directory in the downloads path dir
     let file_name = file.metadata.file_name.unwrap_or(String::from("data.bin"));
-    let download_dir = dirs::download_dir().unwrap();
-    let path = Path::new(&download_dir).join(file_name);
+    let os_default_downloads_dir = dirs::download_dir().unwrap();
+    // save files to $DOWNLOADS/send-file
+    let upload_path = format!(
+        "{downloads_dir}/send-file",
+        downloads_dir = os_default_downloads_dir.display()
+    );
+    // create the uploads path if not exist
+    let _ = fs::create_dir_all(&upload_path);
+    let path = Path::new(&upload_path).join(file_name);
 
     match file.contents.persist(path, false).await {
         Ok(_) => (
