@@ -24,3 +24,20 @@ pub fn get_ip_addr() -> String {
         port = &SERVER_PORT
     )
 }
+
+
+// a function to compute file size
+// accept files size in byte and parse it to human readable KB, MB, TB, GB e.t.c
+pub fn _compute_file_size(size: u64) -> String {
+    if size > (1024 * 1024 * 1024 * 1024) {
+        return format!("{:.2} TB", size / (1024 * 1024 * 1024 * 1024));
+    } else if size > (1024 * 1024 * 1024) {
+        return format!("{:.2} GB", size / (1024 * 1024 * 1024));
+    } else if size > (1024 * 1024) {
+        return format!("{:.2} MB", size / (1024 * 1024));
+    } else if size > 1024 {
+        return format!("{:.2} KB", size / (1024));
+    } else {
+        return format!("{:.2} B", size);
+    }
+}
