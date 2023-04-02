@@ -2590,15 +2590,15 @@ dependencies = [
 
 [[package]]
 name = "send-file-core"
-version = "0.4.0"
+version = "0.5.0"
 dependencies = [
  "axum",
  "axum_typed_multipart",
  "dirs",
  "filesize",
  "glob",
+ "lazy_static",
  "local-ip-address",
- "once_cell",
  "portpicker",
  "reqwest",
  "serde",
