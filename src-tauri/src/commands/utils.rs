@@ -18,7 +18,7 @@ pub fn close_splashscreen(window: tauri::Window) {
 // give connection details of the application core server
 // get the ip address of the machine
 #[tauri::command]
-pub fn get_ip_addr() -> String {
+pub fn get_ip_address() -> String {
     format!(
         "{ip_address}:{port:?}",
         ip_address = local_ip().unwrap(),
