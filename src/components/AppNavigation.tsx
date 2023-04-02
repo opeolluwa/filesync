@@ -10,7 +10,16 @@ import { invoke } from '@tauri-apps/api';
 
 //  @function promptConnection - prompt app to give connection details
 async function promptConnection() {
-    /*  if (typeof window !== 'undefined') {
+
+   invoke('get_ip_address').then((ipAddr) => {
+        message('connect to ' + ipAddr, {
+            title: 'Connection',
+            type: 'info'
+        }).then((result) => {
+            console.log(result)
+        })
+    }) 
+    /* if (typeof window !== 'undefined') {
          const ipAddr = await invoke('get_ip_address').catch((err) => {
              console.log("error getting ip addr due to ", (err as Error).message);
  
@@ -22,8 +31,8 @@ async function promptConnection() {
          }).then((result) => {
              console.log(result)
          })
-     } */
-    console.log(" hey connect to wifi")
+     } 
+    console.log(" hey connect to wifi") */
 }
 
 
@@ -82,7 +91,7 @@ const routes: Route[] = [{
 {
     path: '/wifi',
     icon: <WifiIcon />,
-    // action: promptConnection
+    action: promptConnection
 },
 {
     path: '/settings',
@@ -114,7 +123,7 @@ export default function Nav() {
                 {routes.map((route, index) => (
                     <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500'>
                         {/* <Link href={route.path}> */}
-                        <Link href={'#'} onClick={route.action}>
+                        <Link href={'#'} onClick={() => route.action}>
 
                             <span className='sr-only'>
                                 {route.path}
