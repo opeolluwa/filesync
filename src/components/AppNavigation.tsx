@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { DialogFilter, message } from '@tauri-apps/api/dialog';
 import { open } from '@tauri-apps/api/dialog';
 import { appDir } from '@tauri-apps/api/path';
-import { invoke } from '@tauri-apps/api';
+import { invoke } from '@tauri-apps/api/tauri';
 import { useState, useEffect } from 'react';
 
 
@@ -89,30 +89,33 @@ const routes: Route[] = [{
 export default function Nav() {
 
 
-    const isClient = typeof window !== 'undefined'
-    //  @function promptConnection - prompt app to give connection details
-    function promptConnection(ipAddr: string) {
-        message('connect to ' + ipAddr, {
-            title: 'Connection',
-            type: 'info'
-        }).then((result) => {
-            console.log(result)
-        })
-    }
+
 
     const [ipAddress, setIpAddress] = useState('');
     const [isLoading, setLoading] = useState(false);
+    const isClient = typeof window !== 'undefined'
+
 
     // get the data from the application core
     useEffect(() => {
         setLoading(true);
-        invoke('get_ip_address').then((res) => {
+        isClient && invoke('get_ip_address').then((res) => {
             setIpAddress(res as string);
             setLoading(false);
         });
     }, []);
 
 
+    //  @function promptConnection - prompt app to give connection details
+      function promptConnection(ipAddr: string) {
+           message('connect to ' + ipAddr, {
+               title: 'Connection',
+               type: 'info'
+           }).then((result) => {
+               console.log(result)
+           })
+       }
+    
     return (
         <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10' style={
             {
@@ -124,11 +127,13 @@ export default function Nav() {
             <ul className=' h-full flex flex-col items-center'>
                 {routes.map((route, index) => (
                     <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500'>
-                        {/* <Link href={route.path}> */}
-                        <Link href={'#'} onClick={() => promptConnection(ipAddress)}>
-
+                        {/* <Link href={'#'}> */}
+                            <Link href={'#'} onClick={() => promptConnection(ipAddress)}>
                             <span className='sr-only'>
                                 {route.path}
+                            </span>
+                            <span>
+                                {/* {'the address is ' + ipAddress} */}
                             </span>
                             {route.icon}
                         </Link>
