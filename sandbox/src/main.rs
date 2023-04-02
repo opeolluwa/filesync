@@ -9,7 +9,7 @@ use axum::routing::{get, post};
 use axum::Json;
 use axum::Router;
 use axum_typed_multipart::{
-    FieldData, TempFile, TryFromMultipart, TypedMultipart, TypedMultipartError,
+    FieldData, TempFile, TryFromMultipart, TypedMultipart,
 };
 use local_ip_address::local_ip;
 use serde_json::json;
