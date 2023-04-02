@@ -28,7 +28,7 @@ use tracing_subscriber::util::SubscriberInitExt;
 use crate::commands::{
     audio::fetch_audio_files,
     send_file::share_file_with_peer,
-    utils::{close_splashscreen, get_ip_addr},
+    utils::{close_splashscreen, get_ip_address},
     video::fetch_video_files,
 };
 
@@ -59,7 +59,7 @@ fn main() {
         .plugin(tauri_plugin_upload::init())
         .invoke_handler(tauri::generate_handler![
             commands::greet,
-            get_ip_addr,
+            get_ip_address,
             fetch_audio_files,
             fetch_video_files,
             close_splashscreen,

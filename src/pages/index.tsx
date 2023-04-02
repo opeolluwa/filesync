@@ -39,10 +39,10 @@ interface QuickAccessTab {
 // get desktop files
 // const desktopFiles = await getFiles('desktop')
 
-async function getFiles() {
-  // const files = await readdir('C:\\Users\\user\\Desktop')
-  // console.log(files)
-}
+// async function getFiles() {
+//   // const files = await readdir('C:\\Users\\user\\Desktop')
+//   // console.log(files)
+// }
 
 
 
