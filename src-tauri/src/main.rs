@@ -1,36 +1,145 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 #![feature(const_option)]
-use axum::{
-    extract::Multipart,
-    response::IntoResponse,
-    routing::{get, post},
-    Router,
-};
-use once_cell::sync::Lazy;
-use std::net::SocketAddr;
-use tower_http::cors::{Any, CorsLayer};
-use tower_http::limit::RequestBodyLimitLayer;
-use tracing_subscriber::{prelude::__tracing_subscriber_SubscriberExt, util::SubscriberInitExt};
+// #[allow(unused_variables)]
 
-// tauri apis
+// #[macro_use]
+// extern crate lazy_static;
+// use std::thread;
+use axum::extract::DefaultBodyLimit;
+use axum::http::StatusCode;
+use axum::response::Html;
+use axum::routing::{get, post};
+use axum::Json;
+use axum::Router;
+use axum_typed_multipart::{FieldData, TempFile, TryFromMultipart, TypedMultipart};
+use lazy_static::lazy_static;
+use local_ip_address::local_ip;
+use serde_json::json;
+use serde_json::Value;
+use std::{fs, path::Path};
+use tower_http::cors::Any;
+use tower_http::cors::CorsLayer;
+use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
+use tracing_subscriber::util::SubscriberInitExt;
+
+// use crate::commands::send_file::share_file_with_peer;
+// tauri APIs
 use crate::commands::{
     audio::fetch_audio_files,
+    send_file::share_file_with_peer,
     utils::{close_splashscreen, get_ip_addr},
     video::fetch_video_files,
 };
 
 mod commands;
+//mod config;
+// uploaded file
+// represent file that is uploaded to application core server
+// also let use access the file metadata such as name, size, type and extension
+#[derive(TryFromMultipart)]
+struct UploadedFile {
+    file: FieldData<TempFile>,
+}
 
-// assign a port to the application core
-pub static SERVER_PORT: Lazy<u16> =
-    Lazy::new(|| portpicker::pick_unused_port().expect("failed to get an unused port"));
+// allow sharing of the port
+lazy_static! {
+    pub static ref SERVER_PORT: u16 =
+        portpicker::pick_unused_port().expect("failed to get an unused port");
+}
 
-#[tokio::main]
-async fn main() {
-    // let aud_files = commands::fetch_audio_files().ok().unwrap();
-    // println!("the audio files {:?}", aud_files.data.unwrap()[6]);
+fn main() {
+    // plug the server
+    tauri::async_runtime::spawn(core_server());
 
+    println!("ip {}", *SERVER_PORT);
+
+    // fire up tauri core
+    tauri::Builder::default()
+        .plugin(tauri_plugin_upload::init())
+        .invoke_handler(tauri::generate_handler![
+            commands::greet,
+            get_ip_addr,
+            fetch_audio_files,
+            fetch_video_files,
+            close_splashscreen,
+            share_file_with_peer
+        ])
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
+}
+
+async fn handler() -> Html<String> {
+    Html(
+        r#"
+         <!doctype html>
+   <html>
+<head>
+
+</head>
+<body>
+<h1> hey man </h1>
+    <form action='/upload' method='post' enctype='multipart/form-data'>
+        <label>
+            Upload file:
+            <input type='file' name='file' multiple>
+        </label>
+        <input type='submit' value='Upload files'>
+    </form>
+</body>
+
+</html>
+   "#
+        .to_string(),
+    )
+}
+
+/// handle file upload with typed header
+async fn handle_file_upload(
+    TypedMultipart(UploadedFile { file }): TypedMultipart<UploadedFile>,
+) -> (StatusCode, Json<Value>) {
+    // save the file to download dir of the operating systems
+    // println!("download dir! {download_dir:?}");
+    //create send-file directory in the downloads path dir
+    let file_name = file.metadata.file_name.unwrap_or(String::from("data.bin"));
+    let os_default_downloads_dir = dirs::download_dir().unwrap();
+    /*  let Some(os_default_downloads_dir ) = dirs::download_dir() else{
+        return  Err(error_message) => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            Json(json!({
+                "Success":false,
+                "message": error_message.to_string()
+            })),
+        );
+    } */
+    // save files to $DOWNLOADS/send-file
+    let upload_path = format!(
+        "{downloads_dir}/send-file",
+        downloads_dir = os_default_downloads_dir.display()
+    );
+    // create the uploads path if not exist
+    let _ = fs::create_dir_all(&upload_path);
+    let path = Path::new(&upload_path).join(file_name);
+
+    match file.contents.persist(path, false).await {
+        Ok(_) => (
+            StatusCode::OK,
+            Json(json!({
+                "Success":true,
+                "message":"file saved"
+            })),
+        ),
+        Err(error_message) => (
+            StatusCode::INTERNAL_SERVER_ERROR,
+            Json(json!({
+                "Success":false,
+                "message": error_message.to_string()
+            })),
+        ),
+    }
+}
+
+pub async fn core_server() {
     // initialize tracing
     tracing_subscriber::registry()
         .with(tracing_subscriber::EnvFilter::new(
@@ -40,68 +149,35 @@ async fn main() {
         .with(tracing_subscriber::fmt::layer())
         .init();
 
-    // define cors scope
+    // define cors scope as any
+    // change this later to only allow get and post http verbs
     let cors_layer = CorsLayer::new()
         .allow_headers(Any)
         .allow_methods(Any)
         .allow_origin(Any);
 
     // define file limit layer as 10GB
-    let file_limit = RequestBodyLimitLayer::new(10 * 1024 * 1024 * 1024);
+    // see information here <https://docs.rs/axum/0.6.2/axum/extract/struct.DefaultBodyLimit.html#%E2%80%A6>
+    let file_limit = DefaultBodyLimit::max(10 * 1024 * 1024 * 1024);
+
+    let my_local_ip = local_ip().unwrap();
+    let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT);
+    println!("server running on http://{:?}", ip_address);
+
     // build our application with the required routes
     // the index route for debugging
     // and the upload route for file upload
     let app = Router::new()
-        .route("/upload", post(recieve_files))
-        .route("/", get(index))
+        .route("/", get(handler))
+        .route("/upload", post(handle_file_upload))
         .layer(file_limit)
-        .layer(cors_layer);
+        .layer(cors_layer)
+        .layer(tower_http::trace::TraceLayer::new_for_http());
 
-    // run our app with hyper
-    let port: u16 = *SERVER_PORT;
-    let ip_address = SocketAddr::from(([0, 0, 0, 0], port));
-    println!("Ignition started on http://{}", &ip_address);
-
-    // fire up tauri
-    tauri::Builder::default()
-        .plugin(tauri_plugin_upload::init())
-        .invoke_handler(tauri::generate_handler![
-            commands::greet,
-            get_ip_addr,
-            fetch_audio_files,
-            fetch_video_files,
-            close_splashscreen
-        ])
-        .run(tauri::generate_context!())
-        .expect("error while running tauri application");
-
-    //launch the server on a parallel process
-    tokio::task::spawn(axum::Server::bind(&ip_address).serve(app.into_make_service()));
-}
-
-//recieve a file
-// save the file to users/download/send-file
-// to do this
-// see if folder exists
-// create if not
-async fn recieve_files(mut multipart: Multipart) -> impl IntoResponse {
-    while let Some(field) = multipart.next_field().await.unwrap() {
-        let name = field.name().unwrap().to_string();
-        let file_name = field.file_name().unwrap().to_string();
-        let content_type = field.content_type().unwrap().to_string();
-        let data = field.bytes().await.unwrap();
-
-        println!(
-            "Length of `{}` (`{}`: `{}`) is {} bytes",
-            name,
-            file_name,
-            content_type,
-            data.len()
-        );
-    }
-}
-
-// basic handler that responds with a static string
-async fn index() -> &'static str {
-    "Hello, World!"
+    // run it
+    axum::Server::bind(&ip_address.parse().unwrap())
+        .serve(app.into_make_service())
+        .await
+        .unwrap();
+    // let core_server =
 }

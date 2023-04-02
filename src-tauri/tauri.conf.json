@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "breeze",
-    "version": "0.4.7"
+    "version": "0.5.2"
   },
   "tauri": {
     "allowlist": {
@@ -30,12 +30,12 @@
         "renameFile": true,
         "exists": true,
         "scope": [
-          "$AUDIO/*",
-          "$VIDEO/*",
-          "$PICTURE/*",
-          "$DESKTOP/*",
-          "$DOWNLOAD/*",
-          "$DOCUMENT/*"
+          "$AUDIO",
+          "$VIDEO",
+          "$PICTURE",
+          "$DESKTOP",
+          "$DOWNLOAD",
+          "$DOCUMENT"
         ]
       },
       "path": {
