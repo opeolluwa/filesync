@@ -113,7 +113,7 @@ export default function Nav() {
             <ul className=' h-full flex flex-col items-center'>
                 {routes.map((route, index) => (
                     <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500'>
-                        <Link href={'#'} onClick={() => route.action}>
+                        <Link href={'#'} onClick={route.action}>
                             <span className='sr-only'>
                                 {route.path}
                             </span>
