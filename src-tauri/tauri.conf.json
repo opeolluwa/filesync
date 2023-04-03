@@ -7,8 +7,8 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "breeze",
-    "version": "0.5.2"
+    "productName": "sendfile",
+    "version": "0.5.3"
   },
   "tauri": {
     "allowlist": {
