@@ -10,7 +10,7 @@ interface Props extends AudioFile {
 
 export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: Props) {
     const __file_icon__ = "/images/mime/music-player.png";
-    const __fileSize__ = computeFileSize(fileSize);
+    const __fileSize__ = fileSize;
 
     return (
         <div onClick={() => shareMusicFile(filePath)} className='flex w-full  flex-wrap items-center gap-2 border-b border-b-shilo-100 dark:border-b-mirage-600 hover:dark:border-b-mirage-400 hover:dark:brightness-75 cursor-pointer px-4 py-2' >
