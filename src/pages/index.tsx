@@ -1,50 +1,11 @@
 import SearchBar from '@/components/SearchBar'
 import { ArrowDownIcon, Bars3BottomLeftIcon, ComputerDesktopIcon, MusicalNoteIcon, PhotoIcon, PlayIcon } from '@heroicons/react/24/outline'
-import { message } from '@tauri-apps/api/dialog';
-import { readDir, BaseDirectory } from '@tauri-apps/api/fs';
-import { audioDir } from '@tauri-apps/api/path';
-// const audioDirPath = await audioDir();
 
 interface QuickAccessTab {
   name: string,
   icon: any,
   color: string,
-  // action?: () => any // action that will be executed when the route is clicked 
 }
-
-// get image files 
-// async function getImageFiles() {
-//   // todo read dir
-//   const files = await readDir('/', { dir: BaseDirectory.Picture, recursive: true }).catch((err) => {
-//     message('error opening file manager', {
-//       title: 'Access error',
-//       type: 'error'
-//     })
-//     console.log(err.message);
-
-//   });
-// }
-// get music files
-// const musicFiles = await getFiles('music')
-
-// get video files
-// const videoFiles = await getFiles('videos')
-
-// get document files
-// const documentFiles = await getFiles('documents')
-
-// get download files
-// const downloadFiles = await getFiles('downloads')
-
-// get desktop files
-// const desktopFiles = await getFiles('desktop')
-
-// async function getFiles() {
-//   // const files = await readdir('C:\\Users\\user\\Desktop')
-//   // console.log(files)
-// }
-
-
 
 const quickAccessTabs: QuickAccessTab[] = [
   {
@@ -107,15 +68,12 @@ const recentFiles = [
 export default function Main() {
   return (
     <>
-
-      {/* search bar goes here */}
       <section>
         <SearchBar onSearch={function (city: string): void {
           throw new Error('Function not implemented.')
         }} />
       </section>
 
-      {  /*quick access section*/}
       <section className='my-12'>
         <h2 className='mt-20 mb-8  font-medium dark:text-gray-300'>
           Quick Access
@@ -137,7 +95,6 @@ export default function Main() {
           ))}
         </ul>
       </section>
-      {/**preview section */}
       <section className="my-16">
         <h2 className='flex justify-between mt-24 mb-4 '>
           <span className=' font-medium dark:text-gray-400'>
@@ -147,8 +104,6 @@ export default function Main() {
             view all
           </span>
         </h2>
-
-
         <div className="relative overflow-x-auto bg-white rounded-[24px] shadow-lg px-4 py-8 dark:bg-mirage-500">
           <table className="w-full text-sm text-left">
             <thead className="text-gray-500">
@@ -165,7 +120,6 @@ export default function Main() {
               </tr>
             </thead>
             <tbody className='text-gray-500'>
-
               {recentFiles.map((file, index) => (
                 <tr key={index}>
                   <td className="px-6 py-4">
@@ -184,7 +138,6 @@ export default function Main() {
         </div>
 
       </section>
-      {/*recent files section*/}
       <section className='my-16 hidden'>
         <h2 className='flex justify-between mt-20 mb-8 '>
           <span className=' font-medium dark:text-gray-400'>
