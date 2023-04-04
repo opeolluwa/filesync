@@ -1,16 +1,17 @@
-import Home from '@/pages/home'
+// import Home from '@/pages/home'
 import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
 import AppLogo from './AppLogo'
-import Link from 'next/link'
 import { DialogFilter, message } from '@tauri-apps/api/dialog';
 import { open } from '@tauri-apps/api/dialog';
-import { appDir } from '@tauri-apps/api/path';
 import { invoke } from '@tauri-apps/api/tauri';
-import { useState, useEffect } from 'react';
 import HostSpotIcon from './icons/HostSpotIcon';
+import { goToPage as gotoPage } from '@/utils';
 
 
-// give off connection details 
+/**
+ * @function promptConnection - show connection details
+ * @return void
+ */
 async function promptConnection() {
     invoke('get_ip_address').then((ipAddr) => {
         message('connect to ' + ipAddr, {
@@ -20,11 +21,13 @@ async function promptConnection() {
             console.log(result)
         })
     })
-
 }
 
 
-// @function openFileManager
+/**
+ * @function openFileManager - opens a file manager
+ * @returns {Array<Files>} an array of selected files 
+ */
 async function openFileManager() {
     // Open a selection dialog for directories
     const selected = await open({
@@ -49,8 +52,7 @@ async function openFileManager() {
     }
 }
 
-
-// allowed file extendion 
+// allowed file extension 
 const allowedExtension: DialogFilter[] = [{ name: 'image', extensions: ['ai', 'dxf', 'odg', 'fodg', 'svg', 'svgz', 'bmp', 'gif', 'ico', 'jpg', 'jpeg', 'png', 'psd', 'pdd', 'tga', 'tiff', 'xcf', 'xpm'] },
 { name: 'audio', extensions: ['au', 'aif', 'aifc', 'aiff', 'wav', 'flac', 'la', 'pac', 'm4a', 'ape', 'wv', 'wma', 'ast', 'mp2', 'mp3', 'spx', 'aac', 'mpc', 'ra', 'ogg', 'mid', 'm3u', 'pls'] },
 { name: 'pdf', extensions: ['pdf', 'ps'] },
@@ -72,7 +74,9 @@ interface Route {
 // the routes
 const routes: Route[] = [{
     path: '/',
-    icon: <HomeIcon />
+    icon: <HomeIcon />,
+    action: () => gotoPage({ routePath: "settings" })
+
 },
 {
     path: '/files',
@@ -86,18 +90,13 @@ const routes: Route[] = [{
 },
 {
     path: '/settings',
-    icon: <Cog8ToothIcon />
+    icon: <Cog8ToothIcon />,
+    action: () => gotoPage({ routePath: "settings" })
 },
 {
     path: '/help',
     icon: <InformationCircleIcon />
 },
-    // {
-    //     path: '/settings',
-    //     component: Home,
-    //     icon: <ArrowRightOnRectangleIcon />
-    // },
-
 ]
 
 
@@ -109,21 +108,21 @@ export default function Nav() {
                 overflowY: "hidden"
             }
         }>
-            <AppLogo />
+            {<AppLogo />}
             <ul className=' h-full flex flex-col items-center'>
                 {routes.map((route, index) => (
-                    <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500'>
-                        <Link href={'#'} onClick={route.action}>
+                    <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500 cursor-pointer'>
+                        <span onClick={route.action}>
                             <span className='sr-only'>
                                 {route.path}
                             </span>
-                            <span>
-                            </span>
                             {route.icon}
-                        </Link>
+                        </span>
                     </li>
                 ))}
             </ul>
         </nav>
     )
 }
+
+

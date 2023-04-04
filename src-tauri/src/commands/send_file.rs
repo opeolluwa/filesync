@@ -11,7 +11,7 @@ use super::CommandData;
 // validate the file existence
 // use streams to upload
 // the server id is the port on which the peer node run eg -> 23345
-#[tauri::command]
+#[tauri::command(async)]
 pub async fn share_file_with_peer(
     file_path: String,
     server_id: u16,
@@ -20,6 +20,8 @@ pub async fn share_file_with_peer(
     let mut vec = Vec::new();
     println!("file content {vec:?}");
     let _ = file.read_to_end(&mut vec).await.unwrap();
+    // println!("file content {vec:?}");
+
     // file.read_to_end(&mut vec).await.unwrap();
     let client = reqwest::Client::new();
     println!("yo! im in here");
