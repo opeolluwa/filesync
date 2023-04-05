@@ -116,7 +116,7 @@ export default function AppNavigation() {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                        <div className="fixed inset-0 bg-black bg-opacity-50" />
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">
@@ -130,34 +130,42 @@ export default function AppNavigation() {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full dark:bg-gray-200  max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg font-medium leading-6 text-gray-900"
+                                        className="text-lg font-medium leading-6 text-medium text-gray-900"
                                     >
                                         Connection
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         <p className="text-sm text-gray-500">
-                                            zfaf  {systemInformation}
+                                            Select transfer mode
                                         </p>
-                                    </div>
+                                        <div className="text-sm flex gap-10 text-gray-500 mt-12">
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                                                onClick={closeModal}
+                                            >
+                                                Send files
+                                            </button>
 
-                                    <div className="mt-4">
-                                        <button
-                                            type="button"
-                                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
-                                            onClick={closeModal}
-                                        >
-                                            Got it, thanks!
-                                        </button>
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                                                onClick={closeModal}
+                                            >
+                                                recieve files
+                                            </button>
+                                            {/* zfaf  {systemInformation} */}
+                                        </div>
                                     </div>
                                 </Dialog.Panel>
                             </Transition.Child>
                         </div>
                     </div>
                 </Dialog>
-            </Transition>
+            </Transition >
 
 
             <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10' style={
