@@ -19,6 +19,8 @@ use tower_http::cors::Any;
 use tower_http::cors::CorsLayer;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
+use utils::system_info::SystemInformation;
+use utils::CommandData;
 
 use crate::commands::utils::get_system_information;
 // use crate::commands::send_file::share_file_with_peer;
@@ -53,7 +55,7 @@ fn main() {
         "/home/drizzle/Documents/download/Childish_Gambino_-_Sober(256k).mp3".to_string(),
         *SERVER_PORT,
     )); */
-    // println!("ip {}", *SERVER_PORT);
+    println!("ip {}", *SERVER_PORT);
 
     println!("system information {}", get_system_information());
 
@@ -71,6 +73,50 @@ fn main() {
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
+}
+
+pub async fn core_server() {
+    // initialize tracing
+    tracing_subscriber::registry()
+        .with(tracing_subscriber::EnvFilter::new(
+            std::env::var("RUST_LOG")
+                .unwrap_or_else(|_| "send_file_core=debug,tower_http=debug".into()),
+        ))
+        .with(tracing_subscriber::fmt::layer())
+        .init();
+
+    // define cors scope as any
+    // change this later to only allow get and post http verbs
+    let cors_layer = CorsLayer::new()
+        .allow_headers(Any)
+        .allow_methods(Any)
+        .allow_origin(Any);
+
+    // define file limit layer as 10GB
+    // see information here <https://docs.rs/axum/0.6.2/axum/extract/struct.DefaultBodyLimit.html#%E2%80%A6>
+    let file_limit = DefaultBodyLimit::max(10 * 1024 * 1024 * 1024);
+
+    let my_local_ip = local_ip().unwrap();
+    let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT);
+    println!("server running on http://{ip_address:?}");
+
+    // build our application with the required routes
+    // the index route for debugging
+    // and the upload route for file upload
+    let app = Router::new()
+        .route("/", get(handler))
+        .route("/upload", post(handle_file_upload))
+        .route("/sys-info", get(system_information))
+        .layer(file_limit)
+        .layer(cors_layer)
+        .layer(tower_http::trace::TraceLayer::new_for_http());
+
+    // run it
+    axum::Server::bind(&ip_address.parse().unwrap())
+        .serve(app.into_make_service())
+        .await
+        .unwrap();
+    // let core_server =
 }
 
 async fn handler() -> Html<String> {
@@ -98,6 +144,16 @@ async fn handler() -> Html<String> {
     )
 }
 
+/// return the system information
+async fn system_information() -> (StatusCode, Json<CommandData<SystemInformation>>) {
+    (
+        StatusCode::OK,
+        axum::Json(CommandData::ok(
+            "connected system information ",
+            SystemInformation::new(),
+        )),
+    )
+}
 /// handle file upload with typed header
 async fn handle_file_upload(
     TypedMultipart(UploadedFile { file }): TypedMultipart<UploadedFile>,
@@ -141,47 +197,4 @@ async fn handle_file_upload(
             })),
         ),
     }
-}
-
-pub async fn core_server() {
-    // initialize tracing
-    tracing_subscriber::registry()
-        .with(tracing_subscriber::EnvFilter::new(
-            std::env::var("RUST_LOG")
-                .unwrap_or_else(|_| "send_file_core=debug,tower_http=debug".into()),
-        ))
-        .with(tracing_subscriber::fmt::layer())
-        .init();
-
-    // define cors scope as any
-    // change this later to only allow get and post http verbs
-    let cors_layer = CorsLayer::new()
-        .allow_headers(Any)
-        .allow_methods(Any)
-        .allow_origin(Any);
-
-    // define file limit layer as 10GB
-    // see information here <https://docs.rs/axum/0.6.2/axum/extract/struct.DefaultBodyLimit.html#%E2%80%A6>
-    let file_limit = DefaultBodyLimit::max(10 * 1024 * 1024 * 1024);
-
-    let my_local_ip = local_ip().unwrap();
-    let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT);
-    println!("server running on http://{:?}", ip_address);
-
-    // build our application with the required routes
-    // the index route for debugging
-    // and the upload route for file upload
-    let app = Router::new()
-        .route("/", get(handler))
-        .route("/upload", post(handle_file_upload))
-        .layer(file_limit)
-        .layer(cors_layer)
-        .layer(tower_http::trace::TraceLayer::new_for_http());
-
-    // run it
-    axum::Server::bind(&ip_address.parse().unwrap())
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
-    // let core_server =
 }
