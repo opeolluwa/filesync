@@ -4,7 +4,7 @@ use serde_json::{json, Value};
 use tokio::fs::File;
 use tokio::io::AsyncReadExt;
 
-use super::CommandData;
+use crate::utils::CommandData;
 
 // send file from this server to another
 // accept path to file as argument
@@ -42,9 +42,8 @@ pub async fn share_file_with_peer(
 
     // return an instance of the command data
     // Ok(CommandData::new("file successfully sent", true, res))
-    Ok(CommandData::new(
+    Ok(CommandData::ok(
         "file successfully sent",
-        true,
         json!({
             "success":true,
             // data:r

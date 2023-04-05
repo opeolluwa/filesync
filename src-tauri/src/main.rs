@@ -1,11 +1,8 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
-//#![feature(const_option)]
-// #[allow(unused_variables)]
 
-// #[macro_use]
-// extern crate lazy_static;
-// use std::thread;
+extern crate uptime_lib;
+
 use axum::extract::DefaultBodyLimit;
 use axum::http::StatusCode;
 use axum::response::Html;
@@ -23,6 +20,7 @@ use tower_http::cors::CorsLayer;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 
+use crate::commands::utils::get_system_information;
 // use crate::commands::send_file::share_file_with_peer;
 // tauri APIs
 use crate::commands::{
@@ -33,7 +31,7 @@ use crate::commands::{
 };
 
 mod commands;
-//mod config;
+mod utils;
 // uploaded file
 // represent file that is uploaded to application core server
 // also let use access the file metadata such as name, size, type and extension
@@ -51,11 +49,13 @@ lazy_static! {
 fn main() {
     // plug the server
     tauri::async_runtime::spawn(core_server());
-    tauri::async_runtime::spawn(share_file_with_peer(
+    /*  tauri::async_runtime::spawn(share_file_with_peer(
         "/home/drizzle/Documents/download/Childish_Gambino_-_Sober(256k).mp3".to_string(),
         *SERVER_PORT,
-    ));
-    println!("ip {}", *SERVER_PORT); 
+    )); */
+    // println!("ip {}", *SERVER_PORT);
+
+    println!("system information {}", get_system_information());
 
     // fire up tauri core
     tauri::Builder::default()
@@ -66,7 +66,8 @@ fn main() {
             fetch_audio_files,
             fetch_video_files,
             close_splashscreen,
-            share_file_with_peer
+            share_file_with_peer,
+            get_system_information
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
