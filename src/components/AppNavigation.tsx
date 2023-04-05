@@ -141,6 +141,7 @@ export default function AppNavigation() {
                                         <p className="text-sm text-gray-500">
                                             Select transfer mode
                                         </p>
+                                        {systemInformation}
                                         <div className="text-sm flex gap-10 text-gray-500 mt-12">
                                             <button
                                                 type="button"
