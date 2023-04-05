@@ -1,11 +1,14 @@
 // import Home from '@/pages/home'
 import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
 import AppLogo from './AppLogo'
-import { DialogFilter, message } from '@tauri-apps/api/dialog';
+import { DialogFilter, message, ask } from '@tauri-apps/api/dialog';
 import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import HostSpotIcon from './icons/HostSpotIcon';
 import { goToPage as gotoPage } from '@/utils';
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useState } from 'react'
+
 
 
 /**
@@ -13,8 +16,20 @@ import { goToPage as gotoPage } from '@/utils';
  * @return void
  */
 async function promptConnection() {
-    invoke('get_ip_address').then((ipAddr) => {
-        message('connect to ' + ipAddr, {
+    // prompt for the natur of server 
+    const applicationRole = await ask('do you want send or recieve file', {
+        title: 'Connection',
+        type: 'info',
+    });
+    // prompt for the ip address of the server
+    /*  const ipAddress = await ask('enter the ip address of the server', {
+         title: 'Connection',
+         type: 'info',
+     }); */
+
+
+    invoke('get_system_information').then((ipAddr) => {
+        message('connect to ' + JSON.stringify(ipAddr), {
             title: 'Connection',
             type: 'info'
         }).then((result) => {
@@ -101,27 +116,96 @@ const routes: Route[] = [{
 
 
 export default function Nav() {
+    let [isOpen, setIsOpen] = useState(false)
+
+    function closeModal() {
+        setIsOpen(false)
+    }
+
+    function openModal() {
+        setIsOpen(true)
+    }
     return (
-        <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10' style={
-            {
-                height: "calc(100vh-200px)",
-                overflowY: "hidden"
-            }
-        }>
-            {<AppLogo />}
-            <ul className=' h-full flex flex-col items-center'>
-                {routes.map((route, index) => (
-                    <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500 cursor-pointer'>
-                        <span onClick={route.action}>
-                            <span className='sr-only'>
-                                {route.path}
+        <>
+
+
+            <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-25" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg font-medium leading-6 text-gray-900"
+                                    >
+                                        Payment successful
+                                    </Dialog.Title>
+                                    <div className="mt-2">
+                                        <p className="text-sm text-gray-500">
+                                            Your payment has been successfully submitted. We’ve sent
+                                            you an email with all of the details of your order.
+                                        </p>
+                                    </div>
+
+                                    <div className="mt-4">
+                                        <button
+                                            type="button"
+                                            className="inline-flex justify-center rounded-md border border-transparent bg-blue-100 px-4 py-2 text-sm font-medium text-blue-900 hover:bg-blue-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+                                            onClick={closeModal}
+                                        >
+                                            Got it, thanks!
+                                        </button>
+                                    </div>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition>
+
+
+            <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10' style={
+                {
+                    height: "calc(100vh-200px)",
+                    overflowY: "hidden"
+                }
+            }>
+                {<AppLogo />}
+                <ul className=' h-full flex flex-col items-center'>
+                    {routes.map((route, index) => (
+                        <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500 cursor-pointer'>
+                            <span onClick={openModal} className='cursor-pointer'>
+                                <span className='sr-only'>
+                                    {route.path}
+                                </span>
+                                {route.icon}
                             </span>
-                            {route.icon}
-                        </span>
-                    </li>
-                ))}
-            </ul>
-        </nav>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        </>
     )
 }
 
