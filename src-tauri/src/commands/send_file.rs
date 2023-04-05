@@ -4,14 +4,14 @@ use serde_json::{json, Value};
 use tokio::fs::File;
 use tokio::io::AsyncReadExt;
 
-use super::CommandData;
+use crate::utils::CommandData;
 
 // send file from this server to another
 // accept path to file as argument
 // validate the file existence
 // use streams to upload
 // the server id is the port on which the peer node run eg -> 23345
-#[tauri::command]
+#[tauri::command(async)]
 pub async fn share_file_with_peer(
     file_path: String,
     server_id: u16,
@@ -20,6 +20,8 @@ pub async fn share_file_with_peer(
     let mut vec = Vec::new();
     println!("file content {vec:?}");
     let _ = file.read_to_end(&mut vec).await.unwrap();
+    // println!("file content {vec:?}");
+
     // file.read_to_end(&mut vec).await.unwrap();
     let client = reqwest::Client::new();
     println!("yo! im in here");
@@ -40,9 +42,8 @@ pub async fn share_file_with_peer(
 
     // return an instance of the command data
     // Ok(CommandData::new("file successfully sent", true, res))
-    Ok(CommandData::new(
+    Ok(CommandData::ok(
         "file successfully sent",
-        true,
         json!({
             "success":true,
             // data:r

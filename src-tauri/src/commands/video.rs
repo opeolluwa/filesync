@@ -1,6 +1,6 @@
-use std::{path::PathBuf, fs};
+use std::{fs, path::PathBuf};
 
-use super::CommandData;
+use crate::utils::CommandData;
 
 // get the video files
 #[tauri::command]
@@ -9,7 +9,7 @@ pub fn fetch_video_files() -> Result<CommandData<Vec<PathBuf>>, CommandData<()>>
 
     // if there is an error getting the video path, fire an error
     let Some(video_dir) = video_dir else{
-        return Err(CommandData::new("error reading the video dir", false, ()));
+        return Err(CommandData::ok("error reading the video dir",  ()));
     };
 
     //
@@ -18,9 +18,8 @@ pub fn fetch_video_files() -> Result<CommandData<Vec<PathBuf>>, CommandData<()>>
         let dir = entry.expect("could not read dir");
         entries.push(dir.path());
     }
-    Ok(CommandData::new("retrieved all audio files", true, entries))
+    Ok(CommandData::ok("retrieved all audio files", entries))
 }
-
 
 // #[cfg(test)]
 // mod tests {

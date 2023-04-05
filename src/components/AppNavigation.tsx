@@ -1,30 +1,21 @@
-import Home from '@/pages/home'
+// import Home from '@/pages/home'
 import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
 import AppLogo from './AppLogo'
-import Link from 'next/link'
-import { DialogFilter, message } from '@tauri-apps/api/dialog';
+import { DialogFilter, message, ask } from '@tauri-apps/api/dialog';
 import { open } from '@tauri-apps/api/dialog';
-import { appDir } from '@tauri-apps/api/path';
 import { invoke } from '@tauri-apps/api/tauri';
-import { useState, useEffect } from 'react';
 import HostSpotIcon from './icons/HostSpotIcon';
+import { goToPage as gotoPage } from '@/utils';
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useEffect, useState } from 'react'
 
 
-// give off connection details 
-async function promptConnection() {
-    invoke('get_ip_address').then((ipAddr) => {
-        message('connect to ' + ipAddr, {
-            title: 'Connection',
-            type: 'info'
-        }).then((result) => {
-            console.log(result)
-        })
-    })
-
-}
 
 
-// @function openFileManager
+/**
+ * @function openFileManager - opens a file manager
+ * @returns {Array<Files>} an array of selected files 
+ */
 async function openFileManager() {
     // Open a selection dialog for directories
     const selected = await open({
@@ -49,8 +40,7 @@ async function openFileManager() {
     }
 }
 
-
-// allowed file extendion 
+// allowed file extension 
 const allowedExtension: DialogFilter[] = [{ name: 'image', extensions: ['ai', 'dxf', 'odg', 'fodg', 'svg', 'svgz', 'bmp', 'gif', 'ico', 'jpg', 'jpeg', 'png', 'psd', 'pdd', 'tga', 'tiff', 'xcf', 'xpm'] },
 { name: 'audio', extensions: ['au', 'aif', 'aifc', 'aiff', 'wav', 'flac', 'la', 'pac', 'm4a', 'ape', 'wv', 'wma', 'ast', 'mp2', 'mp3', 'spx', 'aac', 'mpc', 'ra', 'ogg', 'mid', 'm3u', 'pls'] },
 { name: 'pdf', extensions: ['pdf', 'ps'] },
@@ -69,61 +59,138 @@ interface Route {
     icon: any, // the route icon
     action?: () => any // action that will be executed when the route is clicked
 }
-// the routes
-const routes: Route[] = [{
-    path: '/',
-    icon: <HomeIcon />
-},
-{
-    path: '/files',
-    icon: <FolderOpenIcon />,
-    action: openFileManager
-},
-{
-    path: '/wifi',
-    icon: < HostSpotIcon />,
-    action: promptConnection
-},
-{
-    path: '/settings',
-    icon: <Cog8ToothIcon />
-},
-{
-    path: '/help',
-    icon: <InformationCircleIcon />
-},
-    // {
-    //     path: '/settings',
-    //     component: Home,
-    //     icon: <ArrowRightOnRectangleIcon />
-    // },
-
-]
 
 
-export default function Nav() {
+
+export default function AppNavigation() {
+    let [isOpen, setIsOpen] = useState(false)
+    let [systemInformation, setSystemInformation] = useState('');
+
+    const closeModal = () => setIsOpen(false)
+    const openModal = () => setIsOpen(true)
+
+    useEffect(() => {
+        invoke('get_system_information').then((sysInfo) => {
+            setSystemInformation(JSON.stringify(sysInfo))
+        })
+    })
+
+    const routes: Route[] = [{
+        path: '/',
+        icon: <HomeIcon />,
+        action: () => gotoPage({ routePath: "settings" })
+
+    },
+    {
+        path: '/files',
+        icon: <FolderOpenIcon />,
+        action: openFileManager
+    },
+    {
+        path: '/wifi',
+        icon: < HostSpotIcon />,
+        action: openModal
+    },
+    {
+        path: '/settings',
+        icon: <Cog8ToothIcon />,
+        action: () => gotoPage({ routePath: "settings" })
+    },
+    {
+        path: '/help',
+        icon: <InformationCircleIcon />
+    },
+    ]
     return (
-        <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10' style={
-            {
-                height: "calc(100vh-200px)",
-                overflowY: "hidden"
-            }
-        }>
-            <AppLogo />
-            <ul className=' h-full flex flex-col items-center'>
-                {routes.map((route, index) => (
-                    <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500'>
-                        <Link href={'#'} onClick={route.action}>
-                            <span className='sr-only'>
-                                {route.path}
+        <>
+
+
+            <Transition appear show={isOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-50" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 overflow-y-auto">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="w-full dark:bg-gray-200  max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg font-medium leading-6 text-medium text-gray-900"
+                                    >
+                                        Connection
+                                    </Dialog.Title>
+                                    <div className="mt-2">
+                                        <p className="text-sm text-gray-500">
+                                            Select transfer mode
+                                        </p>
+                                        {systemInformation}
+                                        <div className="text-sm flex gap-10 text-gray-500 mt-12">
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                                                onClick={closeModal}
+                                            >
+                                                Send files
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                                                onClick={closeModal}
+                                            >
+                                                recieve files
+                                            </button>
+                                            {/* zfaf  {systemInformation} */}
+                                        </div>
+                                    </div>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition >
+
+
+            <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10' style={
+                {
+                    height: "calc(100vh-200px)",
+                    overflowY: "hidden"
+                }
+            }>
+                {<AppLogo />}
+                <ul className=' h-full flex flex-col items-center'>
+                    {routes.map((route, index) => (
+                        <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500 cursor-pointer'>
+                            <span onClick={route.action} className='cursor-pointer'>
+                                <span className='sr-only'>
+                                    {route.path}
+                                </span>
+                                {route.icon}
                             </span>
-                            <span>
-                            </span>
-                            {route.icon}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-        </nav>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        </>
     )
 }
+
+
