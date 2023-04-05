@@ -7,36 +7,9 @@ import { invoke } from '@tauri-apps/api/tauri';
 import HostSpotIcon from './icons/HostSpotIcon';
 import { goToPage as gotoPage } from '@/utils';
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 
 
-
-/**
- * @function promptConnection - show connection details
- * @return void
- */
-async function promptConnection() {
-    // prompt for the natur of server 
-    const applicationRole = await ask('do you want send or recieve file', {
-        title: 'Connection',
-        type: 'info',
-    });
-    // prompt for the ip address of the server
-    /*  const ipAddress = await ask('enter the ip address of the server', {
-         title: 'Connection',
-         type: 'info',
-     }); */
-
-
-    invoke('get_system_information').then((ipAddr) => {
-        message('connect to ' + JSON.stringify(ipAddr), {
-            title: 'Connection',
-            type: 'info'
-        }).then((result) => {
-            console.log(result)
-        })
-    })
-}
 
 
 /**
@@ -86,45 +59,48 @@ interface Route {
     icon: any, // the route icon
     action?: () => any // action that will be executed when the route is clicked
 }
-// the routes
-const routes: Route[] = [{
-    path: '/',
-    icon: <HomeIcon />,
-    action: () => gotoPage({ routePath: "settings" })
-
-},
-{
-    path: '/files',
-    icon: <FolderOpenIcon />,
-    action: openFileManager
-},
-{
-    path: '/wifi',
-    icon: < HostSpotIcon />,
-    action: promptConnection
-},
-{
-    path: '/settings',
-    icon: <Cog8ToothIcon />,
-    action: () => gotoPage({ routePath: "settings" })
-},
-{
-    path: '/help',
-    icon: <InformationCircleIcon />
-},
-]
 
 
-export default function Nav() {
+
+export default function AppNavigation() {
     let [isOpen, setIsOpen] = useState(false)
+    let [systemInformation, setSystemInformation] = useState('');
 
-    function closeModal() {
-        setIsOpen(false)
-    }
+    const closeModal = () => setIsOpen(false)
+    const openModal = () => setIsOpen(true)
 
-    function openModal() {
-        setIsOpen(true)
-    }
+    useEffect(() => {
+        invoke('get_system_information').then((sysInfo) => {
+            setSystemInformation(JSON.stringify(sysInfo))
+        })
+    })
+
+    const routes: Route[] = [{
+        path: '/',
+        icon: <HomeIcon />,
+        action: () => gotoPage({ routePath: "settings" })
+
+    },
+    {
+        path: '/files',
+        icon: <FolderOpenIcon />,
+        action: openFileManager
+    },
+    {
+        path: '/wifi',
+        icon: < HostSpotIcon />,
+        action: openModal
+    },
+    {
+        path: '/settings',
+        icon: <Cog8ToothIcon />,
+        action: () => gotoPage({ routePath: "settings" })
+    },
+    {
+        path: '/help',
+        icon: <InformationCircleIcon />
+    },
+    ]
     return (
         <>
 
@@ -159,12 +135,11 @@ export default function Nav() {
                                         as="h3"
                                         className="text-lg font-medium leading-6 text-gray-900"
                                     >
-                                        Payment successful
+                                        Connection
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         <p className="text-sm text-gray-500">
-                                            Your payment has been successfully submitted. We’ve sent
-                                            you an email with all of the details of your order.
+                                            zfaf  {systemInformation}
                                         </p>
                                     </div>
 
@@ -195,7 +170,7 @@ export default function Nav() {
                 <ul className=' h-full flex flex-col items-center'>
                     {routes.map((route, index) => (
                         <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500 cursor-pointer'>
-                            <span onClick={openModal} className='cursor-pointer'>
+                            <span onClick={route.action} className='cursor-pointer'>
                                 <span className='sr-only'>
                                     {route.path}
                                 </span>
