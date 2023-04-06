@@ -62,16 +62,65 @@ interface Route {
 
 
 
-export default function AppNavigation() {
-    let [isOpen, setIsOpen] = useState(false)
-    let [systemInformation, setSystemInformation] = useState('');
+interface SenderProps {
+    port: number
+}
+function SendConfig({ port }: SenderProps) {
+    return (
+        <div className="my-4 h-full first-letter:capitalize text-gray-600">
+            Server ID:   <strong className='text-bold'>{port}</strong>
+        </div>
+    )
+}
 
-    const closeModal = () => setIsOpen(false)
-    const openModal = () => setIsOpen(true)
+interface SystemInformation {
+    /// the current user name eg - drizzle
+    systemName: string,
+    /// available store
+    freeMemory: string,
+    /// the port on which the core server runs
+    port: number,
+    /// the uptime e.g 2 hours     
+    uptime: string,
+}
+
+
+function RecieveConfig() {
+    return (
+        <div className="h-full">
+            <form action="">
+                <div className="flex mt-4 flex-col justify-center">
+                    <label htmlFor="serverID " className="text-gray-600 sr-only">Server ID</label>
+                    <input type="text" name="serverID" placeholder='enter server ID'  id="serverID" className="border-2 placeholder:text-small  border-gray-300 rounded-md p-2 my-2" />
+                </div>
+
+                <button className='hidden'>
+                    Connect
+                </button>
+            </form>
+
+        </div>
+    )
+}
+
+
+
+export default function AppNavigation() {
+    let [isModalOpen, setModalState] = useState(false)
+    let [systemInformation, setSystemInformation] = useState({} as SystemInformation);
+
+    const closeModal = () => setModalState(false)
+    const openModal = () => setModalState(true)
+
+    let [showSendConfig, setSendConfig] = useState(false);
+    let [showRecieveConfig, setRecieveConfig] = useState(false);
+
+    const showSendComponent = () => { setSendConfig(true); setRecieveConfig(false); /* setModalState(false) */ }
+    const showRecieveComponent = () => { setRecieveConfig(true); setSendConfig(false);/*  setModalState(false) */ }
 
     useEffect(() => {
         invoke('get_system_information').then((sysInfo) => {
-            setSystemInformation(JSON.stringify(sysInfo))
+            setSystemInformation((sysInfo as any).data)
         })
     })
 
@@ -101,11 +150,12 @@ export default function AppNavigation() {
         icon: <InformationCircleIcon />
     },
     ]
+
     return (
         <>
 
 
-            <Transition appear show={isOpen} as={Fragment}>
+            <Transition appear show={isModalOpen} as={Fragment}>
                 <Dialog as="div" className="relative z-10" onClose={closeModal}>
                     <Transition.Child
                         as={Fragment}
@@ -119,7 +169,7 @@ export default function AppNavigation() {
                         <div className="fixed inset-0 bg-black bg-opacity-50" />
                     </Transition.Child>
 
-                    <div className="fixed inset-0 overflow-y-auto">
+                    <div className="fixed inset-0 overflow-y-auto py-10">
                         <div className="flex min-h-full items-center justify-center p-4 text-center">
                             <Transition.Child
                                 as={Fragment}
@@ -139,14 +189,22 @@ export default function AppNavigation() {
                                     </Dialog.Title>
                                     <div className="mt-2">
                                         <p className="text-sm text-gray-500">
-                                            Select transfer mode
+                                            {showSendConfig ? "Input the Server ID below in the recipient computer" : showRecieveConfig ? "Provide Server ID" : "Select transfer mode"}
                                         </p>
-                                        {systemInformation}
+
+                                        {
+                                            showSendConfig && <SendConfig port={
+                                                systemInformation.port
+                                            } />
+                                        }
+                                        {
+                                            showRecieveConfig && <RecieveConfig />
+                                        }
                                         <div className="text-sm flex gap-10 text-gray-500 mt-12">
                                             <button
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
-                                                onClick={closeModal}
+                                                onClick={showSendComponent}
                                             >
                                                 Send files
                                             </button>
@@ -154,11 +212,11 @@ export default function AppNavigation() {
                                             <button
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
-                                                onClick={closeModal}
+                                                onClick={showRecieveComponent}
                                             >
                                                 recieve files
                                             </button>
-                                            {/* zfaf  {systemInformation} */}
+
                                         </div>
                                     </div>
                                 </Dialog.Panel>
