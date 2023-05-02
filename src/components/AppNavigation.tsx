@@ -95,7 +95,9 @@ const routes: Route[] = [{
 },
 {
     path: '/help',
-    icon: <InformationCircleIcon />
+    icon: <InformationCircleIcon />,
+    action: () => gotoPage({ routePath: "help" })
+
 },
 ]
 
