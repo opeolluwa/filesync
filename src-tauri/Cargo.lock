@@ -2603,6 +2603,7 @@ dependencies = [
  "reqwest",
  "serde",
  "serde_json",
+ "sys-info",
  "tauri",
  "tauri-build",
  "tauri-plugin-localhost",
@@ -2612,6 +2613,7 @@ dependencies = [
  "tower-http",
  "tracing",
  "tracing-subscriber",
+ "uptime_lib",
  "walkdir",
 ]
 
@@ -2900,6 +2902,16 @@ name = "sync_wrapper"
 version = "0.1.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2047c6ded9c721764247e62cd3b03c09ffc529b2ba5b10ec482ae507a4a70160"
+
+[[package]]
+name = "sys-info"
+version = "0.9.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "0b3a0d0aba8bf96a0e1ddfdc352fc53b3df7f39318c71854910c3c4b024ae52c"
+dependencies = [
+ "cc",
+ "libc",
+]
 
 [[package]]
 name = "system-deps"
@@ -3551,6 +3563,16 @@ name = "unicode-segmentation"
 version = "1.10.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "1dd624098567895118886609431a7c3b8f516e41d30e0643f03d94592a147e36"
+
+[[package]]
+name = "uptime_lib"
+version = "0.2.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "cb09db59ba21f967f9bceeac9e71401775d4f2ad34652ba086003c445731237f"
+dependencies = [
+ "libc",
+ "windows 0.39.0",
+]
 
 [[package]]
 name = "url"

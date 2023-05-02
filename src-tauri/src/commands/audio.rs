@@ -6,10 +6,7 @@ use std::{
 };
 use walkdir::WalkDir;
 
-use super::{
-    utils::{compute_file_size, is_hidden},
-    CommandData,
-};
+use crate::utils::{compute_file_size, is_hidden, CommandData};
 
 // the audio file interface
 #[derive(Debug, Default, Serialize, Deserialize)]
@@ -36,7 +33,10 @@ impl fmt::Display for AudioFile {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
             f,
-            "(name: {}\nformat: {}\npath: {:?}, size\n{})",
+            "name: {},
+            format: {},
+            path: {:?},
+            size: {}",
             self.file_name, self.file_format, self.file_path, self.file_size
         )
     }
@@ -49,7 +49,7 @@ pub fn fetch_audio_files() -> Result<CommandData<Vec<AudioFile>>, CommandData<()
     // if there is an error getting the audio path, fire an error
     let audio_dir = dirs::audio_dir();
     let Some(audio_dir) = audio_dir else{
-        return Err(CommandData::new("error getting the audio dir", false, ()));
+        return Err(CommandData::err("error getting the audio dir",  ()));
     };
 
     let mut entries: Vec<AudioFile> = vec![];
@@ -77,7 +77,7 @@ pub fn fetch_audio_files() -> Result<CommandData<Vec<AudioFile>>, CommandData<()
         entries.push(audio_file);
     }
 
-    Ok(CommandData::new("retrieved all audio files", true, entries))
+    Ok(CommandData::ok("retrieved all audio files", entries))
 }
 
 #[cfg(test)]

@@ -1,27 +1,15 @@
 // import Home from '@/pages/home'
 import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
 import AppLogo from './AppLogo'
-import { DialogFilter, message } from '@tauri-apps/api/dialog';
+import { DialogFilter, message, ask } from '@tauri-apps/api/dialog';
 import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import HostSpotIcon from './icons/HostSpotIcon';
 import { goToPage as gotoPage } from '@/utils';
+import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useEffect, useState } from 'react'
 
 
-/**
- * @function promptConnection - show connection details
- * @return void
- */
-async function promptConnection() {
-    invoke('get_ip_address').then((ipAddr) => {
-        message('connect to ' + ipAddr, {
-            title: 'Connection',
-            type: 'info'
-        }).then((result) => {
-            console.log(result)
-        })
-    })
-}
 
 
 /**
@@ -71,59 +59,195 @@ interface Route {
     icon: any, // the route icon
     action?: () => any // action that will be executed when the route is clicked
 }
-// the routes
-const routes: Route[] = [{
-    path: '/',
-    icon: <HomeIcon />,
-    action: () => gotoPage({ routePath: "settings" })
-
-},
-{
-    path: '/files',
-    icon: <FolderOpenIcon />,
-    action: openFileManager
-},
-{
-    path: '/wifi',
-    icon: < HostSpotIcon />,
-    action: promptConnection
-},
-{
-    path: '/settings',
-    icon: <Cog8ToothIcon />,
-    action: () => gotoPage({ routePath: "settings" })
-},
-{
-    path: '/help',
-    icon: <InformationCircleIcon />,
-    action: () => gotoPage({ routePath: "help" })
-
-},
-]
 
 
-export default function Nav() {
+
+interface SenderProps {
+    port: number
+}
+function SendConfig({ port }: SenderProps) {
     return (
-        <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10' style={
-            {
-                height: "calc(100vh-200px)",
-                overflowY: "hidden"
-            }
-        }>
-            {<AppLogo />}
-            <ul className=' h-full flex flex-col items-center'>
-                {routes.map((route, index) => (
-                    <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500 cursor-pointer'>
-                        <span onClick={route.action}>
-                            <span className='sr-only'>
-                                {route.path}
+        <div className="my-4 h-full first-letter:capitalize text-gray-600">
+            Server ID:   <strong className='text-bold'>{port}</strong>
+        </div>
+    )
+}
+
+interface SystemInformation {
+    /// the current user name eg - drizzle
+    systemName: string,
+    /// available store
+    freeMemory: string,
+    /// the port on which the core server runs
+    port: number,
+    /// the uptime e.g 2 hours     
+    uptime: string,
+}
+
+
+function ReceiveConfig() {
+    return (
+        <div className="h-full">
+            <form action="">
+                <div className="flex mt-4 flex-col justify-center">
+                    <label htmlFor="serverID " className="text-gray-600 sr-only">Server ID</label>
+                    <input type="text" name="serverID" placeholder='enter server ID'  id="serverID" className="border-2 placeholder:text-small  border-gray-300 rounded-md p-2 my-2" />
+                </div>
+
+                <button className='hidden'>
+                    Connect
+                </button>
+            </form>
+
+        </div>
+    )
+}
+
+
+
+export default function AppNavigation() {
+    let [isModalOpen, setModalState] = useState(false)
+    let [systemInformation, setSystemInformation] = useState({} as SystemInformation);
+
+    const closeModal = () => setModalState(false)
+    const openModal = () => setModalState(true)
+
+    let [showSendConfig, setSendConfig] = useState(false);
+    let [showReceiveConfig, setReceiveConfig] = useState(false);
+
+    const showSendComponent = () => { setSendConfig(true); setReceiveConfig(false); /* setModalState(false) */ }
+    const showReceiveComponent = () => { setReceiveConfig(true); setSendConfig(false);/*  setModalState(false) */ }
+
+    useEffect(() => {
+        invoke('get_system_information').then((sysInfo) => {
+            setSystemInformation((sysInfo as any).data)
+        })
+    })
+
+    const routes: Route[] = [{
+        path: '/',
+        icon: <HomeIcon />,
+        action: () => gotoPage({ routePath: "settings" })
+
+    },
+    {
+        path: '/files',
+        icon: <FolderOpenIcon />,
+        action: openFileManager
+    },
+    {
+        path: '/wifi',
+        icon: < HostSpotIcon />,
+        action: openModal
+    },
+    {
+        path: '/settings',
+        icon: <Cog8ToothIcon />,
+        action: () => gotoPage({ routePath: "settings" })
+    },
+    {
+        path: '/help',
+        icon: <InformationCircleIcon />
+    },
+    ]
+
+    return (
+        <>
+
+
+            <Transition appear show={isModalOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-50" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 overflow-y-auto py-10">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="w-full dark:bg-gray-200  max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-lg font-medium leading-6 text-medium text-gray-900"
+                                    >
+                                        Connection
+                                    </Dialog.Title>
+                                    <div className="mt-2">
+                                        <p className="text-sm text-gray-500">
+                                            {showSendConfig ? "Input the Server ID below in the recipient computer" : showReceiveConfig ? "Provide Server ID" : "Select transfer mode"}
+                                        </p>
+
+                                        {
+                                            showSendConfig && <SendConfig port={
+                                                systemInformation.port
+                                            } />
+                                        }
+                                        {
+                                            showReceiveConfig && <ReceiveConfig />
+                                        }
+                                        <div className="text-sm flex gap-10 text-gray-500 mt-12">
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                                                onClick={showSendComponent}
+                                            >
+                                                Send files
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                                                onClick={showReceiveComponent}
+                                            >
+                                                receive files
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition >
+
+
+            <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10' style={
+                {
+                    height: "calc(100vh-200px)",
+                    overflowY: "hidden"
+                }
+            }>
+                {<AppLogo />}
+                <ul className=' h-full flex flex-col items-center'>
+                    {routes.map((route, index) => (
+                        <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500 cursor-pointer'>
+                            <span onClick={route.action} className='cursor-pointer'>
+                                <span className='sr-only'>
+                                    {route.path}
+                                </span>
+                                {route.icon}
                             </span>
-                            {route.icon}
-                        </span>
-                    </li>
-                ))}
-            </ul>
-        </nav>
+                        </li>
+                    ))}
+                </ul>
+            </nav>
+        </>
     )
 }
 
