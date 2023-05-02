@@ -6,20 +6,21 @@ const sampleFIles: FileInterface[] = [
         fileType: "png",
         fileName: "LeonaMillie.mp4.",
         fileSize: 235809,
-        downloadInProgress: true
+        status: FileTransferStatus.COMPLETED,
     },
 
     {
         fileType: "docs",
         fileName: "memo.docx",
         fileSize: 52146,
-        downloadInProgress: false
+        status: FileTransferStatus.WAITING,
+
     },
     {
         fileType: "exe",
-        fileName: "FloraMabel.exe",
         fileSize: 24790181,
-        downloadInProgress: false
+        status: FileTransferStatus.PAUSED,
+        fileName: "sendfile.exe"
     }
 ]
 
@@ -29,7 +30,6 @@ const sampleReceivedFiles: FileInterface[] = [
         fileType: "pdf",
         fileName: "2023 financial report",
         fileSize: 235809,
-        downloadInProgress: false,
         status: FileTransferStatus.COMPLETED
     },
 
@@ -37,7 +37,6 @@ const sampleReceivedFiles: FileInterface[] = [
         fileType: "mp4",
         fileName: "avatar-2 way of the water",
         fileSize: 452902146,
-        downloadInProgress: false,
         status: FileTransferStatus.COMPLETED
 
     },
@@ -45,7 +44,6 @@ const sampleReceivedFiles: FileInterface[] = [
         fileType: "exe",
         fileName: "FloraMabel.exe",
         fileSize: 24790181,
-        downloadInProgress: false,
         status: FileTransferStatus.COMPLETED
 
     }
@@ -65,7 +63,7 @@ export default function Aside() {
             }
             {
                 sampleReceivedFiles.length == 0 ? <p className='text-gray-500 dark:text-gray-400'>No files received yet</p> : sampleReceivedFiles.map((file, index) => (
-                    <FileCard key={index} fileType={file.fileType} fileName={file.fileName} fileSize={file.fileSize} downloadInProgress={file.downloadInProgress} />
+                    <FileCard key={index} fileType={file.fileType} fileName={file.fileName} fileSize={file.fileSize} status={file.status} />
                 ))
             }
 
@@ -81,7 +79,7 @@ export default function Aside() {
             }
             {
                 sampleFIles.length == 0 ? <p className='text-gray-500 dark:text-gray-400'>No files received yet</p> : sampleFIles.map((file, index) => (
-                    <FileCard key={index} fileType={file.fileType} fileName={file.fileName} fileSize={file.fileSize} downloadInProgress={file.downloadInProgress} />
+                    <FileCard key={index} fileType={file.fileType} fileName={file.fileName} fileSize={file.fileSize} status={file.status} />
                 ))
             }
 

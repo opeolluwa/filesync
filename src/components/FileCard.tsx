@@ -9,7 +9,7 @@
  */
 
 import { computeFileSize } from '@/utils';
-import { ArrowDownCircleIcon, PauseCircleIcon } from '@heroicons/react/24/outline';
+import { ArrowDownCircleIcon, CheckCircleIcon, CheckIcon, PauseCircleIcon, PlayCircleIcon } from '@heroicons/react/24/outline';
 import Image from 'next/image';
 
 
@@ -26,17 +26,16 @@ export interface FileInterface {
     fileType: string,
     fileName: string,
     fileSize: number,
-    downloadInProgress: boolean,
-    status?: FileTransferStatus
+    status: FileTransferStatus
 }
 
 
 
 // the component
-export default function FileCard({ fileName, fileSize, fileType, downloadInProgress }: FileInterface) {
+export default function FileCard({ fileName, fileSize, fileType, status}: FileInterface) {
     const __filetype__ = `/images/mime/${fileType}.png`;
     const __fileSize__ = computeFileSize(fileSize);
-    const __downloadStatus__ = downloadInProgress == true ? "downloading ..." : "Waiting for download";
+    const __downloadStatus__ = ` transfer ${status}`;
 
     return (
         <>
@@ -60,11 +59,19 @@ export default function FileCard({ fileName, fileSize, fileType, downloadInProgr
                 {/**flex three of three holding the file  download progress of waiting icon */}
                 <div className="hidden lg:block">
                     {
-                        downloadInProgress == true ?
-                            <PauseCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-shilo-900' /> :
-                            <ArrowDownCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-sf_green-900' />
+                        status == FileTransferStatus.COMPLETED ?
+                            <CheckCircleIcon className='w-8 h-8 text-sf_green-500 ' /> :
+                            status == FileTransferStatus.DOWNLOADING ?
+                                <PauseCircleIcon className='w-8 h-8 text-sf_green-500 ' /> :
+                                status == FileTransferStatus.PAUSED ?
+                                    <PlayCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-sf_green-900' /> :
+                                    status == FileTransferStatus.WAITING ?
+                                        < ArrowDownCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-sf_green-900' /> :
+                                        <ArrowDownCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-sf_green-900' />
+
                     }
                 </div>
+               
             </div>
         </>
     )
