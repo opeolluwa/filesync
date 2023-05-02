@@ -51,13 +51,10 @@ lazy_static! {
 fn main() {
     // plug the server
     tauri::async_runtime::spawn(core_server());
-    /*  tauri::async_runtime::spawn(share_file_with_peer(
-        "/home/drizzle/Documents/download/Childish_Gambino_-_Sober(256k).mp3".to_string(),
-        *SERVER_PORT,
-    )); */
-    println!("ip {}", *SERVER_PORT);
 
-    println!("system information {}", get_system_information());
+    // println!("ip {}", *SERVER_PORT);
+
+    // println!("system information {}", get_system_information());
 
     // fire up tauri core
     tauri::Builder::default()
