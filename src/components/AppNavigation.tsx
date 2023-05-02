@@ -16,7 +16,7 @@ import { Fragment, useEffect, useState } from 'react'
  * @function openFileManager - opens a file manager
  * @returns {Array<Files>} an array of selected files 
  */
-async function openFileManager() {
+async function openFileManager()/* : Array<Files> */ {
     // Open a selection dialog for directories
     const selected = await open({
         directory: true,
@@ -59,19 +59,37 @@ interface Route {
     icon: any, // the route icon
     action?: () => any // action that will be executed when the route is clicked
 }
-
-
-
+// the port on which th application urn for the sender PC 
 interface SenderProps {
     port: number
 }
 function SendConfig({ port }: SenderProps) {
     return (
-        <div className="my-4 h-full first-letter:capitalize text-gray-600">
-            Server ID:   <strong className='text-bold'>{port}</strong>
+        <div className="text-2xl font-mono my-2 text-center text-gray-600">
+            <strong className='text-bold'>{port}</strong>
         </div>
     )
 }
+
+//
+function ReceiveConfig() {
+    return (
+        <div className="h-full">
+            <form action="">
+                <div className="flex flex-col align-center justify-center">
+                    <label htmlFor="connectionID " className="text-gray-600 sr-only">connection ID</label>
+                    <input type="text" maxLength={6} name="connectionID" placeholder='enter connection ID' id="connectionID" className="border-2 placeholder:text-small w-3/5 mx-auto border-gray-300 rounded-md p-2 my-2" />
+                </div>
+
+                <button className='hidden'>
+                    Connect
+                </button>
+            </form>
+
+        </div>
+    )
+}
+
 
 interface SystemInformation {
     /// the current user name eg - drizzle
@@ -82,25 +100,6 @@ interface SystemInformation {
     port: number,
     /// the uptime e.g 2 hours     
     uptime: string,
-}
-
-
-function ReceiveConfig() {
-    return (
-        <div className="h-full">
-            <form action="">
-                <div className="flex mt-4 flex-col justify-center">
-                    <label htmlFor="serverID " className="text-gray-600 sr-only">Server ID</label>
-                    <input type="text" name="serverID" placeholder='enter server ID'  id="serverID" className="border-2 placeholder:text-small  border-gray-300 rounded-md p-2 my-2" />
-                </div>
-
-                <button className='hidden'>
-                    Connect
-                </button>
-            </form>
-
-        </div>
-    )
 }
 
 
@@ -182,17 +181,16 @@ export default function AppNavigation() {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <Dialog.Panel className="w-full dark:bg-gray-200  max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
+                                <Dialog.Panel className="w-full dark:bg-gray-200  max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all mb-8">
                                     <Dialog.Title
                                         as="h3"
-                                        className="text-lg font-medium leading-6 text-medium text-gray-900"
+                                        className="text-sm text-gray-500 text-center"
                                     >
-                                        Connection
+
+                                        {showSendConfig ? "Input the connection ID below in the recipient computer" : showReceiveConfig ? "Provide connection  ID shown on the host computer" : "Select transfer mode"}
                                     </Dialog.Title>
-                                    <div className="mt-2">
-                                        <p className="text-sm text-gray-500">
-                                            {showSendConfig ? "Input the Server ID below in the recipient computer" : showReceiveConfig ? "Provide Server ID" : "Select transfer mode"}
-                                        </p>
+                                    <div className="mt-6 ">
+
 
                                         {
                                             showSendConfig && <SendConfig port={
@@ -202,7 +200,7 @@ export default function AppNavigation() {
                                         {
                                             showReceiveConfig && <ReceiveConfig />
                                         }
-                                        <div className="text-sm flex gap-10 text-gray-500 mt-12">
+                                        <div className="text-sm flex justify-center gap-5 text-gray-500 mt-6">
                                             <button
                                                 type="button"
                                                 className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"

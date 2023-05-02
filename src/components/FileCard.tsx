@@ -13,13 +13,21 @@ import { ArrowDownCircleIcon, PauseCircleIcon } from '@heroicons/react/24/outlin
 import Image from 'next/image';
 
 
-// the reqired data to render the file card component
+export enum FileTransferStatus {
+    DOWNLOADING = "downloading",
+    PAUSED = "paused",
+    WAITING = "waiting",
+    COMPLETED = "completed"
+
+}
+// the required data to render the file card component
 // the data will be passed dynamically
 export interface FileInterface {
     fileType: string,
     fileName: string,
     fileSize: number,
-    downloadInProgress: boolean
+    downloadInProgress: boolean,
+    status?: FileTransferStatus
 }
 
 
