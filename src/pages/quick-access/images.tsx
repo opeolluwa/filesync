@@ -1,4 +1,4 @@
-import QuickAccessLayout from '@/components/QuickAccessLayout'
+import QuickAccessLayout from '@/components/PageLayout'
 import { BaseDirectory, FileEntry, readDir } from '@tauri-apps/api/fs';
 // import { pictureDir } from '@tauri-apps/api/path';
 import { useEffect, useState } from 'react';
