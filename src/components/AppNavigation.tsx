@@ -147,7 +147,9 @@ export default function AppNavigation() {
     },
     {
         path: '/help',
-        icon: <InformationCircleIcon />
+        icon: <InformationCircleIcon />,
+        action: () => gotoPage({ routePath: "help" })
+
     },
     ]
 
