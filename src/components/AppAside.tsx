@@ -21,11 +21,7 @@ const sampleFIles: FileInterface[] = [
         fileSize: 24790181,
         status: FileTransferStatus.PAUSED,
         fileName: "sendfile.exe"
-    }
-]
-
-
-const sampleReceivedFiles: FileInterface[] = [
+    },
     {
         fileType: "pdf",
         fileName: "2023 financial report",
@@ -41,18 +37,21 @@ const sampleReceivedFiles: FileInterface[] = [
 
     },
     {
-        fileType: "exe",
-        fileName: "FloraMabel.exe",
-        fileSize: 24790181,
+        fileType: "xls",
+        fileName: "Student Information.xls",
+        fileSize: 241,
         status: FileTransferStatus.COMPLETED
 
-    }
+    },
+    
 ]
+
+
 export default function Aside() {
     return (
         <aside className='col-span-4 pt-10 px-8  bg-[rgba(226,233,252,255)]   dark:border-l-mirage-x-700 dark:border-l dark:bg-mirage-600' >
           
-            <h2 className='font-bold mt-12 dark:text-gray-400 flex items-center justify-between mb-10'>
+            <h2 className='font-bold  dark:text-gray-400 flex items-center justify-between mb-10'>
                 Sent Files
 
             </h2>
