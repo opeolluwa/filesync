@@ -1,5 +1,5 @@
 // import Home from '@/pages/home'
-import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
+import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, InformationCircleIcon, } from '@heroicons/react/24/outline'
 import AppLogo from './AppLogo'
 import { DialogFilter, message, ask } from '@tauri-apps/api/dialog';
 import { open } from '@tauri-apps/api/dialog';
@@ -112,7 +112,7 @@ export default function AppNavigation() {
     const openModal = () => setModalState(true)
 
     let [showSendConfig, setSendConfig] = useState(false);
-    let [showReceiveConfig, setReceiveConfig] = useState(false);
+    let [showReceiveConfig, setReceiveConfig] = useState(true);
 
     const showSendComponent = () => { setSendConfig(true); setReceiveConfig(false); /* setModalState(false) */ }
     const showReceiveComponent = () => { setReceiveConfig(true); setSendConfig(false);/*  setModalState(false) */ }
@@ -191,7 +191,6 @@ export default function AppNavigation() {
                                     </Dialog.Title>
                                     <div className="mt-6 ">
 
-
                                         {
                                             showSendConfig && <SendConfig port={
                                                 systemInformation.port
@@ -236,7 +235,7 @@ export default function AppNavigation() {
                 {<AppLogo />}
                 <ul className=' h-full flex flex-col items-center'>
                     {routes.map((route, index) => (
-                        <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500 cursor-pointer'>
+                        <li key={index} className='w-6 h-6 my-8 first:mt-10 last:mt-auto last:mb-20 text-app-500 cursor-pointer'>
                             <span onClick={route.action} className='cursor-pointer'>
                                 <span className='sr-only'>
                                     {route.path}
