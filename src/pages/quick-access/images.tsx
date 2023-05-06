@@ -45,7 +45,7 @@ export default function Images() {
   }
 
   return (
-    <QuickAccessLayout pageTitle={'Images'}>
+    <QuickAccessLayout pageTitle={'Images'}  includeSearchBar={false}>
       <div>
         picture path {data} goes here
         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sint, eveniet voluptate! Eaque rem quidem qui saepe dignissimos facere sunt maiores. Voluptate soluta nihil nesciunt dolore quidem. Blanditiis minima voluptatibus deleniti?
