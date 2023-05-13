@@ -67,7 +67,7 @@
     "windows": [
       {
         "fullscreen": false,
-        "resizable": true,
+        "resizable": false,
         "title": "SendFile",
         "width": 800,
         "height": 600
