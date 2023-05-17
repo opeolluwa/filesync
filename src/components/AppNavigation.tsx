@@ -142,7 +142,7 @@ export default function AppNavigation() {
 
     return (
         <>
-            <nav className='col-span-2 bg-[rgba(249,250,254,255)]  px-auto   text-gray-600  pt-10' style={
+            <nav className='col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)]  px-auto   text-gray-600  pt-10' style={
                 {
                     height: "calc(100vh-200px)",
                     overflowY: "hidden"
