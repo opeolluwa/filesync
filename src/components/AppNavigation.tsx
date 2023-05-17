@@ -1,12 +1,11 @@
 // import Home from '@/pages/home'
-import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, InformationCircleIcon, } from '@heroicons/react/24/outline'
-import AppLogo from './AppLogo'
+import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, InformationCircleIcon, ShareIcon, ClockIcon } from '@heroicons/react/24/outline';
+import { Cog8ToothIcon as SolidCog8ToothIcon, HomeIcon as SolidHomeIcon, FolderOpenIcon as SolidFolderIconOpen, InformationCircleIcon as SolidInformationIcon, ShareIcon as SolidShareIcon, ClockIcon as SolidClockIcon } from '@heroicons/react/24/solid'
 import { DialogFilter, message, ask } from '@tauri-apps/api/dialog';
 import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import HostSpotIcon from './icons/HostSpotIcon';
 import { goToPage as gotoPage } from '@/utils';
-import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useState } from 'react'
 
 
@@ -57,37 +56,14 @@ const allowedExtension: DialogFilter[] = [{ name: 'image', extensions: ['ai', 'd
 interface Route {
     path: string, // the path string
     icon: any, // the route icon
+    name: string, // the route name
+    alternateIcon: any, // the icon to show on hover or active state
     action?: () => any // action that will be executed when the route is clicked
+
 }
 // the port on which th application urn for the sender PC 
 interface SenderProps {
     port: number
-}
-function SendConfig({ port }: SenderProps) {
-    return (
-        <div className="text-2xl font-mono my-2 text-center text-gray-600">
-            <strong className='text-bold'>{port}</strong>
-        </div>
-    )
-}
-
-//
-function ReceiveConfig() {
-    return (
-        <div className="h-full">
-            <form action="">
-                <div className="flex flex-col align-center justify-center">
-                    <label htmlFor="connectionID " className="text-gray-600 sr-only">connection ID</label>
-                    <input type="text" maxLength={6} name="connectionID" placeholder='enter connection ID' id="connectionID" className="border-2 placeholder:text-small w-3/5 mx-auto border-gray-300 rounded-md p-2 my-2" />
-                </div>
-
-                <button className='hidden'>
-                    Connect
-                </button>
-            </form>
-
-        </div>
-    )
 }
 
 
@@ -108,14 +84,6 @@ export default function AppNavigation() {
     let [isModalOpen, setModalState] = useState(false)
     let [systemInformation, setSystemInformation] = useState({} as SystemInformation);
 
-    const closeModal = () => setModalState(false)
-    const openModal = () => setModalState(true)
-
-    let [showSendConfig, setSendConfig] = useState(false);
-    let [showReceiveConfig, setReceiveConfig] = useState(true);
-
-    const showSendComponent = () => { setSendConfig(true); setReceiveConfig(false); /* setModalState(false) */ }
-    const showReceiveComponent = () => { setReceiveConfig(true); setSendConfig(false);/*  setModalState(false) */ }
 
     useEffect(() => {
         invoke('get_system_information').then((sysInfo) => {
@@ -125,122 +93,80 @@ export default function AppNavigation() {
 
     const routes: Route[] = [{
         path: '/',
-        icon: <HomeIcon />,
+        icon: <HomeIcon className='w-6 h-6' />,
+        name: 'home',
+        alternateIcon: <SolidHomeIcon className='w-6 h-6' />,
+        action: () => gotoPage({ routePath: "settings" })
+
+    },
+    {
+        path: '/share',
+        icon: <ShareIcon className='w-6 h-6' />,
+        name: 'Shared with me',
+        alternateIcon: <SolidShareIcon className='w-6 h-6' />,
+        action: () => gotoPage({ routePath: "settings" })
+
+    },
+    {
+        path: '/share',
+        icon: <ClockIcon className='w-6 h-6' />,
+        name: 'recent files',
+        alternateIcon: <SolidClockIcon className='w-6 h-6' />,
         action: () => gotoPage({ routePath: "settings" })
 
     },
     {
         path: '/files',
-        icon: <FolderOpenIcon />,
-        action: openFileManager
+        icon: <FolderOpenIcon className='w-6 h-6' />,
+        action: openFileManager,
+        alternateIcon: <SolidFolderIconOpen className='w-6 h-6' />,
+        name: 'File Manager'
     },
-    {
-        path: '/wifi',
-        icon: < HostSpotIcon />,
-        action: openModal
-    },
+
     {
         path: '/settings',
-        icon: <Cog8ToothIcon />,
-        action: () => gotoPage({ routePath: "settings" })
+        icon: <Cog8ToothIcon className='w-6 h-6' />,
+        alternateIcon: <SolidCog8ToothIcon className='w-6 h-6' />,
+        action: () => gotoPage({ routePath: "settings" }),
+        name: 'settings'
     },
     {
         path: '/help',
-        icon: <InformationCircleIcon />,
-        action: () => gotoPage({ routePath: "help" })
+        icon: <InformationCircleIcon className='w-6 h-6' />,
+        alternateIcon: <SolidInformationIcon className='w-6 h-6' />,
+        action: () => gotoPage({ routePath: "help" }),
+        name: 'help'
 
     },
     ]
 
     return (
         <>
-
-
-            <Transition appear show={isModalOpen} as={Fragment}>
-                <Dialog as="div" className="relative z-10" onClose={closeModal}>
-                    <Transition.Child
-                        as={Fragment}
-                        enter="ease-out duration-300"
-                        enterFrom="opacity-0"
-                        enterTo="opacity-100"
-                        leave="ease-in duration-200"
-                        leaveFrom="opacity-100"
-                        leaveTo="opacity-0"
-                    >
-                        <div className="fixed inset-0 bg-black bg-opacity-50" />
-                    </Transition.Child>
-
-                    <div className="fixed inset-0 overflow-y-auto py-10">
-                        <div className="flex min-h-full items-center justify-center p-4 text-center">
-                            <Transition.Child
-                                as={Fragment}
-                                enter="ease-out duration-300"
-                                enterFrom="opacity-0 scale-95"
-                                enterTo="opacity-100 scale-100"
-                                leave="ease-in duration-200"
-                                leaveFrom="opacity-100 scale-100"
-                                leaveTo="opacity-0 scale-95"
-                            >
-                                <Dialog.Panel className="w-full dark:bg-gray-200  max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all mb-8">
-                                    <Dialog.Title
-                                        as="h3"
-                                        className="text-sm text-gray-500 text-center"
-                                    >
-
-                                        {showSendConfig ? "Input the connection ID below in the recipient computer" : showReceiveConfig ? "Provide connection  ID shown on the host computer" : "Select transfer mode"}
-                                    </Dialog.Title>
-                                    <div className="mt-6 ">
-
-                                        {
-                                            showSendConfig && <SendConfig port={
-                                                systemInformation.port
-                                            } />
-                                        }
-                                        {
-                                            showReceiveConfig && <ReceiveConfig />
-                                        }
-                                        <div className="text-sm flex justify-center gap-5 text-gray-500 mt-6">
-                                            <button
-                                                type="button"
-                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
-                                                onClick={showSendComponent}
-                                            >
-                                                Send files
-                                            </button>
-
-                                            <button
-                                                type="button"
-                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
-                                                onClick={showReceiveComponent}
-                                            >
-                                                receive files
-                                            </button>
-
-                                        </div>
-                                    </div>
-                                </Dialog.Panel>
-                            </Transition.Child>
-                        </div>
-                    </div>
-                </Dialog>
-            </Transition >
-
-
-            <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10' style={
+            <nav className='col-span-2 bg-[rgba(249,250,254,255)]  px-auto   text-gray-600  pt-10' style={
                 {
                     height: "calc(100vh-200px)",
                     overflowY: "hidden"
                 }
             }>
-                {<AppLogo />}
-                <ul className=' h-full flex flex-col items-center'>
+
+                <ul className=' h-full flex flex-col px-4 pl-6'>
+                    {
+                        /**
+                         * show the icon and the name side by side
+                         */
+                    }
                     {routes.map((route, index) => (
-                        <li key={index} className='w-6 h-6 my-8 first:mt-10 last:mt-auto last:mb-20 text-app-500 cursor-pointer'>
+                        <li key={index} className='flex h-6 my-8 first:mt-10 last:mb-20 text-app-500 cursor-pointer'>
                             <span onClick={route.action} className='cursor-pointer'>
                                 <span className='sr-only'>
                                     {route.path}
                                 </span>
-                                {route.icon}
+                                <div className='gap-2 justify-center align-center flex capitalize'>
+                                    {route.icon}
+                                    <span className='hidden lg:block' id='route__name'>
+                                        {route.name}
+                                    </span>
+                                </div>
                             </span>
                         </li>
                     ))}
