@@ -49,16 +49,15 @@ const sampleFIles: FileInterface[] = [
 
 export default function Aside() {
     return (
-        <aside className='col-span-4 pt-10 px-8  bg-[rgba(226,233,252,255)]   dark:border-l-mirage-x-700 dark:border-l dark:bg-mirage-600' >
+        <aside className='hidden lg:block lg:col-span-3 pt-10 px-8  bg-[rgba(226,233,252,255)]' >
           
             <h2 className='font-bold  dark:text-gray-400 flex items-center justify-between mb-10'>
                 Sent Files
-
             </h2>
             {
                 /**
                  * use state management to display files here
-                 * a procedure to determine the file type too and the right file icon should be aded
+                 * a procedure to determine the file type and the right file icon should be added
                  */
             }
             {
