@@ -64,6 +64,21 @@ interface SenderProps {
     port: number
 }
 
+const ProgressComponent = () => {
+    return (
+        <>
+            <div className="flex justify-between mb-1">
+                <span className="text-base font-medium text-blue-700 dark:text-white">Flowbite</span>
+                <span className="text-sm font-medium text-blue-700 dark:text-white">45%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
+                <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '45%' }}></div>
+            </div>
+        </>
+    );
+};
+
+
 
 interface SystemInformation {
     /// the current user name eg - drizzle
@@ -174,6 +189,7 @@ export default function AppNavigation() {
                         </li>
                     ))}
                 </ul>
+                <ProgressComponent />
             </nav>
         </>
     )

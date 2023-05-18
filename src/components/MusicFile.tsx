@@ -13,7 +13,7 @@ export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: 
     const __fileSize__ = fileSize;
 
     return (
-        <div onClick={() => shareMusicFile(filePath)} className='flex w-full  flex-wrap items-center gap-2 border-b border-b-shilo-100 dark:border-b-mirage-600 hover:dark:border-b-mirage-400 hover:dark:brightness-75 cursor-pointer px-4 py-2 last:mb-10' >
+        <div onClick={() => shareMusicFile(filePath)} className='flex w-full  flex-wrap items-center gap-2 border-b border-b-gray-100   cursor-pointer px-4 py-2 last:mb-10' >
             <div >
                 {
                     <Image
@@ -21,7 +21,7 @@ export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: 
                         height={144} // Desired size with correct aspect ratio
                         width={144} // Desired size with correct aspect ratio
                         alt="file card icon"
-                        className='w-[32px] dark:brightness-75 mr-10 '// automatic height calculation
+                        className='w-[32px]  mr-10 '// automatic height calculation
                     />
                 }
             </div>

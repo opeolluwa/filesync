@@ -76,9 +76,9 @@ export default function Main() {
 
       <section className='my-12'>
         <PageTitle title={'Quick Access'} />
-        <ul className='flex flex-wrap gap-24 items-center justify-start mt-4'>
+        <ul className='flex flex-wrap gap-24 items-center justify-start mt-4 px-8'>
           {quickAccessTabs.map((tab, index) => (
-            <li key={index} className='flex flex-col items-center justify-center w-20 h-20'>
+            <li key={index} className='flex flex-col items-center justify-center w-10 h-10 lg:w-20 lg:h-20'>
               <a href={'quick-access/' + tab.name.toLowerCase()} className='rounded-[12px]  dark:shadow-none shadow-gray-400  px-3' style={{
                 backgroundColor: tab.color
               }}>

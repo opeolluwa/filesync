@@ -17,17 +17,7 @@ pub struct AudioFile {
     file_path: PathBuf,
     file_size: String,
 }
-// AudioFile constructor
-// impl AudioFile {
-//     pub fn _new(name: &str, format: &str, path: PathBuf, size: u128) -> Self {
-//         Self {
-//             file_name: name.to_string(),
-//             file_format: format.to_string(),
-//             file_path: path,
-//             file_size: size,
-//         }
-//     }
-// }
+
 // implement display for the AudioFiles
 impl fmt::Display for AudioFile {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
