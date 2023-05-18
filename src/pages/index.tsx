@@ -78,7 +78,7 @@ export default function Main() {
         <PageTitle title={'Quick Access'} />
         <ul className='flex flex-wrap gap-24 items-center justify-start mt-4'>
           {quickAccessTabs.map((tab, index) => (
-            <li key={index} className='flex flex-col items-center justify-center w-24 h-24'>
+            <li key={index} className='flex flex-col items-center justify-center w-20 h-20'>
               <a href={'quick-access/' + tab.name.toLowerCase()} className='rounded-[12px]  dark:shadow-none shadow-gray-400  px-3' style={{
                 backgroundColor: tab.color
               }}>
@@ -93,8 +93,61 @@ export default function Main() {
           ))}
         </ul>
       </section>
-  
 
+      {/**recent files section */}
+      <section className="my-16">
+        <h2 className='flex justify-between mt-24 mb-4 '>
+          <span className=' font-medium dark:text-gray-400'>
+            Recent Files
+          </span>
+          <span className='text-gray-500 text-violet-600 dark:text-violet'>
+            view all
+          </span>
+        </h2>
+        <div className="relative overflow-x-auto bg-white rounded-[24px] shadow-lg px-4 py-8 ">
+          <table className="w-full text-sm text-left">
+            <thead className="text-gray-500">
+              <tr>
+                <th scope="col" className="px-6 py-3 rounded-l-lg">
+                  Name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Size
+                </th>
+                <th scope="col" className="px-6 py-3 rounded-r-lg">
+                  Last Modified
+                </th>
+              </tr>
+            </thead>
+            <tbody className='text-gray-500'>
+              {recentFiles.map((file, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4">
+                    {file.name}
+                  </td>
+                  <td className="px-6 py-4">
+                    {file.size}
+                  </td>
+                  <td className="px-6 py-4">
+                    {file.lastModified}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+      </section>
+      <section className='my-16 hidden'>
+        <h2 className='flex justify-between mt-20 mb-8 '>
+          <span className=' font-medium dark:text-gray-400'>
+            Recent Files
+          </span>
+          <span className='text-gray-500 dark:text-violet'>
+            view all
+          </span>
+        </h2>
+      </section>
     </>
   )
 }
