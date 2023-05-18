@@ -36,19 +36,19 @@ export default function FileCard({ fileName, fileSize, fileType, status}: FileIn
  
     return (
         <>
-            <div className="flex justify-between items-center my-8 flex-wrap bg-[#edeffb]  border-gray-900  p-3 rounded-lg shadow-sm shadow-gray-300 cursor-pointer dark:shadow-none hover:shadow-sm hover:shadow-gray-400 dark:hover:border-gray-700 dark:hover:shadow-none transition-shadow ease-in-out">
+            <div className="flex justify-between items-center my-8 flex-wrap bg-[#edeffb] dark:bg-mirage-600 dark:border border-gray-900  p-3 rounded-lg shadow-sm shadow-gray-300 cursor-pointer dark:shadow-none hover:shadow-sm hover:shadow-gray-400 dark:hover:border-gray-700 dark:hover:shadow-none transition-shadow ease-in-out">
                 {/**flex one of three -> holding the image */}
                 <Image
                     src={`/images/mime/${fileType}.png`} // Route of the image file
                     height={144} // Desired size with correct aspect ratio
                     width={144} // Desired size with correct aspect ratio
                     alt="file card icon"
-                    className='w-[48px] col-span-1 '// automatic height calculation
+                    className='w-[48px] dark:brightness-75 col-span-1 '// automatic height calculation
                 />
-                {/**flex two of three - holding the file description or download progress */}
+                {/**flex two of three - holding the file description or download progess */}
                 <div className='flex flex-col text-ellipsis'>
-                    <h5 className='font-semibold text-gray-500 overflow-clip text-ellipsis'>{fileName}</h5>
-                    <div className='flex gap-3 mt[1.5px] text-gray-400  italic text-xs height={30} // Desired size with correct aspect ratio
+                    <h5 className='font-semibold dark:text-gray-500 overflow-clip text-ellipsis'>{fileName}</h5>
+                    <div className='flex gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
                 width={30} '>
                         <span>{computeFileSize(fileSize)}</span> <span>{` transfer ${status}`}</span>
                     </div>
@@ -61,10 +61,10 @@ export default function FileCard({ fileName, fileSize, fileType, status}: FileIn
                             status == FileTransferStatus.DOWNLOADING ?
                                 <PauseCircleIcon className='w-8 h-8 text-sf_green-500 ' /> :
                                 status == FileTransferStatus.PAUSED ?
-                                    <PlayCircleIcon className='w-8 h-8 text-sf_green-500 ' /> :
+                                    <PlayCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-sf_green-900' /> :
                                     status == FileTransferStatus.WAITING ?
-                                        < ArrowUpCircleIcon className='w-8 h-8 text-sf_green-500 ' /> :
-                                        <ArrowDownCircleIcon className='w-8 h-8 text-sf_green-500 ' />
+                                        < ArrowUpCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-sf_green-900' /> :
+                                        <ArrowDownCircleIcon className='w-8 h-8 text-sf_green-500 dark:text-sf_green-900' />
 
                     }
                 </div>
