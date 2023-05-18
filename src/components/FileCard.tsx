@@ -48,7 +48,7 @@ export default function FileCard({ fileName, fileSize, fileType, status}: FileIn
                 {/**flex two of three - holding the file description or download progress */}
                 <div className='flex flex-col text-ellipsis'>
                     <h5 className='font-semibold text-gray-500 overflow-clip text-ellipsis'>{fileName}</h5>
-                    <div className='flex gap-3 mt[1.5px] text-gsray-400  italic text-xs height={30} // Desired size with correct aspect ratio
+                    <div className='flex gap-3 mt[1.5px] text-gray-400  italic text-xs height={30} // Desired size with correct aspect ratio
                 width={30} '>
                         <span>{computeFileSize(fileSize)}</span> <span>{` transfer ${status}`}</span>
                     </div>
