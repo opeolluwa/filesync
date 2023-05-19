@@ -107,7 +107,7 @@ export default function AppNavigation() {
         icon: <HomeIcon className='w-6 h-6' />,
         name: 'home',
         alternateIcon: <SolidHomeIcon className='w-6 h-6' />,
-        action: () => gotoPage({ routePath: "settings" })
+        action: () => gotoPage({ routePath: "index" })
 
     },
     {
