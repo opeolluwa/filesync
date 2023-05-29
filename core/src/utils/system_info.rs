@@ -53,13 +53,13 @@ impl SystemInformation {
             port: port.into(),
             uptime: format!(
                 "{time_in_minutes:.2} minutes",
-                time_in_minutes = (uptime / 60.0)
+                time_in_minutes = (uptime / 600.0)
             ),
         }
     }
 }
 
-//impl display for system information typpe
+//impl display for system information type
 impl fmt::Display for SystemInformation {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(

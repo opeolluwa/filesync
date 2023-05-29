@@ -6,8 +6,7 @@ import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import { goToPage as gotoPage } from '@/utils';
 import { Fragment, useEffect, useState } from 'react'
-
-
+import { Dialog, Transition } from '@headlessui/react'
 
 
 /**
@@ -64,17 +63,23 @@ interface SenderProps {
     port: number
 }
 
-const ProgressComponent = () => {
+// use this to display the available memory
+const ProgressComponent = ({ systemName, freeMemory }: SystemInformation) => {
     return (
-        <>
-            <div className="flex justify-between mb-1">
-                <span className="text-base font-medium text-blue-700 dark:text-white">Flowbite</span>
-                <span className="text-sm font-medium text-blue-700 dark:text-white">45%</span>
+        <div style={{
+            position: 'absolute',
+            width: '100%',
+            left: 0,
+            bottom: '45px'
+        }} className='hidden lg:block'>
+            <div className="flex justify-between mb-2 px-4">
+                {<span className=" font-medium text-blue-700 text-sm capitalize ">{systemName}</span>}
+                <span className=" font-medium text-blue-700 text-sm  ">{freeMemory} of 100GB</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '45%' }}></div>
+            <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
+                <div className="bg-gray-600 h-1.5 rounded-full" style={{ width: '45%' }}></div>
             </div>
-        </>
+        </div>
     );
 };
 
@@ -91,9 +96,41 @@ interface SystemInformation {
     uptime: string,
 }
 
+// the port on which th application urn for the sender PC 
+interface SenderProps {
+    port: number
+}
+function SendConfig({ port }: SenderProps) {
+    return (
+        <div className="text-2xl font-mono my-2 text-center text-gray-600">
+            <strong className='text-bold'>{port}</strong>
+        </div>
+    )
+}
+
+//
+function ReceiveConfig() {
+    return (
+        <div className="h-full">
+            <form action="">
+                <div className="flex flex-col align-center justify-center">
+                    <label htmlFor="connectionID " className="text-gray-600 sr-only">connection ID</label>
+                    <input type="text" maxLength={6} name="connectionID" placeholder='enter connection ID' id="connectionID" className="border-2 placeholder:text-small w-3/5 mx-auto border-gray-300 rounded-md p-2 my-2" />
+                </div>
+
+                <button className='hidden'>
+                    Connect
+                </button>
+            </form>
+
+        </div>
+    )
+}
+
 
 
 export default function AppNavigation() {
+    let [isModalOpen, setModalState] = useState(false)
     let [systemInformation, setSystemInformation] = useState({} as SystemInformation);
 
     useEffect(() => {
@@ -102,19 +139,28 @@ export default function AppNavigation() {
         })
     })
 
+    const closeModal = () => setModalState(false)
+    const openModal = () => setModalState(true)
+
+    let [showSendConfig, setSendConfig] = useState(false);
+    let [showReceiveConfig, setReceiveConfig] = useState(true);
+
+    const showSendComponent = () => { setSendConfig(true); setReceiveConfig(false); /* setModalState(false) */ }
+    const showReceiveComponent = () => { setReceiveConfig(true); setSendConfig(false);/*  setModalState(false) */ }
+
     const routes: Route[] = [{
         path: '/',
         icon: <HomeIcon className='w-6 h-6' />,
         name: 'home',
         alternateIcon: <SolidHomeIcon className='w-6 h-6' />,
-        action: () => gotoPage({ routePath: "index" })
+        action: () => gotoPage({ routePath: "/" })
 
     },
     {
         icon: <SignalIcon className='w-6 h-6' />,
         name: 'Connection',
         alternateIcon: <SolidSignalIcon className='w-6 h-6' />,
-        action: () => gotoPage({ routePath: "settings" })
+        action: openModal
 
     },
     {
@@ -160,13 +206,88 @@ export default function AppNavigation() {
 
     return (
         <>
-            <nav className='col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)]  px-auto   text-gray-600  pt-10' style={
+
+            <Transition appear show={isModalOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-50" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 overflow-y-auto py-10">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="w-full dark:bg-gray-200  max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all mb-8">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-sm text-gray-500 text-center"
+                                    >
+
+                                        {showSendConfig ? "Input the connection ID below in the recipient computer" : showReceiveConfig ? "Provide connection  ID shown on the host computer" : "Select transfer mode"}
+                                    </Dialog.Title>
+                                    <div className="mt-6 ">
+
+                                        {
+                                            showSendConfig && <SendConfig port={
+                                                systemInformation.port
+                                            } />
+                                        }
+                                        {
+                                            showReceiveConfig && <ReceiveConfig />
+                                        }
+                                        <div className="text-sm flex justify-center gap-5 text-gray-500 mt-6">
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                                                onClick={showSendComponent}
+                                            >
+                                                Send files
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                                                onClick={showReceiveComponent}
+                                            >
+                                                receive files
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition >
+
+
+
+
+
+            <nav className='col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)]  px-[1px]   text-gray-600  pt-10' style={
                 {
                     height: "calc(100vh-200px)",
-                    overflowY: "hidden"
+                    overflowY: "hidden",
+                    position: 'relative'
                 }
             }>
-                <ul className=' h-full flex flex-col px-4 pl-6'>
+                <ul className='flex flex-col px-4 pl-6'>
                     {
                         /**
                          * show the icon and the name side by side on full screen mode 
@@ -174,7 +295,7 @@ export default function AppNavigation() {
                          */
                     }
                     {routes.map((route, index) => (
-                        <li key={index} className='flex h-6 my-8 lg:my-8 first:mt-10 last:mb-20 text-app-500 cursor-pointer'>
+                        <li key={index} className='flex h-6 my-8 lg:my-8 first:mt-10  text-app-500 cursor-pointer'>
                             <span onClick={route.action /**action to perform on route clicked */} className='cursor-pointer'>
                                 <span className='sr-only'>
                                     {route.path}
@@ -189,7 +310,8 @@ export default function AppNavigation() {
                         </li>
                     ))}
                 </ul>
-                <ProgressComponent />
+
+                <ProgressComponent systemName={systemInformation.systemName} freeMemory={systemInformation.freeMemory} port={0} uptime={''} />
             </nav>
         </>
     )
