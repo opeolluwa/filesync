@@ -12,6 +12,7 @@ use axum::Router;
 use axum_typed_multipart::{FieldData, TempFile, TryFromMultipart, TypedMultipart};
 use lazy_static::lazy_static;
 use local_ip_address::local_ip;
+use reqwest::Method;
 use serde_json::json;
 use serde_json::Value;
 use std::{fs, path::Path};
@@ -23,10 +24,11 @@ use utils::system_info::SystemInformation;
 use utils::CommandData;
 
 use crate::commands::utils::get_system_information;
-// use crate::commands::send_file::share_file_with_peer;
+
 // tauri APIs
 use crate::commands::{
     audio::fetch_audio_files,
+    documents::fetch_documents,
     send_file::share_file_with_peer,
     utils::{close_splashscreen, get_ip_address},
     video::fetch_video_files,
@@ -35,8 +37,8 @@ use crate::commands::{
 mod commands;
 mod utils;
 // uploaded file
-// represent file that is uploaded to application core server
-// also let use access the file metadata such as name, size, type and extension
+//  data structure of a file uploaded to the recipient application core server
+// provides the file metadata such as name, size, type and extension
 #[derive(TryFromMultipart)]
 struct UploadedFile {
     file: FieldData<TempFile>,
@@ -52,10 +54,6 @@ fn main() {
     // plug the server
     tauri::async_runtime::spawn(core_server());
 
-    // println!("ip {}", *SERVER_PORT);
-
-    // println!("system information {}", get_system_information());
-
     // fire up tauri core
     tauri::Builder::default()
         .plugin(tauri_plugin_upload::init())
@@ -66,40 +64,45 @@ fn main() {
             fetch_video_files,
             close_splashscreen,
             share_file_with_peer,
-            get_system_information
+            get_system_information,
+            fetch_documents
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
 
+/**
+ * @function core_server
+ * the application core responsible for handling file upload to client
+ *  machine and file download to the host machine
+ */
 pub async fn core_server() {
-    // initialize tracing
     tracing_subscriber::registry()
         .with(tracing_subscriber::EnvFilter::new(
             std::env::var("RUST_LOG")
                 .unwrap_or_else(|_| "send_file_core=debug,tower_http=debug".into()),
         ))
         .with(tracing_subscriber::fmt::layer())
-        .init();
+        .init(); // allow debugging in development set up
 
     // define cors scope as any
     // change this later to only allow get and post http verbs
     let cors_layer = CorsLayer::new()
         .allow_headers(Any)
-        .allow_methods(Any)
-        .allow_origin(Any);
+        .allow_methods([Method::GET, Method::POST]) // restrict methods
+        .allow_origin(Any); // TODO: restrict this in the future to only sendfile proxy server for example http://sendfile/dhsdo
 
     // define file limit layer as 10GB
     // see information here <https://docs.rs/axum/0.6.2/axum/extract/struct.DefaultBodyLimit.html#%E2%80%A6>
-    let file_limit = DefaultBodyLimit::max(10 * 1024 * 1024 * 1024);
+    let file_size_limit = 10 * 1024 * 1024 * 1024;
+    let file_limit = DefaultBodyLimit::max(file_size_limit);
 
+    // the core server config
     let my_local_ip = local_ip().unwrap();
-    let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT);
-    println!("server running on http://{ip_address:?}");
+    let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT as u64);
+    println!("server running on http://{}", &ip_address.to_string());
 
     // build our application with the required routes
-    // the index route for debugging
-    // and the upload route for file upload
     let app = Router::new()
         .route("/", get(handler))
         .route("/upload", post(handle_file_upload))
@@ -108,12 +111,11 @@ pub async fn core_server() {
         .layer(cors_layer)
         .layer(tower_http::trace::TraceLayer::new_for_http());
 
-    // run it
+    // run the server
     axum::Server::bind(&ip_address.parse().unwrap())
         .serve(app.into_make_service())
         .await
         .unwrap();
-    // let core_server =
 }
 
 async fn handler() -> Html<String> {
@@ -151,6 +153,7 @@ async fn system_information() -> (StatusCode, Json<CommandData<SystemInformation
         )),
     )
 }
+
 /// handle file upload with typed header
 async fn handle_file_upload(
     TypedMultipart(UploadedFile { file }): TypedMultipart<UploadedFile>,
