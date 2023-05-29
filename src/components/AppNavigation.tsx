@@ -6,8 +6,7 @@ import { open } from '@tauri-apps/api/dialog';
 import { invoke } from '@tauri-apps/api/tauri';
 import { goToPage as gotoPage } from '@/utils';
 import { Fragment, useEffect, useState } from 'react'
-
-
+import { Dialog, Transition } from '@headlessui/react'
 
 
 /**
@@ -97,9 +96,41 @@ interface SystemInformation {
     uptime: string,
 }
 
+// the port on which th application urn for the sender PC 
+interface SenderProps {
+    port: number
+}
+function SendConfig({ port }: SenderProps) {
+    return (
+        <div className="text-2xl font-mono my-2 text-center text-gray-600">
+            <strong className='text-bold'>{port}</strong>
+        </div>
+    )
+}
+
+//
+function ReceiveConfig() {
+    return (
+        <div className="h-full">
+            <form action="">
+                <div className="flex flex-col align-center justify-center">
+                    <label htmlFor="connectionID " className="text-gray-600 sr-only">connection ID</label>
+                    <input type="text" maxLength={6} name="connectionID" placeholder='enter connection ID' id="connectionID" className="border-2 placeholder:text-small w-3/5 mx-auto border-gray-300 rounded-md p-2 my-2" />
+                </div>
+
+                <button className='hidden'>
+                    Connect
+                </button>
+            </form>
+
+        </div>
+    )
+}
+
 
 
 export default function AppNavigation() {
+    let [isModalOpen, setModalState] = useState(false)
     let [systemInformation, setSystemInformation] = useState({} as SystemInformation);
 
     useEffect(() => {
@@ -108,6 +139,14 @@ export default function AppNavigation() {
         })
     })
 
+    const closeModal = () => setModalState(false)
+    const openModal = () => setModalState(true)
+
+    let [showSendConfig, setSendConfig] = useState(false);
+    let [showReceiveConfig, setReceiveConfig] = useState(true);
+
+    const showSendComponent = () => { setSendConfig(true); setReceiveConfig(false); /* setModalState(false) */ }
+    const showReceiveComponent = () => { setReceiveConfig(true); setSendConfig(false);/*  setModalState(false) */ }
 
     const routes: Route[] = [{
         path: '/',
@@ -121,7 +160,7 @@ export default function AppNavigation() {
         icon: <SignalIcon className='w-6 h-6' />,
         name: 'Connection',
         alternateIcon: <SolidSignalIcon className='w-6 h-6' />,
-        action: () => gotoPage({ routePath: "settings" })
+        action: openModal
 
     },
     {
@@ -167,6 +206,80 @@ export default function AppNavigation() {
 
     return (
         <>
+
+            <Transition appear show={isModalOpen} as={Fragment}>
+                <Dialog as="div" className="relative z-10" onClose={closeModal}>
+                    <Transition.Child
+                        as={Fragment}
+                        enter="ease-out duration-300"
+                        enterFrom="opacity-0"
+                        enterTo="opacity-100"
+                        leave="ease-in duration-200"
+                        leaveFrom="opacity-100"
+                        leaveTo="opacity-0"
+                    >
+                        <div className="fixed inset-0 bg-black bg-opacity-50" />
+                    </Transition.Child>
+
+                    <div className="fixed inset-0 overflow-y-auto py-10">
+                        <div className="flex min-h-full items-center justify-center p-4 text-center">
+                            <Transition.Child
+                                as={Fragment}
+                                enter="ease-out duration-300"
+                                enterFrom="opacity-0 scale-95"
+                                enterTo="opacity-100 scale-100"
+                                leave="ease-in duration-200"
+                                leaveFrom="opacity-100 scale-100"
+                                leaveTo="opacity-0 scale-95"
+                            >
+                                <Dialog.Panel className="w-full dark:bg-gray-200  max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all mb-8">
+                                    <Dialog.Title
+                                        as="h3"
+                                        className="text-sm text-gray-500 text-center"
+                                    >
+
+                                        {showSendConfig ? "Input the connection ID below in the recipient computer" : showReceiveConfig ? "Provide connection  ID shown on the host computer" : "Select transfer mode"}
+                                    </Dialog.Title>
+                                    <div className="mt-6 ">
+
+                                        {
+                                            showSendConfig && <SendConfig port={
+                                                systemInformation.port
+                                            } />
+                                        }
+                                        {
+                                            showReceiveConfig && <ReceiveConfig />
+                                        }
+                                        <div className="text-sm flex justify-center gap-5 text-gray-500 mt-6">
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                                                onClick={showSendComponent}
+                                            >
+                                                Send files
+                                            </button>
+
+                                            <button
+                                                type="button"
+                                                className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                                                onClick={showReceiveComponent}
+                                            >
+                                                receive files
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </Dialog.Panel>
+                            </Transition.Child>
+                        </div>
+                    </div>
+                </Dialog>
+            </Transition >
+
+
+
+
+
             <nav className='col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)]  px-[1px]   text-gray-600  pt-10' style={
                 {
                     height: "calc(100vh-200px)",
