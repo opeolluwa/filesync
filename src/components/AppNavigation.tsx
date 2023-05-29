@@ -72,13 +72,13 @@ const ProgressComponent = ({ systemName, freeMemory }: SystemInformation) => {
             width: '100%',
             left: 0,
             bottom: '45px'
-        }}>
+        }} className='hidden lg:block'>
             <div className="flex justify-between mb-2 px-4">
                 {<span className=" font-medium text-blue-700 text-sm capitalize ">{systemName}</span>}
-                <span className=" font-medium text-blue-700 text-sm  ">{freeMemory} of 100 GB</span>
+                <span className=" font-medium text-blue-700 text-sm  ">{freeMemory} of 100GB</span>
             </div>
             <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
-                <div className="bg-red-600 h-1.5 rounded-full" style={{ width: '45%' }}></div>
+                <div className="bg-gray-600 h-1.5 rounded-full" style={{ width: '45%' }}></div>
             </div>
         </div>
     );
@@ -102,11 +102,12 @@ interface SystemInformation {
 export default function AppNavigation() {
     let [systemInformation, setSystemInformation] = useState({} as SystemInformation);
 
-    /*   useEffect(() => {
-          invoke('get_system_information').then((sysInfo) => {
-              setSystemInformation((sysInfo as any).data)
-          })
-      }) */
+    useEffect(() => {
+        invoke('get_system_information').then((sysInfo) => {
+            setSystemInformation((sysInfo as any).data)
+        })
+    })
+
 
     const routes: Route[] = [{
         path: '/',
@@ -197,7 +198,7 @@ export default function AppNavigation() {
                     ))}
                 </ul>
 
-                {<ProgressComponent systemName={'silicone'} freeMemory={'45'} port={0} uptime={''} />}
+                <ProgressComponent systemName={systemInformation.systemName} freeMemory={systemInformation.freeMemory} port={0} uptime={''} />
             </nav>
         </>
     )
