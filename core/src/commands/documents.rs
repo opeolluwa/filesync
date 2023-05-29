@@ -6,7 +6,7 @@ use std::{
 };
 use walkdir::WalkDir;
 
-use crate::utils::{compute_file_size, is_hidden, CommandData, is_document};
+use crate::utils::{compute_file_size, is_document, CommandData};
 
 // the audio file interface
 #[derive(Debug, Default, Serialize, Deserialize)]
