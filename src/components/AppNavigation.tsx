@@ -64,17 +64,23 @@ interface SenderProps {
     port: number
 }
 
-const ProgressComponent = () => {
+// use this to display the available memory
+const ProgressComponent = ({ systemName, freeMemory }: SystemInformation) => {
     return (
-        <>
-            <div className="flex justify-between mb-1">
-                <span className="text-base font-medium text-blue-700 dark:text-white">Flowbite</span>
-                <span className="text-sm font-medium text-blue-700 dark:text-white">45%</span>
+        <div style={{
+            position: 'absolute',
+            width: '100%',
+            left: 0,
+            bottom: '45px'
+        }}>
+            <div className="flex justify-between mb-2 px-4">
+                {<span className=" font-medium text-blue-700 text-sm capitalize ">{systemName}</span>}
+                <span className=" font-medium text-blue-700 text-sm  ">{freeMemory} of 100 GB</span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700">
-                <div className="bg-blue-600 h-2.5 rounded-full" style={{ width: '45%' }}></div>
+            <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
+                <div className="bg-red-600 h-1.5 rounded-full" style={{ width: '45%' }}></div>
             </div>
-        </>
+        </div>
     );
 };
 
@@ -96,18 +102,18 @@ interface SystemInformation {
 export default function AppNavigation() {
     let [systemInformation, setSystemInformation] = useState({} as SystemInformation);
 
-    useEffect(() => {
-        invoke('get_system_information').then((sysInfo) => {
-            setSystemInformation((sysInfo as any).data)
-        })
-    })
+    /*   useEffect(() => {
+          invoke('get_system_information').then((sysInfo) => {
+              setSystemInformation((sysInfo as any).data)
+          })
+      }) */
 
     const routes: Route[] = [{
         path: '/',
         icon: <HomeIcon className='w-6 h-6' />,
         name: 'home',
         alternateIcon: <SolidHomeIcon className='w-6 h-6' />,
-        action: () => gotoPage({ routePath: "index" })
+        action: () => gotoPage({ routePath: "/" })
 
     },
     {
@@ -160,13 +166,14 @@ export default function AppNavigation() {
 
     return (
         <>
-            <nav className='col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)]  px-auto   text-gray-600  pt-10' style={
+            <nav className='col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)]  px-[1px]   text-gray-600  pt-10' style={
                 {
                     height: "calc(100vh-200px)",
-                    overflowY: "hidden"
+                    overflowY: "hidden",
+                    position: 'relative'
                 }
             }>
-                <ul className=' h-full flex flex-col px-4 pl-6'>
+                <ul className='flex flex-col px-4 pl-6'>
                     {
                         /**
                          * show the icon and the name side by side on full screen mode 
@@ -174,7 +181,7 @@ export default function AppNavigation() {
                          */
                     }
                     {routes.map((route, index) => (
-                        <li key={index} className='flex h-6 my-8 lg:my-8 first:mt-10 last:mb-20 text-app-500 cursor-pointer'>
+                        <li key={index} className='flex h-6 my-8 lg:my-8 first:mt-10  text-app-500 cursor-pointer'>
                             <span onClick={route.action /**action to perform on route clicked */} className='cursor-pointer'>
                                 <span className='sr-only'>
                                     {route.path}
@@ -189,7 +196,8 @@ export default function AppNavigation() {
                         </li>
                     ))}
                 </ul>
-                <ProgressComponent />
+
+                {<ProgressComponent systemName={'silicone'} freeMemory={'45'} port={0} uptime={''} />}
             </nav>
         </>
     )
