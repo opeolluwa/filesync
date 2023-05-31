@@ -1,13 +1,13 @@
-use std::fmt;
+use std::{fmt, net::Ipv4Addr};
 
 use serde::{Deserialize, Serialize};
 use sys_info;
 
 use crate::SERVER_PORT;
 
-use super::compute_file_size;
+use super::{compute_file_size, ip_manager::autodetect_ip_address};
 
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct SystemInformation {
     /// the current user name eg - drizzle
@@ -18,6 +18,20 @@ pub struct SystemInformation {
     port: u128,
     /// the uptime e.g 2 hours     
     pub uptime: String,
+    /// the system ip address
+    pub ip_address: Ipv4Addr,
+}
+
+impl std::default::Default for SystemInformation {
+    fn default() -> Self {
+        Self {
+            system_name: String::from(""),
+            free_memory: String::from(""),
+            uptime: String::from(""),
+            port: 0,
+            ip_address: Ipv4Addr::from([0, 0, 0, 0]),
+        }
+    }
 }
 
 /// system information construct
@@ -29,6 +43,10 @@ impl SystemInformation {
         let system_name = match sys_info::hostname() {
             Ok(name) => name,
             Err(_) => String::from("guest computer"),
+        };
+        let ip_address = match autodetect_ip_address() {
+            Ok(ip) => ip.parse::<Ipv4Addr>(),
+            Err(_) => Ok(Ipv4Addr::from([0, 0, 0, 0])),
         };
 
         let free_memory = match sys_info::mem_info() {
@@ -51,6 +69,7 @@ impl SystemInformation {
             system_name: system_name.into(),
             free_memory: compute_file_size(free_memory as u128),
             port: port.into(),
+            ip_address: ip_address.unwrap(),
             uptime: format!(
                 "{time_in_minutes:.2} minutes",
                 time_in_minutes = (uptime / 600.0)
@@ -67,8 +86,9 @@ impl fmt::Display for SystemInformation {
             "system_name: {},
             free_memory: {},
             port: {},
-            uptime: {}",
-            self.system_name, self.free_memory, self.port, self.uptime
+            uptime: {}
+            ip_address {:?}",
+            self.system_name, self.free_memory, self.port, self.uptime, self.ip_address
         )
     }
 }
