@@ -2,13 +2,11 @@
 import {
   Cog8ToothIcon,
   HomeIcon,
-  ArrowsRightLeftIcon,
   FolderOpenIcon,
   InformationCircleIcon,
   ShareIcon,
   ClockIcon,
   SignalIcon,
-  ComputerDesktopIcon,
 } from "@heroicons/react/24/outline";
 import {
   Cog8ToothIcon as SolidCog8ToothIcon,
@@ -300,15 +298,20 @@ function QRConnect({ url }: { url: string }) {
   );
 }
 
-function SendConfig({ port }: SenderProps) {
+function SendFileComponent({ port }: SenderProps) {
   return (
     <form action="">
       <div className="flex flex-col align-center justify-center">
         <label htmlFor="connectionID " className="text-gray-600 sr-only">
           connection ID
         </label>
-        <div className="flex items-center">
-          <QRConnect url={"http://"} />
+        <div className="flex items-center my-4 justify-center mx-auto">
+          <img
+            src="/icons/ip.png"
+            alt="recieve files"
+            className="w-[120px]"
+            width={200}
+          />
         </div>
         <input
           type="text"
@@ -316,11 +319,10 @@ function SendConfig({ port }: SenderProps) {
           name="connectionID"
           placeholder="enter connection ID"
           id="connectionID"
-          className="border-2 placeholder:text-small mt-8 mx-auto border-gray-300 rounded-md p-2"
+          className="border-2 placeholder:text-small my-0 w-2/3 mt-10 mx-auto border-gray-300 rounded-md p-2"
         />
       </div>
 
-      <button className="hidden">Connect</button>
     </form>
   );
 }
@@ -458,13 +460,17 @@ export default function AppNavigation() {
                   </Dialog.Title>
                   <div className="mt-6 ">
                     {showSendConfig && (
-                      <SendConfig port={systemInformation.port} />
+                      <SendFileComponent port={systemInformation.port} />
                     )}
                     {showReceiveConfig && <ReceiveConfig />}
                     <div className="text-sm flex justify-center gap-5 text-gray-500 mt-6">
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border hover:bg-gray-600 hover:text-gray-100 border-mirage-500"
+                        className={
+                          showReceiveConfig
+                            ? "inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border bg-gray-600 text-gray-100 border-mirage-500"
+                            : "inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                        }
                         onClick={showReceiveComponent}
                       >
                         Send files
@@ -472,7 +478,11 @@ export default function AppNavigation() {
 
                       <button
                         type="button"
-                        className="inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500 hover:bg-gray-600 hover:text-gray-100"
+                        className={
+                          showSendConfig
+                            ? "inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border bg-gray-600 text-gray-100 border-mirage-500"
+                            : "inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                        }
                         onClick={showSendComponent}
                       >
                         Recieve files
