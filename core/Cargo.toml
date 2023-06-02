@@ -35,6 +35,7 @@ lazy_static = "1.4.0"
 walkdir = "2.3.3"
 sys-info = "0.9.1"
 uptime_lib = "0.2.2"
+pnet_datalink = "0.33.0"
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
 # DO NOT REMOVE!!

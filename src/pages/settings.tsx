@@ -1,7 +1,15 @@
-import React from 'react'
+import PageLayout
+    from "@/components/PageLayout"
 
-export default function settings() {
+/**
+ * @function helpPage -  A page responsible for guiding users on various actions 
+ * @returns tsx 
+ */
+export default function HelpPage() {
     return (
-        <div>settings</div>
+        <>
+            <PageLayout pageTitle={'Settings'} includeSearchBar={true}>
+            </PageLayout>
+        </>
     )
 }

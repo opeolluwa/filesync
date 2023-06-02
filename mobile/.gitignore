@@ -22,11 +22,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-
-.next
-
-out
-
-sandbox
-
-mobile/node_modules
