@@ -20,15 +20,16 @@ import {
 import { DialogFilter, message, ask } from "@tauri-apps/api/dialog";
 import { open } from "@tauri-apps/api/dialog";
 import { invoke } from "@tauri-apps/api/tauri";
-import { goToPage as gotoPage } from "@/utils";
+import { allowedExtension, goToPage as gotoPage } from "@/utils";
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import QRCode from "react-qr-code";
+import Image from "next/image";
 /**
  * @function openFileManager - opens a file manager
  * @returns {Array<Files>} an array of selected files
  */
-async function openFileManager() /* : Array<Files> */ {
+async function openFileManager()/* : Array<File> */ {
   // Open a selection dialog for directories
   const selected = await open({
     directory: true,
@@ -52,172 +53,7 @@ async function openFileManager() /* : Array<Files> */ {
   }
 }
 
-// allowed file extension
-const allowedExtension: DialogFilter[] = [
-  {
-    name: "image",
-    extensions: [
-      "ai",
-      "dxf",
-      "odg",
-      "fodg",
-      "svg",
-      "svgz",
-      "bmp",
-      "gif",
-      "ico",
-      "jpg",
-      "jpeg",
-      "png",
-      "psd",
-      "pdd",
-      "tga",
-      "tiff",
-      "xcf",
-      "xpm",
-    ],
-  },
-  {
-    name: "audio",
-    extensions: [
-      "au",
-      "aif",
-      "aifc",
-      "aiff",
-      "wav",
-      "flac",
-      "la",
-      "pac",
-      "m4a",
-      "ape",
-      "wv",
-      "wma",
-      "ast",
-      "mp2",
-      "mp3",
-      "spx",
-      "aac",
-      "mpc",
-      "ra",
-      "ogg",
-      "mid",
-      "m3u",
-      "pls",
-    ],
-  },
-  { name: "pdf", extensions: ["pdf", "ps"] },
-  {
-    name: "video",
-    extensions: [
-      "webm",
-      "mkv",
-      "flv",
-      "vob",
-      "ogv",
-      "drc",
-      "avi",
-      "mov",
-      "qt",
-      "wmv",
-      "rm",
-      "rmvb",
-      "asf",
-      "mp4",
-      "m4p",
-      "m4v",
-      "mpg",
-      "mpeg",
-      "mpe",
-      "mpv",
-      "3gp",
-      "3g2",
-      "mxf",
-      "aff",
-      "m2ts",
-      "mts",
-    ],
-  },
-  {
-    name: "powerpoint",
-    extensions: [
-      "ppt",
-      "pot",
-      "pps",
-      "pptx",
-      "pptm",
-      "potx",
-      "potm",
-      "ppam",
-      "ppsx",
-      "ppsm",
-      "sldx",
-      "sldm",
-      "odp",
-      "fodp",
-      "otp",
-    ],
-  },
-  {
-    name: "word",
-    extensions: [
-      "doc",
-      "dot",
-      "docx",
-      "docm",
-      "dotx",
-      "dotm",
-      "docb",
-      "odt",
-      "fodt",
-      "ott",
-    ],
-  },
-  {
-    name: "excel",
-    extensions: [
-      "xls",
-      "xlt",
-      "xlm",
-      "xlsx",
-      "xlsm",
-      "xltx",
-      "xltm",
-      "xla",
-      "xlam",
-      "ods",
-      "fods",
-      "ots",
-    ],
-  },
-  { name: "xml", extensions: ["xml", "xslt", "html", "xhtml", "htm"] },
-  {
-    name: "delimited",
-    extensions: ["csv"],
-  },
-  {
-    name: "document",
-    extensions: [
-      "txt",
-      "rtf",
-      "c",
-      "h",
-      "cpp",
-      "hpp",
-      "cxx",
-      "hxx",
-      "java",
-      "js",
-      "rb",
-      "py",
-      "cs",
-      "m",
-      "sh",
-      "php",
-      "css",
-      "go",
-    ],
-  },
-];
+
 
 interface Route {
   icon: any; // the route icon
@@ -249,13 +85,17 @@ const ProgressComponent = ({ systemName, freeMemory }: SystemInformation) => {
             {systemName}
           </span>
         }
-        <span className=" font-medium text-blue-700 text-sm  ">
+
+        <span
+          // TODO: gey actual total memory
+          className=" font-medium text-blue-700 text-sm">
           {freeMemory} of 100GB
         </span>
       </div>
       <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
         <div
           className="bg-gray-600 h-1.5 rounded-full"
+          //TODO: calculate free memory from app core
           style={{ width: "45%" }}
         ></div>
       </div>
@@ -306,11 +146,12 @@ function SendFileComponent({ port }: SenderProps) {
           connection ID
         </label>
         <div className="flex items-center my-4 justify-center mx-auto">
-          <img
-            src="/icons/ip.png"
+          <Image
+            src="/icons/Computer-Tablet-and-Phone-Vectors---1.0.0.svg"
             alt="recieve files"
-            className="w-[120px]"
-            width={200}
+            className="w-[150px]"
+            width={400}
+            height={400}
           />
         </div>
         <input
@@ -322,7 +163,6 @@ function SendFileComponent({ port }: SenderProps) {
           className="border-2 placeholder:text-small my-0 w-2/3 mt-10 mx-auto border-gray-300 rounded-md p-2"
         />
       </div>
-
     </form>
   );
 }
@@ -347,7 +187,7 @@ export default function AppNavigation() {
     {} as SystemInformation
   );
 
-  useEffect(() => {
+  useEffect(() => {// fetch sys information from app core
     invoke("get_system_information").then((sysInfo) => {
       setSystemInformation((sysInfo as any).data);
     });
@@ -361,11 +201,11 @@ export default function AppNavigation() {
 
   const showSendComponent = () => {
     setSendConfig(true);
-    setReceiveConfig(false); /* setModalState(false) */
+    setReceiveConfig(false);
   };
   const showReceiveComponent = () => {
     setReceiveConfig(true);
-    setSendConfig(false); /*  setModalState(false) */
+    setSendConfig(false);
   };
 
   const routes: Route[] = [
@@ -453,10 +293,10 @@ export default function AppNavigation() {
                     className="text-sm text-gray-500 text-center"
                   >
                     {showSendConfig
-                      ? "Input the connection ID below in the recipient computer"
-                      : showReceiveConfig
-                      ? "Scan QR Code or provide Connection ID"
-                      : "Select transfer mode"}
+                      && "Input the connection ID below in the recipient computer"}
+                    {showReceiveConfig
+                      && "Scan QR Code or provide Connection ID"
+                    }
                   </Dialog.Title>
                   <div className="mt-6 ">
                     {showSendConfig && (
