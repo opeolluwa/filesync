@@ -64,7 +64,43 @@ pub fn fetch_documents() -> Result<CommandData<Vec<Document>>, CommandData<()>> 
             file_size: compute_file_size(file_size),
             ..Default::default()
         };
-        entries.push(audio_file);
+        
+        let acceptable_suffixes = vec![
+            "doc", 
+            "dot", 
+            "docx", 
+            "docm",
+            "dotx", 
+            "dotm",
+            "docb",
+            "odt",
+            "fodt",
+            "ott",
+            "xls",
+            "xlt",
+            "xlm",
+            "xlsx",
+            "xlsm",
+            "xltx",
+            "xltm",
+            "xla",
+            "xlam",
+            "ods",
+            "fods",
+            "ots" 
+         ];
+
+        let mut matched = false; 
+        for pattern in acceptable_suffixes{
+            if audio_file.file_name.clone().ends_with(pattern) {
+                matched = true;
+                break;
+            }
+        }
+        if matched{
+            entries.push(audio_file);
+        }
+
     }
 
     Ok(CommandData::ok("retrieved all audio files", entries))
