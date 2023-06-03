@@ -101,11 +101,12 @@ pub async fn core_server() {
     let file_size_limit = 10 * 1024 * 1024 * 1024;
     let file_limit = DefaultBodyLimit::max(file_size_limit);
 
-    // the core server config
+    // the core server 
     let my_local_ip = utils::ip_manager::autodetect_ip_address()
         .ok()
         .expect("Invalid Ip address detected")
-        .parse::<Ipv4Addr>();
+        .parse::<Ipv4Addr>().unwrap()
+        ;
     let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT as u64);
     println!("server running on http://{}", &ip_address.to_string());
 
