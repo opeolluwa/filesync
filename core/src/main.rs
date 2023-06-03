@@ -5,23 +5,26 @@ extern crate uptime_lib;
 
 use axum::extract::DefaultBodyLimit;
 use axum::http::StatusCode;
-use axum::response::Html;
-use axum::routing::{get, post};
+use axum::routing::{get, get_service, post};
 use axum::Json;
 use axum::Router;
 use axum_typed_multipart::{FieldData, TempFile, TryFromMultipart, TypedMultipart};
 use lazy_static::lazy_static;
-use local_ip_address::local_ip;
 use reqwest::Method;
 use serde_json::json;
 use serde_json::Value;
+use std::net::Ipv4Addr;
+use std::path::PathBuf;
 use std::{fs, path::Path};
+
 use tower_http::cors::Any;
 use tower_http::cors::CorsLayer;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 use utils::system_info::SystemInformation;
 use utils::CommandData;
+
+use tower_http::services::ServeDir;
 
 use crate::commands::utils::get_system_information;
 
@@ -51,9 +54,10 @@ lazy_static! {
 }
 
 fn main() {
-    // plug the server
+    // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(core_server());
 
+    println!("system information {}", get_system_information());
     // fire up tauri core
     tauri::Builder::default()
         .plugin(tauri_plugin_upload::init())
@@ -98,13 +102,21 @@ pub async fn core_server() {
     let file_limit = DefaultBodyLimit::max(file_size_limit);
 
     // the core server config
-    let my_local_ip = local_ip().unwrap();
+    let my_local_ip = utils::ip_manager::autodetect_ip_address()
+        .ok()
+        .expect("Invalid Ip address detected")
+        .parse::<Ipv4Addr>();
     let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT as u64);
     println!("server running on http://{}", &ip_address.to_string());
 
+    //mount the application views
+    let views_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("views");
+    let static_files_service =
+        get_service(ServeDir::new(views_dir).append_index_html_on_directories(true));
+
     // build our application with the required routes
     let app = Router::new()
-        .route("/", get(handler))
+        .fallback(static_files_service)
         .route("/upload", post(handle_file_upload))
         .route("/sys-info", get(system_information))
         .layer(file_limit)
@@ -116,31 +128,6 @@ pub async fn core_server() {
         .serve(app.into_make_service())
         .await
         .unwrap();
-}
-
-async fn handler() -> Html<String> {
-    Html(
-        r#"
-         <!doctype html>
-   <html>
-<head>
-
-</head>
-<body>
-<h1> hey man </h1>
-    <form action='/upload' method='post' enctype='multipart/form-data'>
-        <label>
-            Upload file:
-            <input type='file' name='file' multiple>
-        </label>
-        <input type='submit' value='Upload files'>
-    </form>
-</body>
-
-</html>
-   "#
-        .to_string(),
-    )
 }
 
 /// return the system information
@@ -198,3 +185,17 @@ async fn handle_file_upload(
         ),
     }
 }
+
+// #[allow(clippy::let_and_return)]
+// fn calling_serve_dir_from_a_handler() -> Router {
+//     // via `tower::Service::call`, or more conveniently `tower::ServiceExt::oneshot` you can
+//     // call `ServeDir` yourself from a handler
+//     Router::new().nest_service(
+//         "/foo",
+//         get(|request: Request<Body>| async {
+//             let service = ServeDir::new("assets");
+//             let result = service.oneshot(request).await;
+//             result
+//         }),
+//     )
+// }
