@@ -68,7 +68,7 @@ interface SenderProps {
 }
 
 // use this to display the available memory
-const ProgressComponent = ({ systemName, freeMemory }: SystemInformation) => {
+const ProgressComponent = ({ systemName, freeMemory }: { systemName: string, freeMemory: string }) => {
   return (
     <div
       style={{
@@ -110,16 +110,19 @@ interface SystemInformation {
   freeMemory: string;
   /// the port on which the core server runs
   port: number;
+  /// the system ip address,ex:  192.168.213.230
+  ipAddress: string,
   /// the uptime e.g 2 hours
   uptime: string;
 }
 
-// the port on which th application urn for the sender PC
-interface SenderProps {
-  port: number;
-}
 
-// display QR code in which URL  for connection is embedded
+/**
+ * @function QRConnect - display QR code in which URL  for connection is embedded
+ * @param url - the core application URl 
+ * @param serverId, the serverId the application
+ * @return UI
+ */
 function QRConnect({ url }: { url: string }) {
   return (
     <>
@@ -138,7 +141,7 @@ function QRConnect({ url }: { url: string }) {
   );
 }
 
-function SendFileComponent({ port }: SenderProps) {
+function SendFileComponent() {
   return (
     <form action="">
       <div className="flex flex-col align-center justify-center">
@@ -168,14 +171,14 @@ function SendFileComponent({ port }: SenderProps) {
 }
 
 //
-function ReceiveConfig() {
+function ReceiveConfig({ serverId, ipAddress }: { serverId: number, ipAddress: string }) {
   return (
     <div className="h-full">
       <div>
-        <QRConnect url={"http://"} />
+        <QRConnect url={`http://${ipAddress.trim()}:${serverId}/`} />
       </div>
       <div className=" font-mono my-2 text-center text-gray-600">
-        <strong>ID:</strong>290457
+        <strong>ID:</strong>{serverId}
       </div>
     </div>
   );
@@ -300,9 +303,9 @@ export default function AppNavigation() {
                   </Dialog.Title>
                   <div className="mt-6 ">
                     {showSendConfig && (
-                      <SendFileComponent port={systemInformation.port} />
+                      <SendFileComponent />
                     )}
-                    {showReceiveConfig && <ReceiveConfig />}
+                    {showReceiveConfig && <ReceiveConfig serverId={systemInformation.port} ipAddress={systemInformation.ipAddress} />}
                     <div className="text-sm flex justify-center gap-5 text-gray-500 mt-6">
                       <button
                         type="button"
@@ -373,8 +376,6 @@ export default function AppNavigation() {
         <ProgressComponent
           systemName={systemInformation.systemName}
           freeMemory={systemInformation.freeMemory}
-          port={0}
-          uptime={""}
         />
       </nav>
     </>
