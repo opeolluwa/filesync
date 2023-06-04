@@ -217,3 +217,6 @@ export const allowedExtension: DialogFilter[] = [
     ],
   },
 ];
+
+
+export const isClient = typeof window !== 'undefined'
