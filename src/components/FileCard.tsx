@@ -8,11 +8,13 @@
  * and the file status 
  */
 
-import { computeFileSize } from '@/utils';
+import { computeFileSize, isClient } from '@/utils';
 import { ArrowDownCircleIcon, ArrowUpCircleIcon, CheckCircleIcon, CheckIcon, PauseCircleIcon, PlayCircleIcon } from '@heroicons/react/24/outline';
+import { FileIcon, defaultStyles } from 'react-file-icon';
+import { Icon } from '@fluentui/react/lib/Icon';
+import { getFileTypeIconProps } from '@fluentui/react-file-type-icons';
 import Image from 'next/image';
-
-
+//import 'file-icons-js/css/style.css'
 export enum FileTransferStatus {
     DOWNLOADING = "downloading",
     PAUSED = "paused",
@@ -32,8 +34,10 @@ export interface FileInterface {
 
 
 // the component
-export default function FileCard({ fileName, fileSize, fileType, status}: FileInterface) {
- 
+export default function FileCard({ fileName, fileSize, fileType, status }: FileInterface) {
+    /*  const fileIcons = isClient && window.FileIcons;
+     const fileIcon = fileIcons.getClassWithColor(fileName); */
+    const fileT = fileType as any;
     return (
         <>
             <div className="flex justify-between items-center my-8 flex-wrap bg-[#edeffb]  border-gray-900  p-3 rounded-lg shadow-sm shadow-gray-300 cursor-pointer dark:shadow-none hover:shadow-sm hover:shadow-gray-400 dark:hover:border-gray-700 dark:hover:shadow-none transition-shadow ease-in-out">
@@ -45,6 +49,10 @@ export default function FileCard({ fileName, fileSize, fileType, status}: FileIn
                     alt="file card icon"
                     className='w-[48px] col-span-1 '// automatic height calculation
                 />
+
+                {/*   <div className='w-[30px] h-auto'>
+                    <FileIcon extension={fileType} {...defaultStyles.doc} />
+                </div> */}
                 {/**flex two of three - holding the file description or download progress */}
                 <div className='flex flex-col text-ellipsis'>
                     <h5 className='font-semibold text-gray-500 overflow-clip text-ellipsis'>{fileName}</h5>
@@ -68,7 +76,7 @@ export default function FileCard({ fileName, fileSize, fileType, status}: FileIn
 
                     }
                 </div>
-               
+
             </div>
         </>
     )
