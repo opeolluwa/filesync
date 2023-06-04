@@ -66,9 +66,12 @@ pub fn fetch_documents() -> Result<CommandData<Vec<Document>>, CommandData<()>> 
         };
 
         let acceptable_suffixes = vec![
-            "doc", "dot", "docx", "docm", "dotx", "dotm", "docb", "odt", "fodt", "ott", "xls",
-            "xlt", "xlm", "xlsx", "xlsm", "xltx", "xltm", "xla", "xlam", "ods", "fods", "pdf",
-            "ots",
+            "ppt", "pot", "pps", "pptx", "pptm", "potx", "potm", "ppam", "ppsx", "ppsm", "sldx",
+            "sldm", "odp", "fodp", "otp", "doc", "dot", "docx", "docm", "dotx", "dotm", "docb",
+            "odt", "fodt", "ott", "ots", "ps", "xls", "xlt", "xlm", "xlsx", "xlsm", "xltx", "xltm",
+            "xla", "xlam", "ods", "fods", "ots", "xml", "xslt", "html", "xhtml", "htm", "txt",
+            "rtf", "c", "h", "cpp", "hpp", "cxx", "hxx", "java", "js", "rb", "py", "cs", "m", "sh",
+            "php", "css", "go", "ps", "pdf",
         ];
 
         let mut matched = false;
