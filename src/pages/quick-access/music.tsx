@@ -1,5 +1,5 @@
 import MusicFile from '@/components/MusicFile'
-import QuickAccessLayout from '@/components/QuickAccessLayout'
+import QuickAccessLayout from '@/components/PageLayout'
 import SearchBar from '@/components/SearchBar';
 import { AppData, AudioFile } from '@/types';
 import { invoke } from '@tauri-apps/api/tauri'
@@ -45,11 +45,9 @@ export default function Music() {
     return (<h2>fetch you audio files</h2>)
   }
   return (
-    <QuickAccessLayout pageTitle={'Music'}>
+    <QuickAccessLayout pageTitle={'Music'} includeSearchBar={true}>
       <div>
-        <SearchBar onSearch={function (city: string): void {
-          throw new Error('Function not implemented.');
-        }} />
+
         <div className='flex flex-wrap  flex-grow gap-4 justify-start mt-12'>
           {musicData?.data.map((file, index) => (
             <MusicFile
