@@ -1,3 +1,6 @@
+use axum::body::Bytes;
+use axum::extract::Multipart;
+use axum::BoxError;
 use reqwest::Method;
 use serde_json::json;
 use serde_json::Value;
@@ -12,13 +15,17 @@ use tracing_subscriber::util::SubscriberInitExt;
 use utils::system_info::SystemInformation;
 use utils::CommandData;
 
-use tower_http::services::ServeDir;
-
 use axum::extract::DefaultBodyLimit;
 use axum::http::StatusCode;
 use axum::routing::{get, get_service, post};
 use axum::Json;
 use axum::Router;
+use futures::{Stream, TryStreamExt};
+use tower_http::services::ServeDir;
+
+use std::io;
+use tokio::{fs::File, io::BufWriter};
+use tokio_util::io::StreamReader;
 
 use axum_typed_multipart::{FieldData, TempFile, TryFromMultipart, TypedMultipart};
 
@@ -76,7 +83,7 @@ pub async fn core_server() {
     // build our application with the required routes
     let app = Router::new()
         .fallback(static_files_service)
-        .route("/upload", post(handle_file_upload))
+        .route("/upload", post(accept_file_upload))
         .route("/sys-info", get(system_information))
         .layer(file_limit)
         .layer(cors_layer)
@@ -101,7 +108,7 @@ async fn system_information() -> (StatusCode, Json<CommandData<SystemInformation
 }
 
 /// handle file upload with typed header
-async fn handle_file_upload(
+async fn _handle_file_upload(
     TypedMultipart(UploadedFile { file }): TypedMultipart<UploadedFile>,
 ) -> (StatusCode, Json<Value>) {
     // save the file to download dir of the operating systems
@@ -143,4 +150,80 @@ async fn handle_file_upload(
             })),
         ),
     }
+}
+
+// Handler that accepts a multipart form upload and streams each field to a file.
+async fn accept_file_upload(
+    mut multipart: Multipart,
+) -> Result<(StatusCode, Json<Value>), (StatusCode, String)> {
+    while let Some(field) = multipart.next_field().await.unwrap() {
+        let file_name = if let Some(file_name) = field.file_name() {
+            file_name.to_owned()
+        } else {
+            continue;
+        };
+
+        stream_to_file(&file_name, field).await?;
+    }
+
+    Ok((
+        StatusCode::OK,
+        Json(json!({
+            "Success":true,
+            "message":"file saved"
+        })),
+    ))
+}
+
+// Save a `Stream` to a file
+async fn stream_to_file<S, E>(path: &str, stream: S) -> Result<(), (StatusCode, String)>
+where
+    S: Stream<Item = Result<Bytes, E>>,
+    E: Into<BoxError>,
+{
+    if !path_is_valid(path) {
+        return Err((StatusCode::BAD_REQUEST, "Invalid path".to_owned()));
+    }
+
+    async {
+        // Convert the stream into an `AsyncRead`.
+        let body_with_io_error = stream.map_err(|err| io::Error::new(io::ErrorKind::Other, err));
+        let body_reader = StreamReader::new(body_with_io_error);
+        futures::pin_mut!(body_reader);
+
+        //create send-file directory in the downloads path dir and / save files to $DOWNLOADS/send-file
+        let os_default_downloads_dir = dirs::download_dir().unwrap();
+        let upload_path = format!(
+            "{downloads_dir}/send-file",
+            downloads_dir = os_default_downloads_dir.display()
+        );
+        // create the uploads path if not exist
+        let _ = fs::create_dir_all(&upload_path);
+
+        // Create the file. `File` implements `AsyncWrite`.
+        let path = std::path::Path::new(&upload_path).join(path);
+        let mut file = BufWriter::new(File::create(path).await?);
+
+        // Copy the body into the file.
+        tokio::io::copy(&mut body_reader, &mut file).await?;
+
+        Ok::<_, io::Error>(())
+    }
+    .await
+    .map_err(|err| (StatusCode::INTERNAL_SERVER_ERROR, err.to_string()))
+}
+
+// to prevent directory traversal attacks we ensure the path consists of exactly one normal
+// component
+fn path_is_valid(path: &str) -> bool {
+    let path = std::path::Path::new(path);
+    let mut components = path.components().peekable();
+
+    if let Some(first) = components.peek() {
+        if !matches!(first, std::path::Component::Normal(_)) {
+            return false;
+        }
+    }
+
+    components.count() == 1
 }
