@@ -24,7 +24,7 @@ export default function SearchBar({ onSearch }: Props) {
     }}>
       <label htmlFor="search box" className="sr-only"> search files</label>
       <input
-        className="px-4 py-4 rounded-md block w-full border-gray-400 dark:border-transparent bg-[#fafbfd] hover:border-none  border-none shadow"
+        className="px-4 py-4 rounded-md block w-full border-gray-400 dark:border-transparent bg-[#fafbfd] hover:border-none  border-none shadow-md"
         type="text"
         placeholder="browse files"
         value={city}

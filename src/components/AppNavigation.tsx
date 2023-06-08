@@ -29,7 +29,7 @@ import Image from "next/image";
  * @function openFileManager - opens a file manager
  * @returns {Array<Files>} an array of selected files
  */
-async function openFileManager()/* : Array<File> */ {
+async function openFileManager() /* : Array<File> */ {
   // Open a selection dialog for directories
   const selected = await open({
     directory: true,
@@ -53,8 +53,6 @@ async function openFileManager()/* : Array<File> */ {
   }
 }
 
-
-
 interface Route {
   icon: any; // the route icon
   name: string; // the route name
@@ -68,7 +66,13 @@ interface SenderProps {
 }
 
 // use this to display the available memory
-const ProgressComponent = ({ systemName, freeMemory }: { systemName: string, freeMemory: string }) => {
+const ProgressComponent = ({
+  systemName,
+  freeMemory,
+}: {
+  systemName: string;
+  freeMemory: string;
+}) => {
   return (
     <div
       style={{
@@ -86,16 +90,13 @@ const ProgressComponent = ({ systemName, freeMemory }: { systemName: string, fre
           </span>
         }
 
-        <span
-          // TODO: gey actual total memory
-          className=" font-medium text-blue-700 text-sm">
+        <span className=" font-medium text-blue-700 text-sm">
           {freeMemory} of 100GB
         </span>
       </div>
       <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
         <div
-          className="bg-gray-600 h-1.5 rounded-full"
-          //TODO: calculate free memory from app core
+          className="bg-app-400 h-1.5 rounded-full"
           style={{ width: "45%" }}
         ></div>
       </div>
@@ -111,15 +112,14 @@ interface SystemInformation {
   /// the port on which the core server runs
   port: number;
   /// the system ip address,ex:  192.168.213.230
-  ipAddress: string,
+  ipAddress: string;
   /// the uptime e.g 2 hours
   uptime: string;
 }
 
-
 /**
  * @function QRConnect - display QR code in which URL  for connection is embedded
- * @param url - the core application URl 
+ * @param url - the core application URl
  * @param serverId, the serverId the application
  * @return UI
  */
@@ -171,14 +171,21 @@ function SendFileComponent() {
 }
 
 //
-function ReceiveConfig({ serverId, ipAddress }: { serverId: number, ipAddress: string }) {
+function ReceiveConfig({
+  serverId,
+  ipAddress,
+}: {
+  serverId: number;
+  ipAddress: string;
+}) {
   return (
     <div className="h-full">
       <div>
         <QRConnect url={`http://${ipAddress.trim()}:${serverId}/`} />
       </div>
       <div className=" font-mono my-2 text-center text-gray-600">
-        <strong>ID:</strong>{serverId}
+        <strong>ID:</strong>
+        {serverId}
       </div>
     </div>
   );
@@ -190,7 +197,8 @@ export default function AppNavigation() {
     {} as SystemInformation
   );
 
-  useEffect(() => {// fetch sys information from app core
+  useEffect(() => {
+    // fetch sys information from app core
     invoke("get_system_information").then((sysInfo) => {
       setSystemInformation((sysInfo as any).data);
     });
@@ -295,17 +303,19 @@ export default function AppNavigation() {
                     as="h3"
                     className="text-sm text-gray-500 text-center"
                   >
-                    {showSendConfig
-                      && "Input the connection ID below in the recipient computer"}
-                    {showReceiveConfig
-                      && "Scan QR Code or provide Connection ID"
-                    }
+                    {showSendConfig &&
+                      "Input the connection ID below in the recipient computer"}
+                    {showReceiveConfig &&
+                      "Scan QR Code or provide Connection ID"}
                   </Dialog.Title>
                   <div className="mt-6 ">
-                    {showSendConfig && (
-                      <SendFileComponent />
+                    {showSendConfig && <SendFileComponent />}
+                    {showReceiveConfig && (
+                      <ReceiveConfig
+                        serverId={systemInformation.port}
+                        ipAddress={systemInformation.ipAddress}
+                      />
                     )}
-                    {showReceiveConfig && <ReceiveConfig serverId={systemInformation.port} ipAddress={systemInformation.ipAddress} />}
                     <div className="text-sm flex justify-center gap-5 text-gray-500 mt-6">
                       <button
                         type="button"
@@ -355,7 +365,7 @@ export default function AppNavigation() {
           {routes.map((route, index) => (
             <li
               key={index}
-              className="flex h-6 my-8 lg:my-8 first:mt-10  text-app-500 cursor-pointer"
+              className="flex h-6 my-8 lg:my-8 first:mt-10  text-gray-500 cursor-pointer hover:"
             >
               <span
                 onClick={route.action /**action to perform on route clicked */}
