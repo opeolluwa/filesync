@@ -4,9 +4,9 @@ use axum::BoxError;
 use reqwest::Method;
 use serde_json::json;
 use serde_json::Value;
+use std::fs;
 use std::net::Ipv4Addr;
 use std::path::PathBuf;
-
 
 use tower_http::cors::Any;
 use tower_http::cors::CorsLayer;
@@ -27,10 +27,8 @@ use std::io;
 use tokio::{fs::File, io::BufWriter};
 use tokio_util::io::StreamReader;
 
-
 use crate::utils;
-use crate::SERVER_PORT;
-
+use crate::{SERVER_PORT, UPLOAD_DIRECTORY};
 
 /**
  * @function core_server
@@ -99,7 +97,6 @@ async fn system_information() -> (StatusCode, Json<CommandData<SystemInformation
     )
 }
 
-
 // Handler that accepts a multipart form upload and streams each field to a file.
 async fn accept_file_upload(
     mut multipart: Multipart,
@@ -142,8 +139,9 @@ where
         //create send-file directory in the downloads path dir and / save files to $DOWNLOADS/send-file
         let os_default_downloads_dir = dirs::download_dir().unwrap();
         let upload_path = format!(
-            "{downloads_dir}/send-file",
-            downloads_dir = os_default_downloads_dir.display()
+            "{downloads_dir}/{upload_dir}",
+            downloads_dir = os_default_downloads_dir.display(),
+            upload_dir = UPLOAD_DIRECTORY.as_str()
         );
         // create the uploads path if not exist
         let _ = fs::create_dir_all(&upload_path);
