@@ -145,10 +145,23 @@ Updating, improving and correcting the documentation is encouraged, please make 
 
 ## Styleguides
 ### Commit Messages
-A subject which contain the title of the git commit. This should be capitalized and not more that 50 characters. 
+The commit message should be structured as follows: 
+```
+<type>[optional scope]: <description>
 
-The commit message should also contain an explanatory message of what changed in past sentence. for example "implemented modal using Tauri Dialog API". 
+[optional body]
 
+[optional footer(s)]
+
+```
+- **fix** a commit type of fix patches a bug in the code base
+- **feat** a commit to implement a feature in the codebase
+- **refactor** a commit to refactor a feature implementation 
+ Other types include `build:`, `chore:`, `ci:`, `docs:`, `style:`, `perf:`, `test:` please see [convectional commits](https://www.conventionalcommits.org/en/v1.0.0/) for detailed explanation 
+
+ #### Example Commit
+  
+>>  feat(ui): implemented shadow effect on nav item
 
 <!-- omit in toc -->
 ## Attribution
