@@ -1,129 +1,393 @@
-import Home from '@/pages/home'
-import { Cog8ToothIcon, HomeIcon, FolderOpenIcon, WifiIcon, ArrowRightOnRectangleIcon, InformationCircleIcon } from '@heroicons/react/24/outline'
-import AppLogo from './AppLogo'
-import Link from 'next/link'
-import { DialogFilter, message } from '@tauri-apps/api/dialog';
-import { open } from '@tauri-apps/api/dialog';
-import { appDir } from '@tauri-apps/api/path';
-import { invoke } from '@tauri-apps/api';
-
-
-//  @function promptConnection - prompt app to give connection details
-async function promptConnection() {
-    /*  if (typeof window !== 'undefined') {
-         const ipAddr = await invoke('get_ip_address').catch((err) => {
-             console.log("error getting ip addr due to ", (err as Error).message);
- 
-         })
- 
-         message('connect to ' + ipAddr, {
-             title: 'Connection',
-             type: 'info'
-         }).then((result) => {
-             console.log(result)
-         })
-     } */
-    console.log(" hey connect to wifi")
-}
-
-
-// allowed file extendion 
-const allowedExtension: DialogFilter[] = [{ name: 'image', extensions: ['ai', 'dxf', 'odg', 'fodg', 'svg', 'svgz', 'bmp', 'gif', 'ico', 'jpg', 'jpeg', 'png', 'psd', 'pdd', 'tga', 'tiff', 'xcf', 'xpm'] },
-{ name: 'audio', extensions: ['au', 'aif', 'aifc', 'aiff', 'wav', 'flac', 'la', 'pac', 'm4a', 'ape', 'wv', 'wma', 'ast', 'mp2', 'mp3', 'spx', 'aac', 'mpc', 'ra', 'ogg', 'mid', 'm3u', 'pls'] },
-{ name: 'pdf', extensions: ['pdf', 'ps'] },
-{ name: 'video', extensions: ['webm', 'mkv', 'flv', 'vob', 'ogv', 'drc', 'avi', 'mov', 'qt', 'wmv', 'rm', 'rmvb', 'asf', 'mp4', 'm4p', 'm4v', 'mpg', 'mpeg', 'mpe', 'mpv', '3gp', '3g2', 'mxf', 'aff', 'm2ts', 'mts'] },
-{ name: 'powerpoint', extensions: ['ppt', 'pot', 'pps', 'pptx', 'pptm', 'potx', 'potm', 'ppam', 'ppsx', 'ppsm', 'sldx', 'sldm', 'odp', 'fodp', 'otp'] },
-{ name: 'word', extensions: ['doc', 'dot', 'docx', 'docm', 'dotx', 'dotm', 'docb', 'odt', 'fodt', 'ott'] },
-{ name: 'excel', extensions: ['xls', 'xlt', 'xlm', 'xlsx', 'xlsm', 'xltx', 'xltm', 'xla', 'xlam', 'ods', 'fods', 'ots'] },
-{ name: 'xml', extensions: ['xml', 'xslt', 'html', 'xhtml', 'htm'] },
-{
-    name: 'delimited', extensions: ['csv']
-},
-{ name: 'document', extensions: ['txt', 'rtf', 'c', 'h', 'cpp', 'hpp', 'cxx', 'hxx', 'java', 'js', 'rb', 'py', 'cs', 'm', 'sh', 'php', 'css', 'go'] }]
-/// @function openFileManager
-async function openFileManager() {
-    // Open a selection dialog for directories
-    const selected = await open({
-        directory: true,
-        multiple: true,
-        filters: allowedExtension
-        // defaultPath: await appDir(),
-    }).catch((err) => {
-        message('error opening file manager', {
-            title: 'Access error',
-            type: 'error'
-        }).then((result) => {
-            console.log(result)
-        })
+// import Home from '@/pages/home'
+import {
+  Cog8ToothIcon,
+  HomeIcon,
+  FolderOpenIcon,
+  InformationCircleIcon,
+  ShareIcon,
+  ClockIcon,
+  SignalIcon,
+} from "@heroicons/react/24/outline";
+import {
+  Cog8ToothIcon as SolidCog8ToothIcon,
+  HomeIcon as SolidHomeIcon,
+  FolderOpenIcon as SolidFolderIconOpen,
+  InformationCircleIcon as SolidInformationIcon,
+  ShareIcon as SolidShareIcon,
+  SignalIcon as SolidSignalIcon,
+  ClockIcon as SolidClockIcon,
+} from "@heroicons/react/24/solid";
+import { DialogFilter, message, ask } from "@tauri-apps/api/dialog";
+import { open } from "@tauri-apps/api/dialog";
+import { invoke } from "@tauri-apps/api/tauri";
+import { allowedExtension, goToPage as gotoPage } from "@/utils";
+import { Fragment, useEffect, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import QRCode from "react-qr-code";
+import Image from "next/image";
+/**
+ * @function openFileManager - opens a file manager
+ * @returns {Array<Files>} an array of selected files
+ */
+async function openFileManager() /* : Array<File> */ {
+  // Open a selection dialog for directories
+  const selected = await open({
+    directory: true,
+    multiple: true,
+    filters: allowedExtension,
+    // defaultPath: await appDir(),
+  }).catch((err) => {
+    message("error opening file manager", {
+      title: "Access error",
+      type: "error",
+    }).then((result) => {
+      console.log(result);
     });
-    if (Array.isArray(selected)) {
-        // user selected multiple directories
-    } else if (selected === null) {
-        // user cancelled the selection
-    } else {
-        // user selected a single directory
-    }
+  });
+  if (Array.isArray(selected)) {
+    // user selected multiple directories
+  } else if (selected === null) {
+    // user cancelled the selection
+  } else {
+    // user selected a single directory
+  }
 }
+
 interface Route {
-    path: string, // the path string
-    icon: any, // the route icon
-    action?: () => any // action that will be executed when the route is clicked
+  icon: any; // the route icon
+  name: string; // the route name
+  alternateIcon: any; // the icon to show on hover or active state
+  action?: () => any; // action that will be executed when the route is clicked
+  path?: string; // the path string
 }
-// the routes
-const routes: Route[] = [{
-    path: '/',
-    icon: <HomeIcon />
-},
-{
-    path: '/files',
-    icon: <FolderOpenIcon />,
-    action: openFileManager
-},
-{
-    path: '/wifi',
-    icon: <WifiIcon />,
-    // action: promptConnection
-},
-{
-    path: '/settings',
-    icon: <Cog8ToothIcon />
-},
-{
-    path: '/help',
-    icon: <InformationCircleIcon />
-},
-    // {
-    //     path: '/settings',
-    //     component: Home,
-    //     icon: <ArrowRightOnRectangleIcon />
-    // },
+// the port on which th application urn for the sender PC
+interface SenderProps {
+  port: number;
+}
 
-]
+// use this to display the available memory
+const ProgressComponent = ({
+  systemName,
+  freeMemory,
+}: {
+  systemName: string;
+  freeMemory: string;
+}) => {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        width: "100%",
+        left: 0,
+        bottom: "45px",
+      }}
+      className="hidden lg:block"
+    >
+      <div className="flex justify-between mb-2 px-4">
+        {
+          <span className=" font-medium text-blue-700 text-sm capitalize ">
+            {systemName}
+          </span>
+        }
 
+        <span className=" font-medium text-blue-700 text-sm">
+          {freeMemory} of 100GB
+        </span>
+      </div>
+      <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
+        <div
+          className="bg-app-400 h-1.5 rounded-full"
+          style={{ width: "45%" }}
+        ></div>
+      </div>
+    </div>
+  );
+};
 
-export default function Nav() {
-    return (
-        <nav className='col-span-1 bg-[rgba(249,250,254,255)] dark:text-shilo-500   dark:border-r-mirage-xx-800 dark:border-r text-gray-600  dark:bg-mirage-600 pt-10' style={
-            {
-                height: "calc(100vh-200px)",
-                overflowY: "hidden"
-            }
-        }>
-            <AppLogo />
-            <ul className=' h-full flex flex-col items-center'>
-                {routes.map((route, index) => (
-                    <li key={index} className='w-6 h-6 my-5 first:mt-10 last:mt-auto last:mb-20 text-app-500'>
-                        {/* <Link href={route.path}> */}
-                        <Link href={'#'} onClick={route.action}>
+interface SystemInformation {
+  /// the current user name eg - drizzle
+  systemName: string;
+  /// available store
+  freeMemory: string;
+  /// the port on which the core server runs
+  port: number;
+  /// the system ip address,ex:  192.168.213.230
+  ipAddress: string;
+  /// the uptime e.g 2 hours
+  uptime: string;
+}
 
-                            <span className='sr-only'>
-                                {route.path}
-                            </span>
-                            {route.icon}
-                        </Link>
-                    </li>
-                ))}
-            </ul>
-        </nav>
-    )
+/**
+ * @function QRConnect - display QR code in which URL  for connection is embedded
+ * @param url - the core application URl
+ * @param serverId, the serverId the application
+ * @return UI
+ */
+function QRConnect({ url }: { url: string }) {
+  return (
+    <>
+      <div
+        style={{ background: "white", padding: "4px" }}
+        className="flex flex-col items-center rounded"
+      >
+        <QRCode
+          fgColor={"#1e293b"}
+          value={url.trim()}
+          className="m-4"
+          style={{ boxSizing: "border-box", maxWidth: "180px" }}
+        />
+      </div>
+    </>
+  );
+}
+
+function SendFileComponent() {
+  return (
+    <form action="">
+      <div className="flex flex-col align-center justify-center">
+        <label htmlFor="connectionID " className="text-gray-600 sr-only">
+          connection ID
+        </label>
+        <div className="flex items-center my-4 justify-center mx-auto">
+          <Image
+            src="/icons/Computer-Tablet-and-Phone-Vectors---1.0.0.svg"
+            alt="recieve files"
+            className="w-[150px]"
+            width={400}
+            height={400}
+          />
+        </div>
+        <input
+          type="text"
+          maxLength={6}
+          name="connectionID"
+          placeholder="enter connection ID"
+          id="connectionID"
+          className="border-2 placeholder:text-small my-0 w-2/3 mt-10 mx-auto border-gray-300 rounded-md p-2"
+        />
+      </div>
+    </form>
+  );
+}
+
+//
+function ReceiveConfig({
+  serverId,
+  ipAddress,
+}: {
+  serverId: number;
+  ipAddress: string;
+}) {
+  return (
+    <div className="h-full">
+      <div>
+        <QRConnect url={`http://${ipAddress.trim()}:${serverId}/`} />
+      </div>
+      <div className=" font-mono my-2 text-center text-gray-600">
+        <strong>ID:</strong>
+        {serverId}
+      </div>
+    </div>
+  );
+}
+
+export default function AppNavigation() {
+  let [isModalOpen, setModalState] = useState(false);
+  let [systemInformation, setSystemInformation] = useState(
+    {} as SystemInformation
+  );
+
+  useEffect(() => {
+    // fetch sys information from app core
+    invoke("get_system_information").then((sysInfo) => {
+      setSystemInformation((sysInfo as any).data);
+    });
+  });
+
+  const closeModal = () => setModalState(false);
+  const openModal = () => setModalState(true);
+
+  let [showSendConfig, setSendConfig] = useState(false);
+  let [showReceiveConfig, setReceiveConfig] = useState(true);
+
+  const showSendComponent = () => {
+    setSendConfig(true);
+    setReceiveConfig(false);
+  };
+  const showReceiveComponent = () => {
+    setReceiveConfig(true);
+    setSendConfig(false);
+  };
+
+  const routes: Route[] = [
+    {
+      path: "/",
+      icon: <HomeIcon className="w-6 h-6" />,
+      name: "home",
+      alternateIcon: <SolidHomeIcon className="w-6 h-6" />,
+      action: () => gotoPage({ routePath: "/" }),
+    },
+    {
+      icon: <SignalIcon className="w-6 h-6" />,
+      name: "Connection",
+      alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
+      action: openModal,
+    },
+    {
+      path: "/share",
+      icon: <ClockIcon className="w-6 h-6" />,
+      name: "History",
+      alternateIcon: <SolidClockIcon className="w-6 h-6" />,
+      action: () => gotoPage({ routePath: "history" }),
+    },
+    {
+      path: "/files",
+      icon: <FolderOpenIcon className="w-6 h-6" />,
+      action: openFileManager,
+      alternateIcon: <SolidFolderIconOpen className="w-6 h-6" />,
+      name: "File Manager",
+    },
+
+    {
+      path: "/share",
+      icon: <ShareIcon className="w-6 h-6" />,
+      name: "Shared files",
+      alternateIcon: <SolidShareIcon className="w-6 h-6" />,
+      action: () => gotoPage({ routePath: "shared-files" }),
+    },
+    {
+      path: "/settings",
+      icon: <Cog8ToothIcon className="w-6 h-6" />,
+      alternateIcon: <SolidCog8ToothIcon className="w-6 h-6" />,
+      action: () => gotoPage({ routePath: "settings" }),
+      name: "settings",
+    },
+    {
+      path: "/help",
+      icon: <InformationCircleIcon className="w-6 h-6" />,
+      alternateIcon: <SolidInformationIcon className="w-6 h-6" />,
+      action: () => gotoPage({ routePath: "help" }),
+      name: "help",
+    },
+  ];
+
+  return (
+    <>
+      <Transition appear show={isModalOpen} as={Fragment}>
+        <Dialog as="div" className="relative z-10" onClose={closeModal}>
+          <Transition.Child
+            as={Fragment}
+            enter="ease-out duration-300"
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
+            leave="ease-in duration-200"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+          >
+            <div className="fixed inset-0 bg-black bg-opacity-50" />
+          </Transition.Child>
+
+          <div className="fixed inset-0 overflow-y-auto py-10">
+            <div className="flex min-h-full items-center justify-center p-4 text-center">
+              <Transition.Child
+                as={Fragment}
+                enter="ease-out duration-300"
+                enterFrom="opacity-0 scale-95"
+                enterTo="opacity-100 scale-100"
+                leave="ease-in duration-200"
+                leaveFrom="opacity-100 scale-100"
+                leaveTo="opacity-0 scale-95"
+              >
+                <Dialog.Panel className="w-full dark:bg-gray-200  max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all mb-8">
+                  <Dialog.Title
+                    as="h3"
+                    className="text-sm text-gray-500 text-center"
+                  >
+                    {showSendConfig &&
+                      "Input the connection ID below in the recipient computer"}
+                    {showReceiveConfig &&
+                      "Scan QR Code or provide Connection ID"}
+                  </Dialog.Title>
+                  <div className="mt-6 ">
+                    {showSendConfig && <SendFileComponent />}
+                    {showReceiveConfig && (
+                      <ReceiveConfig
+                        serverId={systemInformation.port}
+                        ipAddress={systemInformation.ipAddress}
+                      />
+                    )}
+                    <div className="text-sm flex justify-center gap-5 text-gray-500 mt-6">
+                      <button
+                        type="button"
+                        className={
+                          showReceiveConfig
+                            ? "inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border bg-gray-600 text-gray-100 border-mirage-500"
+                            : "inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                        }
+                        onClick={showReceiveComponent}
+                      >
+                        Send files
+                      </button>
+
+                      <button
+                        type="button"
+                        className={
+                          showSendConfig
+                            ? "inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border bg-gray-600 text-gray-100 border-mirage-500"
+                            : "inline-flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500"
+                        }
+                        onClick={showSendComponent}
+                      >
+                        Recieve files
+                      </button>
+                    </div>
+                  </div>
+                </Dialog.Panel>
+              </Transition.Child>
+            </div>
+          </div>
+        </Dialog>
+      </Transition>
+
+      <nav
+        className="col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)]  px-[1px]   text-gray-600  pt-10"
+        style={{
+          height: "calc(100vh-200px)",
+          overflowY: "hidden",
+          position: "relative",
+        }}
+      >
+        <ul className="flex flex-col px-4 pl-6">
+          {/**
+           * show the icon and the name side by side on full screen mode
+           * otherwise, hide the name and show the icons only
+           */}
+          {routes.map((route, index) => (
+            <li
+              key={index}
+              className="flex h-6 my-8 lg:my-8 first:mt-10  text-gray-500 cursor-pointer hover:"
+            >
+              <span
+                onClick={route.action /**action to perform on route clicked */}
+                className="cursor-pointer"
+              >
+                <span className="sr-only">{route.path}</span>
+                <div className="gap-2 justify-center align-center flex capitalize">
+                  {route.icon /**the route icon */}
+                  <span className="hidden lg:block" id="route__name">
+                    {route.name /** the route name */}
+                  </span>
+                </div>
+              </span>
+            </li>
+          ))}
+        </ul>
+
+        <ProgressComponent
+          systemName={systemInformation.systemName}
+          freeMemory={systemInformation.freeMemory}
+        />
+      </nav>
+    </>
+  );
 }

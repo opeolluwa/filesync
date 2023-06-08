@@ -27,4 +27,6 @@ dist-ssr
 
 out
 
-sandbox/target
+sandbox
+
+mobile/node_modules
