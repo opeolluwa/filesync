@@ -4,6 +4,7 @@
 extern crate uptime_lib;
 use lazy_static::lazy_static;
 
+use crate::commands::image::fetch_images;
 use crate::commands::utils::get_system_information;
 
 // tauri APIs
@@ -23,9 +24,13 @@ mod utils;
 lazy_static! {
     pub static ref SERVER_PORT: u16 =
         portpicker::pick_unused_port().expect("failed to get an unused port");
+    pub static ref UPLOAD_DIRECTORY: std::string::String = String::from("sendfile");
 }
 
 fn main() {
+    let img = fetch_video_files().ok();
+
+    println!("images here{:?}", img);
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(server::core_server());
     tauri::Builder::default()
@@ -34,6 +39,8 @@ fn main() {
             commands::greet,
             get_ip_address,
             fetch_audio_files,
+            fetch_video_files,
+            fetch_images,
             fetch_video_files,
             close_splashscreen,
             share_file_with_peer,
