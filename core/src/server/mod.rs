@@ -6,7 +6,7 @@ use serde_json::json;
 use serde_json::Value;
 use std::net::Ipv4Addr;
 use std::path::PathBuf;
-use std::{fs, path::Path};
+
 
 use tower_http::cors::Any;
 use tower_http::cors::CorsLayer;
@@ -27,18 +27,10 @@ use std::io;
 use tokio::{fs::File, io::BufWriter};
 use tokio_util::io::StreamReader;
 
-use axum_typed_multipart::{FieldData, TempFile, TryFromMultipart, TypedMultipart};
 
 use crate::utils;
 use crate::SERVER_PORT;
 
-// uploaded file
-//  data structure of a file uploaded to the recipient application core server
-// provides the file metadata such as name, size, type and extension
-#[derive(TryFromMultipart)]
-struct UploadedFile {
-    file: FieldData<TempFile>,
-}
 
 /**
  * @function core_server
@@ -107,50 +99,6 @@ async fn system_information() -> (StatusCode, Json<CommandData<SystemInformation
     )
 }
 
-/// handle file upload with typed header
-async fn _handle_file_upload(
-    TypedMultipart(UploadedFile { file }): TypedMultipart<UploadedFile>,
-) -> (StatusCode, Json<Value>) {
-    // save the file to download dir of the operating systems
-    // println!("download dir! {download_dir:?}");
-    //create send-file directory in the downloads path dir
-    let file_name = file.metadata.file_name.unwrap_or(String::from("data.bin"));
-    let os_default_downloads_dir = dirs::download_dir().unwrap();
-    /*  let Some(os_default_downloads_dir ) = dirs::download_dir() else{
-        return  Err(error_message) => (
-            StatusCode::INTERNAL_SERVER_ERROR,
-            Json(json!({
-                "Success":false,
-                "message": error_message.to_string()
-            })),
-        );
-    } */
-    // save files to $DOWNLOADS/send-file
-    let upload_path = format!(
-        "{downloads_dir}/send-file",
-        downloads_dir = os_default_downloads_dir.display()
-    );
-    // create the uploads path if not exist
-    let _ = fs::create_dir_all(&upload_path);
-    let path = Path::new(&upload_path).join(file_name);
-
-    match file.contents.persist(path, false).await {
-        Ok(_) => (
-            StatusCode::OK,
-            Json(json!({
-                "Success":true,
-                "message":"file saved"
-            })),
-        ),
-        Err(error_message) => (
-            StatusCode::INTERNAL_SERVER_ERROR,
-            Json(json!({
-                "Success":false,
-                "message": error_message.to_string()
-            })),
-        ),
-    }
-}
 
 // Handler that accepts a multipart form upload and streams each field to a file.
 async fn accept_file_upload(
