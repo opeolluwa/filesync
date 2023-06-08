@@ -28,9 +28,6 @@ lazy_static! {
 fn main() {
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(server::core_server());
-
-    println!("system information {}", get_system_information());
-    // fire up tauri core
     tauri::Builder::default()
         .plugin(tauri_plugin_upload::init())
         .invoke_handler(tauri::generate_handler![

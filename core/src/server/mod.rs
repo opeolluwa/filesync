@@ -73,7 +73,7 @@ pub async fn core_server() {
         .parse::<Ipv4Addr>()
         .unwrap();
     let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT as u64);
-    println!("server running on http://{}", &ip_address.to_string());
+    debug!("server running on http://{}", &ip_address.to_string());
 
     //mount the application views
     let views_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("views");
