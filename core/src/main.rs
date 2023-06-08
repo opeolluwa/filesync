@@ -24,6 +24,7 @@ mod utils;
 lazy_static! {
     pub static ref SERVER_PORT: u16 =
         portpicker::pick_unused_port().expect("failed to get an unused port");
+    pub static ref UPLOAD_DIRECTORY: std::string::String = String::from("sendfile");
 }
 
 fn main() {
