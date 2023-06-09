@@ -2,9 +2,11 @@ use crate::utils::{CommandData};
 use crate::commands::search::search_files;
 use crate::commands::file::File;
 
-// TODO: add more audio formats
 static ACCEPTABLE_SUFFIXES: &[&str] = &[
-    "mp3", "wav",
+    "3gp", "aa", "aac", "aax", "act", "aiff", "alac", "amr", "ape", "au", "awb", "dss",
+    "dvf", "flac", "gsm", "iklax", "ivs", "m4a", "m4b", "m4p", "mmf", "movpkg", "mp3",
+    "mpc", "msv", "nmf", "ogg", "oga", "mogg", "opus", "ra", "rm", "raw", "rf64", "sln",
+    "tta", "voc", "vox", "wav", "wma", "wv", "webm", "8svx", "cda",
 ];
 
 fn is_audio(file: &File) -> bool {

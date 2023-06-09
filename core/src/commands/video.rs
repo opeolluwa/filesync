@@ -2,9 +2,11 @@ use crate::utils::{CommandData};
 use crate::commands::search::search_files;
 use crate::commands::file::File;
 
-// TODO: add more video formats
 static ACCEPTABLE_SUFFIXES: &[&str] = &[
-    "mp4", "mkv",
+    "mp4", "mkv", "webm", "flv", "vob", "ogv", "ogg", "drc", "gif", "gifv", "mng", "avi",
+    "MTS", "MT2S", "TS", "mov", "qt", "wmv", "yuv", "rm", "rmvb", "viv", "asf", "amv",
+    "m4p", "m4v", "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf",
+    "roq", "nsv", "f4v", "f4p", "f4a", "f4b",
 ];
 
 fn is_video(file: &File) -> bool {

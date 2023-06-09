@@ -2,9 +2,15 @@ use crate::utils::{CommandData};
 use crate::commands::search::search_files;
 use crate::commands::file::File;
 
-// TODO: add more image formats
 static ACCEPTABLE_SUFFIXES: &[&str] = &[
-    "png", "jpg",
+    ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".raw", ".svg", ".ai", ".eps",
+    ".psd", ".xcf", ".ico", ".webp", ".jxr", ".hdr", ".tif", ".exif", ".pgm", ".ppm",
+    ".pbm", ".pnm", ".heic", ".heif", ".dng", ".cr2", ".nef", ".arw", ".orf", ".rw2",
+    ".sr2", ".raf", ".mrw", ".pef", ".x3f", ".3fr", ".kdc", ".srw", ".nrw", ".rwz",
+    ".rwl", ".iiq", ".rw1", ".r3d", ".fff", ".yuv", ".cin", ".dpx", ".jp2", ".j2k",
+    ".jpf", ".jpx", ".jpm", ".mj2", ".wdp", ".hdp", ".dds", ".pvr", ".tga", ".cur",
+    ".icl", ".thm", ".sai", ".ora", ".pdn", ".kra", ".cpt", ".pdd", ".mng", ".apng",
+    ".svgz", ".emf", ".wmf",
 ];
 
 fn is_image(file: &File) -> bool {
