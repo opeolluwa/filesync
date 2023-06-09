@@ -91,7 +91,7 @@ impl<T> CommandData<T> {
 pub fn _verify_file_openable(file: &PathBuf) -> Result<(), String> {
     File::open(Path::new(&file))
         .map_err(|err| format!("Error: Cannot open {:?}: {}", file, err))?;
-    let is_dir = std::fs::metadata(&file)
+    let is_dir = std::fs::metadata(file)
         .map_err(|err| format!("Error: Cannot query metadata on {:?}: {}", file, err))?
         .is_dir();
     if is_dir {
