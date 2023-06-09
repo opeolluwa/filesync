@@ -34,21 +34,6 @@ pub fn is_hidden(entry: &DirEntry) -> bool {
         .unwrap_or(false)
 }
 
-/// filter file path for documents
-/// hide file which is not pdf, otd, txt, pptp ... and other document formati
-// { name: 'powerpoint', extensions: ['ppt', 'pot', 'pps', 'pptx', 'pptm', 'potx', 'potm', 'ppam', 'ppsx', 'ppsm', 'sldx', 'sldm', 'odp', 'fodp', 'otp'] },
-// { name: 'word', extensions: ['doc', 'dot', 'docx', 'docm', 'dotx', 'dotm', 'docb', 'odt', 'fodt', 'ott'] },
-// { name: 'excel', extensions: ['xls', 'xlt', 'xlm', 'xlsx', 'xlsm', 'xltx', 'xltm', 'xla', 'xlam', 'ods', 'fods', 'ots'] },
-pub fn is_document(file: &DirEntry) -> bool {
-    file.file_name()
-        .to_str()
-        .map(|s| {
-            s.starts_with('.')
-                && (|| !s.ends_with(".pdf") || !s.ends_with(".doc") || !s.ends_with(".docx"))()
-        })
-        .unwrap_or(false)
-}
-
 /// data structure of response to return from Tauri Core
 #[derive(Debug, Serialize, Deserialize)]
 pub struct CommandData<T> {
