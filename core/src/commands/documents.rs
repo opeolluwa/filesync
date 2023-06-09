@@ -1,100 +1,45 @@
-use filesize::PathExt;
-use serde::{Deserialize, Serialize};
-use std::{
-    fmt,
-    path::{Path, PathBuf},
-};
-use walkdir::WalkDir;
+use crate::commands::search::search_files;
+use crate::utils::CommandData;
+use crate::commands::file::File;
 
-use crate::utils::{compute_file_size, is_document, CommandData};
 
-// the audio file interface
-#[derive(Debug, Default, Serialize, Deserialize)]
-#[serde(rename_all = "camelCase")]
-pub struct Document {
-    file_name: String,
-    file_format: String,
-    file_path: PathBuf,
-    file_size: String,
-}
+/// filter file path for documents
+/// hide file which is not pdf, otd, txt, pptp ... and other document formats
+// { name: 'powerpoint', extensions: ['ppt', 'pot', 'pps', 'pptx', 'pptm', 'potx', 'potm', 'ppam', 'ppsx', 'ppsm', 'sldx', 'sldm', 'odp', 'fodp', 'otp'] },
+// { name: 'word', extensions: ['doc', 'dot', 'docx', 'docm', 'dotx', 'dotm', 'docb', 'odt', 'fodt', 'ott'] },
+// { name: 'excel', extensions: ['xls', 'xlt', 'xlm', 'xlsx', 'xlsm', 'xltx', 'xltm', 'xla', 'xlam', 'ods', 'fods', 'ots'] },
+static ACCEPTABLE_SUFFIXES: &[&str] = &[
+    "ppt", "pot", "pps", "pptx", "pptm", "potx", "potm", "ppam", "ppsx", "ppsm", "sldx", "sldm",
+    "odp", "fodp", "otp", "doc", "dot", "docx", "docm", "dotx", "dotm", "docb", "odt", "fodt",
+    "ott", "ots", "xls", "xlt", "xlm", "xlsx", "xlsm", "xltx", "xltm", "xla", "xlam", "ods",
+    "fods", "xml", "xslt", "html", "xhtml", "htm", "txt", "rtf", "c", "h", "cpp", "hpp",
+    "cxx", "hxx", "java", "js", "rb", "py", "cs", "m", "sh", "php", "css", "go", "ps", "rs", "pdf",
+];
 
-// implement display for the Documents
-impl fmt::Display for Document {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "name: {},
-            format: {},
-            path: {:?},
-            size: {}",
-            self.file_name, self.file_format, self.file_path, self.file_size
-        )
-    }
-}
-
-// get the audio file form the default audio dir of the OS
+// get the documents from the default documents dir of the OS
 // return an instance of the CommandData and vector of the path if any
 #[tauri::command]
-pub fn fetch_documents() -> Result<CommandData<Vec<Document>>, CommandData<()>> {
-    // if there is an error getting the audio path, fire an error
+pub fn fetch_documents() -> Result<CommandData<Vec<File>>, CommandData<()>> {
+    // if there is an error getting the documents path, fire an error
     let document_dir = dirs::document_dir();
     let Some(document_dir) = document_dir else{
-        return Err(CommandData::err("error getting the audio dir",  ()));
+        return Err(CommandData::err("error getting the documents dir",  ()));
     };
 
-    let mut entries: Vec<Document> = vec![];
-    let document_dir = WalkDir::new(document_dir).into_iter();
+    let entries = search_files("*", &document_dir)
+        .into_iter()
+        .filter(|f| ACCEPTABLE_SUFFIXES.contains(&f.file_format.as_str()))
+        .collect();
 
-    for entry in document_dir.filter_entry(|entry| !is_document(entry)) {
-        let file = entry.unwrap();
-
-        let file_path = &file.path().display().to_string();
-        let file_name = file.file_name().to_str().unwrap();
-        let file_size: u128 = Path::new(file.path()).size_on_disk().unwrap_or(0).into();
-        let file_format = Path::new(file.path())
-            .extension()
-            .unwrap_or_default()
-            .to_str()
-            .unwrap_or_default();
-
-        let document = Document {
-            file_path: file_path.into(),
-            file_name: file_name.into(),
-            file_format: file_format.to_string(),
-            file_size: compute_file_size(file_size),
-            ..Default::default()
-        };
-
-        let acceptable_suffixes = vec![
-            "ppt", "pot", "pps", "pptx", "pptm", "potx", "potm", "ppam", "ppsx", "ppsm", "sldx",
-            "sldm", "odp", "fodp", "otp", "doc", "dot", "docx", "docm", "dotx", "dotm", "docb",
-            "odt", "fodt", "ott", "ots", "ps", "xls", "xlt", "xlm", "xlsx", "xlsm", "xltx", "xltm",
-            "xla", "xlam", "ods", "fods", "ots", "xml", "xslt", "html", "xhtml", "htm", "txt",
-            "rtf", "c", "h", "cpp", "hpp", "cxx", "hxx", "java", "js", "rb", "py", "cs", "m", "sh",
-            "php", "css", "go", "ps", "pdf",
-        ];
-
-        let mut matched = false;
-        for pattern in acceptable_suffixes {
-            if document.file_name.clone().ends_with(pattern) {
-                matched = true;
-                break;
-            }
-        }
-        if matched {
-            entries.push(document);
-        }
-    }
-
-    Ok(CommandData::ok("retrieved all audio files", entries))
+    Ok(CommandData::ok("retrieved all documents", entries))
 }
 
 #[cfg(test)]
 mod tests {
     use crate::commands::documents::fetch_documents;
-    #[test] // see if there are files in the audio directory path
+    #[test] // see if there are files in the documents directory path
     fn _fetch_documents_() {
-        let aud_files = fetch_documents().ok();
-        assert!(aud_files.is_some())
+        let docs = fetch_documents().ok();
+        assert!(docs.is_some())
     }
 }

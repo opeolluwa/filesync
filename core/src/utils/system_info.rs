@@ -53,7 +53,7 @@ impl SystemInformation {
             Ok(memory_information) => memory_information.avail,
             Err(error_message) => {
                 println!("error getting system memory due to {:?}", error_message);
-                0 as u64
+                0
             }
         };
 
@@ -61,12 +61,12 @@ impl SystemInformation {
             Ok(uptime) => uptime.as_secs_f64(),
             Err(err) => {
                 println!("couldn't get available uptime due to {:?}", err);
-                0.0 as f64
+                0.0
             }
         };
 
         Self {
-            system_name: system_name.into(),
+            system_name,
             free_memory: compute_file_size(free_memory as u128),
             port: port.into(),
             ip_address: ip_address.unwrap(),
