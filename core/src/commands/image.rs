@@ -14,7 +14,7 @@ static ACCEPTABLE_SUFFIXES: &[&str] = &[
 ];
 
 #[tauri::command]
-pub fn fetch_image_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
+pub fn fetch_images() -> Result<CommandData<Vec<File>>, CommandData<()>> {
     let images_dir = dirs::picture_dir();
     let Some(images_dir) = images_dir else{
         return Err(CommandData::err("error getting the images dir",  ()));
@@ -30,10 +30,10 @@ pub fn fetch_image_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::commands::image::fetch_image_files;
+    use crate::commands::image::fetch_images;
     #[test] // see if there are files in the image directory path
-    fn _fetch_image_files_() {
-        let image_files = fetch_image_files().ok();
-        assert!(image_files.is_some())
+    fn _fetch_images_() {
+        let images = fetch_images().ok();
+        assert!(images.is_some())
     }
 }

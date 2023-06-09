@@ -1,10 +1,10 @@
-use local_ip_address::local_ip;
-// use reqwest::Response;
+use std::net::Ipv4Addr;
+
 use serde_json::{json, Value};
 use tokio::fs::File;
 use tokio::io::AsyncReadExt;
 
-use crate::utils::CommandData;
+use crate::utils::{CommandData, self};
 
 // send file from this server to another
 // accept path to file as argument
@@ -26,7 +26,11 @@ pub async fn share_file_with_peer(
     let client = reqwest::Client::new();
     println!("yo! im in here");
     // get the IP address of the share network
-    let my_local_ip = local_ip().unwrap();
+     let my_local_ip = utils::ip_manager::autodetect_ip_address()
+        .ok()
+        .expect("Invalid Ip address detected")
+        .parse::<Ipv4Addr>()
+        .unwrap();
     let ip_address = format!("http://{:?}:{:?}/upload", my_local_ip, server_id);
 
     println!("my client id is {ip_address}");
