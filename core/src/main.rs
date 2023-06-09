@@ -10,9 +10,11 @@ use crate::commands::utils::get_system_information;
 use crate::commands::{
     audio::fetch_audio_files,
     documents::fetch_documents,
+    image::fetch_image_files,
     send_file::share_file_with_peer,
     utils::{close_splashscreen, get_ip_address},
     video::fetch_video_files,
+    search::search_home_dir,
 };
 
 mod commands;
@@ -38,10 +40,12 @@ fn main() {
             get_ip_address,
             fetch_audio_files,
             fetch_video_files,
+            fetch_image_files,
             close_splashscreen,
             share_file_with_peer,
             get_system_information,
-            fetch_documents
+            fetch_documents,
+            search_home_dir
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
