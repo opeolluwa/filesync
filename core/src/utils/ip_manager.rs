@@ -10,8 +10,7 @@ pub fn autodetect_ip_address() -> Result<String, ()> {
     pnet_datalink::interfaces()
         .into_iter()
         .filter(|iface| !iface.is_loopback() && iface.is_up())
-        .map(|iface| iface.ips)
-        .flatten()
+        .flat_map(|iface| iface.ips)
         .find(|ip_network| ip_network.is_ipv4())
         .map(|ip_network| ip_network.ip().to_string())
         .ok_or(())
@@ -37,7 +36,7 @@ mod tests {
         let ip = autodetect_ip_address().unwrap();
 
         // Then: it is a IPv4 address in dotted notation without netmask
-        let numbers_strs: Vec<&str> = ip.split(".").collect();
+        let numbers_strs: Vec<&str> = ip.split('.').collect();
         assert_eq!(
             4,
             numbers_strs.len(),
