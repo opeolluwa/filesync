@@ -9,15 +9,6 @@ static ACCEPTABLE_SUFFIXES: &[&str] = &[
     "roq", "nsv", "f4v", "f4p", "f4a", "f4b",
 ];
 
-fn is_video(file: &File) -> bool {
-    let ext = file.file_name.rsplit_once('.');
-
-    match ext {
-        Some(ext) => ACCEPTABLE_SUFFIXES.contains(&ext.1),
-        None => false,
-    }
-}
-
 // get the video file from the default video dir of the OS
 // return an instance of the CommandData and vector of the path if any
 #[tauri::command]
@@ -30,7 +21,7 @@ pub fn fetch_video_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
 
     let entries = search_files("*", &video_dir)
         .into_iter()
-        .filter(is_video)
+        .filter(|f| ACCEPTABLE_SUFFIXES.contains(&f.file_format.as_str()))
         .collect();
 
     Ok(CommandData::ok("retrieved all video files", entries))

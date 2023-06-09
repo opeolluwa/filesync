@@ -13,15 +13,6 @@ static ACCEPTABLE_SUFFIXES: &[&str] = &[
     ".svgz", ".emf", ".wmf",
 ];
 
-fn is_image(file: &File) -> bool {
-    let ext = file.file_name.rsplit_once('.');
-
-    match ext {
-        Some(ext) => ACCEPTABLE_SUFFIXES.contains(&ext.1),
-        None => false,
-    }
-}
-
 #[tauri::command]
 pub fn fetch_image_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
     let images_dir = dirs::picture_dir();
@@ -31,7 +22,7 @@ pub fn fetch_image_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
 
     let entries = search_files("*", &images_dir)
         .into_iter()
-        .filter(is_image)
+        .filter(|f| ACCEPTABLE_SUFFIXES.contains(&f.file_format.as_str()))
         .collect();
 
     Ok(CommandData::ok("retrieved all images files", entries))

@@ -9,7 +9,7 @@ use crate::utils::compute_file_size;
 #[serde(rename_all = "camelCase")]
 pub struct File {
     pub file_name: String,
-    file_format: String,
+    pub file_format: String,
     file_path: PathBuf,
     file_size: String,
 }

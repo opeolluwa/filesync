@@ -9,15 +9,6 @@ static ACCEPTABLE_SUFFIXES: &[&str] = &[
     "tta", "voc", "vox", "wav", "wma", "wv", "webm", "8svx", "cda",
 ];
 
-fn is_audio(file: &File) -> bool {
-    let ext = file.file_name.rsplit_once('.');
-
-    match ext {
-        Some(ext) => ACCEPTABLE_SUFFIXES.contains(&ext.1),
-        None => false,
-    }
-}
-
 // get the audio file from the default audio dir of the OS
 // return an instance of the CommandData and vector of the path if any
 #[tauri::command]
@@ -30,7 +21,7 @@ pub fn fetch_audio_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
 
     let entries = search_files("*", &audio_dir)
         .into_iter()
-        .filter(is_audio)
+        .filter(|f| ACCEPTABLE_SUFFIXES.contains(&f.file_format.as_str()))
         .collect();
 
     Ok(CommandData::ok("retrieved all audio files", entries))

@@ -16,15 +16,6 @@ static ACCEPTABLE_SUFFIXES: &[&str] = &[
     "cxx", "hxx", "java", "js", "rb", "py", "cs", "m", "sh", "php", "css", "go", "ps", "rs", "pdf",
 ];
 
-fn is_document(file: &File) -> bool {
-    let ext = file.file_name.rsplit_once('.');
-
-    match ext {
-        Some(ext) => ACCEPTABLE_SUFFIXES.contains(&ext.1),
-        None => false,
-    }
-}
-
 // get the documents from the default documents dir of the OS
 // return an instance of the CommandData and vector of the path if any
 #[tauri::command]
@@ -37,7 +28,7 @@ pub fn fetch_documents() -> Result<CommandData<Vec<File>>, CommandData<()>> {
 
     let entries = search_files("*", &document_dir)
         .into_iter()
-        .filter(is_document)
+        .filter(|f| ACCEPTABLE_SUFFIXES.contains(&f.file_format.as_str()))
         .collect();
 
     Ok(CommandData::ok("retrieved all documents", entries))
