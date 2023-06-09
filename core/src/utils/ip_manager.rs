@@ -37,7 +37,7 @@ mod tests {
         let ip = autodetect_ip_address().unwrap();
 
         // Then: it is a IPv4 address in dotted notation without netmask
-        let numbers_strs: Vec<&str> = ip.split(".").collect();
+        let numbers_strs: Vec<&str> = ip.split('.').collect();
         assert_eq!(
             4,
             numbers_strs.len(),
