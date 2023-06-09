@@ -4,10 +4,6 @@ use crate::commands::file::File;
 
 
 /// filter file path for documents
-/// hide file which is not pdf, otd, txt, pptp ... and other document formats
-// { name: 'powerpoint', extensions: ['ppt', 'pot', 'pps', 'pptx', 'pptm', 'potx', 'potm', 'ppam', 'ppsx', 'ppsm', 'sldx', 'sldm', 'odp', 'fodp', 'otp'] },
-// { name: 'word', extensions: ['doc', 'dot', 'docx', 'docm', 'dotx', 'dotm', 'docb', 'odt', 'fodt', 'ott'] },
-// { name: 'excel', extensions: ['xls', 'xlt', 'xlm', 'xlsx', 'xlsm', 'xltx', 'xltm', 'xla', 'xlam', 'ods', 'fods', 'ots'] },
 static ACCEPTABLE_SUFFIXES: &[&str] = &[
     "ppt", "pot", "pps", "pptx", "pptm", "potx", "potm", "ppam", "ppsx", "ppsm", "sldx", "sldm",
     "odp", "fodp", "otp", "doc", "dot", "docx", "docm", "dotx", "dotm", "docb", "odt", "fodt",

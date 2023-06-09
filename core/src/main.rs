@@ -29,9 +29,7 @@ lazy_static! {
 }
 
 fn main() {
-    let img = fetch_video_files().ok();
-
-    println!("images here{:?}", img);
+   
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(server::core_server());
     tauri::Builder::default()
