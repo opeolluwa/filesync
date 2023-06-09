@@ -1,33 +1,45 @@
-use std::{fs, path::PathBuf};
+use crate::utils::{CommandData};
+use crate::commands::search::search_files;
+use crate::commands::file::File;
 
-use crate::utils::CommandData;
+// TODO: add more video formats
+static ACCEPTABLE_SUFFIXES: &[&str] = &[
+    "mp4", "mkv",
+];
 
-// get the video files
-#[tauri::command]
-pub fn fetch_video_files() -> Result<CommandData<Vec<PathBuf>>, CommandData<()>> {
-    let video_dir = dirs::video_dir();
+fn is_video(file: &File) -> bool {
+    let ext = file.file_name.rsplit_once('.');
 
-    // if there is an error getting the video path, fire an error
-    let Some(video_dir) = video_dir else{
-        return Err(CommandData::ok("error reading the video dir",  ()));
-    };
-
-    //
-    let mut entries: Vec<PathBuf> = vec![];
-    for entry in fs::read_dir(video_dir).expect("error reading file") {
-        let dir = entry.expect("could not read dir");
-        entries.push(dir.path());
+    match ext {
+        Some(ext) => ACCEPTABLE_SUFFIXES.contains(&ext.1),
+        None => false,
     }
-    Ok(CommandData::ok("retrieved all audio files", entries))
 }
 
-// #[cfg(test)]
-// mod tests {
-//     use crate::commands::{self, audio::AudioFile, video::fetch_video_files};
+// get the video file from the default video dir of the OS
+// return an instance of the CommandData and vector of the path if any
+#[tauri::command]
+pub fn fetch_video_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
+    // if there is an error getting the video path, fire an error
+    let video_dir = dirs::video_dir();
+    let Some(video_dir) = video_dir else{
+        return Err(CommandData::err("error getting the video dir",  ()));
+    };
 
-//     #[test] // see if there are files in the video directory path
-//     fn _fetch_video_files_() {
-//         let vid_files: Option<commands::CommandData<Vec<AudioFile>>> = fetch_video_files().ok();
-//         assert!(vid_files.is_some())
-//     }
-// }
+    let entries = search_files("*", &video_dir)
+        .into_iter()
+        .filter(is_video)
+        .collect();
+
+    Ok(CommandData::ok("retrieved all video files", entries))
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::commands::video::fetch_video_files;
+    #[test] // see if there are files in the video directory path
+    fn _fetch_video_files_() {
+        let vid_files = fetch_video_files().ok();
+        assert!(vid_files.is_some())
+    }
+}
