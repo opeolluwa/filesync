@@ -1,12 +1,12 @@
-use crate::utils::{CommandData};
-use crate::commands::search::search_files;
 use crate::commands::file::File;
+use crate::commands::search::search_files;
+use crate::utils::CommandData;
 
 static ACCEPTABLE_SUFFIXES: &[&str] = &[
-    "mp4", "mkv", "webm", "flv", "vob", "ogv", "ogg", "drc", "gif", "gifv", "mng", "avi",
-    "MTS", "MT2S", "TS", "mov", "qt", "wmv", "yuv", "rm", "rmvb", "viv", "asf", "amv",
-    "m4p", "m4v", "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf",
-    "roq", "nsv", "f4v", "f4p", "f4a", "f4b",
+    "mp4", "mkv", "webm", "flv", "vob", "ogv", "ogg", "drc", "gif", "gifv", "mng", "avi", "MTS",
+    "MT2S", "TS", "mov", "qt", "wmv", "yuv", "rm", "rmvb", "viv", "asf", "amv", "m4p", "m4v",
+    "mpg", "mp2", "mpeg", "mpe", "mpv", "m2v", "svi", "3gp", "3g2", "mxf", "roq", "nsv", "f4v",
+    "f4p", "f4a", "f4b",
 ];
 
 // get the video file from the default video dir of the OS
@@ -29,10 +29,16 @@ pub fn fetch_video_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::commands::video::fetch_video_files;
+    use crate::commands::video::{fetch_video_files, ACCEPTABLE_SUFFIXES};
     #[test] // see if there are files in the video directory path
     fn _fetch_video_files_() {
         let vid_files = fetch_video_files().ok();
-        assert!(vid_files.is_some())
+        assert!(vid_files.is_some());
+
+        let vid_files = vid_files.unwrap().data.unwrap();
+        for file in vid_files {
+            let file_format = file.file_format;
+            assert!(ACCEPTABLE_SUFFIXES.contains(&file_format.as_str()));
+        }
     }
 }
