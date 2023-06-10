@@ -1,8 +1,9 @@
-use local_ip_address::local_ip;
+use std::net::Ipv4Addr;
+
 use tauri::Manager;
 
 use crate::{
-    utils::{system_info::SystemInformation, CommandData},
+    utils::{self, system_info::SystemInformation, CommandData},
     SERVER_PORT,
 };
 
@@ -21,11 +22,12 @@ pub fn close_splashscreen(window: tauri::Window) {
 // get the ip address of the machine
 #[tauri::command]
 pub fn get_ip_address() -> String {
-    format!(
-        "{ip_address}:{port:?}",
-        ip_address = local_ip().unwrap(),
-        port = *SERVER_PORT
-    )
+    let ip_address = utils::ip_manager::autodetect_ip_address()
+        .ok()
+        .expect("Invalid Ip address detected")
+        .parse::<Ipv4Addr>()
+        .unwrap();
+    format!("{ip_address}:{port:?}", port = *SERVER_PORT)
 }
 
 /// get the system information
