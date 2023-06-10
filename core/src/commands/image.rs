@@ -1,16 +1,15 @@
-use crate::utils::{CommandData};
-use crate::commands::search::search_files;
 use crate::commands::file::File;
+use crate::commands::search::search_files;
+use crate::utils::CommandData;
 
 static ACCEPTABLE_SUFFIXES: &[&str] = &[
-    ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".raw", ".svg", ".ai", ".eps",
-    ".psd", ".xcf", ".ico", ".webp", ".jxr", ".hdr", ".tif", ".exif", ".pgm", ".ppm",
-    ".pbm", ".pnm", ".heic", ".heif", ".dng", ".cr2", ".nef", ".arw", ".orf", ".rw2",
-    ".sr2", ".raf", ".mrw", ".pef", ".x3f", ".3fr", ".kdc", ".srw", ".nrw", ".rwz",
-    ".rwl", ".iiq", ".rw1", ".r3d", ".fff", ".yuv", ".cin", ".dpx", ".jp2", ".j2k",
-    ".jpf", ".jpx", ".jpm", ".mj2", ".wdp", ".hdp", ".dds", ".pvr", ".tga", ".cur",
-    ".icl", ".thm", ".sai", ".ora", ".pdn", ".kra", ".cpt", ".pdd", ".mng", ".apng",
-    ".svgz", ".emf", ".wmf",
+    ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".raw", ".svg", ".ai", ".eps", ".psd",
+    ".xcf", ".ico", ".webp", ".jxr", ".hdr", ".tif", ".exif", ".pgm", ".ppm", ".pbm", ".pnm",
+    ".heic", ".heif", ".dng", ".cr2", ".nef", ".arw", ".orf", ".rw2", ".sr2", ".raf", ".mrw",
+    ".pef", ".x3f", ".3fr", ".kdc", ".srw", ".nrw", ".rwz", ".rwl", ".iiq", ".rw1", ".r3d", ".fff",
+    ".yuv", ".cin", ".dpx", ".jp2", ".j2k", ".jpf", ".jpx", ".jpm", ".mj2", ".wdp", ".hdp", ".dds",
+    ".pvr", ".tga", ".cur", ".icl", ".thm", ".sai", ".ora", ".pdn", ".kra", ".cpt", ".pdd", ".mng",
+    ".apng", ".svgz", ".emf", ".wmf",
 ];
 
 #[tauri::command]
@@ -30,10 +29,16 @@ pub fn fetch_image_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::commands::image::fetch_image_files;
+    use crate::commands::image::{fetch_image_files, ACCEPTABLE_SUFFIXES};
     #[test] // see if there are files in the image directory path
     fn _fetch_image_files_() {
         let image_files = fetch_image_files().ok();
-        assert!(image_files.is_some())
+        assert!(image_files.is_some());
+
+        let image_files = image_files.unwrap().data.unwrap();
+        for file in image_files {
+            let file_format = file.file_format;
+            assert!(ACCEPTABLE_SUFFIXES.contains(&file_format.as_str()));
+        }
     }
 }

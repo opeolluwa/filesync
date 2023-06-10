@@ -1,8 +1,8 @@
-use filesize::PathExt;
-use std::{path::PathBuf};
-use walkdir::DirEntry;
-use serde::{Deserialize, Serialize};
 use crate::utils::compute_file_size;
+use filesize::PathExt;
+use serde::{Deserialize, Serialize};
+use std::path::PathBuf;
+use walkdir::DirEntry;
 
 // the file structure
 #[derive(Debug, Default, Serialize, Deserialize)]
