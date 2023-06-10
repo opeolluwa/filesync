@@ -29,10 +29,10 @@ pub fn fetch_images() -> Result<CommandData<Vec<File>>, CommandData<()>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::commands::image::{fetch_image_files, ACCEPTABLE_SUFFIXES};
+    use crate::commands::image::{fetch_images, ACCEPTABLE_SUFFIXES};
     #[test] // see if there are files in the image directory path
     fn _fetch_image_files_() {
-        let images = fetch_image_files().ok();
+        let images = fetch_images().ok();
         assert!(images.is_some());
 
         let images = images.unwrap().data.unwrap();
