@@ -25,6 +25,8 @@ import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import QRCode from "react-qr-code";
 import Image from "next/image";
+import Link from "next/link";
+import {useRouter} from "next/router";
 /**
  * @function openFileManager - opens a file manager
  * @returns {Array<Files>} an array of selected files
@@ -59,6 +61,7 @@ interface Route {
   alternateIcon: any; // the icon to show on hover or active state
   action?: () => any; // action that will be executed when the route is clicked
   path?: string; // the path string
+  isActive?: any;
 }
 // the port on which th application urn for the sender PC
 interface SenderProps {
@@ -192,13 +195,17 @@ function ReceiveConfig({
 }
 
 export default function AppNavigation() {
+  const router = useRouter()
   let [isModalOpen, setModalState] = useState(false);
+  const [activeRoute, setActiveRoute] = useState<any>(router.route);
   let [systemInformation, setSystemInformation] = useState(
     {} as SystemInformation
   );
+  console.log(router.route)
+  console.log(activeRoute)
 
   useEffect(() => {
-    // fetch sys information from app core
+    fetch sys information from app core
     invoke("get_system_information").then((sysInfo) => {
       setSystemInformation((sysInfo as any).data);
     });
@@ -219,6 +226,16 @@ export default function AppNavigation() {
     setSendConfig(false);
   };
 
+  const MouseLeave = () => {
+    if(activeRoute) {
+      setActiveRoute(router.route)
+    } else if(router.route !== activeRoute) {
+      setActiveRoute(router.route)
+    } else {
+      setActiveRoute("")
+    }
+  }
+
   const routes: Route[] = [
     {
       path: "/",
@@ -226,12 +243,14 @@ export default function AppNavigation() {
       name: "home",
       alternateIcon: <SolidHomeIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "/" }),
+      isActive: activeRoute === "/",
     },
     {
       icon: <SignalIcon className="w-6 h-6" />,
       name: "Connection",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
       action: openModal,
+      // isActive: activeRoute === "/",
     },
     {
       path: "/share",
@@ -239,6 +258,7 @@ export default function AppNavigation() {
       name: "History",
       alternateIcon: <SolidClockIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "history" }),
+      isActive: activeRoute === "/share",
     },
     {
       path: "/files",
@@ -246,6 +266,7 @@ export default function AppNavigation() {
       action: openFileManager,
       alternateIcon: <SolidFolderIconOpen className="w-6 h-6" />,
       name: "File Manager",
+      isActive: activeRoute === "/files",
     },
 
     {
@@ -254,6 +275,7 @@ export default function AppNavigation() {
       name: "Shared files",
       alternateIcon: <SolidShareIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "shared-files" }),
+      isActive: activeRoute === "/share",
     },
     {
       path: "/settings",
@@ -261,6 +283,7 @@ export default function AppNavigation() {
       alternateIcon: <SolidCog8ToothIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "settings" }),
       name: "settings",
+      isActive: activeRoute === "/settings",
     },
     {
       path: "/help",
@@ -268,6 +291,7 @@ export default function AppNavigation() {
       alternateIcon: <SolidInformationIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "help" }),
       name: "help",
+      isActive: activeRoute === "/help",
     },
   ];
 
@@ -363,23 +387,28 @@ export default function AppNavigation() {
            * otherwise, hide the name and show the icons only
            */}
           {routes.map((route, index) => (
-            <li
+            <Link
               key={index}
-              className="flex h-6 my-8 lg:my-8 first:mt-10  text-gray-500 cursor-pointer hover:"
+              href={`${route.path}`}
+              legacyBehavior={true}
             >
-              <span
-                onClick={route.action /**action to perform on route clicked */}
-                className="cursor-pointer"
-              >
-                <span className="sr-only">{route.path}</span>
-                <div className="gap-2 justify-center align-center flex capitalize">
-                  {route.icon /**the route icon */}
-                  <span className="hidden lg:block" id="route__name">
-                    {route.name /** the route name */}
-                  </span>
-                </div>
-              </span>
-            </li>
+              <a className={`flex h-6 my-8 lg:my-8 first:mt-10  text-gray-500 cursor-pointer ${
+                  route.isActive ? "hover:text-blue-700" : "hover:text-gray-700"
+              }`}
+                 onMouseEnter={() => setActiveRoute(route.path)}
+                 onMouseLeave={() => MouseLeave()} >
+              <span onClick={route.action} className="cursor-pointer">
+              <span className="sr-only">{route.path}</span>
+            <div className="gap-2 justify-center align-center flex capitalize">
+          {route.isActive ? route.alternateIcon : route.icon}
+            <span className="hidden lg:block" id="route__name">
+          {route.name}
+            </span>
+            </div>
+            </span>
+              </a>
+
+            </Link>
           ))}
         </ul>
 
