@@ -205,7 +205,7 @@ export default function AppNavigation() {
   console.log(activeRoute)
 
   useEffect(() => {
-    fetch sys information from app core
+    // fetch sys information from app core
     invoke("get_system_information").then((sysInfo) => {
       setSystemInformation((sysInfo as any).data);
     });
@@ -250,15 +250,16 @@ export default function AppNavigation() {
       name: "Connection",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
       action: openModal,
-      // isActive: activeRoute === "/",
+      isActive: activeRoute === "/connection",
+      path:  "/connection",
     },
     {
-      path: "/share",
+      path: "/history",
       icon: <ClockIcon className="w-6 h-6" />,
       name: "History",
       alternateIcon: <SolidClockIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "history" }),
-      isActive: activeRoute === "/share",
+      isActive: activeRoute === "/history",
     },
     {
       path: "/files",
@@ -393,7 +394,7 @@ export default function AppNavigation() {
               legacyBehavior={true}
             >
               <a className={`flex h-6 my-8 lg:my-8 first:mt-10  text-gray-500 cursor-pointer ${
-                  route.isActive ? "hover:text-blue-700" : "hover:text-gray-700"
+                  route.isActive ? "hover:text-app-600" : "hover:text-gray-700"
               }`}
                  onMouseEnter={() => setActiveRoute(route.path)}
                  onMouseLeave={() => MouseLeave()} >
