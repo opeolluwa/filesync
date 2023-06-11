@@ -1,6 +1,6 @@
-# Sendfile
+# Send File
 
-Offline file-sharing application for Windows, Mac and Linux operating systems
+File sharing application
 
 ![screenshot](screenshots/home-light.png)
 
@@ -8,13 +8,15 @@ Offline file-sharing application for Windows, Mac and Linux operating systems
 
 - [Description](#description)
 - [Getting Started](#getting-started)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
+- [Tech Stack](#technology-stack)
+- [Features](#features)
+- [Acknowledgement](#acknowledgements)
+- [Contributing](#contributing)
 - [License](#license)
 
 ## Description
 
-Sendfile is a desktop application for Windows, Mac and Linux operating systems that allows you to send files seamlessly without the need for an internet connection.
+An offline seamless file-sharing application for Windows, Mac and Linux operating system
 
 ## Getting Started
 
@@ -27,9 +29,19 @@ The following are required to run the application in development
 
 In addition, this project uses Tauri v1.3, see [prerequisite](https://tauri.app/v1/guides/getting-started/prerequisites/) for your operating system.
 
-## Prerequisites
+Once the dependencies have been met, clone the project and install the dependencies
 
-Sendfile is built on the following technologies
+```sh
+git clone https://github.com/opeolluwa/Send-file.git sendfile
+cd sendfile # navigate to the cloned directory
+yarn install # install the dependencies
+yarn tauri dev # run the application locally
+
+```
+
+## Technology Stack
+
+Sendfile is built primarily on the following technologies
 
 - [Tauri](https://tauri.app/) is a framework for building cross-platform desktop applications with front-end web technologies.
 - [React](https://react.dev/) - JavaScript library for building user interfaces
@@ -37,18 +49,32 @@ Sendfile is built on the following technologies
 - [Rust](rust-lang.org/) - A language empowering everyone
   to build reliable and efficient software.
 - [Typescript](https://typescript-lang.org) - A strongly-typed programming language that builds on JavaScript
+
 - [TailwindCSS](https://tailwindcss.com) - A utility-first CSS framework
 
-## Installation
+## Features
 
-To run the application in the development environment, set up the requirement specified in the [Getting Started](#getting-started) section afterward,
+- [x] Adaptive UI
+- [x] scan to connect mobile
+- [ ] create a wifi hotspot
+- [ ] build the user interface for mobile devices
+- [ ] support dark mode
+- [ ] add walkthrough after installation
+- [ ] build an executable for Window
+- [x] build an executable for the Mac operating system
+- [x] build an executable for the Linux Operating system
 
-1. Install the UI dependencies, from the project root directory, run `yarn install`
-2. Navigate to the application backend and install the dependencies, run `cd core && cargo run`
-3. From the root directory, run
+## Acknowledgements
 
-- `yarn tauri dev `  to run the application in development mode.
-- `yarn tauri build `  to build the application executable
+- [Linux Wifi Hotspot](https://awesomeopensource.com/project/elangosundar/awesome-README-templateshttps://github.com/lakinduakash/linux-wifi-hotspot)
+- [File Streaming](https://github.com/tokio-rs/axum/tree/main/examples/stream-to-file)
+## Contributing
+
+Contributions are always welcome!
+
+See [contributing.md](./CONTRIBUTING.md) for ways to get started.
+
+Please adhere to this project's [code of conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
