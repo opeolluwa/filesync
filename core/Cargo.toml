@@ -17,8 +17,6 @@ tokio-util = { version = "0.7", features = ["io"] }
 axum = {version = "0.6.12", features = ["multipart"] }
 dirs = "5.0.0"
 filesize = "0.2.0"
-glob = "0.3.1"
-local-ip-address = "0.5.1"
 portpicker = "0.1.1"
 serde = {version = "1.0", features = ["derive"] }
 serde_json = "1.0"
@@ -31,7 +29,6 @@ tower = { version = "0.4", features = ["util"] }
 tower-http = { version = "0.4.0", features = ["fs", "trace", "cors"] }
 tracing = "0.1.37"
 tracing-subscriber = {version = "0.3.16", features = ["env-filter"] }
-axum_typed_multipart = "0.3.2"
 reqwest = "0.11.16"
 lazy_static = "1.4.0"
 walkdir = "2.3.3"
@@ -39,6 +36,8 @@ sys-info = "0.9.1"
 uptime_lib = "0.2.2"
 pnet_datalink = "0.33.0"
 futures = "0.3.28"
+wildmatch = "2.1.1"
+assert_fs = "1.0.13"
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
 # DO NOT REMOVE!!

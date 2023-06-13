@@ -1,4 +1,3 @@
-// import Home from '@/pages/home'
 import {
   Cog8ToothIcon,
   HomeIcon,
@@ -25,6 +24,9 @@ import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import QRCode from "react-qr-code";
 import Image from "next/image";
+import { useRouter } from "next/router";
+import NavigationTab, { Route } from "./NavigationTab";
+import { MemoryInformation } from "./MemoryInformation";
 /**
  * @function openFileManager - opens a file manager
  * @returns {Array<Files>} an array of selected files
@@ -52,57 +54,10 @@ async function openFileManager() /* : Array<File> */ {
     // user selected a single directory
   }
 }
-
-interface Route {
-  icon: any; // the route icon
-  name: string; // the route name
-  alternateIcon: any; // the icon to show on hover or active state
-  action?: () => any; // action that will be executed when the route is clicked
-  path?: string; // the path string
-}
 // the port on which th application urn for the sender PC
 interface SenderProps {
   port: number;
 }
-
-// use this to display the available memory
-const ProgressComponent = ({
-  systemName,
-  freeMemory,
-}: {
-  systemName: string;
-  freeMemory: string;
-}) => {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        width: "100%",
-        left: 0,
-        bottom: "45px",
-      }}
-      className="hidden lg:block"
-    >
-      <div className="flex justify-between mb-2 px-4">
-        {
-          <span className=" font-medium text-blue-700 text-sm capitalize ">
-            {systemName}
-          </span>
-        }
-
-        <span className=" font-medium text-blue-700 text-sm">
-          {freeMemory} of 100GB
-        </span>
-      </div>
-      <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
-        <div
-          className="bg-app-400 h-1.5 rounded-full"
-          style={{ width: "45%" }}
-        ></div>
-      </div>
-    </div>
-  );
-};
 
 interface SystemInformation {
   /// the current user name eg - drizzle
@@ -127,14 +82,13 @@ function QRConnect({ url }: { url: string }) {
   return (
     <>
       <div
-        style={{ background: "white", padding: "4px" }}
+        style={{ background: "white", padding: "4px" ,height:'260px' }}
         className="flex flex-col items-center rounded"
       >
         <QRCode
           fgColor={"#1e293b"}
           value={url.trim()}
-          className="m-4"
-          style={{ boxSizing: "border-box", maxWidth: "180px" }}
+          style={{ boxSizing: "border-box", maxWidth: "150px" }}
         />
       </div>
     </>
@@ -143,7 +97,10 @@ function QRConnect({ url }: { url: string }) {
 
 function SendFileComponent() {
   return (
-    <form action="">
+    <form
+      action=""
+      style={{ background: "", padding: "4px", height: "260px" }}
+    >
       <div className="flex flex-col align-center justify-center">
         <label htmlFor="connectionID " className="text-gray-600 sr-only">
           connection ID
@@ -179,7 +136,7 @@ function ReceiveConfig({
   ipAddress: string;
 }) {
   return (
-    <div className="h-full">
+    <div >
       <div>
         <QRConnect url={`http://${ipAddress.trim()}:${serverId}/`} />
       </div>
@@ -232,9 +189,11 @@ export default function AppNavigation() {
       name: "Connection",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
       action: openModal,
+
+      path: "/connection",
     },
     {
-      path: "/share",
+      path: "/history",
       icon: <ClockIcon className="w-6 h-6" />,
       name: "History",
       alternateIcon: <SolidClockIcon className="w-6 h-6" />,
@@ -357,33 +316,19 @@ export default function AppNavigation() {
           position: "relative",
         }}
       >
-        <ul className="flex flex-col px-4 pl-6">
-          {/**
-           * show the icon and the name side by side on full screen mode
-           * otherwise, hide the name and show the icons only
-           */}
+        <div className="flex flex-col px-2 lg:px-4 lg:pl-6">
           {routes.map((route, index) => (
-            <li
+            <NavigationTab
               key={index}
-              className="flex h-6 my-8 lg:my-8 first:mt-10  text-gray-500 cursor-pointer hover:"
-            >
-              <span
-                onClick={route.action /**action to perform on route clicked */}
-                className="cursor-pointer"
-              >
-                <span className="sr-only">{route.path}</span>
-                <div className="gap-2 justify-center align-center flex capitalize">
-                  {route.icon /**the route icon */}
-                  <span className="hidden lg:block" id="route__name">
-                    {route.name /** the route name */}
-                  </span>
-                </div>
-              </span>
-            </li>
+              icon={route.icon}
+              name={route.name}
+              action={route.action}
+              alternateIcon={route.alternateIcon}
+            />
           ))}
-        </ul>
+        </div>
 
-        <ProgressComponent
+        <MemoryInformation
           systemName={systemInformation.systemName}
           freeMemory={systemInformation.freeMemory}
         />

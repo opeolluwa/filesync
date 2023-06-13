@@ -1,18 +1,22 @@
-# Sendfile
+# Send File
 
-Offline file-sharing application for Windows, Mac and Linux operating systems
+File sharing application
 
-![screenshot](screenshots/home-light.png) 
+![screenshot](screenshots/home-light.png)
+
 ## Table of Contents
 
 - [Description](#description)
 - [Getting Started](#getting-started)
-- [Prerequisites](#prerequisites)
-- [Installation](#installation)
+- [Tech Stack](#technology-stack)
+- [Features](#features)
+- [Acknowledgement](#acknowledgements)
+- [Contributing](#contributing)
 - [License](#license)
 
 ## Description
-Sendfile is a desktop application for Windows, Mac and Linux operating systems that allows you to send files seamlessly without need for internet connection. 
+
+An offline seamless file-sharing application for Windows, Mac and Linux operating system
 
 ## Getting Started
 
@@ -23,10 +27,21 @@ The following are required to run the application in development
 - [Rust v1.67 or greater](rust-lang.org/) - A language empowering everyone
   to build reliable and efficient software.
 
-In addition, this project uses Tauri v1.2, see [prerequisite](https://tauri.app/v1/guides/getting-started/prerequisites/) for your operating system.
+In addition, this project uses Tauri v1.3, see [prerequisite](https://tauri.app/v1/guides/getting-started/prerequisites/) for your operating system.
 
-## Prerequisites
-Sendfile is built on the following technologies 
+Once the dependencies have been met, clone the project and install the dependencies
+
+```sh
+git clone https://github.com/opeolluwa/Send-file.git sendfile
+cd sendfile # navigate to the cloned directory
+yarn install # install the dependencies
+yarn tauri dev # run the application locally
+
+```
+
+## Technology Stack
+
+Sendfile is built primarily on the following technologies
 
 - [Tauri](https://tauri.app/) is a framework for building cross-platform desktop applications with front-end web technologies.
 - [React](https://react.dev/) - JavaScript library for building user interfaces
@@ -34,11 +49,32 @@ Sendfile is built on the following technologies
 - [Rust](rust-lang.org/) - A language empowering everyone
   to build reliable and efficient software.
 - [Typescript](https://typescript-lang.org) - A strongly-typed programming language that builds on JavaScript
+
 - [TailwindCSS](https://tailwindcss.com) - A utility-first CSS framework
 
-## Installation
-To install the application, check out the application executable on the [release page](https://github.com/opeolluwa/send-file/releases)
+## Features
 
+- [x] Adaptive UI
+- [x] scan to connect mobile
+- [ ] create a wifi hotspot
+- [ ] build the user interface for mobile devices
+- [ ] support dark mode
+- [ ] add walkthrough after installation
+- [ ] build an executable for Window
+- [x] build an executable for the Mac operating system
+- [x] build an executable for the Linux Operating system
+
+## Acknowledgements
+
+- [Linux Wifi Hotspot](https://awesomeopensource.com/project/elangosundar/awesome-README-templateshttps://github.com/lakinduakash/linux-wifi-hotspot)
+- [File Streaming](https://github.com/tokio-rs/axum/tree/main/examples/stream-to-file)
+## Contributing
+
+Contributions are always welcome!
+
+See [contributing.md](./CONTRIBUTING.md) for ways to get started.
+
+Please adhere to this project's [code of conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
