@@ -17,6 +17,20 @@ export default function HistoryPage() {
         shareCount: 2,
       },
       {
+        id: 1,
+        title: "Does drinking coffee make you smarter?",
+        date: "5h ago",
+        commentCount: 5,
+        shareCount: 2,
+      },
+      {
+        id: 1,
+        title: "Does drinking coffee make you smarter?",
+        date: "5h ago",
+        commentCount: 5,
+        shareCount: 2,
+      },
+      {
         id: 2,
         title: "So you've bought coffee... now what?",
         date: "2h ago",
