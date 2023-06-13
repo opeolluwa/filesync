@@ -24,9 +24,9 @@ import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import QRCode from "react-qr-code";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import NavigationTab from "./NavigationTab";
+import NavigationTab, { Route } from "./NavigationTab";
+import { MemoryInformation } from "./MemoryInformation";
 /**
  * @function openFileManager - opens a file manager
  * @returns {Array<Files>} an array of selected files
@@ -54,58 +54,10 @@ async function openFileManager() /* : Array<File> */ {
     // user selected a single directory
   }
 }
-
-interface Route {
-  icon: any; // the route icon
-  name: string; // the route name
-  alternateIcon: any; // the icon to show on hover or active state
-  action?: () => any; // action that will be executed when the route is clicked
-  path?: string; // the path string
-  isActive?: any;
-}
 // the port on which th application urn for the sender PC
 interface SenderProps {
   port: number;
 }
-
-// use this to display the available memory
-const ProgressComponent = ({
-  systemName,
-  freeMemory,
-}: {
-  systemName: string;
-  freeMemory: string;
-}) => {
-  return (
-    <div
-      style={{
-        position: "absolute",
-        width: "100%",
-        left: 0,
-        bottom: "45px",
-      }}
-      className="hidden lg:block"
-    >
-      <div className="flex justify-between mb-2 px-4">
-        {
-          <span className=" font-medium text-blue-700 text-sm capitalize ">
-            {systemName}
-          </span>
-        }
-
-        <span className=" font-medium text-blue-700 text-sm">
-          {freeMemory} of 100GB
-        </span>
-      </div>
-      <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
-        <div
-          className="bg-app-400 h-1.5 rounded-full"
-          style={{ width: "45%" }}
-        ></div>
-      </div>
-    </div>
-  );
-};
 
 interface SystemInformation {
   /// the current user name eg - drizzle
@@ -226,8 +178,6 @@ export default function AppNavigation() {
     setSendConfig(false);
   };
 
-
-
   const routes: Route[] = [
     {
       path: "/",
@@ -235,14 +185,13 @@ export default function AppNavigation() {
       name: "home",
       alternateIcon: <SolidHomeIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "/" }),
-      isActive: false,
     },
     {
       icon: <SignalIcon className="w-6 h-6" />,
       name: "Connection",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
       action: openModal,
-      isActive: false,
+
       path: "/connection",
     },
     {
@@ -251,7 +200,6 @@ export default function AppNavigation() {
       name: "History",
       alternateIcon: <SolidClockIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "history" }),
-      isActive: false,
     },
     {
       path: "/files",
@@ -259,7 +207,6 @@ export default function AppNavigation() {
       action: openFileManager,
       alternateIcon: <SolidFolderIconOpen className="w-6 h-6" />,
       name: "File Manager",
-      isActive: false,
     },
 
     {
@@ -268,7 +215,6 @@ export default function AppNavigation() {
       name: "Shared files",
       alternateIcon: <SolidShareIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "shared-files" }),
-      isActive: false,
     },
     {
       path: "/settings",
@@ -276,7 +222,6 @@ export default function AppNavigation() {
       alternateIcon: <SolidCog8ToothIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "settings" }),
       name: "settings",
-      isActive: false,
     },
     {
       path: "/help",
@@ -284,7 +229,6 @@ export default function AppNavigation() {
       alternateIcon: <SolidInformationIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "help" }),
       name: "help",
-      isActive: false,
     },
   ];
 
@@ -374,18 +318,19 @@ export default function AppNavigation() {
           position: "relative",
         }}
       >
-        <div className="flex flex-col px-4 pl-6">
+        <div className="flex flex-col px-2 lg:px-4 lg:pl-6">
           {routes.map((route, index) => (
             <NavigationTab
               key={index}
               icon={route.icon}
               name={route.name}
+              action={route.action}
               alternateIcon={route.alternateIcon}
             />
           ))}
         </div>
 
-        <ProgressComponent
+        <MemoryInformation
           systemName={systemInformation.systemName}
           freeMemory={systemInformation.freeMemory}
         />
