@@ -1,7 +1,7 @@
 import Link from "next/link";
 import React, { useState } from "react";
 
-interface Route {
+export interface Route {
   icon: any; // the route icon
   name: string; // the route name
   alternateIcon: any; // the icon to show on hover or active state
@@ -22,11 +22,11 @@ export default function NavigationTab({
     <>
       <div>
         <a
-          className="flex my-6 rounded hover:text-app hover:bg-app-50 py-3 pl-2 first:mt-4  text-gray-500 cursor-pointer "
+          className="flex items-center justify-center lg:justify-start lg:items-start my-6 rounded  ease-in-out  hover:text-app hover:bg-app-50 py-3 px-1 lg:pl-2 first:mt-4  text-gray-500 cursor-pointer "
           onMouseEnter={() => setIcon(alternateIcon)}
           onMouseLeave={() => setIcon(icon)}
         >
-          <span onClick={() => action} className="cursor-pointer">
+          <span onClick={action} className="cursor-pointer">
             <span className="sr-only">{path}</span>
             <div className="gap-2 justify-center align-center flex capitalize">
               {currentIcon}
