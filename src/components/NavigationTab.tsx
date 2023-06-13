@@ -22,7 +22,7 @@ export default function NavigationTab({
     <>
       <div>
         <a
-          className="flex items-center justify-center lg:justify-start lg:items-start my-6 rounded  ease-in-out  hover:text-app hover:bg-app-50 py-3 px-1 lg:pl-2 first:mt-4  text-gray-500 cursor-pointer "
+          className="flex items-center justify-center lg:justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out  hover:text-app hover:bg-app-50 py-3 px-1 lg:pl-2 first:mt-4  text-gray-500 cursor-pointer "
           onMouseEnter={() => setIcon(alternateIcon)}
           onMouseLeave={() => setIcon(icon)}
         >

@@ -149,7 +149,6 @@ function ReceiveConfig({
 }
 
 export default function AppNavigation() {
-  const router = useRouter();
   let [isModalOpen, setModalState] = useState(false);
   let [systemInformation, setSystemInformation] = useState(
     {} as SystemInformation
