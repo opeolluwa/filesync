@@ -82,14 +82,13 @@ function QRConnect({ url }: { url: string }) {
   return (
     <>
       <div
-        style={{ background: "white", padding: "4px" }}
+        style={{ background: "white", padding: "4px" ,height:'260px' }}
         className="flex flex-col items-center rounded"
       >
         <QRCode
           fgColor={"#1e293b"}
           value={url.trim()}
-          className="m-4"
-          style={{ boxSizing: "border-box", maxWidth: "180px" }}
+          style={{ boxSizing: "border-box", maxWidth: "150px" }}
         />
       </div>
     </>
@@ -98,7 +97,10 @@ function QRConnect({ url }: { url: string }) {
 
 function SendFileComponent() {
   return (
-    <form action="">
+    <form
+      action=""
+      style={{ background: "", padding: "4px", height: "260px" }}
+    >
       <div className="flex flex-col align-center justify-center">
         <label htmlFor="connectionID " className="text-gray-600 sr-only">
           connection ID
@@ -134,7 +136,7 @@ function ReceiveConfig({
   ipAddress: string;
 }) {
   return (
-    <div className="h-full">
+    <div >
       <div>
         <QRConnect url={`http://${ipAddress.trim()}:${serverId}/`} />
       </div>
@@ -149,12 +151,9 @@ function ReceiveConfig({
 export default function AppNavigation() {
   const router = useRouter();
   let [isModalOpen, setModalState] = useState(false);
-  const [activeRoute, setActiveRoute] = useState<boolean>(false);
   let [systemInformation, setSystemInformation] = useState(
     {} as SystemInformation
   );
-  console.log(router.route);
-  console.log(activeRoute);
 
   useEffect(() => {
     // fetch sys information from app core
