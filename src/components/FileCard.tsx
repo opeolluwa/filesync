@@ -15,7 +15,6 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
-//import 'file-icons-js/css/style.css'
 export enum FileTransferStatus {
   DOWNLOADING = "downloading",
   PAUSED = "paused",
@@ -75,115 +74,28 @@ export default function FileCard({
 
 function FileIcon({ fileType }: { fileType: string }) {
   const fileExtension = fileType.trim().toLowerCase();
-  const images = [
-    "ai",
-    "dxf",
-    "odg",
-    "fodg",
-    "svg",
-    "svgz",
-    "bmp",
-    "gif",
-    "ico",
-    "jpg",
-    "jpeg",
-    "png",
-    "psd",
-    "pdd",
-    "tga",
-    "tiff",
-    "xcf",
-    "xpm",
-  ];
-  const audio = [
-    "au",
-    "aif",
-    "aifc",
-    "aiff",
-    "wav",
-    "flac",
-    "la",
-    "pac",
-    "m4a",
-    "ape",
-    "wv",
-    "wma",
-    "ast",
-    "mp2",
-    "mp3",
-    "spx",
-    "aac",
-    "mpc",
-    "ra",
-    "ogg",
-    "mid",
-    "m3u",
-    "pls",
-  ];
-  const powerpoint = [
+  const images = ["ai", "jpg", "jpeg", "psd", "svg"];
+  const audio = ["avi", "mp3"];
+  const video = ["avi", "mkv", "mp4"];
+  const document = [
+    "csv",
+    "doc",
+    "docx",
+    "odt",
     "ppt",
-    "pot",
-    "pps",
     "pptx",
-    "pptm",
-    "potx",
-    "potm",
-    "ppam",
-    "ppsx",
-    "ppsm",
-    "sldx",
-    "sldm",
-    "odp",
-    "fodp",
-    "otp",
-  ];
-  const video = [
-    "webm",
-    "mkv",
-    "flv",
-    "vob",
-    "ogv",
-    "drc",
-    "avi",
-    "mov",
-    "qt",
-    "wmv",
-    "rm",
-    "rmvb",
-    "asf",
-    "mp4",
-    "m4p",
-    "m4v",
-    "mpg",
-    "mpeg",
-    "mpe",
-    "mpv",
-    "3gp",
-    "3g2",
-    "mxf",
-    "aff",
-    "m2ts",
-    "mts",
-  ];
-  const excel = [
+    "rtf",
+    "txt",
     "xls",
-    "xlt",
-    "xlm",
-    "xlsx",
-    "xlsm",
-    "xltx",
-    "xltm",
-    "xla",
-    "xlam",
-    "ods",
-    "fods",
-    "ots",
+    "xml",
+    "zip",
   ];
+
   return (
     <>
       {images.includes(fileExtension) ? (
         <Image
-          src={`/images/mime/${fileExtension}.png`}
+          src={`/mime/images${fileExtension}.png`}
           height={120}
           width={120}
           alt="file card icon"
@@ -191,7 +103,7 @@ function FileIcon({ fileType }: { fileType: string }) {
         />
       ) : audio.includes(fileExtension) ? (
         <Image
-          src={`/images/mime/${fileExtension}.png`}
+          src={`/mime/audio/${fileExtension}.png`}
           height={120}
           width={120}
           alt="file card icon"
@@ -199,23 +111,15 @@ function FileIcon({ fileType }: { fileType: string }) {
         />
       ) : video.includes(fileExtension) ? (
         <Image
-          src={`/images/mime/${fileExtension}.png`}
+          src={`/mime/video/${fileExtension}.png`}
           height={120}
           width={120}
           alt="file card icon"
           className="w-[48px] col-span-1"
         />
-      ) : excel.includes(fileExtension) ? (
+      ) : document.includes(fileExtension) ? (
         <Image
-          src={`/images/mime/${fileExtension}.png`}
-          height={120}
-          width={120}
-          alt="file card icon"
-          className="w-[48px] col-span-1"
-        />
-      ) : powerpoint.includes(fileExtension) ? (
-        <Image
-          src={`/images/mime/${fileExtension}.png`}
+          src={`/mime/document/${fileExtension}.png`}
           height={120}
           width={120}
           alt="file card icon"
@@ -223,7 +127,7 @@ function FileIcon({ fileType }: { fileType: string }) {
         />
       ) : (
         <Image
-          src={`/images/mime/file.png`}
+          src={`/mime/extras/file.png`}
           height={120}
           width={120}
           alt="file card icon"
