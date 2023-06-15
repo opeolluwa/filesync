@@ -38,14 +38,12 @@ const openFileManager = async () => /* : Array<File> */ {
       filters: allowedExtension,
       // defaultPath: await appDir(),
     });
-    console.log(JSON.stringify(selectedFilePath));
-    
+    // upload select file with tauri upload plugin 
   } catch (err) {
     message((err as Error).message, {
       title: "Access error",
       type: "error",
     });
-   
   }
 };
 // the port on which th application urn for the sender PC
@@ -180,8 +178,14 @@ export default function AppNavigation() {
       name: "Connection",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
       action: openModal,
-
       path: "/connection",
+    },
+    {
+      path: "/share",
+      icon: <ShareIcon className="w-6 h-6" />,
+      name: "Share files",
+      alternateIcon: <SolidShareIcon className="w-6 h-6" />,
+      action: () => gotoPage({ routePath: "share" }),
     },
     {
       path: "/history",
@@ -198,13 +202,6 @@ export default function AppNavigation() {
       name: "File Manager",
     },
 
-    {
-      path: "/share",
-      icon: <ShareIcon className="w-6 h-6" />,
-      name: "Share files",
-      alternateIcon: <SolidShareIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "shared-files" }),
-    },
     {
       path: "/settings",
       icon: <Cog8ToothIcon className="w-6 h-6" />,
