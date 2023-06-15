@@ -29,7 +29,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/components/DropZone.jsx"  ],
   "exclude": [
     "node_modules"
   ]

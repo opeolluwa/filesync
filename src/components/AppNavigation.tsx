@@ -24,36 +24,28 @@ import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import QRCode from "react-qr-code";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import NavigationTab, { Route } from "./NavigationTab";
 import { MemoryInformation } from "./MemoryInformation";
 /**
  * @function openFileManager - opens a file manager
  * @returns {Array<Files>} an array of selected files
  */
-async function openFileManager() /* : Array<File> */ {
-  // Open a selection dialog for directories
-  const selected = await open({
-    directory: true,
-    multiple: true,
-    filters: allowedExtension,
-    // defaultPath: await appDir(),
-  }).catch((err) => {
-    message("error opening file manager", {
+const openFileManager = async () => /* : Array<File> */ {
+  try {
+    const selectedFilePath = await open({
+      directory: false,
+      multiple: true,
+      filters: allowedExtension,
+      // defaultPath: await appDir(),
+    });
+    // upload select file with tauri upload plugin 
+  } catch (err) {
+    message((err as Error).message, {
       title: "Access error",
       type: "error",
-    }).then((result) => {
-      console.log(result);
     });
-  });
-  if (Array.isArray(selected)) {
-    // user selected multiple directories
-  } else if (selected === null) {
-    // user cancelled the selection
-  } else {
-    // user selected a single directory
   }
-}
+};
 // the port on which th application urn for the sender PC
 interface SenderProps {
   port: number;
@@ -82,7 +74,7 @@ function QRConnect({ url }: { url: string }) {
   return (
     <>
       <div
-        style={{ background: "white", padding: "4px" ,height:'260px' }}
+        style={{ background: "white", padding: "4px", height: "260px" }}
         className="flex flex-col items-center rounded"
       >
         <QRCode
@@ -97,10 +89,7 @@ function QRConnect({ url }: { url: string }) {
 
 function SendFileComponent() {
   return (
-    <form
-      action=""
-      style={{ background: "", padding: "4px", height: "260px" }}
-    >
+    <form action="" style={{ background: "", padding: "4px", height: "260px" }}>
       <div className="flex flex-col align-center justify-center">
         <label htmlFor="connectionID " className="text-gray-600 sr-only">
           connection ID
@@ -136,7 +125,7 @@ function ReceiveConfig({
   ipAddress: string;
 }) {
   return (
-    <div >
+    <div>
       <div>
         <QRConnect url={`http://${ipAddress.trim()}:${serverId}/`} />
       </div>
@@ -189,8 +178,14 @@ export default function AppNavigation() {
       name: "Connection",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
       action: openModal,
-
       path: "/connection",
+    },
+    {
+      path: "/share",
+      icon: <ShareIcon className="w-6 h-6" />,
+      name: "Share files",
+      alternateIcon: <SolidShareIcon className="w-6 h-6" />,
+      action: () => gotoPage({ routePath: "share" }),
     },
     {
       path: "/history",
@@ -207,13 +202,6 @@ export default function AppNavigation() {
       name: "File Manager",
     },
 
-    {
-      path: "/share",
-      icon: <ShareIcon className="w-6 h-6" />,
-      name: "Shared files",
-      alternateIcon: <SolidShareIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "shared-files" }),
-    },
     {
       path: "/settings",
       icon: <Cog8ToothIcon className="w-6 h-6" />,

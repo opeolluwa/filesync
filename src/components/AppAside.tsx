@@ -3,37 +3,27 @@ import Image from "next/image";
 
 const sampleFIles: FileInterface[] = [
   {
-    fileType: "png",
-    fileName: "LeonaMillie.mp4.",
+    fileType: "mp4",
+    fileName: "LeonaMillie.mp4",
     fileSize: 235809,
     status: FileTransferStatus.COMPLETED,
   },
 
   {
-    fileType: "docx",
+    fileType: "ppt",
     fileName: "memo.docx",
     fileSize: 52146,
     status: FileTransferStatus.PENDING,
   },
+
   {
-    fileType: "exe",
-    fileSize: 24790181,
-    status: FileTransferStatus.PAUSED,
-    fileName: "sendfile.exe",
-  },
-  {
-    fileType: "pdf",
+    fileType: "doc",
     fileName: "2023 financial report",
     fileSize: 235809,
     status: FileTransferStatus.COMPLETED,
   },
 
-  {
-    fileType: "mp4",
-    fileName: "avatar-2 way of the water",
-    fileSize: 452902146,
-    status: FileTransferStatus.COMPLETED,
-  },
+ 
   {
     fileType: "xls",
     fileName: "Student Information.xls",
