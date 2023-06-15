@@ -2,8 +2,6 @@ import PageTitle from "@/components/PageTitle";
 import SearchBar from "@/components/SearchBar";
 import {
   Bars3BottomLeftIcon,
-  CloudArrowDownIcon,
-  ComputerDesktopIcon,
   MusicalNoteIcon,
   PhotoIcon,
   PlayIcon,
@@ -40,16 +38,6 @@ const quickAccessTabs: QuickAccessTab[] = [
       <Bars3BottomLeftIcon className="rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100" />
     ),
   },
-  /*  {
-    name: 'Downloads',
-    icon: <CloudArrowDownIcon className='rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100' />,
-    color: '#22244a'
-  },
-  {
-    name: 'Desktop',
-    icon: <ComputerDesktopIcon className='rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100' />,
-    color: '#22244a'
-  } */
 ];
 
 const recentFiles = [
