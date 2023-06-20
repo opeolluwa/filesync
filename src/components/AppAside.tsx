@@ -1,37 +1,8 @@
 import { useContext } from 'react';
-import FileCard, { FileInterface, FileTransferStatus } from './FileCard';
+import FileCard, { FileInterface } from './FileCard';
 import Image from 'next/image';
 import { FileContext } from '@/store/context';
 
-const sampleFIles: FileInterface[] = [
-	{
-		fileType: 'mp4',
-		fileName: 'LeonaMillie.mp4',
-		fileSize: 235809,
-		status: FileTransferStatus.COMPLETED,
-	},
-
-	{
-		fileType: 'ppt',
-		fileName: 'memo.docx',
-		fileSize: 52146,
-		status: FileTransferStatus.PENDING,
-	},
-
-	{
-		fileType: 'doc',
-		fileName: '2023 financial report',
-		fileSize: 235809,
-		status: FileTransferStatus.COMPLETED,
-	},
-
-	{
-		fileType: 'xls',
-		fileName: 'Student Information.xls',
-		fileSize: 241,
-		status: FileTransferStatus.COMPLETED,
-	},
-];
 
 export default function Aside() {
 	const { fileList } = useContext(FileContext);
@@ -57,7 +28,6 @@ export default function Aside() {
 						top: '50%',
 						margin: 'o auto',
 						width: '200px',
-						// left:'50%'
 					}}
 				>
 					<Image
@@ -77,10 +47,7 @@ export default function Aside() {
 						fileType={file.name.split('.')[1]}
 						fileSize={file.size}
 						status={file.status}
-						// fileType={file.fileType}
-						// fileName={file.fileName}
-						// fileSize={file.fileSize}
-						// status={file.status}
+					
 					/>
 				))
 			)}
