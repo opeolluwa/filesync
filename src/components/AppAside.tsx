@@ -1,61 +1,25 @@
-import FileCard, { FileInterface, FileTransferStatus } from "./FileCard";
+import { useContext } from "react";
+import FileCard, { FileInterface } from "./FileCard";
 import Image from "next/image";
-
-const sampleFIles: FileInterface[] = [
-  {
-    fileType: "mp4",
-    fileName: "LeonaMillie.mp4",
-    fileSize: 235809,
-    status: FileTransferStatus.COMPLETED,
-  },
-
-  {
-    fileType: "ppt",
-    fileName: "memo.docx",
-    fileSize: 52146,
-    status: FileTransferStatus.PENDING,
-  },
-
-  {
-    fileType: "doc",
-    fileName: "2023 financial report",
-    fileSize: 235809,
-    status: FileTransferStatus.COMPLETED,
-  },
-
- 
-  {
-    fileType: "xls",
-    fileName: "Student Information.xls",
-    fileSize: 241,
-    status: FileTransferStatus.COMPLETED,
-  },
-];
+import { FileContext } from "@/store/context";
 
 export default function Aside() {
+  const { fileList } = useContext(FileContext);
+
+  console.log(fileList);
   return (
     <aside className="hidden lg:block lg:flex-col items-center lg:col-span-3 pt-10 px-8  h-full bg-[rgba(226,233,252,255)]">
-      {
+      {fileList.length && (
         <h2 className="font-bold  dark:text-gray-400 flex items-center justify-between mb-10">
           Sent Files
         </h2>
-      }
+      )|| ''}
       {/**
        * use state management to display files here
        * a procedure to determine the file type and the right file icon should be added
        */}
-      {sampleFIles.length == 0 ? (
-        <div
-          className="flex flex-col items-center gap-4"
-          style={{
-            transform: "translateY(-50%)",
-            position: "relative",
-            top: "50%",
-            margin: "o auto",
-            width: "200px",
-            // left:'50%'
-          }}
-        >
+      {fileList.length == 0 ? (
+        <div className="flex flex-col items-center gap-4 mt-10">
           <Image
             src={"/icons/empty-state.svg"} // Route of the image file
             height={100} // Desired size with correct aspect ratio
@@ -63,15 +27,15 @@ export default function Aside() {
             alt="file card icon"
             className="" // automatic height calculation
           />
-          <h3 className="text-gray-400 mt-4">No recent files </h3>
+          <h3 className="text-gray-400 mt-1 italic">no recent files </h3>
         </div>
       ) : (
-        sampleFIles.map((file, index) => (
+        fileList.map((file, index) => (
           <FileCard
             key={index}
-            fileType={file.fileType}
-            fileName={file.fileName}
-            fileSize={file.fileSize}
+            fileName={file.name}
+            fileType={file.name.split(".")[1]}
+            fileSize={file.size}
             status={file.status}
           />
         ))
