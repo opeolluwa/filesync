@@ -58,12 +58,11 @@ pub async fn core_server() {
 
     // the core server
     let my_local_ip = utils::ip_manager::autodetect_ip_address()
-        .ok()
-        .expect("Invalid Ip address detected")
+        .expect("No Ip address detected")
         .parse::<Ipv4Addr>()
         .unwrap();
     let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT as u64);
-    tracing::debug!("server running on http://{}", &ip_address.to_string());
+    // tracing::debug!("server running on http://{}", &ip_address.to_string());
 
     //mount the application views
     let views_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("views");

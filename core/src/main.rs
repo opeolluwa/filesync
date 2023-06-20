@@ -4,16 +4,17 @@
 extern crate uptime_lib;
 use lazy_static::lazy_static;
 
-use crate::commands::image::fetch_images;
 use crate::commands::utils::get_system_information;
 
 // tauri APIs
 use crate::commands::{
     audio::fetch_audio_files,
     documents::fetch_documents,
+    image::fetch_images,
     send_file::share_file_with_peer,
     utils::{close_splashscreen, get_ip_address},
     video::fetch_video_files,
+    search::search_home_dir,
 };
 
 mod commands;
@@ -28,9 +29,7 @@ lazy_static! {
 }
 
 fn main() {
-    let img = fetch_video_files().ok();
-
-    println!("images here{:?}", img);
+   
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(server::core_server());
     tauri::Builder::default()
@@ -45,7 +44,8 @@ fn main() {
             close_splashscreen,
             share_file_with_peer,
             get_system_information,
-            fetch_documents
+            fetch_documents,
+            search_home_dir
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");

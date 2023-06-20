@@ -6,7 +6,9 @@ pub fn greet(name: &str) -> String {
 //exports
 pub mod audio;
 pub mod documents;
+pub mod file;
 pub mod image;
+pub mod search;
 pub mod send_file;
 pub mod utils;
 pub mod video;
