@@ -1,10 +1,10 @@
 import PageLayout from "@/components/PageLayout";
-import {  useContext,  } from "react";
+import { useContext } from "react";
 import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
 import { FileContext, FileTransferStatus } from "@/store/context";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
-
+import { SystemInformationContext } from "@/store/sys-info";
 
 /**
  * @function sharePage -  A page responsible for guiding users on various actions
@@ -13,17 +13,17 @@ import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 export default function ShareFiles() {
   const { Dragger } = Upload;
   const { onUpdate } = useContext(FileContext);
+  const { serverBaseUrl } = useContext(SystemInformationContext);
+  const serverAddress = serverBaseUrl?.trim() + "/upload";
 
   const props: UploadProps = {
     name: "file",
     multiple: true,
-	//TODO: use actual API fetch from the peer device information
-    action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+    action: serverAddress,
     onChange(info) {
       const { status } = info.file;
       if (status !== FileTransferStatus.UPLOADING) {
         onUpdate(info.fileList);
-        console.log(info.file, info.fileList);
         // TODO: added uploaded files to application transfer history
       }
       if (status === FileTransferStatus.COMPLETED) {
@@ -39,7 +39,7 @@ export default function ShareFiles() {
   return (
     <>
       <PageLayout pageTitle={"Shared files"} includeSearchBar={false}>
-        <Dragger className="h-[500px] block" {...props}>
+        <Dragger className="lg:h-[500px] h-[400px] block" {...props}>
           <CloudArrowUpIcon className="text-app-300  text-center small w-20 mx-auto" />
           <p className="text-gray-400 leading-2">
             Drop files here to share or click to browse
