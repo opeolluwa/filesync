@@ -20,6 +20,8 @@ pub struct SystemInformation {
     pub uptime: String,
     /// the system ip address
     pub ip_address: Ipv4Addr,
+    /// the server base URL constructed form the ip address and port
+    pub server_base_url: String,
 }
 
 impl std::default::Default for SystemInformation {
@@ -30,6 +32,7 @@ impl std::default::Default for SystemInformation {
             uptime: String::from(""),
             port: 0,
             ip_address: Ipv4Addr::from([0, 0, 0, 0]),
+            server_base_url: String::from(""),
         }
     }
 }
@@ -69,7 +72,8 @@ impl SystemInformation {
             system_name,
             free_memory: compute_file_size(free_memory as u128),
             port: port.into(),
-            ip_address: ip_address.unwrap(),
+            ip_address: ip_address.clone().unwrap(),
+            server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
             uptime: format!(
                 "{time_in_minutes:.2} minutes",
                 time_in_minutes = (uptime / 600.0)
@@ -87,8 +91,15 @@ impl fmt::Display for SystemInformation {
             free_memory: {},
             port: {},
             uptime: {}
-            ip_address {:?}",
-            self.system_name, self.free_memory, self.port, self.uptime, self.ip_address
+            ip_address {:?}
+            server_base_url {:?}
+            ",
+            self.system_name,
+            self.free_memory,
+            self.port,
+            self.uptime,
+            self.ip_address,
+            self.server_base_url
         )
     }
 }
