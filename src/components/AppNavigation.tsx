@@ -16,53 +16,40 @@ import {
   SignalIcon as SolidSignalIcon,
   ClockIcon as SolidClockIcon,
 } from "@heroicons/react/24/solid";
-import { DialogFilter, message, ask } from "@tauri-apps/api/dialog";
-import { open } from "@tauri-apps/api/dialog";
 import { invoke } from "@tauri-apps/api/tauri";
-import { allowedExtension, goToPage as gotoPage } from "@/utils";
+import {  goToPage as gotoPage } from "@/utils";
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import QRCode from "react-qr-code";
 import Image from "next/image";
 import NavigationTab, { Route } from "./NavigationTab";
 import { MemoryInformation } from "./MemoryInformation";
+import { SystemInformation } from "@/store/sys-info";
 /**
  * @function openFileManager - opens a file manager
  * @returns {Array<Files>} an array of selected files
  */
-const openFileManager = async () => /* : Array<File> */ {
-  try {
-    const selectedFilePath = await open({
-      directory: false,
-      multiple: true,
-      filters: allowedExtension,
-      // defaultPath: await appDir(),
-    });
-    // upload select file with tauri upload plugin
-  } catch (err) {
-    message((err as Error).message, {
-      title: "Access error",
-      type: "error",
-    });
-  }
-};
+// const openFileManager = async () => /* : Array<File> */ {
+//   try {
+//     const selectedFilePath = await open({
+//       directory: false,
+//       multiple: true,
+//       filters: allowedExtension,
+//       // defaultPath: await appDir(),
+//     });
+//     // upload select file with tauri upload plugin
+//   } catch (err) {
+//     message((err as Error).message, {
+//       title: "Access error",
+//       type: "error",
+//     });
+//   }
+// };
 // the port on which th application urn for the sender PC
 interface SenderProps {
   port: number;
 }
 
-interface SystemInformation {
-  /// the current user name eg - drizzle
-  systemName: string;
-  /// available store
-  freeMemory: string;
-  /// the port on which the core server runs
-  port: number;
-  /// the system ip address,ex:  192.168.213.230
-  ipAddress: string;
-  /// the uptime e.g 2 hours
-  uptime: string;
-}
 
 /**
  * @function QRConnect - display QR code in which URL  for connection is embedded
@@ -195,9 +182,10 @@ export default function AppNavigation() {
       action: () => gotoPage({ routePath: "history" }),
     },
     {
+      //TODO: open saved files directory
       path: "/files",
       icon: <FolderOpenIcon className="w-6 h-6" />,
-      action: openFileManager,
+      // action: openFileManager,
       alternateIcon: <SolidFolderIconOpen className="w-6 h-6" />,
       name: "File Manager",
     },

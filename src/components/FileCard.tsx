@@ -1,11 +1,3 @@
-/**
- *
- * render the file in the UI
- * the component contains png/svg to show illustrating the file type
- * the file size
- * and the file status
- */
-
 import { FileTransferStatus } from "@/store/context";
 import { computeFileSize, isClient } from "@/utils";
 import {
@@ -42,7 +34,6 @@ export default function FileCard({
   fileType,
   status,
 }: TFileType) {
-  console.log(fileType);
   return (
     <>
       <div className="flex justify-between items-center my-8 flex-wrap bg-[#edeffb]  border-gray-900  p-3 rounded-lg shadow-md shadow-gray-300 cursor-pointer dark:shadow-none hover:shadow-sm hover:shadow-gray-400 transition-shadow ease-in-out">
