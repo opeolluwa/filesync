@@ -700,6 +700,13 @@
   dependencies:
     mini-svg-data-uri "^1.2.3"
 
+"@tauri-apps/api@1.0.0-rc.4":
+  version "1.0.0-rc.4"
+  resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.0.0-rc.4.tgz#454ef7b15237f3d5752bbfc09c8997a00b1e8a9b"
+  integrity sha512-1HaUsx8+TzFHDoQ+Mmd6RWaMsPyZlurQHgACDt+il5e/ui6pDkumVXaS92SnY5XOcS4gBC0BkgjVfkWgcm/Oww==
+  dependencies:
+    type-fest "2.12.2"
+
 "@tauri-apps/api@^1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@tauri-apps/api/-/api-1.2.0.tgz#1f196b3e012971227f41b98214c846430a4eb477"
@@ -3488,6 +3495,13 @@ tapable@^2.2.0:
   resolved "https://registry.yarnpkg.com/tapable/-/tapable-2.2.1.tgz#1967a73ef4060a82f12ab96af86d52fdb76eeca0"
   integrity sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==
 
+"tauri-plugin-sqlite-api@github:lzdyes/tauri-plugin-sqlite#v0.1.1":
+  version "0.1.1"
+  resolved "https://codeload.github.com/lzdyes/tauri-plugin-sqlite/tar.gz/3d09a5a963f96a06debe27b3e37d9337aca18dcc"
+  dependencies:
+    "@tauri-apps/api" "1.0.0-rc.4"
+    tslib "^2.4.0"
+
 "tauri-plugin-store-api@https://github.com/tauri-apps/tauri-plugin-store":
   version "0.0.0"
   resolved "https://github.com/tauri-apps/tauri-plugin-store#971c3d86fb614871c49e27a30124454c66ca3a53"
@@ -3568,6 +3582,11 @@ type-check@^0.4.0, type-check@~0.4.0:
   integrity sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==
   dependencies:
     prelude-ls "^1.2.1"
+
+type-fest@2.12.2:
+  version "2.12.2"
+  resolved "https://registry.yarnpkg.com/type-fest/-/type-fest-2.12.2.tgz#80a53614e6b9b475eb9077472fb7498dc7aa51d0"
+  integrity sha512-qt6ylCGpLjZ7AaODxbpyBZSs9fCI9SkL3Z9q2oxMBQhs/uyY+VD8jHA8ULCGmWQJlBgqvO3EJeAngOHD8zQCrQ==
 
 type-fest@^0.20.2:
   version "0.20.2"
