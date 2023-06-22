@@ -1,7 +1,7 @@
 import SQLite from "tauri-plugin-sqlite-api";
 
 /** The path will be 'src-tauri/test.db', you can customize the path */
-const database = await SQLite.open("./test.db");
+export const database = await SQLite.open("./test.db");
 /** if your file named 'test.sqlite' and it's in current directory './
 await SQLite.open("./test.db");
 
@@ -41,3 +41,7 @@ await SQLite.open("./test.db");
 
 // /** close sqlite database */
 // const isClosed = await db.close();
+
+export const enum DatabaseTableNames {
+  FILE_TRANSFER_HISTORY = "file_transfer_history", // for
+}
