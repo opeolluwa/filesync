@@ -13,7 +13,9 @@ pub struct SystemInformation {
     /// the current user name eg - drizzle
     pub system_name: String,
     /// available store
-    pub free_memory: String,
+    pub available_memory: String,
+    /// used store
+    pub used_memory: String,
     /// the port on which the core server runs
     port: u128,
     /// the uptime e.g 2 hours     
@@ -28,7 +30,8 @@ impl std::default::Default for SystemInformation {
     fn default() -> Self {
         Self {
             system_name: String::from(""),
-            free_memory: String::from(""),
+            available_memory: String::from(""),
+            used_memory: String::from(""),
             uptime: String::from(""),
             port: 0,
             ip_address: Ipv4Addr::from([0, 0, 0, 0]),
@@ -52,7 +55,16 @@ impl SystemInformation {
             Err(_) => Ok(Ipv4Addr::from([0, 0, 0, 0])),
         };
 
-        let free_memory = match sys_info::mem_info() {
+        /// Get the used memory information
+        let mem_info = self.get_mem_info();
+
+        /*
+            Get the available memory information
+            The available memory is the amount of memory that can be used by the process.
+            It takes into account the amount of memory that can be made available by reclaiming various resources,
+            such as page caches, that can be used by applications if necessary.
+        */
+        let available_memory = match mem_info {
             Ok(memory_information) => memory_information.avail,
             Err(error_message) => {
                 println!("error getting system memory due to {:?}", error_message);
@@ -60,7 +72,23 @@ impl SystemInformation {
             }
         };
 
-        let uptime = match uptime_lib::get() {
+        /*
+            Get the used memory information
+            The used memory is the amount of memory that is currently being used by the process.
+            Substract the amount of free memory to get it.
+        */
+        let used_memory = match mem_info {
+            Ok(memory_information) => memory_information.total - memory_information.free,
+            Err(error_message) => {
+                println!("error getting system memory due to {:?}", error_message);
+                0
+            }
+        };
+
+        /*
+            Get the uptime information in seconds
+        */
+        let uptime = match self.get_uptime() {
             Ok(uptime) => uptime.as_secs_f64(),
             Err(err) => {
                 println!("couldn't get available uptime due to {:?}", err);
@@ -70,15 +98,25 @@ impl SystemInformation {
 
         Self {
             system_name,
-            free_memory: compute_file_size(free_memory as u128),
+            available_memory: compute_file_size(available_memory as u128),
+            used_memory: compute_file_size(used_memory as u128),
             port: port.into(),
             ip_address: ip_address.clone().unwrap(),
             server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
             uptime: format!(
-                "{time_in_minutes:.2} minutes",
-                time_in_minutes = (uptime / 600.0)
+                "device uptime in {time_in_hours:u32} hour{multi_hour} {time_in_minutes:u32} minute{multi_minute}",
+                time_in_hours = (uptime / 3600.0).floor() as u32,
+                multi_hour = if time_in_hours > 1 { "s" } else { "" },
+                time_in_minutes = ((uptime - time_in_hours * 3600.0) / 60.0).floor() as u32,
+                multi_minute = if time_in_minutes > 1 { "s" } else { "" },
             ),
         }
+    }
+    fn get_uptime(&self) -> Result<Duration, String> {
+        uptime_lib::get()
+    }
+    fn get_mem_info(&self) -> Result<sys_info::MemInfo, Error> {
+        sys_info::mem_info()
     }
 }
 
@@ -88,14 +126,16 @@ impl fmt::Display for SystemInformation {
         write!(
             f,
             "system_name: {},
-            free_memory: {},
+            available_memory: {},
+            used_memory: {},
             port: {},
             uptime: {}
             ip_address {:?}
             server_base_url {:?}
             ",
             self.system_name,
-            self.free_memory,
+            self.available_memory,
+            self.used_memory,
             self.port,
             self.uptime,
             self.ip_address,
