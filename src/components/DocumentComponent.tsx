@@ -9,7 +9,7 @@ interface Props extends AudioFile {
 }
 
 export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: Props) {
-    const __file_icon__ = `/images/mime/${fileFormat || 'doc'}.png`;
+    const __file_icon__ = `/mime/document/${fileFormat || 'doc'}.png`;
     const __fileSize__ = fileSize;
 
     return (

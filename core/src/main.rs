@@ -11,10 +11,10 @@ use crate::commands::{
     audio::fetch_audio_files,
     documents::fetch_documents,
     image::fetch_images,
+    search::search_home_dir,
     send_file::share_file_with_peer,
     utils::{close_splashscreen, get_ip_address},
     video::fetch_video_files,
-    search::search_home_dir,
 };
 
 mod commands;
@@ -29,11 +29,11 @@ lazy_static! {
 }
 
 fn main() {
-   
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(server::core_server());
     tauri::Builder::default()
         .plugin(tauri_plugin_upload::init())
+        .plugin(tauri_plugin_sqlite::init())
         .invoke_handler(tauri::generate_handler![
             commands::greet,
             get_ip_address,

@@ -16,61 +16,40 @@ import {
   SignalIcon as SolidSignalIcon,
   ClockIcon as SolidClockIcon,
 } from "@heroicons/react/24/solid";
-import { DialogFilter, message, ask } from "@tauri-apps/api/dialog";
-import { open } from "@tauri-apps/api/dialog";
 import { invoke } from "@tauri-apps/api/tauri";
-import { allowedExtension, goToPage as gotoPage } from "@/utils";
+import {  goToPage as gotoPage } from "@/utils";
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import QRCode from "react-qr-code";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import NavigationTab, { Route } from "./NavigationTab";
 import { MemoryInformation } from "./MemoryInformation";
+import { SystemInformation } from "@/store/sys-info";
 /**
  * @function openFileManager - opens a file manager
  * @returns {Array<Files>} an array of selected files
  */
-async function openFileManager() /* : Array<File> */ {
-  // Open a selection dialog for directories
-  const selected = await open({
-    directory: true,
-    multiple: true,
-    filters: allowedExtension,
-    // defaultPath: await appDir(),
-  }).catch((err) => {
-    message("error opening file manager", {
-      title: "Access error",
-      type: "error",
-    }).then((result) => {
-      console.log(result);
-    });
-  });
-  if (Array.isArray(selected)) {
-    // user selected multiple directories
-  } else if (selected === null) {
-    // user cancelled the selection
-  } else {
-    // user selected a single directory
-  }
-}
+// const openFileManager = async () => /* : Array<File> */ {
+//   try {
+//     const selectedFilePath = await open({
+//       directory: false,
+//       multiple: true,
+//       filters: allowedExtension,
+//       // defaultPath: await appDir(),
+//     });
+//     // upload select file with tauri upload plugin
+//   } catch (err) {
+//     message((err as Error).message, {
+//       title: "Access error",
+//       type: "error",
+//     });
+//   }
+// };
 // the port on which th application urn for the sender PC
 interface SenderProps {
   port: number;
 }
 
-interface SystemInformation {
-  /// the current user name eg - drizzle
-  systemName: string;
-  /// available store
-  freeMemory: string;
-  /// the port on which the core server runs
-  port: number;
-  /// the system ip address,ex:  192.168.213.230
-  ipAddress: string;
-  /// the uptime e.g 2 hours
-  uptime: string;
-}
 
 /**
  * @function QRConnect - display QR code in which URL  for connection is embedded
@@ -82,7 +61,7 @@ function QRConnect({ url }: { url: string }) {
   return (
     <>
       <div
-        style={{ background: "white", padding: "4px" ,height:'260px' }}
+        style={{ background: "white", padding: "4px", height: "260px" }}
         className="flex flex-col items-center rounded"
       >
         <QRCode
@@ -97,10 +76,7 @@ function QRConnect({ url }: { url: string }) {
 
 function SendFileComponent() {
   return (
-    <form
-      action=""
-      style={{ background: "", padding: "4px", height: "260px" }}
-    >
+    <form action="" style={{ background: "", padding: "4px", height: "260px" }}>
       <div className="flex flex-col align-center justify-center">
         <label htmlFor="connectionID " className="text-gray-600 sr-only">
           connection ID
@@ -136,7 +112,7 @@ function ReceiveConfig({
   ipAddress: string;
 }) {
   return (
-    <div >
+    <div>
       <div>
         <QRConnect url={`http://${ipAddress.trim()}:${serverId}/`} />
       </div>
@@ -159,7 +135,7 @@ export default function AppNavigation() {
     invoke("get_system_information").then((sysInfo) => {
       setSystemInformation((sysInfo as any).data);
     });
-  });
+  }, []);
 
   const closeModal = () => setModalState(false);
   const openModal = () => setModalState(true);
@@ -189,8 +165,14 @@ export default function AppNavigation() {
       name: "Connection",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
       action: openModal,
-
       path: "/connection",
+    },
+    {
+      path: "/share",
+      icon: <ShareIcon className="w-6 h-6" />,
+      name: "Share files",
+      alternateIcon: <SolidShareIcon className="w-6 h-6" />,
+      action: () => gotoPage({ routePath: "share" }),
     },
     {
       path: "/history",
@@ -200,20 +182,14 @@ export default function AppNavigation() {
       action: () => gotoPage({ routePath: "history" }),
     },
     {
+      //TODO: open saved files directory
       path: "/files",
       icon: <FolderOpenIcon className="w-6 h-6" />,
-      action: openFileManager,
+      // action: openFileManager,
       alternateIcon: <SolidFolderIconOpen className="w-6 h-6" />,
       name: "File Manager",
     },
 
-    {
-      path: "/share",
-      icon: <ShareIcon className="w-6 h-6" />,
-      name: "Shared files",
-      alternateIcon: <SolidShareIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "shared-files" }),
-    },
     {
       path: "/settings",
       icon: <Cog8ToothIcon className="w-6 h-6" />,
