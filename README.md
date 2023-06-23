@@ -1,7 +1,7 @@
 # Send File
+Seamless Share: Empowering Offline PC-to-PC File Transfer
 
-File sharing application
-
+_⚠️ Some features may be missing, the application is still under development_
 ![screenshot](screenshots/home-light.png)
 
 ## Table of Contents
@@ -16,7 +16,7 @@ File sharing application
 
 ## Description
 
-An offline seamless file-sharing application for Windows, Mac and Linux operating system
+An offline seamless file-sharing application for Windows, Mac, and Linux operating system
 
 ## Getting Started
 
