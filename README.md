@@ -1,7 +1,7 @@
 # Send File
 Seamless Share: Empowering Offline PC-to-PC File Transfer
 
-_⚠️ Some features are missing since the application is still in development, see the [issues](https://github.com/opeolluwa/send-file/issues) page to contribute or leave a star_
+_⚠️ Some features are missing since the application is still in development, see the [issues](https://github.com/opeolluwa/send-file/issues) page to contribute_
 
 ![screenshot](screenshots/home-light.png)
 
