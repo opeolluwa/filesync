@@ -1,5 +1,8 @@
 use std::{fmt, net::Ipv4Addr};
 
+use battery::units::time::*;
+use battery::{Battery, Manager};
+use num_traits::cast::ToPrimitive;
 use serde::{Deserialize, Serialize};
 use sys_info;
 
@@ -13,29 +16,32 @@ pub struct SystemInformation {
     /// the current user name eg - drizzle
     pub system_name: String,
     /// available store
-    pub available_memory: String,
+    pub available_disk: String,
     /// used store
-    pub used_memory: String,
+    pub used_disk: String,
     /// the port on which the core server runs
     port: u128,
-    /// the uptime e.g 2 hours     
-    pub uptime: String,
+    /// the remaining_time e.g 2 hours     
+    pub remaining_time: String,
     /// the system ip address
     pub ip_address: Ipv4Addr,
     /// the server base URL constructed form the ip address and port
     pub server_base_url: String,
+    /// the battery state
+    pub battery_is_charging: bool,
 }
 
 impl std::default::Default for SystemInformation {
     fn default() -> Self {
         Self {
             system_name: String::from(""),
-            available_memory: String::from(""),
-            used_memory: String::from(""),
-            uptime: String::from(""),
+            available_disk: String::from(""),
+            used_disk: String::from(""),
+            remaining_time: String::from(""),
             port: 0,
             ip_address: Ipv4Addr::from([0, 0, 0, 0]),
             server_base_url: String::from(""),
+            battery_is_charging: false,
         }
     }
 }
@@ -55,68 +61,82 @@ impl SystemInformation {
             Err(_) => Ok(Ipv4Addr::from([0, 0, 0, 0])),
         };
 
-        /// Get the used memory information
-        let mem_info = self.get_mem_info();
+        // Get the used memory information
+        let disk_info = Self::get_disk_info();
 
-        /*
-            Get the available memory information
-            The available memory is the amount of memory that can be used by the process.
-            It takes into account the amount of memory that can be made available by reclaiming various resources,
-            such as page caches, that can be used by applications if necessary.
-        */
-        let available_memory = match mem_info {
-            Ok(memory_information) => memory_information.avail,
-            Err(error_message) => {
-                println!("error getting system memory due to {:?}", error_message);
-                0
+        let mut available_disk = 0;
+        let mut used_disk = 0;
+        match disk_info {
+            Ok(info) => {
+                available_disk = info.free;
+                used_disk = info.total - info.free;
+            }
+            Err(_) => {
+                println!("Failed to get the disk information");
             }
         };
 
-        /*
-            Get the used memory information
-            The used memory is the amount of memory that is currently being used by the process.
-            Substract the amount of free memory to get it.
-        */
-        let used_memory = match mem_info {
-            Ok(memory_information) => memory_information.total - memory_information.free,
-            Err(error_message) => {
-                println!("error getting system memory due to {:?}", error_message);
-                0
+        let charging_battery = Self::battery_is_discharging();
+        let mut remaining_seconds = 0;
+        let mut remaining_minutes = 0;
+        let mut remaining_hours = 0;
+        match Self::remaining_battery_time() {
+            Some(mut seconds) => {
+                remaining_hours = seconds / 3600;
+                seconds %= 3600;
+                remaining_minutes = seconds / 60;
+                seconds %= 60;
+                remaining_seconds = seconds;
             }
-        };
-
-        /*
-            Get the uptime information in seconds
-        */
-        let uptime = match self.get_uptime() {
-            Ok(uptime) => uptime.as_secs_f64(),
-            Err(err) => {
-                println!("couldn't get available uptime due to {:?}", err);
-                0.0
-            }
-        };
+            None => (),
+        }
 
         Self {
             system_name,
-            available_memory: compute_file_size(available_memory as u128),
-            used_memory: compute_file_size(used_memory as u128),
+            available_disk: compute_file_size(available_disk as u128),
+            used_disk: compute_file_size(used_disk as u128),
             port: port.into(),
             ip_address: ip_address.clone().unwrap(),
             server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-            uptime: format!(
-                "device uptime in {time_in_hours:u32} hour{multi_hour} {time_in_minutes:u32} minute{multi_minute}",
-                time_in_hours = (uptime / 3600.0).floor() as u32,
-                multi_hour = if time_in_hours > 1 { "s" } else { "" },
-                time_in_minutes = ((uptime - time_in_hours * 3600.0) / 60.0).floor() as u32,
-                multi_minute = if time_in_minutes > 1 { "s" } else { "" },
+            remaining_time: format!(
+                "{hour:02}:{minute:02}:{second:02}",
+                hour = remaining_hours,
+                minute = remaining_minutes,
+                second = remaining_seconds
             ),
+            battery_is_charging: charging_battery,
         }
     }
-    fn get_uptime(&self) -> Result<Duration, String> {
-        uptime_lib::get()
+
+    fn get_disk_info() -> Result<sys_info::DiskInfo, sys_info::Error> {
+        sys_info::disk_info()
     }
-    fn get_mem_info(&self) -> Result<sys_info::MemInfo, Error> {
-        sys_info::mem_info()
+    fn get_battery_info() -> Result<Battery, battery::Error> {
+        Manager::new()?.batteries()?.enumerate().nth(0).unwrap().1
+    }
+    fn battery_is_discharging() -> bool {
+        match Self::get_battery_info() {
+            Ok(battery) => {
+                if battery.state() == battery::State::Discharging {
+                    return false;
+                } else {
+                    return true;
+                }
+            }
+            Err(e) => {
+                println!("Failed to get the battery information.\n{:?}", e);
+                return false;
+            }
+        }
+    }
+    fn remaining_battery_time() -> Option<u64> {
+        match Self::get_battery_info() {
+            Ok(battery) => return battery.time_to_empty()?.get::<second>().to_u64(),
+            Err(e) => {
+                println!("Failed to get the battery information.\n{:?}", e);
+                return None;
+            }
+        }
     }
 }
 
@@ -126,20 +146,44 @@ impl fmt::Display for SystemInformation {
         write!(
             f,
             "system_name: {},
-            available_memory: {},
-            used_memory: {},
+            available_disk: {},
+            used_disk: {},
             port: {},
-            uptime: {}
+            remaining_time: {}
             ip_address {:?}
             server_base_url {:?}
             ",
             self.system_name,
-            self.available_memory,
-            self.used_memory,
+            self.available_disk,
+            self.used_disk,
             self.port,
-            self.uptime,
+            self.remaining_time,
             self.ip_address,
             self.server_base_url
         )
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use mockall::predicate::*;
+    use mockall::*;
+    #[test]
+    fn test_battery_discharging() {
+        let target = (128, 1024 - 128);
+        let mut result = MockSystemInformation::new();
+        result.expect_get_disk_info().returning(sys_info::DiskInfo {
+            total: 1024,
+            free: 128,
+        });
+        assert_eq!((result.available_disk, result.used_disk), target);
+    }
+
+    #[test]
+    fn test_battery_remaining_time() {
+        let target = "00:00:12";
+        let result = SystemInformation::new();
+        assert_eq!(result.remaining_time, target);
     }
 }
