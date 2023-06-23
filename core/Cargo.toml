@@ -39,6 +39,9 @@ tracing-subscriber = {version = "0.3.16", features = ["env-filter"] }
 uptime_lib = "0.2.2"
 walkdir = "2.3.3"
 wildmatch = "2.1.1"
+battery = "0.7.8"
+num-traits = "0.2.15"
+mockall = "0.11.4"
 
 [dependencies.tauri-plugin-sqlite]
 git = "https://github.com/lzdyes/tauri-plugin-sqlite"
