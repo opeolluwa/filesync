@@ -17,7 +17,7 @@ import {
   ClockIcon as SolidClockIcon,
 } from "@heroicons/react/24/solid";
 import { invoke } from "@tauri-apps/api/tauri";
-import {  goToPage as gotoPage } from "@/utils";
+import { goToPage as gotoPage } from "@/utils";
 import { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import QRCode from "react-qr-code";
@@ -49,7 +49,6 @@ import { SystemInformation } from "@/store/sys-info";
 interface SenderProps {
   port: number;
 }
-
 
 /**
  * @function QRConnect - display QR code in which URL  for connection is embedded
