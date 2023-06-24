@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import FileCard, { FileInterface } from "./FileCard";
+import FileCard, { FileInterface } from "./file/FileCard";
 import Image from "next/image";
 import { FileContext } from "@/store/context";
 
@@ -9,11 +9,12 @@ export default function Aside() {
   console.log(fileList);
   return (
     <aside className="hidden lg:block lg:flex-col items-center lg:col-span-3 pt-10 px-8  h-full bg-[rgba(226,233,252,255)]">
-      {fileList.length && (
+      {(fileList.length && (
         <h2 className="font-bold  dark:text-gray-400 flex items-center justify-between mb-10">
           Sent Files
         </h2>
-      )|| ''}
+      )) ||
+        ""}
       {/**
        * use state management to display files here
        * a procedure to determine the file type and the right file icon should be added
