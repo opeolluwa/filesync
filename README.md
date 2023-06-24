@@ -1,6 +1,7 @@
 # Send File
+Seamless Share: Empowering Offline PC-to-PC File Transfer
 
-File sharing application
+_⚠️ Some features are missing since the application is still in development, see the [issues](https://github.com/opeolluwa/send-file/issues) page to contribute_
 
 ![screenshot](screenshots/home-light.png)
 
@@ -16,7 +17,7 @@ File sharing application
 
 ## Description
 
-An offline seamless file-sharing application for Windows, Mac and Linux operating system
+An offline seamless file-sharing application for Windows, Mac, and Linux operating system
 
 ## Getting Started
 
