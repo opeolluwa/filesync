@@ -1,5 +1,5 @@
-import MusicFile from "@/components/MusicFile";
-import QuickAccessLayout from "@/components/PageLayout";
+import MusicFile from "@/components/file/MusicFile";
+import QuickAccessLayout from "@/components/layout/PageLayout";
 import SearchBar from "@/components/SearchBar";
 import { AppData, AudioFile } from "@/types";
 import { convertFileSrc, invoke } from "@tauri-apps/api/tauri";

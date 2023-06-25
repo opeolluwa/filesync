@@ -24,7 +24,7 @@ pub fn close_splashscreen(window: tauri::Window) {
 pub fn get_ip_address() -> String {
     let ip_address = utils::ip_manager::autodetect_ip_address()
         .ok()
-        .expect("Invalid Ip address detected")
+        .unwrap_or(String::from("0.0.0.0")) // use error catching in the frontend to validate only non"0.0.0.0. ip address
         .parse::<Ipv4Addr>()
         .unwrap();
     format!("{ip_address}:{port:?}", port = *SERVER_PORT)
