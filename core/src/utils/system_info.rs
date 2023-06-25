@@ -46,7 +46,7 @@ impl std::default::Default for MockSystemInformation {
 
 /// system information construct
 /// accepts the system name name and returns an instance of the struct with the remaining values constructed internally
-
+#[allow(dead_code)]
 impl MockSystemInformation {
     pub fn new(disk_total: Option<u64>, disk_free: Option<u64>, r_time: Option<u64>) -> Self {
         let port = *SERVER_PORT;
@@ -60,7 +60,7 @@ impl MockSystemInformation {
         };
 
         // Get the used memory information
-        let mut disk_info: Result<sys_info::DiskInfo, sys_info::Error> = match disk_total {
+        let disk_info: Result<sys_info::DiskInfo, sys_info::Error> = match disk_total {
             Some(total) => match disk_free {
                 Some(free) => Ok(sys_info::DiskInfo { total, free }),
                 None => Err(sys_info::Error::UnsupportedSystem),
@@ -102,7 +102,7 @@ impl MockSystemInformation {
             port: port.into(),
             ip_address: ip_address.clone().unwrap(),
             server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-            remaining_time: remaining_time,
+            remaining_time,
         }
     }
 }
@@ -193,7 +193,7 @@ impl SystemInformation {
             port: port.into(),
             ip_address: ip_address.clone().unwrap(),
             server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-            remaining_time: remaining_time,
+            remaining_time,
         }
     }
     fn get_disk_info() -> Result<sys_info::DiskInfo, sys_info::Error> {
@@ -205,14 +205,14 @@ impl SystemInformation {
             .batteries()
             .expect("Failed to get batteries")
             .enumerate()
-            .nth(0)
+            .next()
             .unwrap()
             .1
         {
-            Ok(battery) => return battery.time_to_empty()?.get::<second>().to_u64(),
+            Ok(battery) => battery.time_to_empty()?.get::<second>().to_u64(),
             Err(e) => {
                 println!("Failed to get the battery information.\n{:?}", e);
-                return None;
+                None
             }
         }
     }

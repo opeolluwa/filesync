@@ -1,5 +1,9 @@
 {
   "name": "mobile",
+  "description": "send-file mobile device interface",
+  "author": "adeoye adefemi <adefemiadeoye@yahoo.com>",
+  "license": "MIT",
+  "homepage": "https://github.com/opeolluwa/send-file",
   "private": true,
   "version": "0.0.0",
   "type": "module",

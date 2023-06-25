@@ -4,7 +4,7 @@ use serde_json::{json, Value};
 use tokio::fs::File;
 use tokio::io::AsyncReadExt;
 
-use crate::utils::{CommandData, self};
+use crate::utils::{self, CommandData};
 
 // send file from this server to another
 // accept path to file as argument
@@ -24,11 +24,12 @@ pub async fn share_file_with_peer(
 
     // file.read_to_end(&mut vec).await.unwrap();
     let client = reqwest::Client::new();
-    println!("yo! im in here");
+
     // get the IP address of the share network
-     let my_local_ip = utils::ip_manager::autodetect_ip_address()
+    let my_local_ip = utils::ip_manager::autodetect_ip_address()
         .ok()
-        .expect("Invalid Ip address detected")
+        .unwrap()
+        // .expect("Invalid Ip address detected")
         .parse::<Ipv4Addr>()
         .unwrap();
     let ip_address = format!("http://{:?}:{:?}/upload", my_local_ip, server_id);
