@@ -8,14 +8,20 @@ import { invoke } from "@tauri-apps/api";
 export default function ConnectionModal({
   children,
   systemInformation,
+  isModalOpen,
+  openModal,
+  closeModal,
 }: {
   children: ReactNode;
   systemInformation: SystemInformation;
+  isModalOpen: boolean;
+  openModal: () => void;
+  closeModal: () => void;
 }) {
-  let [isModalOpen, setModalState] = useState(false);
+  // let [isModalOpen, setModalState] = useState(false);
 
-  const closeModal = () => setModalState(false);
-  const openModal = () => setModalState(true);
+  // const closeModal = () => setModalState(false);
+  // const openModal = () => setModalState(true);
 
   let [showSendConfig, setSendConfig] = useState(false);
   let [showReceiveConfig, setReceiveConfig] = useState(true);
