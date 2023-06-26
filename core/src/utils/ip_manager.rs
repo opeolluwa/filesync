@@ -1,11 +1,14 @@
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
+#[cfg(target_family = "windows")]
+use local_ip_address::local_ip;
 
 extern crate pnet_datalink;
 extern crate std;
 
 /// Returns IP address of host, excluding localhost, or None if none found.
+#[cfg(target_family = "unix")]
 pub fn autodetect_ip_address() -> Result<String, ()> {
     pnet_datalink::interfaces()
         .into_iter()
@@ -16,6 +19,11 @@ pub fn autodetect_ip_address() -> Result<String, ()> {
         .ok_or(())
 }
 
+/// Returns IP address of host, excluding localhost, or None if none found.
+#[cfg(target_family = "windows")]
+pub fn autodetect_ip_address() -> Result<String, ()> {
+    Ok(local_ip().unwrap().to_string())
+}
 #[cfg(test)]
 mod tests {
     use super::*;

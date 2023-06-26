@@ -13,31 +13,41 @@ version = "0.5.0"
 tauri-build = {version = "1.2", features = [] }
 
 [dependencies]
-tokio-util = { version = "0.7", features = ["io"] }
+assert_fs = "1.0.13"
 axum = {version = "0.6.12", features = ["multipart"] }
 dirs = "5.0.0"
 filesize = "0.2.0"
+futures = "0.3.28"
+lazy_static = "1.4.0"
+local-ip-address = "0.5.3"
+pnet_datalink = "0.33.0"
 portpicker = "0.1.1"
+reqwest = "0.11.16"
 serde = {version = "1.0", features = ["derive"] }
 serde_json = "1.0"
+sys-info = "0.9.1"
+sysinfo = "0.29.2"
 tauri = {version = "1.2", features = ["dialog-all", "fs-all", "path-all", "shell-open"] }
+tauri-plugin-localhost = {git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev"}
 tauri-plugin-store = {git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev"}
 tauri-plugin-upload = {git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev"}
-tauri-plugin-localhost = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 tokio = {version = "1.26.0", features = ["full"] }
-tower = { version = "0.4", features = ["util"] }
-tower-http = { version = "0.4.0", features = ["fs", "trace", "cors"] }
+tokio-util = {version = "0.7", features = ["io"] }
+tower = {version = "0.4", features = ["util"] }
+tower-http = {version = "0.4.0", features = ["fs", "trace", "cors"] }
 tracing = "0.1.37"
 tracing-subscriber = {version = "0.3.16", features = ["env-filter"] }
-reqwest = "0.11.16"
-lazy_static = "1.4.0"
-walkdir = "2.3.3"
-sys-info = "0.9.1"
 uptime_lib = "0.2.2"
-pnet_datalink = "0.33.0"
-futures = "0.3.28"
+walkdir = "2.3.3"
 wildmatch = "2.1.1"
-assert_fs = "1.0.13"
+battery = "0.7.8"
+num-traits = "0.2.15"
+mockall = "0.11.4"
+
+[dependencies.tauri-plugin-sqlite]
+git = "https://github.com/lzdyes/tauri-plugin-sqlite"
+tag = "v0.1.1"
+
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem
 # DO NOT REMOVE!!
