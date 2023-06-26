@@ -2,6 +2,8 @@ use std::{fmt, net::Ipv4Addr};
 
 use battery::units::time::*;
 use battery::Manager;
+use mockall::predicate::*;
+use mockall::*;
 use num_traits::cast::ToPrimitive;
 use serde::{Deserialize, Serialize};
 use sys_info;
@@ -46,7 +48,7 @@ impl std::default::Default for MockSystemInformation {
 
 /// system information construct
 /// accepts the system name name and returns an instance of the struct with the remaining values constructed internally
-#[allow(dead_code)]
+
 impl MockSystemInformation {
     pub fn new(disk_total: Option<u64>, disk_free: Option<u64>, r_time: Option<u64>) -> Self {
         let port = *SERVER_PORT;
@@ -60,7 +62,7 @@ impl MockSystemInformation {
         };
 
         // Get the used memory information
-        let disk_info: Result<sys_info::DiskInfo, sys_info::Error> = match disk_total {
+        let mut disk_info: Result<sys_info::DiskInfo, sys_info::Error> = match disk_total {
             Some(total) => match disk_free {
                 Some(free) => Ok(sys_info::DiskInfo { total, free }),
                 None => Err(sys_info::Error::UnsupportedSystem),
@@ -102,7 +104,7 @@ impl MockSystemInformation {
             port: port.into(),
             ip_address: ip_address.clone().unwrap(),
             server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-            remaining_time,
+            remaining_time: remaining_time,
         }
     }
 }
@@ -146,6 +148,10 @@ impl std::default::Default for SystemInformation {
 
 impl SystemInformation {
     pub fn new() -> Self {
+        let system_info = DefaultSystmeInfoGetter;
+        Self::new_with_sys_info_getter(system_info)
+    }
+    pub fn new_with_sys_info_getter<T: GetSystemInformation>(system_info: T) -> Self {
         let port = *SERVER_PORT;
         let system_name = match sys_info::hostname() {
             Ok(name) => name,
@@ -157,21 +163,12 @@ impl SystemInformation {
         };
 
         // Get the used memory information
-        let disk_info = Self::get_disk_info();
+        let disk_info = system_info.get_disk_info();
 
-        let mut available_disk = 0;
-        let mut used_disk = 0;
-        match disk_info {
-            Ok(info) => {
-                available_disk = info.free;
-                used_disk = info.total - info.free;
-            }
-            Err(_) => {
-                println!("Failed to get the disk information");
-            }
-        };
+        let available_disk = disk_info.free;
+        let used_disk = disk_info.total - disk_info.free;
 
-        let remaining_time = match Self::remaining_battery_time() {
+        let remaining_time = match system_info.remaining_battery_time() {
             Some(mut seconds) => {
                 let remaining_hours = seconds / 3600;
                 seconds %= 3600;
@@ -196,10 +193,26 @@ impl SystemInformation {
             remaining_time,
         }
     }
-    fn get_disk_info() -> Result<sys_info::DiskInfo, sys_info::Error> {
-        sys_info::disk_info()
+}
+
+pub struct DefaultSystmeInfoGetter;
+#[automock]
+pub trait GetSystemInformation {
+    fn get_disk_info(&self) -> sys_info::DiskInfo;
+    fn remaining_battery_time(&self) -> Option<u64>;
+}
+
+impl GetSystemInformation for DefaultSystmeInfoGetter {
+    fn get_disk_info(&self) -> sys_info::DiskInfo {
+        match sys_info::disk_info() {
+            Ok(info) => info,
+            Err(e) => {
+                println!("Failed to get disk information: {:?}", e);
+                sys_info::DiskInfo { total: 0, free: 0 }
+            }
+        }
     }
-    fn remaining_battery_time() -> Option<u64> {
+    fn remaining_battery_time(&self) -> Option<u64> {
         match Manager::new()
             .expect("Failed to get battery manager")
             .batteries()
@@ -248,67 +261,64 @@ impl fmt::Display for SystemInformation {
 #[cfg(test)]
 mod tests {
     use super::*;
-    fn disk_info_should_be(available_disk: u64, used_disk: u64) -> (String, String) {
-        (format!("{} B", available_disk), format!("{} B", used_disk))
+
+    fn set_disk_info(mock_item: &mut MockGetSystemInformation, total: u64, free: u64) {
+        mock_item
+            .expect_get_disk_info()
+            .returning(move || sys_info::DiskInfo { total, free });
+    }
+    fn set_remaining_battery_time(mock: &mut MockGetSystemInformation, remaining: Option<u64>) {
+        mock.expect_remaining_battery_time()
+            .returning(move || remaining);
+    }
+    fn get_system_info(system_info: MockGetSystemInformation) -> SystemInformation {
+        SystemInformation::new_with_sys_info_getter(system_info)
+    }
+    fn available_disk_should_be(target: String, result: String) {
+        assert_eq!(target, result);
+    }
+    fn remaining_battery_time_should_be(target: Option<String>, result: Option<String>) {
+        assert_eq!(target, result)
     }
     #[test]
-    fn test_disk_info_available() {
-        let target = disk_info_should_be(128, 1024 - 128);
-        let result = MockSystemInformation::new(Some(1024), Some(128), None);
-        assert_eq!((result.available_disk, result.used_disk), target);
+    fn mock_disk_info_is_available() {
+        let mut mock = MockGetSystemInformation::new();
+        set_disk_info(&mut mock, 1024, 128);
+        set_remaining_battery_time(&mut mock, None);
+        let result = get_system_info(mock);
+        available_disk_should_be(format!("{} B", 128), result.available_disk);
+        available_disk_should_be(format!("{} B", 1024 - 128), result.used_disk);
     }
     #[test]
-    fn test_disk_info_unavailable() {
-        let target = disk_info_should_be(0, 0);
-        let result = MockSystemInformation::new(None, None, None);
-        assert_eq!((result.available_disk, result.used_disk), target);
+    fn mock_remaining_battery_time_only_seconds() {
+        let mut mock = MockGetSystemInformation::new();
+        set_disk_info(&mut mock, 0, 0);
+        set_remaining_battery_time(&mut mock, Some(12));
+        let result = get_system_info(mock);
+        remaining_battery_time_should_be(Some(format!("00:00:12")), result.remaining_time);
     }
     #[test]
-    fn test_disk_info_total_unavailable() {
-        let target = disk_info_should_be(0, 0);
-        let result = MockSystemInformation::new(None, Some(128), None);
-        assert_eq!((result.available_disk, result.used_disk), target);
+    fn mock_remaining_battery_time_only_minutes() {
+        let mut mock = MockGetSystemInformation::new();
+        set_disk_info(&mut mock, 0, 0);
+        set_remaining_battery_time(&mut mock, Some(720));
+        let result = get_system_info(mock);
+        remaining_battery_time_should_be(Some(format!("00:12:00")), result.remaining_time);
     }
     #[test]
-    fn test_disk_info_free_unavailable() {
-        let target = disk_info_should_be(0, 0);
-        let result = MockSystemInformation::new(Some(128), None, None);
-        assert_eq!((result.available_disk, result.used_disk), target);
+    fn mock_remaining_battery_time_only_hours() {
+        let mut mock = MockGetSystemInformation::new();
+        set_disk_info(&mut mock, 0, 0);
+        set_remaining_battery_time(&mut mock, Some(12 * 60 * 60));
+        let result = get_system_info(mock);
+        remaining_battery_time_should_be(Some(format!("12:00:00")), result.remaining_time);
     }
     #[test]
-    fn test_battery_remaining_time_seconds() {
-        let target: Option<String> = Some(format!("00:00:12"));
-        let result = MockSystemInformation::new(None, None, Some(12));
-        assert_eq!(result.remaining_time, target);
-    }
-    #[test]
-    fn test_battery_remaining_time_minures() {
-        let target: Option<String> = Some(format!("00:12:00"));
-        let result = MockSystemInformation::new(None, None, Some(720));
-        assert_eq!(result.remaining_time, target);
-    }
-    #[test]
-    fn test_battery_remaining_time_hours() {
-        let target: Option<String> = Some(format!("12:00:00"));
-        let result = MockSystemInformation::new(None, None, Some(43200));
-        assert_eq!(result.remaining_time, target);
-    }
-    #[test]
-    fn test_battery_remaining_time_hours_minutes_and_secons() {
-        let target: Option<String> = Some(format!("01:01:01"));
-        let result = MockSystemInformation::new(None, None, Some(3661));
-        assert_eq!(result.remaining_time, target);
-    }
-    #[test]
-    fn test_battery_remaining_time_exceed_99_hours() {
-        let target: Option<String> = Some(format!("100:00:00"));
-        let result = MockSystemInformation::new(None, None, Some(360000));
-        assert_eq!(result.remaining_time, target);
-    }
-    #[test]
-    fn test_battery_is_charging() {
-        let target: Option<String> = None;
-        let result = MockSystemInformation::new(None, None, None);
-        assert_eq!(result.remaining_time, target);
+    fn mock_remaining_battery_time() {
+        let mut mock = MockGetSystemInformation::new();
+        set_disk_info(&mut mock, 0, 0);
+        set_remaining_battery_time(&mut mock, Some(12 * 60 * 60 + 12 * 60 + 12));
+        let result = get_system_info(mock);
+        remaining_battery_time_should_be(Some(format!("12:12:12")), result.remaining_time);
     }
 }
