@@ -56,6 +56,7 @@ impl SystemInformation {
     }
     pub fn new_with_sys_info_getter<T: GetSystemInformation>(system_info: T) -> Self {
 #[allow(dead_code)]
+
 impl MockSystemInformation {
     pub fn new(disk_total: Option<u64>, disk_free: Option<u64>, r_time: Option<u64>) -> Self {
         let port = *SERVER_PORT;
@@ -69,6 +70,8 @@ impl MockSystemInformation {
         };
 
         // Get the used memory information
+
+        let mut disk_info: Result<sys_info::DiskInfo, sys_info::Error> = match disk_total {
         let disk_info = system_info.get_disk_info();
         let disk_info: Result<sys_info::DiskInfo, sys_info::Error> = match disk_total {
             Some(total) => match disk_free {
@@ -103,9 +106,78 @@ impl MockSystemInformation {
             port: port.into(),
             ip_address: ip_address.clone().unwrap(),
             server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-            remaining_time,
+            remaining_time: remaining_time,
         }
     }
+}
+
+pub struct DefaultSystmeInfoGetter;
+#[automock]
+pub trait GetSystemInformation {
+    fn get_disk_info(&self) -> sys_info::DiskInfo;
+    fn remaining_battery_time(&self) -> Option<u64>;
+}
+
+/// system information construct
+/// accepts the system name name and returns an instance of the struct with the remaining values constructed internally
+
+impl SystemInformation {
+    pub fn new() -> Self {
+        let system_info = DefaultSystmeInfoGetter;
+        Self::new_with_sys_info_getter(system_info)
+    }
+    pub fn new_with_sys_info_getter<T: GetSystemInformation>(system_info: T) -> Self {
+        let port = *SERVER_PORT;
+        let system_name = match sys_info::hostname() {
+            Ok(name) => name,
+            Err(_) => String::from("guest computer"),
+        };
+        let ip_address = match autodetect_ip_address() {
+            Ok(ip) => ip.parse::<Ipv4Addr>(),
+            Err(_) => Ok(Ipv4Addr::from([0, 0, 0, 0])),
+        };
+
+        // Get the used memory information
+        let disk_info = system_info.get_disk_info();
+
+        let available_disk = disk_info.free;
+        let used_disk = disk_info.total - disk_info.free;
+
+        let remaining_time = match system_info.remaining_battery_time() {
+            Some(mut seconds) => {
+                let remaining_hours = seconds / 3600;
+                seconds %= 3600;
+                let remaining_minutes = seconds / 60;
+                seconds %= 60;
+                let remaining_seconds = seconds;
+                Some(format!(
+                    "{:02}:{:02}:{:02}",
+                    remaining_hours, remaining_minutes, remaining_seconds
+                ))
+impl GetSystemInformation for DefaultSystmeInfoGetter {
+    fn get_disk_info(&self) -> sys_info::DiskInfo {
+        match sys_info::disk_info() {
+            Ok(info) => info,
+            Err(e) => {
+                println!("Failed to get disk information: {:?}", e);
+                sys_info::DiskInfo { total: 0, free: 0 }
+
+            }
+            None => None,
+        };
+
+        Self {
+            system_name,
+            available_disk: compute_file_size(available_disk as u128),
+            used_disk: compute_file_size(used_disk as u128),
+            port: port.into(),
+            ip_address: ip_address.clone().unwrap(),
+            server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
+            remaining_time,
+
+        }
+    }
+
 }
 
 pub struct DefaultSystmeInfoGetter;
@@ -123,20 +195,9 @@ impl GetSystemInformation for DefaultSystmeInfoGetter {
                 println!("Failed to get disk information: {:?}", e);
                 sys_info::DiskInfo { total: 0, free: 0 }
             }
-            None => None,
-        };
-
-        Self {
-            system_name,
-            available_disk: compute_file_size(available_disk as u128),
-            used_disk: compute_file_size(used_disk as u128),
-            port: port.into(),
-            ip_address: ip_address.clone().unwrap(),
-            server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-            remaining_time,
-
         }
     }
+
     fn remaining_battery_time(&self) -> Option<u64> {
         match Manager::new()
             .expect("Failed to get battery manager")
@@ -191,6 +252,7 @@ mod tests {
         mock_item
             .expect_get_disk_info()
             .returning(move || sys_info::DiskInfo { total, free });
+
     }
     fn set_remaining_battery_time(mock: &mut MockGetSystemInformation, remaining: Option<u64>) {
         mock.expect_remaining_battery_time()
@@ -202,6 +264,19 @@ mod tests {
     fn available_disk_should_be(target: String, result: String) {
         assert_eq!(target, result);
     }
+
+    }
+    fn set_remaining_battery_time(mock: &mut MockGetSystemInformation, remaining: Option<u64>) {
+        mock.expect_remaining_battery_time()
+            .returning(move || remaining);
+    }
+    fn get_system_info(system_info: MockGetSystemInformation) -> SystemInformation {
+        SystemInformation::new_with_sys_info_getter(system_info)
+    }
+    fn available_disk_should_be(target: String, result: String) {
+        assert_eq!(target, result);
+    }
+
     fn remaining_battery_time_should_be(target: Option<String>, result: Option<String>) {
         assert_eq!(target, result)
     }
