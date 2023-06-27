@@ -55,9 +55,6 @@ impl SystemInformation {
         Self::new_with_sys_info_getter(system_info)
     }
     pub fn new_with_sys_info_getter<T: GetSystemInformation>(system_info: T) -> Self {
-#[allow(dead_code)]
-impl MockSystemInformation {
-    pub fn new(disk_total: Option<u64>, disk_free: Option<u64>, r_time: Option<u64>) -> Self {
         let port = *SERVER_PORT;
         let system_name = match sys_info::hostname() {
             Ok(name) => name,
@@ -70,13 +67,6 @@ impl MockSystemInformation {
 
         // Get the used memory information
         let disk_info = system_info.get_disk_info();
-        let disk_info: Result<sys_info::DiskInfo, sys_info::Error> = match disk_total {
-            Some(total) => match disk_free {
-                Some(free) => Ok(sys_info::DiskInfo { total, free }),
-                None => Err(sys_info::Error::UnsupportedSystem),
-            },
-            None => Err(sys_info::Error::UnsupportedSystem),
-        };
 
         let available_disk = disk_info.free;
         let used_disk = disk_info.total - disk_info.free;
@@ -123,18 +113,6 @@ impl GetSystemInformation for DefaultSystmeInfoGetter {
                 println!("Failed to get disk information: {:?}", e);
                 sys_info::DiskInfo { total: 0, free: 0 }
             }
-            None => None,
-        };
-
-        Self {
-            system_name,
-            available_disk: compute_file_size(available_disk as u128),
-            used_disk: compute_file_size(used_disk as u128),
-            port: port.into(),
-            ip_address: ip_address.clone().unwrap(),
-            server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-            remaining_time,
-
         }
     }
     fn remaining_battery_time(&self) -> Option<u64> {
