@@ -8,9 +8,9 @@ import { SystemInformationContext } from "@/store/sys-info";
 import { database, DatabaseTableNames } from "@/utils/database";
 import { listen } from "@tauri-apps/api/event";
 
-listen("tauri://file-drop", (event) => {
-  console.log(event);
-});
+// listen("tauri://file-drop", (event) => {
+//   console.log(event);
+// });
 /**
  * @function sharePage -  A page responsible for guiding users on various actions
  * @returns tsx
@@ -34,10 +34,10 @@ export default function ShareFiles() {
       if (status === FileTransferStatus.COMPLETED) {
         message.success(`${info.file.name} file uploaded successfully.`);
         // save the file to transfer history
-        await database.execute(
+     /*    await database.execute(
           "CREATE TABLE IF NOT EXIST 1? (id INTEGER PRIMARY KEY AUTOINCREMENT, fileName VARCHAR, fileSize VARCHAR, transferType VARCHAR, transferDate TEXT); ",
           [DatabaseTableNames.FILE_TRANSFER_HISTORY.toString()]
-        );
+        ); */
         // insert the newly transferred file
         const fileName = info.file.name;
         const fileSize = info.file.size;
@@ -48,7 +48,7 @@ export default function ShareFiles() {
           weekday: "long",
           day: "numeric",
         });
-        await database.execute(
+        /* await database.execute(
           "INSERT INTO 1? (fileName, fileSize, transferType, transferDate) VALUES (?,?,?,?)",
           [
             DatabaseTableNames.FILE_TRANSFER_HISTORY.toString(),
@@ -57,7 +57,7 @@ export default function ShareFiles() {
             transferType,
             transferDate,
           ]
-        );
+        ); */
         // setFileTransferStatus({ status });
       } else if (status === FileTransferStatus.ERROR) {
         message.error(`${info.file.name} file upload failed.`);
