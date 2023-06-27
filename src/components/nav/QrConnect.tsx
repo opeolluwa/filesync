@@ -18,6 +18,7 @@ export default function QRConnect({ url }: { url: string }) {
           value={url.trim()}
           style={{ boxSizing: "border-box", maxWidth: "150px" }}
         />
+        <small className="text-gray-500">{url}</small>
       </div>
     </>
   );

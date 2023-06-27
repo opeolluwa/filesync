@@ -66,6 +66,7 @@ impl SystemInformation {
         };
 
         // Get the used memory information
+
         let disk_info = system_info.get_disk_info();
 
         let available_disk = disk_info.free;
@@ -93,7 +94,7 @@ impl SystemInformation {
             port: port.into(),
             ip_address: ip_address.clone().unwrap(),
             server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-            remaining_time,
+            remaining_time: remaining_time,
         }
     }
 }
@@ -115,6 +116,7 @@ impl GetSystemInformation for DefaultSystmeInfoGetter {
             }
         }
     }
+
     fn remaining_battery_time(&self) -> Option<u64> {
         match Manager::new()
             .expect("Failed to get battery manager")
