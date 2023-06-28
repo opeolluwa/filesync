@@ -11,7 +11,10 @@
     "export": "next export",
     "start": "next start",
     "tauri": "tauri",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prebuild":"cd browser && npm run build",
+    "predev":"cd browser && npm run build"
+
   },
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
