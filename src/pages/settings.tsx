@@ -7,7 +7,9 @@ import PageLayout from "@/components/layout/PageLayout";
 export default function HelpPage() {
   return (
     <>
-      <PageLayout pageTitle={"Settings"} includeSearchBar={true}></PageLayout>
+      <PageLayout pageTitle={"Settings"} includeSearchBar={true}>
+      <></>
+      </PageLayout>
     </>
   );
 }
