@@ -2,4 +2,5 @@
 # will have compiled files and executables
 /target/
 
-/views
+/views/
+/views/index.html
