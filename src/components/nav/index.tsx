@@ -29,6 +29,11 @@ export default function Navigation() {
     {} as SystemInformation
   );
 
+  let [isModalOpen, setModalState] = useState(false);
+
+  const closeModal = () => setModalState(false);
+  const openModal = () => setModalState(true);
+
   useEffect(() => {
     // fetch sys information from app core
     invoke("get_system_information").then((sysInfo) => {
@@ -48,7 +53,7 @@ export default function Navigation() {
       icon: <SignalIcon className="w-6 h-6" />,
       name: "Connection",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
-      // action: openModal,
+      action: openModal,
       path: "/connection",
     },
     {
@@ -92,7 +97,12 @@ export default function Navigation() {
 
   return (
     <>
-      <ConnectionModal systemInformation={systemInformation}>
+      <ConnectionModal
+        systemInformation={systemInformation}
+        isModalOpen={isModalOpen}
+        openModal={openModal}
+        closeModal={closeModal}
+      >
         <nav
           className="col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)]  px-[1px]   text-gray-600  pt-10"
           style={{
