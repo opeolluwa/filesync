@@ -1,5 +1,5 @@
 use std::process::Command;
-
+#[allow(dead_code)]
 pub fn create_ap() {
     // Set up the hotspot name and password
     let hotspot_name = "MyHotspot";

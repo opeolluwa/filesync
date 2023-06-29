@@ -17,7 +17,7 @@ pub mod windows_hotspot;
 /// - (optional) QR code to scan to connect
 /// - (optional) the network card frequency, e.g 2.4GHz or 5Ghz
 /// it will be used to communicate with the application interface
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Default)]
 pub struct AccessPointInterface {
     /// the network broadcast ip address
     gateway: String,
@@ -32,7 +32,7 @@ pub struct AccessPointInterface {
 }
 
 /// network was successfully creatd or there is an error
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize,)]
 pub enum NetworkAccessStatus {
     Created,
     Error,
@@ -54,6 +54,7 @@ impl AccessPointInterface {
         }
     }
 
+    #[allow(dead_code)]
     pub fn ok(gateway: &str) -> Self {
         let SystemInformation {
             system_name: ssid, ..
@@ -82,14 +83,14 @@ impl AccessPointInterface {
     }
 }
 
-impl std::default::Default for AccessPointInterface {
-    fn default() -> Self {
-        Self {
-            gateway: String::from("0.0.0.0"),
-            ..Default::default()
-        }
-    }
-}
+// impl std::default::Default for AccessPointInterface {
+//     fn default() -> Self {
+//         Self {
+//             gateway: String::from("0.0.0.0"),
+//             ..Default::default()
+//         }
+//     }
+// }
 
 impl fmt::Display for AccessPointInterface {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {

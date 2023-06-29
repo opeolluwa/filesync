@@ -65,7 +65,6 @@ pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
             gateway,
             status: Some(NetworkAccessStatus::Created),
             message: Some(String::from("Wifi hotspot created successfully")),
-            ..Default::default()
         })
     } else {
         let error_msg = String::from_utf8_lossy(&create_ap.stderr);

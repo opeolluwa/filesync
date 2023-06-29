@@ -1,4 +1,5 @@
 use std::process::Command;
+#[allow(dead_code)]
 
 fn create_ap() {
     // Create a Wi-Fi network interface (e.g., "en0")
