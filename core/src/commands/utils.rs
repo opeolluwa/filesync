@@ -3,7 +3,8 @@ use std::net::Ipv4Addr;
 use tauri::Manager;
 
 use crate::{
-    utils::{self, system_info::SystemInformation, CommandData},
+    net::ip_manager,
+    utils::{system_info::SystemInformation, CommandData},
     SERVER_PORT,
 };
 
@@ -22,7 +23,7 @@ pub fn close_splashscreen(window: tauri::Window) {
 // get the ip address of the machine
 #[tauri::command]
 pub fn get_ip_address() -> String {
-    let ip_address = utils::ip_manager::autodetect_ip_address()
+    let ip_address = ip_manager::autodetect_ip_address()
         .ok()
         .unwrap_or(String::from("0.0.0.0")) // use error catching in the frontend to validate only non"0.0.0.0. ip address
         .parse::<Ipv4Addr>()
