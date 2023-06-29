@@ -8,9 +8,9 @@ use num_traits::cast::ToPrimitive;
 use serde::{Deserialize, Serialize};
 use sys_info;
 
+use super::compute_file_size;
+use crate::net::ip_manager;
 use crate::SERVER_PORT;
-
-use super::{compute_file_size, ip_manager::autodetect_ip_address};
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -51,7 +51,7 @@ impl std::default::Default for SystemInformation {
 
 impl SystemInformation {
     pub fn new() -> Self {
-        let system_info = DefaultSystmeInfoGetter;
+        let system_info = DefaultSystemInfoGetter;
         Self::new_with_sys_info_getter(system_info)
     }
     pub fn new_with_sys_info_getter<T: GetSystemInformation>(system_info: T) -> Self {
@@ -60,7 +60,7 @@ impl SystemInformation {
             Ok(name) => name,
             Err(_) => String::from("guest computer"),
         };
-        let ip_address = match autodetect_ip_address() {
+        let ip_address = match ip_manager::autodetect_ip_address() {
             Ok(ip) => ip.parse::<Ipv4Addr>(),
             Err(_) => Ok(Ipv4Addr::from([0, 0, 0, 0])),
         };
@@ -99,14 +99,14 @@ impl SystemInformation {
     }
 }
 
-pub struct DefaultSystmeInfoGetter;
+pub struct DefaultSystemInfoGetter;
 #[automock]
 pub trait GetSystemInformation {
     fn get_disk_info(&self) -> sys_info::DiskInfo;
     fn remaining_battery_time(&self) -> Option<u64>;
 }
 
-impl GetSystemInformation for DefaultSystmeInfoGetter {
+impl GetSystemInformation for DefaultSystemInfoGetter {
     fn get_disk_info(&self) -> sys_info::DiskInfo {
         match sys_info::disk_info() {
             Ok(info) => info,

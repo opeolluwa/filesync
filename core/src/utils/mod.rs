@@ -5,8 +5,7 @@ use std::path::{Path, PathBuf};
 use serde::{Deserialize, Serialize};
 use walkdir::DirEntry;
 
-pub mod ip_manager;
-pub mod linux_hotspot;
+
 pub mod system_info;
 // pub mod storage_information;
 /// a function to compute file size

@@ -4,8 +4,8 @@ use serde_json::{json, Value};
 use tokio::fs::File;
 use tokio::io::AsyncReadExt;
 
+use crate::net::ip_manager;
 use crate::utils::{self, CommandData};
-
 // send file from this server to another
 // accept path to file as argument
 // validate the file existence
@@ -26,7 +26,7 @@ pub async fn share_file_with_peer(
     let client = reqwest::Client::new();
 
     // get the IP address of the share network
-    let my_local_ip = utils::ip_manager::autodetect_ip_address()
+    let my_local_ip = ip_manager::autodetect_ip_address()
         .ok()
         .unwrap()
         // .expect("Invalid Ip address detected")
