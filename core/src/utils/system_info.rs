@@ -8,9 +8,9 @@ use num_traits::cast::ToPrimitive;
 use serde::{Deserialize, Serialize};
 use sys_info;
 
+use super::compute_file_size;
+use crate::net::ip_manager;
 use crate::SERVER_PORT;
-
-use super::{compute_file_size, ip_manager::autodetect_ip_address};
 
 #[derive(Debug, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
@@ -51,7 +51,7 @@ impl std::default::Default for SystemInformation {
 
 impl SystemInformation {
     pub fn new() -> Self {
-        let system_info = DefaultSystmeInfoGetter;
+        let system_info = DefaultSystemInfoGetter;
         Self::new_with_sys_info_getter(system_info)
     }
     pub fn new_with_sys_info_getter<T: GetSystemInformation>(system_info: T) -> Self {
@@ -60,7 +60,7 @@ impl SystemInformation {
             Ok(name) => name,
             Err(_) => String::from("guest computer"),
         };
-        let ip_address = match autodetect_ip_address() {
+        let ip_address = match ip_manager::autodetect_ip_address() {
             Ok(ip) => ip.parse::<Ipv4Addr>(),
             Err(_) => Ok(Ipv4Addr::from([0, 0, 0, 0])),
         };
@@ -94,19 +94,19 @@ impl SystemInformation {
             port: port.into(),
             ip_address: ip_address.clone().unwrap(),
             server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-            remaining_time: remaining_time,
+            remaining_time,
         }
     }
 }
 
-pub struct DefaultSystmeInfoGetter;
+pub struct DefaultSystemInfoGetter;
 #[automock]
 pub trait GetSystemInformation {
     fn get_disk_info(&self) -> sys_info::DiskInfo;
     fn remaining_battery_time(&self) -> Option<u64>;
 }
 
-impl GetSystemInformation for DefaultSystmeInfoGetter {
+impl GetSystemInformation for DefaultSystemInfoGetter {
     fn get_disk_info(&self) -> sys_info::DiskInfo {
         match sys_info::disk_info() {
             Ok(info) => info,
@@ -200,7 +200,7 @@ mod tests {
         set_disk_info(&mut mock, 0, 0);
         set_remaining_battery_time(&mut mock, Some(12));
         let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some(format!("00:00:12")), result.remaining_time);
+        remaining_battery_time_should_be(Some("00:00:12".to_string()), result.remaining_time);
     }
     #[test]
     fn mock_remaining_battery_time_only_minutes() {
@@ -208,7 +208,7 @@ mod tests {
         set_disk_info(&mut mock, 0, 0);
         set_remaining_battery_time(&mut mock, Some(720));
         let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some(format!("00:12:00")), result.remaining_time);
+        remaining_battery_time_should_be(Some("00:12:00".to_string()), result.remaining_time);
     }
     #[test]
     fn mock_remaining_battery_time_only_hours() {
@@ -216,7 +216,7 @@ mod tests {
         set_disk_info(&mut mock, 0, 0);
         set_remaining_battery_time(&mut mock, Some(12 * 60 * 60));
         let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some(format!("12:00:00")), result.remaining_time);
+        remaining_battery_time_should_be(Some("12:00:00".to_string()), result.remaining_time);
     }
     #[test]
     fn mock_remaining_battery_time() {
@@ -224,6 +224,6 @@ mod tests {
         set_disk_info(&mut mock, 0, 0);
         set_remaining_battery_time(&mut mock, Some(12 * 60 * 60 + 12 * 60 + 12));
         let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some(format!("12:12:12")), result.remaining_time);
+        remaining_battery_time_should_be(Some("12:12:12".to_string()), result.remaining_time);
     }
 }

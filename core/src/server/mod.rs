@@ -27,6 +27,7 @@ use std::io;
 use tokio::{fs::File, io::BufWriter};
 use tokio_util::io::StreamReader;
 
+use crate::net;
 use crate::utils;
 use crate::{SERVER_PORT, UPLOAD_DIRECTORY};
 
@@ -57,7 +58,7 @@ pub async fn core_server() {
     let file_limit = DefaultBodyLimit::max(file_size_limit);
 
     // the core server
-    let my_local_ip = utils::ip_manager::autodetect_ip_address()
+    let my_local_ip = net::ip_manager::autodetect_ip_address()
         .expect("No Ip address detected")
         .parse::<Ipv4Addr>()
         .unwrap();

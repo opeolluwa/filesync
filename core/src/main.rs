@@ -16,8 +16,10 @@ use crate::commands::{
     utils::{close_splashscreen, get_ip_address},
     video::fetch_video_files,
 };
+use crate::net::create_ap::create_ap;
 
 mod commands;
+mod net;
 mod server;
 mod utils;
 
@@ -29,6 +31,9 @@ lazy_static! {
 }
 
 fn main() {
+    // create  ap
+    // let config = create_ap();
+    // println!("{:#?}", config);
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(server::core_server());
     tauri::Builder::default()
@@ -45,7 +50,8 @@ fn main() {
             share_file_with_peer,
             get_system_information,
             fetch_documents,
-            search_home_dir
+            search_home_dir,
+            create_ap
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
