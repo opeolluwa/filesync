@@ -94,7 +94,7 @@ impl SystemInformation {
             port: port.into(),
             ip_address: ip_address.clone().unwrap(),
             server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-            remaining_time: remaining_time,
+            remaining_time,
         }
     }
 }
@@ -200,7 +200,7 @@ mod tests {
         set_disk_info(&mut mock, 0, 0);
         set_remaining_battery_time(&mut mock, Some(12));
         let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some(format!("00:00:12")), result.remaining_time);
+        remaining_battery_time_should_be(Some("00:00:12".to_string()), result.remaining_time);
     }
     #[test]
     fn mock_remaining_battery_time_only_minutes() {
@@ -208,7 +208,7 @@ mod tests {
         set_disk_info(&mut mock, 0, 0);
         set_remaining_battery_time(&mut mock, Some(720));
         let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some(format!("00:12:00")), result.remaining_time);
+        remaining_battery_time_should_be(Some("00:12:00".to_string()), result.remaining_time);
     }
     #[test]
     fn mock_remaining_battery_time_only_hours() {
@@ -216,7 +216,7 @@ mod tests {
         set_disk_info(&mut mock, 0, 0);
         set_remaining_battery_time(&mut mock, Some(12 * 60 * 60));
         let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some(format!("12:00:00")), result.remaining_time);
+        remaining_battery_time_should_be(Some("12:00:00".to_string()), result.remaining_time);
     }
     #[test]
     fn mock_remaining_battery_time() {
@@ -224,6 +224,6 @@ mod tests {
         set_disk_info(&mut mock, 0, 0);
         set_remaining_battery_time(&mut mock, Some(12 * 60 * 60 + 12 * 60 + 12));
         let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some(format!("12:12:12")), result.remaining_time);
+        remaining_battery_time_should_be(Some("12:12:12".to_string()), result.remaining_time);
     }
 }

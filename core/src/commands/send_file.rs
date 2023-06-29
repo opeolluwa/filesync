@@ -5,7 +5,7 @@ use tokio::fs::File;
 use tokio::io::AsyncReadExt;
 
 use crate::net::ip_manager;
-use crate::utils::{self, CommandData};
+use crate::utils::{CommandData};
 // send file from this server to another
 // accept path to file as argument
 // validate the file existence

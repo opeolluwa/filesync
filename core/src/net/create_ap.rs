@@ -1,6 +1,6 @@
 /// create network interface here using OS specific implementation
 /// once this is done pass the network conf
-use super::{linux_hotspot, mac_hotspot, windows_hotspot, AccessPointInterface};
+use super::{linux_hotspot, AccessPointInterface};
 use crate::utils::CommandData;
 
 // #[tauri::command]

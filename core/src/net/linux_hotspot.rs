@@ -19,7 +19,7 @@ pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
 
     // get the network gate way ex DNS Configuration: Some(["192.168.100.121"])
     let output = Command::new("nmcli")
-        .args(&["dev", "show"])
+        .args(["dev", "show"])
         .output()
         .expect("Failed to execute nmcli");
 
@@ -59,21 +59,21 @@ pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
 
     // Check if the command was successful
     if create_ap.status.success() {
-        return Ok(AccessPointInterface {
+        Ok(AccessPointInterface {
             ssid,
             password,
             gateway,
             status: Some(NetworkAccessStatus::Created),
             message: Some(String::from("Wifi hotspot created successfully")),
             ..Default::default()
-        });
+        })
     } else {
         let error_msg = String::from_utf8_lossy(&create_ap.stderr);
-        return Err(AccessPointInterface {
+        Err(AccessPointInterface {
             status: Some(NetworkAccessStatus::Error),
             message: Some(format!("Failed to create hotspot: {}", error_msg)),
             ..Default::default()
-        });
+        })
     }
 }
 
@@ -101,7 +101,7 @@ fn parse_dns_config(output: &Output) -> Option<Vec<String>> {
 
 /// get the network interface
 fn get_network_interface() -> std::io::Result<String> {
-    let output = Command::new("nmcli").args(&["device", "show"]).output()?;
+    let output = Command::new("nmcli").args(["device", "show"]).output()?;
 
     if output.status.success() {
         let stdout = String::from_utf8_lossy(&output.stdout);

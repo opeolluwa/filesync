@@ -7,7 +7,7 @@ pub fn create_ap() {
 
     // Execute the netsh commands to create the hotspot
     let output = Command::new("netsh")
-        .args(&[
+        .args([
             "wlan",
             "set",
             "hostednetwork",

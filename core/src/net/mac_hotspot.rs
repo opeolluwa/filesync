@@ -12,7 +12,7 @@ fn create_ap() {
 
     // Enable the Wi-Fi interface
     let enable_wifi = Command::new("networksetup")
-        .args(&["-setairportpower", interface, "on"])
+        .args(["-setairportpower", interface, "on"])
         .status();
 
     if let Err(err) = enable_wifi {
@@ -22,7 +22,7 @@ fn create_ap() {
 
     // Create the Wi-Fi network
     let create_network = Command::new("networksetup")
-        .args(&["-createlocalservice", "Wi-Fi"])
+        .args(["-createlocalservice", "Wi-Fi"])
         .status();
 
     if let Err(err) = create_network {
@@ -32,7 +32,7 @@ fn create_ap() {
 
     // Set the Wi-Fi network name
     let set_network_name = Command::new("networksetup")
-        .args(&["-setnetworkserviceenabled", "Wi-Fi", "on"])
+        .args(["-setnetworkserviceenabled", "Wi-Fi", "on"])
         .status();
 
     if let Err(err) = set_network_name {
@@ -42,7 +42,7 @@ fn create_ap() {
 
     // Configure the Wi-Fi network
     let configure_network = Command::new("networksetup")
-        .args(&["-setnetworkserviceenabled", "Wi-Fi", "on"])
+        .args(["-setnetworkserviceenabled", "Wi-Fi", "on"])
         .status();
 
     if let Err(err) = configure_network {
@@ -52,7 +52,7 @@ fn create_ap() {
 
     // Set the network service name
     let set_service_name = Command::new("networksetup")
-        .args(&["-setairportnetwork", interface, service_name, password])
+        .args(["-setairportnetwork", interface, service_name, password])
         .status();
 
     if let Err(err) = set_service_name {
