@@ -7,9 +7,45 @@ use local_ip_address::local_ip;
 extern crate pnet_datalink;
 extern crate std;
 
-/// Returns IP address of host, excluding localhost, or None if none found.
-#[cfg(target_family = "unix")]
+// /// Returns IP address of host, excluding localhost, or None if none found.
+// #[cfg(target_family = "unix")]
+// pub fn autodetect_ip_address() -> Result<String, ()> {
+//     pnet_datalink::interfaces()
+//         .into_iter()
+//         .filter(|iface| !iface.is_loopback() && iface.is_up())
+//         .flat_map(|iface| iface.ips)
+//         .find(|ip_network| ip_network.is_ipv4())
+//         .map(|ip_network| ip_network.ip().to_string())
+//         .ok_or(())
+// }
+
+// /// Returns IP address of host, excluding localhost, or None if none found.
+// #[cfg(target_family = "windows")]
+// pub fn autodetect_ip_address() -> Result<String, ()> {
+//     Ok(local_ip().unwrap().to_string())
+// }
+
+
+/// Returns IP address of the host, excluding localhost, or None if none found.
 pub fn autodetect_ip_address() -> Result<String, ()> {
+    #[cfg(target_os = "linux")]
+    {
+        autodetect_ip_address_linux()
+    }
+
+    #[cfg(target_os = "macos")]
+    {
+        autodetect_ip_address_macos()
+    }
+
+    #[cfg(target_os = "windows")]
+    {
+        autodetect_ip_address_windows()
+    }
+}
+
+#[cfg(target_os = "linux")]
+fn autodetect_ip_address_linux() -> Result<String, ()> {
     pnet_datalink::interfaces()
         .into_iter()
         .filter(|iface| !iface.is_loopback() && iface.is_up())
@@ -19,11 +55,25 @@ pub fn autodetect_ip_address() -> Result<String, ()> {
         .ok_or(())
 }
 
-/// Returns IP address of host, excluding localhost, or None if none found.
-#[cfg(target_family = "windows")]
-pub fn autodetect_ip_address() -> Result<String, ()> {
-    Ok(local_ip().unwrap().to_string())
+#[cfg(target_os = "macos")]
+fn autodetect_ip_address_macos() -> Result<String, ()> {
+    pnet_datalink::interfaces()
+        .into_iter()
+        .filter(|iface| !iface.is_loopback() && iface.is_up())
+        .flat_map(|iface| iface.ips)
+        .find(|ip_network| ip_network.is_ipv4())
+        .map(|ip_network| ip_network.ip().to_string())
+        .ok_or(())
 }
+
+#[cfg(target_os = "windows")]
+fn autodetect_ip_address_windows() -> Result<String, ()> {
+    match local_ip::get() {
+        Ok(ip) => Ok(ip.to_string()),
+        Err(_) => Err(()),
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;

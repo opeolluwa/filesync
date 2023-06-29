@@ -31,6 +31,9 @@ lazy_static! {
 }
 
 fn main() {
+    // create  ap
+    // let config = create_ap();
+    // println!("{:#?}", config);
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(server::core_server());
     tauri::Builder::default()
