@@ -1,4 +1,4 @@
-import MusicFile from "@/components/file/MusicFile";
+import MusicFile from "@/components/thumbnail/MusicFile";
 import QuickAccessLayout from "@/components/layout/PageLayout";
 import SearchBar from "@/components/SearchBar";
 import { AppData, AudioFile } from "@/types";
@@ -39,7 +39,8 @@ export default function Music() {
       setLoading(false);
     });
   }, []);
-
+  // TODO(@opeolluwa): use Tauri Js API to render musicData
+  // TODO(@opeolluwa) add modal to play audio file, video and document using web APIs
   // typecast the response into AppData type
   const musicData = data as unknown as AppData<Array<AudioFile>>;
   if (isLoading) {

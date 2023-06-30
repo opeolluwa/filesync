@@ -1,3 +1,5 @@
+"is Client";
+
 import PageTitle from "@/components/PageTitle";
 import SearchBar from "@/components/SearchBar";
 import {
@@ -91,6 +93,7 @@ export default function Main() {
           onSearch={function (city: string): void {
             throw new Error("Function not implemented.");
           }}
+          placeholder={"search files"}
         />
       </section>
 
