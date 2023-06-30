@@ -13,6 +13,11 @@
   "tauri": {
     "allowlist": {
       "all": false,
+      "app":{
+        "all": true,
+        "hide": true,
+        "show": true
+      },
       "dialog": {
         "all": true,
         "open": true,
@@ -25,6 +30,8 @@
         "readDir": true,
         "copyFile": true,
         "createDir": true,
+        "renameFile": true,
+        "removeFile": true,
         "removeDir": true,
         "exists": true,
         "scope": [
@@ -68,7 +75,8 @@
         "resizable": true,
         "title": "send file",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "fileDropEnabled": false
       }
     ]
   }
