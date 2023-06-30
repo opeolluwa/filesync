@@ -1,3 +1,4 @@
+'is client';
 import {
   Cog8ToothIcon,
   HomeIcon,
@@ -23,8 +24,30 @@ import { useEffect, useState } from "react";
 import { SystemInformation } from "@/store/sys-info";
 import { invoke } from "@tauri-apps/api/tauri";
 import { MemoryInformation } from "../MemoryInformation";
-
+import { DialogFilter, message, ask } from "@tauri-apps/api/dialog";
+import { open } from "@tauri-apps/api/dialog";
+import {  pictureDir } from "@tauri-apps/api/path";
 export default function Navigation() {
+  /**
+   * @function openFileManager - opens a file manager
+   * @returns {Array<Files>} an array of selected files
+   */
+  const openFileManager = async () => /* : Array<File> */ {
+    try {
+      const selectedFilePath = await open({
+        directory: false,
+        multiple: true,
+        // filters: allowedExtension,
+        // defaultPath: await pictureDir(),
+      });
+      // upload select file with tauri upload plugin
+    } catch (err) {
+      message((err as Error).message, {
+        title: "Access error",
+        type: "error",
+      });
+    }
+  };
   let [systemInformation, setSystemInformation] = useState(
     {} as SystemInformation
   );
@@ -74,7 +97,7 @@ export default function Navigation() {
       //TODO: open saved files directory
       path: "/files",
       icon: <FolderOpenIcon className="w-6 h-6" />,
-      // action: openFileManager,
+      action: openFileManager,
       alternateIcon: <SolidFolderIconOpen className="w-6 h-6" />,
       name: "File Manager",
     },
@@ -90,7 +113,7 @@ export default function Navigation() {
       path: "/help",
       icon: <InformationCircleIcon className="w-6 h-6" />,
       alternateIcon: <SolidInformationIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "help" }),
+      action: () => gotoPage({ routePath: "about" }),
       name: "help",
     },
   ];

@@ -1,14 +1,18 @@
 import { useContext } from "react";
-import FileCard, { FileInterface } from "./file/FileCard";
+import FileCard, { FileInterface } from "./thumbnail/FileCard";
 import Image from "next/image";
 import { FileContext } from "@/store/context";
+import { Battery50Icon, BellAlertIcon } from "@heroicons/react/24/outline";
 
 export default function Aside() {
   const { fileList } = useContext(FileContext);
 
-  console.log(fileList);
   return (
     <aside className="hidden lg:block lg:flex-col items-center lg:col-span-3 pt-10 px-8  h-full bg-[rgba(226,233,252,255)]">
+      <div className="flex items-end  hidden">
+        <Battery50Icon className="w-6 h-6 text-gray-400" />
+        <BellAlertIcon className="w-6 h-6 text-gray-400" />
+      </div>
       {(fileList.length && (
         <h2 className="font-bold  dark:text-gray-400 flex items-center justify-between mb-10">
           Sent Files

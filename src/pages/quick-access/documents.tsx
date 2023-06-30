@@ -1,4 +1,4 @@
-import DocumentComponent from "@/components/file/DocumentComponent";
+import DocumentComponent from "@/components/thumbnail/DocumentComponent";
 import QuickAccessLayout from "@/components/layout/PageLayout";
 import { AppData, AudioFile } from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";

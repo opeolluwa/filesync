@@ -36,8 +36,7 @@ export default function QuickAccessLayout({
         <SearchBar
           onSearch={function (city: string): void {
             throw new Error("Function not implemented.");
-          }}
-        />
+          } } placeholder={""}        />
       )}
 
       {/** the view/children nodes  */}
