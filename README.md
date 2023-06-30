@@ -25,7 +25,7 @@ The following are required to run the application in development
 
 - [Node.js](https://nodejs.org) - The JavaScript Runtime environment
 - [Yarn](https://yarnpkg.com/) - A fast, secure and reliable package manager for Node.js
-- [Rust v1.67 or greater](rust-lang.org/) - A language empowering everyone
+- [Rust v1.70 or greater](rust-lang.org/) - A language empowering everyone
   to build reliable and efficient software.
 
 In addition, this project uses Tauri v1.3, see [prerequisite](https://tauri.app/v1/guides/getting-started/prerequisites/) for your operating system.
@@ -79,4 +79,4 @@ Please adhere to this project's [code of conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
-This project is proprietary software owned by [Adeoye Adefemi](https://www.linkedin.com/in/adefemi-adeoye) and distributed under [MIT License](./LICENSE)
+This project is distributed under the [MIT License](./LICENSE)
