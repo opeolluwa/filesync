@@ -5,7 +5,7 @@ use reqwest::Method;
 use serde_json::json;
 use serde_json::Value;
 use std::fs;
-use std::net::Ipv4Addr;
+use std::net::SocketAddr;
 use std::path::PathBuf;
 
 use tower_http::cors::Any;
@@ -27,7 +27,6 @@ use std::io;
 use tokio::{fs::File, io::BufWriter};
 use tokio_util::io::StreamReader;
 
-use crate::net;
 use crate::utils;
 use crate::{SERVER_PORT, UPLOAD_DIRECTORY};
 
@@ -57,12 +56,15 @@ pub async fn core_server() {
     let file_size_limit = 10 * 1024 * 1024 * 1024;
     let file_limit = DefaultBodyLimit::max(file_size_limit);
 
-    // the core server
-    let my_local_ip = net::ip_manager::autodetect_ip_address()
+    // TODO: run the https server on localhost then feed off the connection using the wifi gateway, the same way Vite/Vue CLI would do the core server
+    /*   let my_local_ip = net::ip_manager::autodetect_ip_address()
         .expect("No Ip address detected")
         .parse::<Ipv4Addr>()
         .unwrap();
-    let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT as u64);
+    let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT as u64); */
+    let port = *SERVER_PORT;
+    let ip_address = SocketAddr::from(([127, 0, 0, 1], port));
+
     // tracing::debug!("server running on http://{}", &ip_address.to_string());
 
     //mount the application views
@@ -80,7 +82,7 @@ pub async fn core_server() {
         .layer(tower_http::trace::TraceLayer::new_for_http());
 
     // run the server
-    axum::Server::bind(&ip_address.parse().unwrap())
+    axum::Server::bind(&ip_address)
         .serve(app.into_make_service())
         .await
         .unwrap();

@@ -10,7 +10,7 @@ pub mod linux_hotspot;
 pub mod mac_hotspot;
 pub mod wifi_scanner;
 pub mod windows_hotspot;
-pub mod connect_with_qrx;
+pub mod connect_with_qr_code;
 /// the network interface type contains the
 /// - gateway ex 192.168.0.0.1
 /// - username ex sillicone
