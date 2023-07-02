@@ -1,8 +1,7 @@
-
 // create hotspot on the linux operating system using nmcli
 // @copyright Adeoye adefemi 2023
-use crate::net::NetworkAccessStatus;
 use super::AccessPointInterface;
+use crate::net::NetworkAccessStatus;
 use std::process::{Command, Output};
 use std::str;
 
@@ -21,7 +20,7 @@ pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
             ..Default::default()
         });
     };
-    println!("network gateway {:?}", network_gateway);
+    println!("network gateway {:#?}", network_gateway);
 
     // create new access point config
     let access_point = AccessPointInterface::new(&network_gateway[0]);
@@ -41,9 +40,9 @@ pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
                 ..Default::default()
             });
         };
-    println!("network interface {:?}", network_interfaces);
+    println!("network interface {:#?}", network_interfaces);
     // iterate through available interfaces and create a network with whichever is available
-    for network_interface in network_interfaces {
+    if let Some(network_interface) = network_interfaces.into_iter().next() {
         // Execute 'nmcli' commands to create a hotspot
         let create_ap = Command::new("nmcli")
             .arg("dev")

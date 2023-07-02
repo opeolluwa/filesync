@@ -1,3 +1,5 @@
+"use client";
+
 import PageTitle from "@/components/PageTitle";
 import SearchBar from "@/components/SearchBar";
 import {
@@ -91,6 +93,7 @@ export default function Main() {
           onSearch={function (city: string): void {
             throw new Error("Function not implemented.");
           }}
+          placeholder={"search files"}
         />
       </section>
 
@@ -127,7 +130,7 @@ export default function Main() {
             href="/history"
             className="text-gray-500 text-violet-600 dark:text-violet"
           >
-            view all
+            view all 
           </Link>
         </h2>
         <div className="relative overflow-x-auto bg-white rounded-[24px] shadow-lg px-4 py-8 ">

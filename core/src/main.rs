@@ -6,7 +6,7 @@ use lazy_static::lazy_static;
 
 use crate::commands::utils::get_system_information;
 
-// tauri APIs
+// Rust-JavaScript APIs
 use crate::commands::{
     audio::fetch_audio_files,
     documents::fetch_documents,
@@ -16,6 +16,7 @@ use crate::commands::{
     utils::{close_splashscreen, get_ip_address},
     video::fetch_video_files,
 };
+use crate::net::connect_with_qr_code::generate_qr_code;
 use crate::net::create_ap::{create_ap, kill_ap};
 
 mod commands;
@@ -30,10 +31,12 @@ lazy_static! {
     pub static ref UPLOAD_DIRECTORY: std::string::String = String::from("sendfile");
 }
 
-fn main() {
+fn main() -> Result<(), tauri::Error> {
     // create  ap
     let config = net::linux_hotspot::create_ap();
-    println!("{:?}", config);
+    println!("{:#?}", config);
+
+
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(server::core_server());
     tauri::Builder::default()
@@ -52,8 +55,9 @@ fn main() {
             fetch_documents,
             search_home_dir,
             create_ap,
-            kill_ap
+            kill_ap,
+            generate_qr_code
         ])
         .run(tauri::generate_context!())
-        .expect("error while running tauri application");
+    // .expect("error while running tauri application");
 }

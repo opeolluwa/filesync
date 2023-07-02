@@ -79,4 +79,4 @@ Please adhere to this project's [code of conduct](CODE_OF_CONDUCT.md).
 
 ## License
 
-This project is proprietary software owned by [Adeoye Adefemi](https://www.linkedin.com/in/adefemi-adeoye) and distributed under [MIT License](./LICENSE)
+This project is distributed under the [MIT License](./LICENSE)

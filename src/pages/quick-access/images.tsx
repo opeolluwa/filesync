@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 // const pictureDir = dynamic(() => import('@tauri-apps/api/path').then((mod) => mod.pictureDir), { ssr: false });
-
+//TODO(@opeolluwa): use Tauri Js API to fetch image files and render 
 export default function Images() {
   const [data, setData] = useState("");
   const [isLoading, setLoading] = useState(false);
