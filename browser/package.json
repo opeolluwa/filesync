@@ -1,6 +1,6 @@
 {
-  "name": "browser",
-  "private": true,
+  "name": "wi-share-browser-ui",
+  "private": false,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
