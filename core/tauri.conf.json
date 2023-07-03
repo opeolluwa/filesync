@@ -7,7 +7,7 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "send file",
+    "productName": "WiShare",
     "version": "0.6.0"
   },
   "tauri": {
@@ -60,7 +60,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.sendfile.dev",
+      "identifier": "com.wishare.app",
       "targets": "all"
     },
     "security": {
