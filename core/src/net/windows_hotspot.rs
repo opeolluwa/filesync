@@ -8,7 +8,7 @@ fn command_output_to_string(output: &Vec<u8>) -> String {
 }
 /// Create hotspot on windows
 #[allow(dead_code)]
-pub fn create_ap() {
+pub fn create_ap(ssid: &str, key: &str) {
     // Check if the device support the hotspot feature
     match is_support_hotspot() {
         Ok(false) => {
@@ -21,12 +21,8 @@ pub fn create_ap() {
         }
         Ok(true) => println!("Hotspot is supported"),
     };
-    // Set up the hotspot name and password
-    let hotspot_name = "MyHotspot";
-    let hotspot_password = "MyPassword123";
-
     // Create a new hotspot
-    match create_hotspot(hotspot_name, hotspot_password) {
+    match create_hotspot(ssid, key) {
         Ok(_) => println!("Created a new hotspot"),
         Err(e) => {
             println!("{}", e);
