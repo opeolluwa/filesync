@@ -138,10 +138,11 @@ impl SystemInformation {
         }
     }
     pub fn get_available_disk(&self, folder_name: &str) -> Result<u64, String> {
-        let search = self.disk.array_of_drives.iter().find(|d| {
-            d.mount_point.as_str().split_once('\\').unwrap().0
-                == folder_name.split_once('\\').unwrap().0
-        });
+        let search = self
+            .disk
+            .array_of_drives
+            .iter()
+            .find(|d| folder_name.contains(&d.mount_point));
         match search {
             Some(disk) => Ok(disk.available_space),
             None => Err(format!("There is no disk named {}", folder_name)),
