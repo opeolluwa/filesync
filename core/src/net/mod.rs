@@ -4,13 +4,11 @@ use crate::utils::system_info::SystemInformation;
 use nanoid::nanoid;
 use serde::{Deserialize, Serialize};
 
-pub mod create_ap;
 pub mod ip_manager;
 pub mod linux_hotspot;
 pub mod mac_hotspot;
 pub mod wifi_scanner;
 pub mod windows_hotspot;
-pub mod connect_with_qr_code;
 /// the network interface type contains the
 /// - gateway ex 192.168.0.0.1
 /// - username ex sillicone
@@ -32,7 +30,7 @@ pub struct AccessPointInterface {
     message: Option<String>,
 }
 
-/// network was successfully creatd or there is an error
+/// network was successfully created or there is an error
 #[derive(Debug, Serialize, Deserialize,)]
 pub enum NetworkAccessStatus {
     Created,

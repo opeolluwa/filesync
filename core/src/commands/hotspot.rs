@@ -1,7 +1,6 @@
 /// create network interface here using OS specific implementation
 /// once this is done pass the network conf
-use super::{linux_hotspot, AccessPointInterface};
-use crate::utils::CommandData;
+use crate::{utils::CommandData, net::{AccessPointInterface, linux_hotspot}};
 
 #[tauri::command]
 pub fn create_ap() -> CommandData<AccessPointInterface> {
