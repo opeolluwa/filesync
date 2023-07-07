@@ -1,12 +1,10 @@
-// create hotspot on the linux operating system using nmcli
-// @copyright Adeoye adefemi 2023
 use super::AccessPointInterface;
 use crate::net::NetworkAccessStatus;
 use std::process::{Command, Output};
 use std::str;
 
 /// create hotspot on linux
-pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
+pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
     // get the network gate way ex DNS Configuration: Some(["192.168.100.121"])
     let output = Command::new("nmcli")
         .args(["dev", "show"])
@@ -44,7 +42,7 @@ pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
     // iterate through available interfaces and create a network with whichever is available
     if let Some(network_interface) = network_interfaces.into_iter().next() {
         // Execute 'nmcli' commands to create a hotspot
-        let create_ap = Command::new("nmcli")
+        let create_wifi_hotspot_cli = Command::new("nmcli")
             .arg("dev")
             .arg("wifi")
             .arg("hotspot")
@@ -60,7 +58,7 @@ pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
             .expect("Failed to execute 'nmcli' command.");
 
         // Check if the command was successful
-        if create_ap.status.success() {
+        if create_wifi_hotspot_cli.status.success() {
             return Ok(AccessPointInterface {
                 ssid,
                 password,
@@ -70,7 +68,7 @@ pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
             });
             // break;
         } else {
-            let error_msg = String::from_utf8_lossy(&create_ap.stderr);
+            let error_msg = String::from_utf8_lossy(&create_wifi_hotspot_cli.stderr);
             return Err(AccessPointInterface {
                 status: Some(NetworkAccessStatus::Error),
                 message: Some(format!("Failed to create hotspot: {}", error_msg)),
@@ -122,7 +120,7 @@ pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
         //iterate through available interfaces and create network with whichever is available
         for network_interface in network_interfaces {
             // Execute 'nmcli' commands to create a hotspot
-            let create_ap = Command::new("nmcli")
+            let  = Command::new("nmcli")
                 .arg("dev")
                 .arg("wifi")
                 .arg("hotspot")
@@ -138,7 +136,7 @@ pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
                 .expect("Failed to execute 'nmcli' command.");
 
             // Check if the command was successful
-            if create_ap.status.success() {
+            if .status.success() {
                 return Ok(AccessPointInterface {
                     ssid,
                     password,
@@ -148,7 +146,7 @@ pub fn create_ap() -> Result<AccessPointInterface, AccessPointInterface> {
                 })
                 // break;
             } else {
-                let error_msg = String::from_utf8_lossy(&create_ap.stderr);
+                let error_msg = String::from_utf8_lossy(&.stderr);
                 return Err(AccessPointInterface {
                     status: Some(NetworkAccessStatus::Error),
                     message: Some(format!("Failed to create hotspot: {}", error_msg)),

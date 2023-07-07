@@ -39,8 +39,8 @@ fn main() -> Result<(), tauri::Error> {
             commands::utils::get_system_information,
             commands::documents::fetch_documents,
             commands::search::search_home_dir,
-            commands::hotspot::create_ap,
-            commands::hotspot::kill_ap,
+            commands::hotspot::create_wifi_hotspot,
+            commands::hotspot::kill_wifi_hotspot,
             commands::connect_with_qr_code::generate_qr_code
         ])
         .run(tauri::generate_context!())
