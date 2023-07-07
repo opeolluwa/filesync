@@ -113,7 +113,7 @@ export default function Navigation() {
       path: "/help",
       icon: <InformationCircleIcon className="w-6 h-6" />,
       alternateIcon: <SolidInformationIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "about" }),
+      action: () => gotoPage({ routePath: "help" }),
       name: "help",
     },
   ];

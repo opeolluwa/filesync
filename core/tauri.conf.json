@@ -7,12 +7,17 @@
     "withGlobalTauri": true
   },
   "package": {
-    "productName": "send file",
+    "productName": "WiShare",
     "version": "0.6.0"
   },
   "tauri": {
     "allowlist": {
       "all": false,
+      "app":{
+        "all": true,
+        "hide": true,
+        "show": true
+      },
       "dialog": {
         "all": true,
         "open": true,
@@ -25,6 +30,8 @@
         "readDir": true,
         "copyFile": true,
         "createDir": true,
+        "renameFile": true,
+        "removeFile": true,
         "removeDir": true,
         "exists": true,
         "scope": [
@@ -53,7 +60,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.sendfile.dev",
+      "identifier": "com.wishare.app",
       "targets": "all"
     },
     "security": {
@@ -68,7 +75,8 @@
         "resizable": true,
         "title": "send file",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "fileDropEnabled": false
       }
     ]
   }

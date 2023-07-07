@@ -15,19 +15,27 @@ tauri-build = {version = "1.2", features = [] }
 [dependencies]
 assert_fs = "1.0.13"
 axum = {version = "0.6.12", features = ["multipart"] }
+battery = "0.7.8"
 dirs = "5.0.0"
 filesize = "0.2.0"
 futures = "0.3.28"
+image = "0.24.6"
 lazy_static = "1.4.0"
 local-ip-address = "0.5.3"
+mockall = "0.11.4"
+nanoid = "0.4.0"
+network-interface = "1.0.1"
+num-traits = "0.2.15"
 pnet_datalink = "0.33.0"
 portpicker = "0.1.1"
+qrcode = "0.12.0"
+qrcode-generator = "4.1.8"
 reqwest = "0.11.16"
 serde = {version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 sys-info = "0.9.1"
 sysinfo = "0.29.2"
-tauri = {version = "1.2", features = ["dialog-all", "fs-all", "path-all", "shell-open"] }
+tauri = {version = "1.2", features = [ "app-all", "dialog-all", "fs-all", "path-all", "shell-open"] }
 tauri-plugin-localhost = {git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev"}
 tauri-plugin-store = {git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev"}
 tauri-plugin-upload = {git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev"}
@@ -40,14 +48,6 @@ tracing-subscriber = {version = "0.3.16", features = ["env-filter"] }
 uptime_lib = "0.2.2"
 walkdir = "2.3.3"
 wildmatch = "2.1.1"
-battery = "0.7.8"
-num-traits = "0.2.15"
-mockall = "0.11.4"
-network-interface = "1.0.1"
-nanoid = "0.4.0"
-qrcode = "0.12.0"
-image = "0.24.6"
-qrcode-generator = "4.1.8"
 
 [dependencies.tauri-plugin-sqlite]
 git = "https://github.com/lzdyes/tauri-plugin-sqlite"
