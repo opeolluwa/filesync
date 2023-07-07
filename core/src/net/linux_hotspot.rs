@@ -49,7 +49,7 @@ pub fn create_hotspot() -> Result<WifiHotspotConfig, WifiHotspotConfig> {
             .arg("ifname")
             .arg(&network_interface) // Replace 'wlan0' with the appropriate network interface name
             .arg("con-name")
-            .arg("send-file-access-point") // Replace 'my-hotspot' with the desired connection name
+            .arg("wishare") // Replace 'my-hotspot' with the desired connection name
             .arg("ssid")
             .arg(&ssid) //the desired SSID name
             .arg("password")
@@ -82,79 +82,7 @@ pub fn create_hotspot() -> Result<WifiHotspotConfig, WifiHotspotConfig> {
         ..Default::default()
     })
 
-    /*  // get the network interface e.g wlan0, wlo1 ...
-        let Some(network_interfaces) = get_network_interface().ok() else {
-            return Err(WifiHotspotConfig {
-                status: Some(NetworkAccessStatus::Error),
-                message: Some(String::from("Failed to create Wifi hotspot")),
-                ..Default::default()
-            });
-        };
-        println!("network interface {:?}", network_interfaces);
-        // get the network gate way ex DNS Configuration: Some(["192.168.100.121"])
-        let output = Command::new("nmcli")
-            .args(["dev", "show"])
-            .output()
-            .expect("Failed to execute nmcli");
-
-        let Some(network_gateway) = parse_dns_config(&output) else {
-        return Err(WifiHotspotConfig{
-            status: Some(NetworkAccessStatus::Error),
-            message: Some(String::from("Failed to create Wifi hotspot")),
-            ..Default::default()
-        });
-    };
-
-        println!("network gateway {:?}", network_gateway);
-
-        // create new access point config
-        let access_point = WifiHotspotConfig::new(&network_gateway[0]);
-        // destructure the ssid, password and gateway
-        let WifiHotspotConfig {
-            ssid,
-            password,
-            gateway,
-            ..
-        } = access_point;
-
-        //iterate through available interfaces and create network with whichever is available
-        for network_interface in network_interfaces {
-            // Execute 'nmcli' commands to create a hotspot
-            let  = Command::new("nmcli")
-                .arg("dev")
-                .arg("wifi")
-                .arg("hotspot")
-                .arg("ifname")
-                .arg(&network_interface) // Replace 'wlan0' with the appropriate network interface name
-                // .arg("con-name")
-                // .arg("my-hotspot") // Replace 'my-hotspot' with the desired connection name
-                .arg("ssid")
-                .arg(&ssid) //the desired SSID name
-                .arg("password")
-                .arg(&password) // Replace 'MyPassword' with the desired password
-                .output()
-                .expect("Failed to execute 'nmcli' command.");
-
-            // Check if the command was successful
-            if .status.success() {
-                return Ok(WifiHotspotConfig {
-                    ssid,
-                    password,
-                    gateway,
-                    status: Some(NetworkAccessStatus::Created),
-                    message: Some(String::from("Wifi hotspot created successfully")),
-                })
-                // break;
-            } else {
-                let error_msg = String::from_utf8_lossy(&.stderr);
-                return Err(WifiHotspotConfig {
-                    status: Some(NetworkAccessStatus::Error),
-                    message: Some(format!("Failed to create hotspot: {}", error_msg)),
-                    ..Default::default()
-                });
-            }
-        }
-        Ok(()); */
+   
 }
 
 /// get the network gate way DNS Configuration: Some(["192.168.100.121"])
