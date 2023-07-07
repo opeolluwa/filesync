@@ -1,17 +1,17 @@
 /// create network interface here using OS specific implementation
 /// once this is done pass the network conf
 use crate::{
-    net::{linux_hotspot, AccessPointInterface},
+    net::{linux_hotspot, WifiHotspotConfig},
     utils::CommandData,
 };
 
 #[tauri::command]
-pub fn create_wifi_hotspot() -> CommandData<AccessPointInterface> {
+pub fn create_wifi_hotspot() -> CommandData<WifiHotspotConfig> {
     #[cfg(target_os = "linux")]
     {
         // Linux-specific command
         let Some(new_access_point) = linux_hotspot::create_hotspot().ok() else {
-        return CommandData::err("failed to create access point", AccessPointInterface::err())
+        return CommandData::err("failed to create access point", WifiHotspotConfig::err())
     };
         CommandData::ok("created access point", new_access_point)
     }

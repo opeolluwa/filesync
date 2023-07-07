@@ -1,10 +1,10 @@
-use super::AccessPointInterface;
+use super::WifiHotspotConfig;
 use crate::net::NetworkAccessStatus;
 use std::process::{Command, Output};
 use std::str;
 
 /// create hotspot on linux
-pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
+pub fn create_hotspot() -> Result<WifiHotspotConfig, WifiHotspotConfig> {
     // get the network gate way ex DNS Configuration: Some(["192.168.100.121"])
     let output = Command::new("nmcli")
         .args(["dev", "show"])
@@ -12,7 +12,7 @@ pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
         .expect("Failed to execute nmcli");
 
     let Some(network_gateway) = parse_dns_config(&output) else {
-        return Err(AccessPointInterface{
+        return Err(WifiHotspotConfig{
             status: Some(NetworkAccessStatus::Error),
             message: Some(String::from("Failed to create Wifi hotspot")),
             ..Default::default()
@@ -21,9 +21,9 @@ pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
     println!("network gateway {:#?}", network_gateway);
 
     // create new access point config
-    let access_point = AccessPointInterface::new(&network_gateway[0]);
+    let access_point = WifiHotspotConfig::new(&network_gateway[0]);
     // destructure the ssid, password, and gateway
-    let AccessPointInterface {
+    let WifiHotspotConfig {
         ssid,
         password,
         gateway,
@@ -32,7 +32,7 @@ pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
 
     // get the network interface e.g wlan0, wlo1 ...
     let Some(network_interfaces) = get_network_interface().ok() else {
-            return Err(AccessPointInterface {
+            return Err(WifiHotspotConfig {
                 status: Some(NetworkAccessStatus::Error),
                 message: Some(String::from("Failed to create Wifi hotspot")),
                 ..Default::default()
@@ -59,7 +59,7 @@ pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
 
         // Check if the command was successful
         if create_wifi_hotspot_cli.status.success() {
-            return Ok(AccessPointInterface {
+            return Ok(WifiHotspotConfig {
                 ssid,
                 password,
                 gateway,
@@ -69,14 +69,14 @@ pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
             // break;
         } else {
             let error_msg = String::from_utf8_lossy(&create_wifi_hotspot_cli.stderr);
-            return Err(AccessPointInterface {
+            return Err(WifiHotspotConfig {
                 status: Some(NetworkAccessStatus::Error),
                 message: Some(format!("Failed to create hotspot: {}", error_msg)),
                 ..Default::default()
             });
         }
     }
-    Err(AccessPointInterface {
+    Err(WifiHotspotConfig {
         status: Some(NetworkAccessStatus::Error),
         message: Some(String::from("Failed to create Wifi hotspot")),
         ..Default::default()
@@ -84,7 +84,7 @@ pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
 
     /*  // get the network interface e.g wlan0, wlo1 ...
         let Some(network_interfaces) = get_network_interface().ok() else {
-            return Err(AccessPointInterface {
+            return Err(WifiHotspotConfig {
                 status: Some(NetworkAccessStatus::Error),
                 message: Some(String::from("Failed to create Wifi hotspot")),
                 ..Default::default()
@@ -98,7 +98,7 @@ pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
             .expect("Failed to execute nmcli");
 
         let Some(network_gateway) = parse_dns_config(&output) else {
-        return Err(AccessPointInterface{
+        return Err(WifiHotspotConfig{
             status: Some(NetworkAccessStatus::Error),
             message: Some(String::from("Failed to create Wifi hotspot")),
             ..Default::default()
@@ -108,9 +108,9 @@ pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
         println!("network gateway {:?}", network_gateway);
 
         // create new access point config
-        let access_point = AccessPointInterface::new(&network_gateway[0]);
+        let access_point = WifiHotspotConfig::new(&network_gateway[0]);
         // destructure the ssid, password and gateway
-        let AccessPointInterface {
+        let WifiHotspotConfig {
             ssid,
             password,
             gateway,
@@ -137,7 +137,7 @@ pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
 
             // Check if the command was successful
             if .status.success() {
-                return Ok(AccessPointInterface {
+                return Ok(WifiHotspotConfig {
                     ssid,
                     password,
                     gateway,
@@ -147,7 +147,7 @@ pub fn create_hotspot() -> Result<AccessPointInterface, AccessPointInterface> {
                 // break;
             } else {
                 let error_msg = String::from_utf8_lossy(&.stderr);
-                return Err(AccessPointInterface {
+                return Err(WifiHotspotConfig {
                     status: Some(NetworkAccessStatus::Error),
                     message: Some(format!("Failed to create hotspot: {}", error_msg)),
                     ..Default::default()
