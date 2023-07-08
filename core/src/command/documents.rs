@@ -1,5 +1,5 @@
-use crate::commands::file::File;
-use crate::commands::search::search_files;
+use crate::command::file::File;
+use crate::command::search::search_files;
 use crate::utils::CommandData;
 
 /// filter file path for documents
@@ -31,7 +31,7 @@ pub fn fetch_documents() -> Result<CommandData<Vec<File>>, CommandData<()>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::commands::documents::{fetch_documents, ACCEPTABLE_SUFFIXES};
+    use crate::command::documents::{fetch_documents, ACCEPTABLE_SUFFIXES};
     #[test] // see if there are files in the documents directory path
     fn _fetch_documents_() {
         let docs = fetch_documents().ok();

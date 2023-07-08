@@ -3,7 +3,7 @@ use std::path::PathBuf;
 use walkdir::{DirEntry, WalkDir};
 use wildmatch::WildMatch;
 
-use crate::commands::file::File;
+use crate::command::file::File;
 use crate::utils::{is_hidden, CommandData};
 use assert_fs::prelude::*;
 
