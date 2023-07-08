@@ -6,7 +6,7 @@ use lazy_static::lazy_static;
 
 // use crate::commands::utils::get_system_information;
 
-mod commands;
+mod command;
 mod net;
 mod server;
 mod utils;
@@ -19,8 +19,8 @@ lazy_static! {
 }
 
 fn main() -> Result<(), tauri::Error> {
-    /*    // create  ap
-       let config = net::linux_hotspot::create_ap();
+    // create  ap
+    /*    let config = net::linux_hotspot::create_hotspot();
        println!("{:#?}", config);
     */
     // run core the server in a separate thread from tauri
@@ -29,19 +29,19 @@ fn main() -> Result<(), tauri::Error> {
         .plugin(tauri_plugin_upload::init())
         .plugin(tauri_plugin_sqlite::init())
         .invoke_handler(tauri::generate_handler![
-            commands::utils::get_ip_address,
-            commands::audio::fetch_audio_files,
-            commands::video::fetch_video_files,
-            commands::image::fetch_images,
-            commands::video::fetch_video_files,
-            commands::utils::close_splashscreen,
-            commands::send_file::share_file_with_peer,
-            commands::utils::get_system_information,
-            commands::documents::fetch_documents,
-            commands::search::search_home_dir,
-            commands::hotspot::create_wifi_hotspot,
-            commands::hotspot::kill_wifi_hotspot,
-            commands::connect_with_qr_code::generate_qr_code
+            command::utils::get_ip_address,
+            command::audio::fetch_audio_files,
+            command::video::fetch_video_files,
+            command::image::fetch_images,
+            command::video::fetch_video_files,
+            command::utils::close_splashscreen,
+            command::send_file::share_file_with_peer,
+            command::utils::get_system_information,
+            command::documents::fetch_documents,
+            command::search::search_home_dir,
+            command::hotspot::create_wifi_hotspot,
+            command::hotspot::kill_wifi_hotspot,
+            command::connect_with_qr_code::generate_qr_code
         ])
         .run(tauri::generate_context!())
     // .expect("error while running tauri application");
