@@ -61,21 +61,21 @@ pub fn create_hotspot() -> Result<WifiHotspotConfig, WifiHotspotConfig> {
 
     // Check if the command was successful
     if create_wifi_command.status.success() {
-        return Ok(WifiHotspotConfig {
+         Ok(WifiHotspotConfig {
             ssid,
             password,
             gateway,
             status: Some(NetworkAccessStatus::Created),
             message: Some(String::from("Wifi hotspot created successfully")),
-        });
+        })
         // break;
     } else {
         let error_msg = String::from_utf8_lossy(&create_wifi_command.stderr);
-        return Err(WifiHotspotConfig {
+        Err(WifiHotspotConfig {
             status: Some(NetworkAccessStatus::Error),
             message: Some(format!("Failed to create hotspot: {}", error_msg)),
             ..Default::default()
-        });
+        })
     }
 }
 
@@ -102,36 +102,36 @@ fn parse_dns_config(output: &Output) -> Option<Vec<String>> {
 }
 
 /// get the network interface
-fn get_network_interface() -> std::io::Result<Vec<String>> {
-    let output = Command::new("nmcli").args(["device", "show"]).output()?;
+// fn get_network_interface() -> std::io::Result<Vec<String>> {
+//     let output = Command::new("nmcli").args(["device", "show"]).output()?;
 
-    let mut network_interfaces: Vec<String> = Vec::new();
-    if output.status.success() {
-        let stdout = String::from_utf8_lossy(&output.stdout);
+//     let mut network_interfaces: Vec<String> = Vec::new();
+//     if output.status.success() {
+//         let stdout = String::from_utf8_lossy(&output.stdout);
 
-        for line in stdout.lines() {
-            if line.contains("GENERAL.DEVICE")
-            /* && line.contains("TYPE") */
-            {
-                let parts: Vec<&str> = line.split_whitespace().collect();
+//         for line in stdout.lines() {
+//             if line.contains("GENERAL.DEVICE")
+//             /* && line.contains("TYPE") */
+//             {
+//                 let parts: Vec<&str> = line.split_whitespace().collect();
 
-                if let Some(interface) = parts.get(1) {
-                    // return Ok(interface.to_string());
-                    network_interfaces.push(interface.to_string());
-                }
-            }
-        }
-        return Ok(network_interfaces); // [wlo1, wlan0, docker0 ...]
-    } else {
-        let stderr = String::from_utf8_lossy(&output.stderr);
-        eprintln!("Error executing nmcli: {}", stderr);
-    }
+//                 if let Some(interface) = parts.get(1) {
+//                     // return Ok(interface.to_string());
+//                     network_interfaces.push(interface.to_string());
+//                 }
+//             }
+//         }
+//         return Ok(network_interfaces); // [wlo1, wlan0, docker0 ...]
+//     } else {
+//         let stderr = String::from_utf8_lossy(&output.stderr);
+//         eprintln!("Error executing nmcli: {}", stderr);
+//     }
 
-    Err(std::io::Error::new(
-        std::io::ErrorKind::Other,
-        "Failed to get network interface",
-    ))
-}
+//     Err(std::io::Error::new(
+//         std::io::ErrorKind::Other,
+//         "Failed to get network interface",
+//     ))
+// }
 
 // turn off the hotpot and refresh the virrtual Access card
 pub fn turn_off_hotspot() {
