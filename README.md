@@ -1,6 +1,6 @@
 # WiShare: WiFi File Sharing Application
 
-_⚠️ Some features are missing since the application is still in development, see the [issues](https://github.com/opeolluwa/send-file/issues) page to contribute_
+_⚠️ Some features are missing since the application is still in development, please see the [issues](https://github.com/opeolluwa/send-file/issues) page to contribute_
 
 ![screenshot](screenshots/home-light.png)
 
