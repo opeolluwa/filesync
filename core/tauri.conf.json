@@ -1,0 +1,83 @@
+{
+  "build": {
+    "beforeDevCommand": "yarn dev",
+    "beforeBuildCommand": "yarn build &&  yarn export ",
+    "devPath": "http://localhost:1420",
+    "distDir": "../out",
+    "withGlobalTauri": true
+  },
+  "package": {
+    "productName": "WiShare",
+    "version": "0.6.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "app":{
+        "all": true,
+        "hide": true,
+        "show": true
+      },
+      "dialog": {
+        "all": true,
+        "open": true,
+        "save": true
+      },
+      "fs": {
+        "all": true,
+        "readFile": true,
+        "writeFile": true,
+        "readDir": true,
+        "copyFile": true,
+        "createDir": true,
+        "renameFile": true,
+        "removeFile": true,
+        "removeDir": true,
+        "exists": true,
+        "scope": [
+          "$AUDIO",
+          "$VIDEO",
+          "$PICTURE",
+          "$DESKTOP",
+          "$DOWNLOAD",
+          "$DOCUMENT"
+        ]
+      },
+      "path": {
+        "all": true
+      },
+      "shell": {
+        "all": false,
+        "open": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "identifier": "com.wishare.app",
+      "targets": "all"
+    },
+    "security": {
+      "csp": null
+    },
+    "updater": {
+      "active": false
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "title": "send file",
+        "width": 800,
+        "height": 600,
+        "fileDropEnabled": false
+      }
+    ]
+  }
+}

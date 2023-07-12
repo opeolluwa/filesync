@@ -1,5 +1,5 @@
 {
-  "name": "sendfile",
+  "name": "wi-share",
   "description": "offline file sharing application Windows, Mac and Linux operating systems",
   "private": false,
   "author": "adeoye adefemi adefemiadeoye@yahoo.com",
@@ -11,21 +11,32 @@
     "export": "next export",
     "start": "next start",
     "tauri": "tauri",
-    "lint": "next lint"
+    "lint": "next lint",
+    "prebuild":"cd browser && npm run build",
+    "predev":"cd browser && npm run build",
+    "preinstall":"cd browser && yarn"
+
   },
   "dependencies": {
+    "@ant-design/icons": "^5.1.4",
+    "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^2.0.16",
-    "@tauri-apps/api": "^1.2.0",
+    "@tauri-apps/api": "^1.3.0",
+    "antd": "^5.6.2",
+    "axios": "^1.3.5",
+    "file-icons-js": "^1.1.0",
     "next": "^13.2.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-qr-code": "^2.0.11",
     "react-router-dom": "^6.9.0",
+    "tauri-plugin-sqlite-api": "github:lzdyes/tauri-plugin-sqlite#v0.1.1",
     "tauri-plugin-store-api": "https://github.com/tauri-apps/tauri-plugin-store",
     "tauri-plugin-upload-api": "https://github.com/tauri-apps/tauri-plugin-upload"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
-    "@tauri-apps/cli": "^1.2.2",
+    "@tauri-apps/cli": "^1.3.1",
     "@types/node": "^18.7.10",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",

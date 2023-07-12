@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "ESNext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -22,14 +22,16 @@
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx"
-  ],
+, "src/components/DropZone.jsx"  ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "browser"
   ]
 }

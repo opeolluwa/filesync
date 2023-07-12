@@ -21,7 +21,7 @@ All types of contributions are encouraged and valued. See the [Table of Contents
   - [Suggesting Enhancements](#suggesting-enhancements)
   - [Your First Code Contribution](#your-first-code-contribution)
   - [Improving The Documentation](#improving-the-documentation)
-- [Styleguides](#styleguides)
+- [Style Guides](#styleguides)
   - [Commit Messages](#commit-messages)
 
 
@@ -63,7 +63,13 @@ Depending on how large the project is, you may want to outsource the questioning
 -->
 
 ## I Want To Contribute
-
+To get started contributing to send file;
+- Visit the [issues page](https://github.com/opeolluwa/send-file/issues) 
+- Comment on the issue you'd like to work on it in the issue's log and it will be assigned to you
+- create fork of the project from the issues page
+- clone the fork to your machine 
+- make the changes to fix the issues, paying attention to [commit messages style guide](#commit-messages).
+-  Finally make a pull request to the send file master branch
 > ### Legal Notice <!-- omit in toc -->
 > When contributing to this project, you must agree that you have authored 100% of the content, that you have the necessary rights to the content and that the content you contribute may be provided under the project license.
 
@@ -145,11 +151,22 @@ Updating, improving and correcting the documentation is encouraged, please make 
 
 ## Styleguides
 ### Commit Messages
-A subject which contain the title of the git commit. This should be capitalized and not more that 50 characters. 
+The commit message should be structured as follows: 
+```
+<type>[optional scope]: <description>
 
-The commit message should also contain an explanatory message of what changed in past sentence. for example "implemented modal using Tauri Dialog API". 
+[optional body]
+
+[optional footer(s)]
+
+```
+- **fix** a commit type of fix patches a bug in the code base
+- **feat** a commit to implement a feature in the codebase
+- **refactor** a commit to refactor a feature implementation 
+ Other types include `build:`, `chore:`, `ci:`, `docs:`, `style:`, `perf:`, `test:` please see [convectional commits](https://www.conventionalcommits.org/en/v1.0.0/) for detailed explanation 
+
+ #### Example Commit
+  
+> feat(ui): implemented shadow effect on nav item
 
 
-<!-- omit in toc -->
-## Attribution
-This guide is based on the **contributing-gen**. [Make your own](https://github.com/bttger/contributing-gen)!
