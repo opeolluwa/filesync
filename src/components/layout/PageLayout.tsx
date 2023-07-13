@@ -17,16 +17,14 @@ export default function QuickAccessLayout({
   return (
     <>
       {/** page title  and navigation icons  */}
-      <div className="hidden mb-10 font-medium dark:text-gray-300 justify-between items-center">
+      <div className="flex mb-20 font-medium dark:text-gray-300 justify-between items-center">
         <ChevronLeftIcon
-          className="text-gary-300 dark:text-gray-200 dark:hover:text-shilo-700 w-6 h-6 text-medium cursor-pointer mr-8"
+          className="text-gary-300 w-6 h-6 text-medium cursor-pointer mr-8"
           onClick={goToPrevPage}
         />
-        <h2 className="text-xl font-bold text-gray-700 dark:text-gray-300">
-          {pageTitle}
-        </h2>
+        <PageTitle styles="capitalize" title={pageTitle}></PageTitle>
         <ChevronRightIcon
-          className="text-gary-300 dark:text-gray-200 dark:hover:text-shilo-700 w-6 h-6 text-medium cursor-pointer mr-8"
+          className="text-gary-300 w-6 h-6 text-medium cursor-pointer mr-8"
           onClick={goToNextPage}
         />
       </div>
@@ -36,7 +34,9 @@ export default function QuickAccessLayout({
         <SearchBar
           onSearch={function (city: string): void {
             throw new Error("Function not implemented.");
-          } } placeholder={""}        />
+          }}
+          placeholder={""}
+        />
       )}
 
       {/** the view/children nodes  */}

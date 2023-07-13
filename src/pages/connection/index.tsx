@@ -27,7 +27,7 @@ export default function HelpPage() {
             ></PageTitle>
             <p className="text-gray-400 l">Choose transfer mode to begin.</p>
           </div>
-          <div className="flex items-center  hidden justify-start gap-10">
+          <div className="flex items-center  justify-start gap-10">
             <Link
               href={"/connection/send"}
               className=" capitalize text-center flex flex-col justify-center hover:text-white hover:bg-app  rounded px-4 py-2 text-gray-400 w-20"
