@@ -2,9 +2,20 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 extern crate uptime_lib;
+
 use lazy_static::lazy_static;
 
-// use crate::commands::utils::get_system_information;
+use crate::command::{
+    audio::fetch_audio_files,
+    connect_with_qr_code::generate_qr_code,
+    documents::fetch_documents,
+    hotspot::{create_wifi_hotspot, kill_wifi_hotspot},
+    image::fetch_images,
+    search::search_home_dir,
+    send_file::share_file_with_peer,
+    utils::{close_splashscreen, get_ip_address, get_system_information},
+    video::fetch_video_files,
+};
 
 mod command;
 mod net;
