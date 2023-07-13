@@ -76,7 +76,7 @@ export default function Navigation() {
       icon: <SignalIcon className="w-6 h-6" />,
       name: "Connection",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
-      action: openModal,
+      action: () => gotoPage({ routePath: "/connection" }),
       path: "/connection",
     },
     {
