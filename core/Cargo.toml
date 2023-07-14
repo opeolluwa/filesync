@@ -19,6 +19,7 @@ battery = "0.7.8"
 dirs = "5.0.0"
 filesize = "0.2.0"
 futures = "0.3.28"
+hyper = { version = "0.14.27", features = ["full"] }
 image = "0.24.6"
 lazy_static = "1.4.0"
 local-ip-address = "0.5.3"
