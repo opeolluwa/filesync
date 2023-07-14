@@ -1,11 +1,11 @@
 use axum::body::Bytes;
 use axum::extract::Multipart;
+use axum::response::IntoResponse;
 use axum::BoxError;
 use reqwest::Method;
 use serde_json::json;
 use serde_json::Value;
 use std::fs;
-use std::net::SocketAddr;
 use std::path::PathBuf;
 
 use tower_http::cors::Any;
@@ -57,15 +57,18 @@ pub async fn core_server() {
     let file_limit = DefaultBodyLimit::max(file_size_limit);
 
     // TODO: run the https server on localhost then feed off the connection using the wifi gateway, the same way Vite/Vue CLI would do the core server
-    /*   let my_local_ip = net::ip_manager::autodetect_ip_address()
+    // this is currently achieved by binding the server to the device default ip address
+    let my_local_ip = crate::net::ip_manager::autodetect_ip_address()
         .expect("No Ip address detected")
-        .parse::<Ipv4Addr>()
+        .parse::<std::net::Ipv4Addr>()
         .unwrap();
-    let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT as u64); */
-    let port = *SERVER_PORT;
-    let ip_address = SocketAddr::from(([127, 0, 0, 1], port));
+    let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT as u64);
+    let ip_address = ip_address
+        .parse::<std::net::SocketAddr>()
+        .ok()
+        .expect("invalid socket address");
 
-    // tracing::debug!("server running on http://{}", &ip_address.to_string());
+    tracing::debug!("server running on http://{}", &ip_address.to_string());
 
     //mount the application views
     let views_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("views");
@@ -73,13 +76,14 @@ pub async fn core_server() {
         get_service(ServeDir::new(views_dir).append_index_html_on_directories(true));
 
     // build our application with the required routes
-    let app = Router::new()
+    let app = app()
         .fallback(static_files_service)
-        .route("/upload", post(accept_file_upload))
-        .route("/sys-info", get(system_information))
         .layer(file_limit)
         .layer(cors_layer)
         .layer(tower_http::trace::TraceLayer::new_for_http());
+
+    // add a fallback service for handling routes to unknown paths
+    let app = app.fallback(handle_404);
 
     // run the server
     axum::Server::bind(&ip_address)
@@ -138,7 +142,7 @@ where
         let body_reader = StreamReader::new(body_with_io_error);
         futures::pin_mut!(body_reader);
 
-        //create send-file directory in the downloads path dir and / save files to $DOWNLOADS/send-file
+        //create wi-share directory in the downloads path dir and / save files to $DOWNLOADS/wi-share
         let os_default_downloads_dir = dirs::download_dir().unwrap();
         let upload_path = format!(
             "{downloads_dir}/{upload_dir}",
@@ -174,4 +178,71 @@ fn path_is_valid(path: &str) -> bool {
     }
 
     components.count() == 1
+}
+
+// 404 handler
+async fn handle_404() -> impl IntoResponse {
+    (
+        StatusCode::NOT_FOUND,
+        axum::response::Json(serde_json::json!({
+        "success":false,
+        "message":String::from("The requested resource does not exist on this server!"),
+        })),
+    )
+}
+
+// the app is moved here to allow sharing across test modules
+pub fn app() -> Router {
+    Router::new()
+        .route("/upload", post(accept_file_upload))
+        .route("/sys-info", get(system_information))
+}
+
+#[cfg(test)]
+mod basic_endpoints {
+    use super::*;
+    use axum::{
+        body::Body,
+        http::{Request, StatusCode},
+    };
+    // use serde_json::{json, Value};
+    use tower::ServiceExt;
+    // test the server base url
+    // for example ->  http://loccalhost:4835
+    // the index route should return hello world
+    #[tokio::test]
+    async fn base_url() {
+        let app = app();
+
+        let response = app
+            .oneshot(Request::builder().uri("/").body(Body::empty()).unwrap())
+            .await
+            .unwrap();
+
+        // response status code should be 200
+        assert_eq!(response.status(), StatusCode::OK);
+    }
+
+    // 404 path
+    #[tokio::test]
+    async fn not_found_handler() {
+        let app = app();
+
+        // the 404 handle should return this json
+        // it will return a NOT_FOUND  status code
+        // the test will test for the validity of  this.
+        let response = app
+            .oneshot(
+                Request::builder()
+                    .uri("/not-found-error")
+                    .body(Body::empty())
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+
+        // assert  the the status code is 404
+        assert_eq!(response.status(), StatusCode::NOT_FOUND);
+        // println!(" the not-found-endpoint response is {response:?}");
+    }
 }

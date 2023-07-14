@@ -137,7 +137,8 @@ impl SystemInformation {
             remaining_time,
         }
     }
-    pub fn get_available_disk(&self, folder_name: &str) -> Result<u64, String> {
+    #[allow(unused)]
+    fn get_available_disk(&self, folder_name: &str) -> Result<u64, String> {
         let search = self
             .disk
             .array_of_drives
