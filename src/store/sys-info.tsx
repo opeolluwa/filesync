@@ -1,6 +1,8 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { ReactNode, createContext, useEffect, useState } from "react";
 export interface SystemInformation {
+  usedDisk: string;
+  availableDisk: string;
   /// the current user name eg - drizzle
   systemName: string;
   /// available store
@@ -37,6 +39,8 @@ export default function SystemInfoStore({ children }: { children: ReactNode }) {
         ipAddress: systemInformation.ipAddress,
         uptime: systemInformation.uptime,
         serverBaseUrl: systemInformation.serverBaseUrl,
+        availableDisk: systemInformation.availableDisk,
+        usedDisk: systemInformation.usedDisk,
       }}
     >
       {children}

@@ -149,7 +149,8 @@ export default function Navigation() {
 
           <MemoryInformation
             systemName={systemInformation.systemName}
-            freeMemory={systemInformation.freeMemory}
+            usedMemory={systemInformation.usedDisk}
+            totalMemory={systemInformation.availableDisk}
           />
         </nav>
       </ConnectionModal>
