@@ -1,4 +1,5 @@
 import {
+  ArrowUpTrayIcon,
   CameraIcon,
   DocumentTextIcon,
   FolderOpenIcon,
@@ -8,6 +9,7 @@ import {
 import { MemoryInformation } from "./components/MemoryInformation.tsx";
 import PageTitle from "./components/PageTitle.tsx";
 import SearchBar from "./components/SearchBar.tsx";
+import { FloatButton } from "antd";
 
 interface Tab {
   name: string;
@@ -53,8 +55,8 @@ function App() {
   ];
   return (
     <>
-      <div className="bg-app-700  text-white rounded-b-[24px] px-8 py-8">
-        <PageTitle styles="mb-4 pt-8" title={"Overview"} />
+      <div className="bg-app-700  text-white rounded-b-[24px] px-8 py-8 mb-12">
+        <PageTitle styles="mb-4 pb-2" title={"Overview"} />
         <SearchBar
           onSearch={function (): void {
             throw new Error("Function not implemented.");
@@ -97,6 +99,11 @@ function App() {
             </div>
           );
         })}
+        <FloatButton
+          shape="circle"
+          type="primary"
+          icon={<ArrowUpTrayIcon />}
+        />
       </div>
     </>
   );
