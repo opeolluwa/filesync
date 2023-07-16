@@ -1,20 +1,21 @@
-use axum::{Json, BoxError};
+use axum::{BoxError, Json};
 // get documents, audio, video, e.t.c and render the in the browser
 use axum::{extract::Query, http::StatusCode, response::IntoResponse};
 use futures::{Stream, TryStreamExt};
+use hyper::header;
+use serde::{Deserialize, Serialize};
 use tokio::fs::File;
-use tokio::io::{BufWriter, self};
-use tokio_util::io::StreamReader;
-use std::collections::HashMap;
+use tokio::io::{self, BufWriter};
+use tokio_util::io::{ReaderStream, StreamReader};
 
-use axum::body::Bytes;
+use axum::body::{Bytes, StreamBody};
 use axum::extract::Multipart;
 use serde_json::json;
 use serde_json::Value;
 use std::fs;
 
-use crate::UPLOAD_DIRECTORY;
 use crate::utils::{system_info::SystemInformation, CommandData};
+use crate::UPLOAD_DIRECTORY;
 // use axum::response::header;
 // use http::header::{self, HeaderName};
 
@@ -26,19 +27,30 @@ use crate::utils::{system_info::SystemInformation, CommandData};
 // use futures::{Stream, TryStreamExt};
 // use tower_http::services::ServeDir;
 /// get the file path, return a file downloadable to the user
-pub async fn download_file(Query(params): Query<HashMap<String, String>>) -> impl IntoResponse {
-    println!("{:?}", params);
-    // get the file path
-    // download the file
-    // render the file in the browser
-    (
-        StatusCode::NOT_FOUND,
-        axum::response::Json(serde_json::json!({
-        "success":false,
-        "message":String::from("The requested resource does not exist on this server!"),
-        })),
-    )
-    // unimplemented!()
+#[derive(Debug, Serialize, Deserialize)]
+pub struct Params {
+    pub file_path: String,
+}
+pub async fn download_file(Query(params): Query<Params>) -> impl IntoResponse {
+    let Params { file_path } = params;
+    let file = match tokio::fs::File::open(file_path).await {
+        Ok(file) => file,
+        Err(err) => return Err((StatusCode::NOT_FOUND, format!("File not found: {}", err))),
+    };
+    // convert the `AsyncRead` into a `Stream`
+    let stream = ReaderStream::new(file);
+    // convert the `Stream` into an `axum::body::HttpBody`
+    let body = StreamBody::new(stream);
+
+    let headers = [
+        (header::CONTENT_TYPE, "text/toml; charset=utf-8"),
+        (
+            header::CONTENT_DISPOSITION,
+            "attachment; filename=\"Cargo.toml\"",
+        ),
+    ];
+
+    Ok((headers, body))
 }
 
 /// return the system information
