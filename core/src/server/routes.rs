@@ -16,27 +16,37 @@ use std::fs;
 
 use crate::utils::{system_info::SystemInformation, CommandData};
 use crate::UPLOAD_DIRECTORY;
-// use axum::response::header;
-// use http::header::{self, HeaderName};
 
-// use axum::extract::DefaultBodyLimit;
-// use axum::http::StatusCode;
-// use axum::routing::{get, get_service, post};
-// use axum::Json;
-// use axum::Router;
-// use futures::{Stream, TryStreamExt};
-// use tower_http::services::ServeDir;
-/// get the file path, return a file downloadable to the user
 #[derive(Debug, Serialize, Deserialize)]
+
+/// destructure query parameter
 pub struct Params {
     pub file_path: String,
 }
+/// accept file path amd return the file
 pub async fn download_file(Query(params): Query<Params>) -> impl IntoResponse {
     let Params { file_path } = params;
-    let file = match tokio::fs::File::open(file_path).await {
-        Ok(file) => file,
-        Err(err) => return Err((StatusCode::NOT_FOUND, format!("File not found: {}", err))),
+
+    let Some(file) = tokio::fs::File::open(file_path).await.ok()  else{
+return  Err((
+        StatusCode::NOT_FOUND,
+        axum::response::Json(serde_json::json!({
+        "success":false,
+        "message":String::from("The requested file could not be found!"),
+        })),
+    ));
     };
+    /*  let file = match tokio::fs::File::open(file_path).await {
+    Ok(file) => file,
+    Err(err) => Err((
+        StatusCode::NOT_FOUND,
+        axum::response::Json(serde_json::json!({
+        "success":false,
+        "message":String::from("The requested resource does not exist on this server!"),
+        })),
+    )), */
+    // return Err((StatusCode::NOT_FOUND, format!("File not found: {}", err))),
+    // };
     // convert the `AsyncRead` into a `Stream`
     let stream = ReaderStream::new(file);
     // convert the `Stream` into an `axum::body::HttpBody`

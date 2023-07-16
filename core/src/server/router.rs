@@ -16,8 +16,8 @@ pub fn app() -> Router {
         .route("/upload", post(accept_file_upload))
         .route("/api/sys-info", get(system_information))
         .route("/api/download", get(download_file))
-    /*     .route("/api/document", get(download_file))
+        .route("/api/document", get(download_file))
         .route("/api/images", get(get_image_files))
         .route("/api/videos", get(get_video_files))
-        .route("/api/audio", get(get_audio_files)) */
+        .route("/api/audio", get(get_audio_files))
 }
