@@ -168,9 +168,9 @@ impl GetSystemInformation for DefaultSystemInfoGetter {
             if hashset.insert(disk.name().to_string_lossy().to_string()) {
                 array_of_drives.push(MyDisk {
                     type_: match disk.kind() {
-                        sysinfo::DiskKind::HDD => format!("HDD"),
-                        sysinfo::DiskKind::SSD => format!("SSD"),
-                        _ => format!("Removeable disk"),
+                        sysinfo::DiskKind::HDD => "HDD".to_string(),
+                        sysinfo::DiskKind::SSD => "SSD".to_string(),
+                        _ => "Removable disk".to_string(),
                     },
                     device_name: disk.name().to_string_lossy().to_string(),
                     file_system: disk.file_system().to_vec(),

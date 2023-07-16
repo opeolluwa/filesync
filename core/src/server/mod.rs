@@ -51,7 +51,6 @@ pub async fn core_server() {
     let ip_address = format!("{:?}:{:?}", my_local_ip, *SERVER_PORT as u64);
     let ip_address = ip_address
         .parse::<std::net::SocketAddr>()
-        .ok()
         .expect("invalid socket address");
 
     tracing::debug!("server running on http://{}", &ip_address.to_string());

@@ -45,7 +45,7 @@ pub fn create_hotspot() -> Result<WifiHotspotConfig, WifiHotspotConfig> {
 
     // Execute 'nmcli' commands to create a hotspot
     let create_wifi_command = Command::new("nmcli")
-        .arg("dev")
+        .arg("device")
         .arg("wifi")
         .arg("hotspot")
         .arg("ifname")
@@ -101,52 +101,11 @@ fn parse_dns_config(output: &Output) -> Option<Vec<String>> {
     }
 }
 
-/// get the network interface
-// fn get_network_interface() -> std::io::Result<Vec<String>> {
-//     let output = Command::new("nmcli").args(["device", "show"]).output()?;
-
-//     let mut network_interfaces: Vec<String> = Vec::new();
-//     if output.status.success() {
-//         let stdout = String::from_utf8_lossy(&output.stdout);
-
-//         for line in stdout.lines() {
-//             if line.contains("GENERAL.DEVICE")
-//             /* && line.contains("TYPE") */
-//             {
-//                 let parts: Vec<&str> = line.split_whitespace().collect();
-
-//                 if let Some(interface) = parts.get(1) {
-//                     // return Ok(interface.to_string());
-//                     network_interfaces.push(interface.to_string());
-//                 }
-//             }
-//         }
-//         return Ok(network_interfaces); // [wlo1, wlan0, docker0 ...]
-//     } else {
-//         let stderr = String::from_utf8_lossy(&output.stderr);
-//         eprintln!("Error executing nmcli: {}", stderr);
-//     }
-
-//     Err(std::io::Error::new(
-//         std::io::ErrorKind::Other,
-//         "Failed to get network interface",
-//     ))
-// }
 
 // turn off the hotpot and refresh the virrtual Access card
 pub fn turn_off_hotspot() {
     let _ = execute_shell_command("nmcli radio wifi off && nmcli radio wifi on");
 }
-
-/// execute shell command
-/// accept raw string and execur the command using bash, zsh, etc
-/// #example
-/// ```rust
-///   match execute_shell_command("ls /sys/class/net/ | grep \"^wl.\\+\"") {
-///       Ok(output) => println!("Command output:\n{}", output),
-///    Err(err) => eprintln!("Error executing command: {}", err),
-///   }
-/// ```
 fn execute_shell_command(command: &str) -> io::Result<String> {
     let mut cmd = Command::new("sh")
         .arg("-c")
