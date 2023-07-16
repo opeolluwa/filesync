@@ -5,16 +5,19 @@ extern crate uptime_lib;
 
 use lazy_static::lazy_static;
 
-use crate::command::{
-    audio::fetch_audio_files,
-    connect_with_qr_code::generate_qr_code,
-    documents::fetch_documents,
-    hotspot::{create_wifi_hotspot, kill_wifi_hotspot},
-    image::fetch_images,
-    search::search_home_dir,
-    send_file::share_file_with_peer,
-    utils::{close_splashscreen, get_ip_address, get_system_information},
-    video::fetch_video_files,
+use crate::{
+    command::{
+        audio::fetch_audio_files,
+        connect_with_qr_code::generate_qr_code,
+        documents::fetch_documents,
+        hotspot::{create_wifi_hotspot, kill_wifi_hotspot},
+        image::fetch_images,
+        search::search_home_dir,
+        send_file::share_file_with_peer,
+        utils::{close_splashscreen, get_ip_address, get_system_information},
+        video::fetch_video_files,
+    },
+    server::http_server,
 };
 
 mod command;
@@ -33,7 +36,7 @@ fn main() -> Result<(), tauri::Error> {
     let sys_info = get_system_information();
     println!(" sys info{:#?}", sys_info);
     // run core the server in a separate thread from tauri
-    tauri::async_runtime::spawn(server::core_server());
+    tauri::async_runtime::spawn(http_server::core_server());
     tauri::Builder::default()
         .plugin(tauri_plugin_upload::init())
         .plugin(tauri_plugin_sqlite::init())

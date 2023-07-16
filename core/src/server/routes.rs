@@ -176,3 +176,53 @@ pub async fn get_image_files() {}
 
 /// for a given file path, return the file the the used as a downloadable one
 pub async fn get_file() {}
+
+#[cfg(test)]
+mod basic_endpoints {
+    use crate::server::router;
+
+    use axum::{
+        body::Body,
+        http::{Request, StatusCode},
+    };
+    // use serde_json::{json, Value};
+    use tower::ServiceExt;
+    // test the server base url
+    // for example ->  http://loccalhost:4835
+    // the index route should return hello world
+    #[tokio::test]
+    async fn base_url() {
+        let app = router::app();
+
+        let response = app
+            .oneshot(Request::builder().uri("/").body(Body::empty()).unwrap())
+            .await
+            .unwrap();
+
+        // response status code should be 200
+        assert_eq!(response.status(), StatusCode::OK);
+    }
+
+    // 404 path
+    #[tokio::test]
+    async fn not_found_handler() {
+        let app = router::app();
+
+        // the 404 handle should return this json
+        // it will return a NOT_FOUND  status code
+        // the test will test for the validity of  this.
+        let response = app
+            .oneshot(
+                Request::builder()
+                    .uri("/not-found-error")
+                    .body(Body::empty())
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+
+        // assert  the the status code is 404
+        assert_eq!(response.status(), StatusCode::NOT_FOUND);
+        // println!(" the not-found-endpoint response is {response:?}");
+    }
+}
