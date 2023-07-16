@@ -30,8 +30,8 @@ lazy_static! {
 }
 
 fn main() -> Result<(), tauri::Error> {
-    // let sys_info = get_system_information();
-    // println!(" sys info{:#?}", sys_info);
+    let sys_info = get_system_information();
+    println!(" sys info{:#?}", sys_info);
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(server::core_server());
     tauri::Builder::default()
