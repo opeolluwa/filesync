@@ -14,9 +14,9 @@ use serde_json::json;
 use serde_json::Value;
 use std::fs;
 
+use crate::files;
 use crate::utils::{system_info::SystemInformation, CommandData};
 use crate::UPLOAD_DIRECTORY;
-
 #[derive(Debug, Serialize, Deserialize)]
 
 /// destructure query parameter
@@ -36,17 +36,7 @@ return  Err((
         })),
     ));
     };
-    /*  let file = match tokio::fs::File::open(file_path).await {
-    Ok(file) => file,
-    Err(err) => Err((
-        StatusCode::NOT_FOUND,
-        axum::response::Json(serde_json::json!({
-        "success":false,
-        "message":String::from("The requested resource does not exist on this server!"),
-        })),
-    )), */
-    // return Err((StatusCode::NOT_FOUND, format!("File not found: {}", err))),
-    // };
+    // TODO use mime guess
     // convert the `AsyncRead` into a `Stream`
     let stream = ReaderStream::new(file);
     // convert the `Stream` into an `axum::body::HttpBody`
@@ -163,7 +153,31 @@ pub async fn handle_404() -> impl IntoResponse {
 }
 
 /// get the list of the audio files
-pub async fn get_audio_files() {}
+pub async fn get_audio_files() -> Result<(StatusCode, Json<Value>), (StatusCode, Json<Value>)> {
+    let Some(CommandData {
+        data: audio_files, ..
+    }) = files::audio::get_audio_files().ok() else
+    {
+        return Err((
+            StatusCode::INTERNAL_SERVER_ERROR,
+            axum::response::Json(serde_json::json!({
+            "success":false,
+            "data":(),
+            "message":String::from("error getting audio files"),
+            })),
+        ));
+    };
+
+    //   let audio_files = Some()
+    Ok((
+        StatusCode::OK,
+        axum::response::Json(serde_json::json!({
+        "success":true,
+        "data":Some(audio_files),
+        "message":String::from("successfully retrieved audio files"),
+        })),
+    ))
+}
 
 /// get the list of documents
 pub async fn get_documents() {}
@@ -176,3 +190,53 @@ pub async fn get_image_files() {}
 
 /// for a given file path, return the file the the used as a downloadable one
 pub async fn get_file() {}
+
+#[cfg(test)]
+mod basic_endpoints {
+    use crate::server::router;
+
+    use axum::{
+        body::Body,
+        http::{Request, StatusCode},
+    };
+    // use serde_json::{json, Value};
+    use tower::ServiceExt;
+    // test the server base url
+    // for example ->  http://loccalhost:4835
+    // the index route should return hello world
+    #[tokio::test]
+    async fn base_url() {
+        let app = router::app();
+
+        let response = app
+            .oneshot(Request::builder().uri("/").body(Body::empty()).unwrap())
+            .await
+            .unwrap();
+
+        // response status code should be 200
+        assert_eq!(response.status(), StatusCode::OK);
+    }
+
+    // 404 path
+    #[tokio::test]
+    async fn not_found_handler() {
+        let app = router::app();
+
+        // the 404 handle should return this json
+        // it will return a NOT_FOUND  status code
+        // the test will test for the validity of  this.
+        let response = app
+            .oneshot(
+                Request::builder()
+                    .uri("/not-found-error")
+                    .body(Body::empty())
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+
+        // assert  the the status code is 404
+        assert_eq!(response.status(), StatusCode::NOT_FOUND);
+        // println!(" the not-found-endpoint response is {response:?}");
+    }
+}

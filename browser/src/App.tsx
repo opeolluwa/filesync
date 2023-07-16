@@ -9,18 +9,16 @@ import {
 import { MemoryInformation } from "./components/MemoryInformation.tsx";
 import PageTitle from "./components/PageTitle.tsx";
 import SearchBar from "./components/SearchBar.tsx";
-import { FloatButton, Modal } from "antd";
+import { FloatButton, Modal, message, Upload } from "antd";
 import { useState } from "react";
-import { InboxOutlined } from "@ant-design/icons";
 import type { UploadProps } from "antd";
-import { message, Upload } from "antd";
 
 const { Dragger } = Upload;
 
 const props: UploadProps = {
   name: "file",
   multiple: true,
-  action: "https://www.mocky.io/v2/5cc8019d300000980a055e76",
+  action: "/upload",
   onChange(info) {
     const { status } = info.file;
     if (status !== "uploading") {
@@ -150,14 +148,13 @@ function App() {
           centered
           open={isModalOpen}
           onOk={handleOk}
+          okText=""
           onCancel={handleCancel}
         >
-          <Dragger {...props} className="h-[40px]">
-            {/* <ArrowUpTrayIcon className="w-6 h-6 text-gray-400" /> */}
-            <p className="">
+          <Dragger {...props} className="min-h-[200px] block">
+            <p className="text-sm gray-400">
               Click or drag file to this area to upload
             </p>
-           
           </Dragger>
         </Modal>
       </div>
