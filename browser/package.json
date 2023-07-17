@@ -3,6 +3,7 @@
   "private": false,
   "version": "0.0.0",
   "type": "module",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build --emptyOutDir",
@@ -10,6 +11,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.18",
     "antd": "^5.6.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
