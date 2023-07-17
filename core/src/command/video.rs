@@ -1,5 +1,5 @@
-use crate::commands::file::File;
-use crate::commands::search::search_files;
+use crate::command::file::File;
+use crate::command::search::search_files;
 use crate::utils::CommandData;
 
 static ACCEPTABLE_SUFFIXES: &[&str] = &[
@@ -29,7 +29,7 @@ pub fn fetch_video_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::commands::video::{fetch_video_files, ACCEPTABLE_SUFFIXES};
+    use crate::command::video::{fetch_video_files, ACCEPTABLE_SUFFIXES};
     #[test] // see if there are files in the video directory path
     fn _fetch_video_files_() {
         let vid_files = fetch_video_files().ok();

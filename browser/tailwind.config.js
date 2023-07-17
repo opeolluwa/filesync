@@ -18,6 +18,10 @@ module.exports = {
       emerald: colors.emerald,
       indigo: colors.indigo,
       yellow: colors.yellow,
+      sky: colors.sky,
+      red: colors.red,
+      green: colors.green,
+      purple: colors.purple,
       app: {
         DEFAULT: "#3074F5",
         50: "#DFEAFD",

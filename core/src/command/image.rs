@@ -1,5 +1,5 @@
-use crate::commands::file::File;
-use crate::commands::search::search_files;
+use crate::command::file::File;
+use crate::command::search::search_files;
 use crate::utils::CommandData;
 
 static ACCEPTABLE_SUFFIXES: &[&str] = &[
@@ -29,7 +29,7 @@ pub fn fetch_images() -> Result<CommandData<Vec<File>>, CommandData<()>> {
 
 #[cfg(test)]
 mod tests {
-    use crate::commands::image::{fetch_images, ACCEPTABLE_SUFFIXES};
+    use crate::command::image::{fetch_images, ACCEPTABLE_SUFFIXES};
     #[test] // see if there are files in the image directory path
     fn _fetch_image_files_() {
         let images = fetch_images().ok();

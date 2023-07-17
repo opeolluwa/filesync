@@ -1,7 +1,7 @@
 use std::process::Command;
 #[allow(dead_code)]
 
-fn create_ap() {
+fn create_wifi_hotspot() {
     // Create a Wi-Fi network interface (e.g., "en0")
     let interface = "en0";
 

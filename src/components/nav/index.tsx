@@ -1,4 +1,4 @@
-'is client';
+"is client";
 import {
   Cog8ToothIcon,
   HomeIcon,
@@ -26,7 +26,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { MemoryInformation } from "../MemoryInformation";
 import { DialogFilter, message, ask } from "@tauri-apps/api/dialog";
 import { open } from "@tauri-apps/api/dialog";
-import {  pictureDir } from "@tauri-apps/api/path";
+import { pictureDir } from "@tauri-apps/api/path";
 export default function Navigation() {
   /**
    * @function openFileManager - opens a file manager
@@ -76,7 +76,7 @@ export default function Navigation() {
       icon: <SignalIcon className="w-6 h-6" />,
       name: "Connection",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
-      action: openModal,
+      action: () => gotoPage({ routePath: "/connection" }),
       path: "/connection",
     },
     {
@@ -142,13 +142,15 @@ export default function Navigation() {
                 name={route.name}
                 action={route.action}
                 alternateIcon={route.alternateIcon}
+                path={route.path}
               />
             ))}
           </div>
 
           <MemoryInformation
             systemName={systemInformation.systemName}
-            freeMemory={systemInformation.freeMemory}
+            usedMemory={systemInformation.usedDisk}
+            totalMemory={systemInformation.availableDisk}
           />
         </nav>
       </ConnectionModal>

@@ -31,3 +31,5 @@ sandbox
 
 core/views
 mobile/node_modules
+
+core/test.db

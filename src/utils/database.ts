@@ -1,10 +1,12 @@
 import SQLite from "tauri-plugin-sqlite-api";
 
 /** The path will be 'src-tauri/test.db', you can customize the path */
-export const database = await SQLite.open("./test.db");
+export const database = await SQLite.open("./wi-share.db");
+
 /** if your file named 'test.sqlite' and it's in current directory './
 await SQLite.open("./test.db");
 
+// initialize a new global database 
 // /** execute SQL */
 // await db.execute(`
 //     CREATE TABLE users (name TEXT, age INTEGER);

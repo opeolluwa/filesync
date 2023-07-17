@@ -98,7 +98,7 @@ export default function Main() {
       </section>
 
       <section className="my-12">
-        <PageTitle title={"Quick Access"} />
+        <PageTitle styles="mb-12" title={"Quick Access"} />
         <ul className="flex flex-wrap gap-24 items-center justify-start mt-4 px-8">
           {quickAccessTabs.map((tab, index) => (
             <li

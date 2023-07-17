@@ -3,7 +3,7 @@ use std::path::PathBuf;
 use walkdir::{DirEntry, WalkDir};
 use wildmatch::WildMatch;
 
-use crate::commands::file::File;
+use crate::command::file::File;
 use crate::utils::{is_hidden, CommandData};
 use assert_fs::prelude::*;
 
@@ -33,6 +33,7 @@ pub fn search_home_dir(pattern: &str) -> Result<CommandData<Vec<File>>, CommandD
 // ignores any non-accessible files (e.g. permission errors)
 pub fn search_files(pattern: &str, root: &PathBuf) -> Vec<File> {
     let root_dir = WalkDir::new(root).into_iter();
+    
     root_dir
         .filter_map(|e| e.ok())
         .filter(|e| !is_hidden(e))
