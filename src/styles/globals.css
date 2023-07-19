@@ -3,12 +3,26 @@
 @tailwind utilities;
 
 
-#layout > aside , #layout > main{
+#layout>aside,
+#layout>main {
     min-height: 100vh;
-    overflow-y: scroll!important;
+    overflow-y: scroll !important;
+    overflow-x: hidden!important;
 }
 
-#app__navigation{
-    height: 90vh!important;
+#app__navigation {
+    height: 90vh !important;
     position: fixed;
 }
+/* ::-webkit-scrollbar { */
+    /* width: 1em!important; */
+/* } */
+/*  */
+/* ::-webkit-scrollbar-track { */
+    /* box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3)!important; */
+/* } */
+/*  */
+/* ::-webkit-scrollbar-thumb { */
+    /* background-color: darkgrey!important; */
+    /* outline: 1px solid slategrey!important; */
+/* } */

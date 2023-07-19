@@ -7,17 +7,19 @@ interface Props {
   children: React.ReactNode;
   pageTitle: string;
   includeSearchBar: boolean;
+  searchBarText?: string;
 }
 
 export default function QuickAccessLayout({
   children,
   pageTitle,
   includeSearchBar = false,
+  searchBarText = "search",
 }: Props) {
   return (
     <>
       {/** page title  and navigation icons  */}
-      <div className="flex mb-20 font-medium dark:text-gray-300 justify-between items-center">
+      <div className="flex mb-10 font-medium dark:text-gray-300 justify-between items-center">
         <ChevronLeftIcon
           className="text-gary-300 w-6 h-6 text-medium cursor-pointer mr-8"
           onClick={goToPrevPage}
@@ -35,7 +37,7 @@ export default function QuickAccessLayout({
           onSearch={function (city: string): void {
             throw new Error("Function not implemented.");
           }}
-          placeholder={""}
+          placeholder={searchBarText}
         />
       )}
 

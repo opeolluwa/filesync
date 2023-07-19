@@ -142,7 +142,7 @@ fn path_is_valid(path: &str) -> bool {
 }
 
 // 404 handler
-pub async fn handle_404() -> impl IntoResponse {
+pub async fn _handle_404() -> impl IntoResponse {
     (
         StatusCode::NOT_FOUND,
         axum::response::Json(serde_json::json!({

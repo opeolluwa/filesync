@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "WiShare",
-    "version": "0.6.1"
+    "version": "0.6.11"
   },
   "tauri": {
     "allowlist": {
@@ -64,7 +64,7 @@
       "targets": "all"
     },
     "security": {
-      "csp": null
+      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
     },
     "updater": {
       "active": false
@@ -73,7 +73,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "send file",
+        "title": "WiShare",
         "width": 800,
         "height": 600,
         "fileDropEnabled": false

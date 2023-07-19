@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { AudioFile } from '@/types';
-import { computeFileSize } from '@/utils';
-import { shareMusicFile } from '@/pages/quick-access/music';
+import { computeFileSize, shareFile } from '@/utils';
+// import { shareMusicFile } from '@/pages/quick-access/music';
 
 // type Props = AudioFile;
 interface Props extends AudioFile {
@@ -13,7 +13,7 @@ export default function MusicFile({ fileName, fileFormat, fileSize, filePath }: 
     const __fileSize__ = fileSize;
 
     return (
-        <div onClick={() => shareMusicFile(filePath)} className='flex w-full  flex-wrap items-center gap-2 border-b border-b-gray-100   cursor-pointer px-4 py-2 last:mb-10' >
+        <div onClick={() => shareFile(filePath)} className='flex w-full  flex-wrap items-center gap-2 border-b border-b-gray-100   cursor-pointer px-4 py-2 last:mb-10' >
             <div >
                 {
                     <Image

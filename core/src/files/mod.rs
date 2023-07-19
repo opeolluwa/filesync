@@ -5,7 +5,7 @@ use std::path::PathBuf;
 use walkdir::DirEntry;
 
 pub mod audio;
-pub mod document;
+pub mod documents;
 pub mod images;
 pub mod video;
 
