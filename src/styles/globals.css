@@ -3,12 +3,26 @@
 @tailwind utilities;
 
 
-#layout > aside , #layout > main{
+#layout>aside,
+#layout>main {
     min-height: 100vh;
-    overflow-y: scroll!important;
+    overflow-y: scroll !important;
 }
 
-#app__navigation{
-    height: 90vh!important;
+#app__navigation {
+    height: 90vh !important;
     position: fixed;
 }
+/*  */
+/* #layout::-webkit-scrollbar { */
+    /* width: 10px!important; */
+/* } */
+/*  */
+/* #layout::-webkit-scrollbar-track{ */
+    /* background-color: red!important; */
+/* } */
+/*  */
+/* #layout::-webkit-scrollbar-thumb{ */
+    /* background-color: green!important; */
+    /* border-radius: 10px!important; */
+/* } */
