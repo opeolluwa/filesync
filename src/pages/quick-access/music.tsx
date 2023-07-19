@@ -3,7 +3,8 @@ import QuickAccessLayout from "@/components/layout/PageLayout";
 import { AppData, AudioFile } from "@/types";
 import { convertFileSrc, invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
-import { shareFile } from "@/utils";
+import { Skeleton } from "antd";
+import PageTitle from "@/components/PageTitle";
 
 export default function Music() {
   function playMusic(filePath: string) {
@@ -33,7 +34,8 @@ export default function Music() {
   // typecast the response into AppData type
   const musicData = data as unknown as AppData<Array<AudioFile>>;
   if (isLoading) {
-    return <h2>fetch you audio files</h2>;
+    
+    return <Skeleton active />;
   }
   return (
     <QuickAccessLayout

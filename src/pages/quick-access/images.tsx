@@ -3,9 +3,10 @@ import { BaseDirectory, FileEntry, readDir } from "@tauri-apps/api/fs";
 // import { pictureDir } from '@tauri-apps/api/path';
 import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
+import { Skeleton } from "antd";
 
 // const pictureDir = dynamic(() => import('@tauri-apps/api/path').then((mod) => mod.pictureDir), { ssr: false });
-//TODO(@opeolluwa): use Tauri Js API to fetch image files and render 
+//TODO(@opeolluwa): use Tauri Js API to fetch image files and render
 export default function Images() {
   const [data, setData] = useState("");
   const [isLoading, setLoading] = useState(false);
@@ -46,12 +47,7 @@ export default function Images() {
 
   return (
     <QuickAccessLayout pageTitle={"Images"} includeSearchBar={false}>
-      <div>
-        picture path {data} goes here Lorem ipsum dolor sit amet, consectetur
-        adipisicing elit. Sint, eveniet voluptate! Eaque rem quidem qui saepe
-        dignissimos facere sunt maiores. Voluptate soluta nihil nesciunt dolore
-        quidem. Blanditiis minima voluptatibus deleniti?
-      </div>
+      <Skeleton active />;
     </QuickAccessLayout>
   );
 }
