@@ -73,7 +73,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "send file",
+        "title": "WiShare",
         "width": 800,
         "height": 600,
         "fileDropEnabled": false
