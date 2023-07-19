@@ -3,27 +3,11 @@ import QuickAccessLayout from "@/components/layout/PageLayout";
 import { AppData, AudioFile } from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
+import { shareFile } from "@/utils";
 
 const isClient = typeof window !== "undefined";
-// send file to server
-export async function shareMusicFile(filePath: string) {
-  console.log("sharing music files");
-  const ipAddr =
-    isClient &&
-    (await invoke("get_ip_address").catch((err) => {
-      console.log("error getting ip addr due to ", (err as Error).message);
-    }));
-  const uploadPath = `${ipAddr}/upload`;
-  console.log("the upload path is ", uploadPath);
 
-  /* isClient && upload(
-      uploadPath,
-      filePath, // the path to the file to upload
-      (progress, total) => console.log(`Downloaded ${progress} of ${total} bytes`) // a callback that will be called with the upload progress
-      // { 'ContentType': 'text/plain' } // optional headers to send with the request
-    ) */
-}
-export default function Music() {
+export default function Document() {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
@@ -55,7 +39,7 @@ export default function Music() {
               fileSize={file.fileSize}
               fileFormat={file.fileFormat}
               filePath={file.filePath}
-              onClick={() => shareMusicFile(file.filePath)}
+              onClick={() => shareFile(file.filePath)}
             />
           ))}
         </div>

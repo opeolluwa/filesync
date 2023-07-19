@@ -7,12 +7,14 @@ interface Props {
   children: React.ReactNode;
   pageTitle: string;
   includeSearchBar: boolean;
+  searchBarText?: string;
 }
 
 export default function QuickAccessLayout({
   children,
   pageTitle,
   includeSearchBar = false,
+  searchBarText = "search",
 }: Props) {
   return (
     <>
@@ -35,7 +37,7 @@ export default function QuickAccessLayout({
           onSearch={function (city: string): void {
             throw new Error("Function not implemented.");
           }}
-          placeholder={""}
+          placeholder={searchBarText}
         />
       )}
 
