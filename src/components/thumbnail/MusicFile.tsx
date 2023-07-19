@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { AudioFile } from "@/types";
 import { computeFileSize } from "@/utils";
-import { shareMusicFile } from "@/pages/quick-access/music";
+import { convertFileSrc } from "@tauri-apps/api/tauri";
 
 // type Props = AudioFile;
 interface Props extends AudioFile {
@@ -15,10 +15,8 @@ export default function MusicFile({
   filePath,
 }: Props) {
   const fileIcon = "/mime/extra/music-player.png";
-
   return (
     <div
-      onClick={() => shareMusicFile(filePath)}
       className="flex w-full  flex-wrap items-center gap-4 border-b border-b-gray-100   cursor-pointer px-4 py-2 last:mb-10"
     >
       <div className="hidden">
@@ -29,6 +27,7 @@ export default function MusicFile({
           className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
         />
       </div>
+      
 
       <div>
         {
