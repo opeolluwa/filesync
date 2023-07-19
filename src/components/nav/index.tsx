@@ -18,15 +18,13 @@ import {
   ClockIcon as SolidClockIcon,
 } from "@heroicons/react/24/solid";
 import { goToPage as gotoPage } from "@/utils";
-import ConnectionModal from "./ConnectionModal";
 import NavigationTab, { Route } from "./NavigationTab";
 import { useEffect, useState } from "react";
 import { SystemInformation } from "@/store/sys-info";
 import { invoke } from "@tauri-apps/api/tauri";
 import { MemoryInformation } from "../MemoryInformation";
-import { DialogFilter, message, ask } from "@tauri-apps/api/dialog";
+import { message } from "@tauri-apps/api/dialog";
 import { open } from "@tauri-apps/api/dialog";
-import { pictureDir } from "@tauri-apps/api/path";
 export default function Navigation() {
   /**
    * @function openFileManager - opens a file manager
@@ -52,10 +50,7 @@ export default function Navigation() {
     {} as SystemInformation
   );
 
-  let [isModalOpen, setModalState] = useState(false);
 
-  const closeModal = () => setModalState(false);
-  const openModal = () => setModalState(true);
 
   useEffect(() => {
     // fetch sys information from app core
@@ -93,14 +88,14 @@ export default function Navigation() {
       alternateIcon: <SolidClockIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "history" }),
     },
-    {
-      //TODO: open saved files directory
-      path: "/files",
-      icon: <FolderOpenIcon className="w-6 h-6" />,
-      action: openFileManager,
-      alternateIcon: <SolidFolderIconOpen className="w-6 h-6" />,
-      name: "File Manager",
-    },
+    // {
+    //   //TODO: open saved files directory
+    //   path: "/files",
+    //   icon: <FolderOpenIcon className="w-6 h-6" />,
+    //   action: openFileManager,
+    //   alternateIcon: <SolidFolderIconOpen className="w-6 h-6" />,
+    //   name: "File Manager",
+    // },
 
     {
       path: "/settings",
@@ -120,40 +115,33 @@ export default function Navigation() {
 
   return (
     <>
-      <ConnectionModal
-        systemInformation={systemInformation}
-        isModalOpen={isModalOpen}
-        openModal={openModal}
-        closeModal={closeModal}
+      <nav
+        className="col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)]  px-[1px]   text-gray-600  pt-10"
+        style={{
+          height: "calc(100vh-200px)",
+          overflowY: "hidden",
+          position: "relative",
+        }}
       >
-        <nav
-          className="col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)]  px-[1px]   text-gray-600  pt-10"
-          style={{
-            height: "calc(100vh-200px)",
-            overflowY: "hidden",
-            position: "relative",
-          }}
-        >
-          <div className="flex flex-col px-2 lg:px-4 lg:pl-6">
-            {routes.map((route, index) => (
-              <NavigationTab
-                key={index}
-                icon={route.icon}
-                name={route.name}
-                action={route.action}
-                alternateIcon={route.alternateIcon}
-                path={route.path}
-              />
-            ))}
-          </div>
+        <div className="flex flex-col px-2 lg:px-4 lg:pl-6">
+          {routes.map((route, index) => (
+            <NavigationTab
+              key={index}
+              icon={route.icon}
+              name={route.name}
+              action={route.action}
+              alternateIcon={route.alternateIcon}
+              path={route.path}
+            />
+          ))}
+        </div>
 
-          <MemoryInformation
-            systemName={systemInformation.systemName}
-            usedMemory={systemInformation.usedDisk}
-            totalMemory={systemInformation.availableDisk}
-          />
-        </nav>
-      </ConnectionModal>
+        <MemoryInformation
+          systemName={systemInformation.systemName}
+          usedMemory={systemInformation.usedDisk}
+          totalMemory={systemInformation.availableDisk}
+        />
+      </nav>
     </>
   );
 }

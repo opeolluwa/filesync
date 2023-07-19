@@ -4,6 +4,7 @@ import { AppData, AudioFile } from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
 import { shareFile } from "@/utils";
+import { Skeleton } from "antd";
 
 const isClient = typeof window !== "undefined";
 
@@ -14,7 +15,7 @@ export default function Document() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("fetch_documents").then((res) => {
+    invoke("get_documents").then((res) => {
       setData(res as any);
       console.log({ res });
 
@@ -26,10 +27,14 @@ export default function Document() {
   // typecast the response into AppData type
   const fetchedDocuments = data as unknown as AppData<Array<AudioFile>>;
   if (isLoading) {
-    return <h2>fetching files </h2>;
+    return <Skeleton active />;
   }
   return (
-    <QuickAccessLayout pageTitle={"Music"} includeSearchBar={true}>
+    <QuickAccessLayout
+      pageTitle={"Music"}
+      includeSearchBar={true}
+      searchBarText="search document"
+    >
       <div>
         <div className="flex flex-wrap  flex-grow gap-4 justify-start mt-12">
           {fetchedDocuments?.data.map((file, index) => (

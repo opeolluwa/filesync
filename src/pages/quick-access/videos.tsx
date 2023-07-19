@@ -4,7 +4,11 @@ import PageLayout from "@/components/layout/PageLayout";
 export default function Desktop() {
   return (
     <>
-      <PageLayout pageTitle={"Videos"} includeSearchBar={true}>
+      <PageLayout
+        pageTitle={"Videos"}
+        includeSearchBar={true}
+        searchBarText="find videos"
+      >
         <div>
           <h1>Help</h1>
           <AudioList />
