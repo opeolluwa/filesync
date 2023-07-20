@@ -12,10 +12,9 @@
     "start": "next start",
     "tauri": "tauri",
     "lint": "next lint",
-    "prebuild":"cd browser && npm run build",
-    "predev":"cd browser && npm run build",
-    "preinstall":"cd browser && yarn"
-
+    "prebuild": "cd browser && npm run build",
+    "predev": "cd browser && npm run build",
+    "preinstall": "cd browser && yarn"
   },
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
@@ -30,6 +29,7 @@
     "react-dom": "^18.2.0",
     "react-qr-code": "^2.0.11",
     "react-router-dom": "^6.9.0",
+    "styled-jsx": "^5.1.2",
     "tauri-plugin-sqlite-api": "github:lzdyes/tauri-plugin-sqlite#v0.1.1",
     "tauri-plugin-store-api": "https://github.com/tauri-apps/tauri-plugin-store",
     "tauri-plugin-upload-api": "https://github.com/tauri-apps/tauri-plugin-upload"
