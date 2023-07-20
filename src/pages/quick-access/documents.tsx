@@ -4,7 +4,7 @@ import { AppData, AudioFile } from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
 import { shareFile } from "@/utils";
-import { Skeleton } from "antd";
+import LoaderCircle from "@/components/loaders/LoaderCircle";
 
 const isClient = typeof window !== "undefined";
 
@@ -27,7 +27,15 @@ export default function Document() {
   // typecast the response into AppData type
   const fetchedDocuments = data as unknown as AppData<Array<AudioFile>>;
   if (isLoading) {
-    return <Skeleton active />;
+    return (
+      <>
+        <LoaderCircle />
+        <h2 className="font-xl font-bold mt-8">Loading...</h2>
+        <p className="leading-5 text-gray-400">
+          Please wait while we load your documents. This might take a while.
+        </p>
+      </>
+    );
   }
   return (
     <QuickAccessLayout
