@@ -5,12 +5,8 @@ import { message, Upload } from "antd";
 import { FileContext, FileTransferStatus } from "@/store/context";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { SystemInformationContext } from "@/store/sys-info";
-import { database, DatabaseTableNames } from "@/utils/database";
-import { listen } from "@tauri-apps/api/event";
 
-// listen("tauri://file-drop", (event) => {
-//   console.log(event);
-// });
+
 /**
  * @function sharePage -  A page responsible for guiding users on various actions
  * @returns tsx

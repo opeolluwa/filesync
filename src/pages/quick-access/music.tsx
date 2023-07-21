@@ -36,10 +36,11 @@ export default function Music() {
     return (
       <>
         <LoaderCircle />
-        <h2 className="font-xl font-bold mt-8">Loading...</h2>
+        <h2 className="font-xl font-bold mt-2">Loading...</h2>
         <p className="leading-5 text-gray-400">
           Please wait while we load your music files. This might take a while
         </p>
+        <LoaderCircle />
       </>
     );
   }
