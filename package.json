@@ -13,7 +13,6 @@
     "tauri": "tauri",
     "lint": "next lint",
     "prebuild": "cd browser && npm run build",
-    "predev": "cd browser && npm run build",
     "preinstall": "cd browser && yarn"
   },
   "dependencies": {
