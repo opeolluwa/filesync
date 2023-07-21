@@ -88,14 +88,14 @@ export default function Navigation() {
       alternateIcon: <SolidClockIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "history" }),
     },
-    // {
-    //   //TODO: open saved files directory
-    //   path: "/files",
-    //   icon: <FolderOpenIcon className="w-6 h-6" />,
-    //   action: openFileManager,
-    //   alternateIcon: <SolidFolderIconOpen className="w-6 h-6" />,
-    //   name: "File Manager",
-    // },
+    {
+      //TODO: open saved files directory
+      path: "/files",
+      icon: <FolderOpenIcon className="w-6 h-6" />,
+      action: openFileManager,
+      alternateIcon: <SolidFolderIconOpen className="w-6 h-6" />,
+      name: "File Manager",
+    },
 
     {
       path: "/settings",
