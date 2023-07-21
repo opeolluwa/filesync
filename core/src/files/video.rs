@@ -1,3 +1,7 @@
+use walkdir::WalkDir;
+extern crate dirs;
+use regex::Regex;
+
 use crate::utils::CommandData;
 
 pub(crate) fn get_videos() -> Result<CommandData<Vec<super::File>>, CommandData<()>> {

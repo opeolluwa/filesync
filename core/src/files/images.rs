@@ -1,5 +1,8 @@
-use crate::utils::CommandData;
+use walkdir::WalkDir;
+extern crate dirs;
+use regex::Regex;
 
+use crate::utils::CommandData;
 pub(crate) fn get_images() -> Result<CommandData<Vec<super::File>>, CommandData<()>> {
     let Some(home_dir) = dirs::home_dir() else {
         return Err(CommandData::err("could not find user's home directory", ()));
