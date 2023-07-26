@@ -1,5 +1,6 @@
 "use client";
-import Navigation from "./nav";
+
+import Navigation from "../nav";
 
 export default function AppNavigation() {
   return (
