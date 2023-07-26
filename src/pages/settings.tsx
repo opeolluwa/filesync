@@ -9,6 +9,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { SettingsInterface, SettingsTab } from "@/components/settings";
 
+import { Store } from "tauri-plugin-store-api";
+
+const store = new Store(".settings.dat");
 /**
  * @function helpPage -  A page responsible for guiding users on various actions
  * @returns tsx
