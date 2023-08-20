@@ -12,7 +12,8 @@ export default function HelpPage() {
             className="flex justify-center rounded-md   px-4 py-2 text-sm font-medium border border-mirage-500 bg-gray-600 mt-2 text-white my-4"
           >
             Step 01:
-          </button>
+          </button> 
+          form
           <StepOne />
           <button
             type="button"

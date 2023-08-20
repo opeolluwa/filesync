@@ -11,9 +11,7 @@
     "export": "next export",
     "start": "next start",
     "tauri": "tauri",
-    "lint": "next lint",
-    "prebuild": "cd browser && npm run build",
-    "preinstall": "cd browser && yarn"
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
