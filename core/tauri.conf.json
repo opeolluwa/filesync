@@ -60,7 +60,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.wishare.app",
+      "identifier": "com.filesync.app",
       "targets": "all"
     },
     "security": {
@@ -73,7 +73,7 @@
       {
         "fullscreen": false,
         "resizable": true,
-        "title": "WiShare",
+        "title": "FileSync",
         "width": 800,
         "height": 600,
         "fileDropEnabled": false

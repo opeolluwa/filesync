@@ -13,7 +13,7 @@ use crate::{
         hotspot::{create_wifi_hotspot, kill_wifi_hotspot},
         search::search_home_dir,
         send_file::share_file_with_peer,
-        utils::{close_splashscreen, get_ip_address, get_system_information},
+        utils::{close_splashscreen, get_ip_address, get_system_information}, audio::fetch_audio_files,
     },
     server::http_server,
 };
@@ -41,12 +41,15 @@ fn main() -> Result<(), tauri::Error> {
     tauri::Builder::default()
         .plugin(tauri_plugin_upload::init())
         .plugin(tauri_plugin_sqlite::init())
+        .plugin(tauri_plugin_store::Builder::default().build())
         .invoke_handler(tauri::generate_handler![
             get_ip_address,
-            get_documents,
-            get_images,
-            get_videos,
-            get_audio_files,
+            // get_documents,
+            // get_images,
+            // get_videos,
+            // get_audio_files,
+            fetch_documents,
+            fetch_audio_files,
             close_splashscreen,
             share_file_with_peer,
             get_system_information,

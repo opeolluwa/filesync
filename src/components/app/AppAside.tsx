@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import FileCard, { FileInterface } from "./thumbnail/FileCard";
+import FileCard, { FileInterface } from "../thumbnail/FileCard";
 import Image from "next/image";
 import { FileContext } from "@/store/context";
 import { Battery50Icon, BellAlertIcon } from "@heroicons/react/24/outline";
@@ -9,7 +9,7 @@ export default function Aside() {
 
   return (
     <aside className="hidden lg:block lg:flex-col items-center lg:col-span-3 pt-10 px-8  h-full bg-[rgba(226,233,252,255)]">
-      <div className="flex items-end  hidden">
+      <div className="items-end  hidden">
         <Battery50Icon className="w-6 h-6 text-gray-400" />
         <BellAlertIcon className="w-6 h-6 text-gray-400" />
       </div>
