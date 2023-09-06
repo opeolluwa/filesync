@@ -1,4 +1,4 @@
-# WiShare: WiFi File Sharing Application
+# FIleSync: WiFi File Sharing Application
 
 
 _⚠️ the application is still a work in progress, hence, Some features are missing. Please see the [issues](https://github.com/opeolluwa/send-file/issues) page to contribute_
@@ -17,7 +17,7 @@ _⚠️ the application is still a work in progress, hence, Some features are mi
 
 ## Description
 
-WiShare is an offline file-sharing application designed for Windows, Mac, and Linux operating systems. It allows users to transfer files seamlessly between PCs over WiFi without an internet connection.
+FIleSync is an offline file-sharing application designed for Windows, Mac, and Linux operating systems. It allows users to transfer files seamlessly between PCs over WiFi without an internet connection.
 
 ## Getting Started
 
