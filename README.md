@@ -3,7 +3,7 @@
 
 _⚠️ the application is still a work in progress, hence, Some features are missing. Please see the [issues](https://github.com/opeolluwa/send-file/issues) page to contribute_
 
-![screenshot](screenshots/share-files-light.png)
+![screenshot](screenshots/share-files.png)
 
 ## Table of Contents
 
