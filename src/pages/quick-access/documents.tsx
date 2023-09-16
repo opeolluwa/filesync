@@ -15,7 +15,7 @@ export default function Document() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("get_documents").then((res) => {
+    invoke("fetch_documents").then((res) => {
       setData(res as any);
       console.log({ res });
 

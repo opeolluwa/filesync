@@ -1,5 +1,5 @@
 {
-  "name": "wi-share",
+  "name": "file-sync",
   "description": "offline file sharing application Windows, Mac and Linux operating systems",
   "private": false,
   "author": "adeoye adefemi adefemiadeoye@yahoo.com",
@@ -11,9 +11,7 @@
     "export": "next export",
     "start": "next start",
     "tauri": "tauri",
-    "lint": "next lint",
-    "prebuild": "cd browser && npm run build",
-    "preinstall": "cd browser && yarn"
+    "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
@@ -26,7 +24,7 @@
     "react-qr-code": "^2.0.11",
     "react-router-dom": "^6.9.0",
     "tauri-plugin-sqlite-api": "github:lzdyes/tauri-plugin-sqlite#v0.1.1",
-    "tauri-plugin-store-api": "https://github.com/tauri-apps/tauri-plugin-store"
+    "tauri-plugin-store-api": "https://github.com/tauri-apps/tauri-plugin-store#v1"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",

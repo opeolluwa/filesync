@@ -1,4 +1,4 @@
-import Layout from "@/components/AppLayout";
+import Layout from "@/components/app/AppLayout";
 import FileStore from "@/store/context";
 import SystemInfoStore from "@/store/sys-info";
 import "@/styles/globals.css";

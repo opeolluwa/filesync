@@ -9,6 +9,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { SettingsInterface, SettingsTab } from "@/components/settings";
 
+
 /**
  * @function helpPage -  A page responsible for guiding users on various actions
  * @returns tsx
