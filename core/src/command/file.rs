@@ -36,3 +36,14 @@ impl File {
         }
     }
 }
+
+// fiel hsitory command
+
+
+
+
+
+
+
+// file transfer history command
+
