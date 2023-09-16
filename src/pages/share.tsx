@@ -30,11 +30,7 @@ export default function ShareFiles() {
       if (status === FileTransferStatus.COMPLETED) {
         message.success(`${info.file.name} file uploaded successfully.`);
         // save the file to transfer history
-     /*    await database.execute(
-          "CREATE TABLE IF NOT EXIST 1? (id INTEGER PRIMARY KEY AUTOINCREMENT, fileName VARCHAR, fileSize VARCHAR, transferType VARCHAR, transferDate TEXT); ",
-          [DatabaseTableNames.FILE_TRANSFER_HISTORY.toString()]
-        ); */
-        // insert the newly transferred file
+
         const fileName = info.file.name;
         const fileSize = info.file.size;
         const transferType = "sent";
