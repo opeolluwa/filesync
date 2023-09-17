@@ -19,6 +19,7 @@ use crate::{
     server::http_server,
 };
 
+mod app_state;
 mod command;
 mod database;
 mod files;
@@ -46,9 +47,11 @@ lazy_static! {
 }
 
 fn main() -> Result<(), tauri::Error> {
+    let state = app_state::State;
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(http_server::core_server());
     tauri::Builder::default()
+        .manage(state)
         .invoke_handler(tauri::generate_handler![
             get_ip_address,
             fetch_documents,
