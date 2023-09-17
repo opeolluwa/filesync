@@ -15,8 +15,8 @@ static ACCEPTABLE_SUFFIXES: &[&str] = &[
 pub fn fetch_audio_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
     // if there is an error getting the audio path, fire an error
     let audio_dir = dirs::audio_dir();
-    let Some(audio_dir) = audio_dir else{
-        return Err(CommandData::err("error getting the audio dir",  ()));
+    let Some(audio_dir) = audio_dir else {
+        return Err(CommandData::err("error getting the audio dir", ()));
     };
 
     let entries = search_files("*", &audio_dir)

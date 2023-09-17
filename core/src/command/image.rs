@@ -15,8 +15,8 @@ static ACCEPTABLE_SUFFIXES: &[&str] = &[
 #[tauri::command]
 pub fn fetch_images() -> Result<CommandData<Vec<File>>, CommandData<()>> {
     let images_dir = dirs::picture_dir();
-    let Some(images_dir) = images_dir else{
-        return Err(CommandData::err("error getting the images dir",  ()));
+    let Some(images_dir) = images_dir else {
+        return Err(CommandData::err("error getting the images dir", ()));
     };
 
     let entries = search_files("*", &images_dir)
