@@ -11,8 +11,8 @@ pub fn create_wifi_hotspot() -> CommandData<WifiHotspotConfig> {
     {
         // Linux-specific command
         let Some(new_access_point) = linux_hotspot::create_hotspot().ok() else {
-        return CommandData::err("failed to create access point", WifiHotspotConfig::err())
-    };
+            return CommandData::err("failed to create access point", WifiHotspotConfig::err());
+        };
         CommandData::ok("created access point", new_access_point)
     }
 

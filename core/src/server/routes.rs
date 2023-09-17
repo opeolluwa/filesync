@@ -27,14 +27,14 @@ pub struct Params {
 pub async fn download_file(Query(params): Query<Params>) -> impl IntoResponse {
     let Params { file_path } = params;
 
-    let Some(file) = tokio::fs::File::open(file_path).await.ok()  else{
-return  Err((
-        StatusCode::NOT_FOUND,
-        axum::response::Json(serde_json::json!({
-        "success":false,
-        "message":String::from("The requested file could not be found!"),
-        })),
-    ));
+    let Some(file) = tokio::fs::File::open(file_path).await.ok() else {
+        return Err((
+            StatusCode::NOT_FOUND,
+            axum::response::Json(serde_json::json!({
+            "success":false,
+            "message":String::from("The requested file could not be found!"),
+            })),
+        ));
     };
     // TODO use mime guess
     // convert the `AsyncRead` into a `Stream`
@@ -156,8 +156,8 @@ pub async fn _handle_404() -> impl IntoResponse {
 pub async fn get_audio_files() -> Result<(StatusCode, Json<Value>), (StatusCode, Json<Value>)> {
     let Some(CommandData {
         data: audio_files, ..
-    }) = files::audio::get_audio_files().ok() else
-    {
+    }) = files::audio::get_audio_files().ok()
+    else {
         return Err((
             StatusCode::INTERNAL_SERVER_ERROR,
             axum::response::Json(serde_json::json!({

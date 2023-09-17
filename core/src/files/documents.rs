@@ -9,7 +9,7 @@ pub(crate) fn get_documents() -> Result<CommandData<Vec<super::File>>, CommandDa
         return Err(CommandData::err("could not find user's home directory", ()));
     };
     let Some(root_path) = home_dir.as_path().to_str() else {
-    return Err(CommandData::err("error getting the document dir",  ()));
+        return Err(CommandData::err("error getting the document dir", ()));
     };
     // TODO(@opeolluwa): increase the files supported
     let document_extensions = Regex::new(r"(?i)\.docx$|\.doc$|\.pdf$|\.pptx$").unwrap();

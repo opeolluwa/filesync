@@ -12,7 +12,7 @@ pub fn create_hotspot() -> Result<WifiHotspotConfig, WifiHotspotConfig> {
         .expect("Failed to execute nmcli");
 
     let Some(network_gateway) = parse_dns_config(&output) else {
-        return Err(WifiHotspotConfig{
+        return Err(WifiHotspotConfig {
             status: Some(NetworkAccessStatus::Error),
             message: Some(String::from("Failed to create Wifi hotspot")),
             ..Default::default()
@@ -33,13 +33,15 @@ pub fn create_hotspot() -> Result<WifiHotspotConfig, WifiHotspotConfig> {
     // refresh virtual access card interface. !! Do not remove
     let _ = execute_shell_command("nmcli radio wifi off && nmcli radio wifi on");
     // get the network interface e.g wlan0, wlo1 ...
-    let Some(network_interface) = execute_shell_command("ls /sys/class/net/ | grep \"^wl.\\+\"").ok() else {
-            return Err(WifiHotspotConfig {
-                status: Some(NetworkAccessStatus::Error),
-                message: Some(String::from("Wifi Hotspot not supported")),
-                ..Default::default()
-            });
-        };
+    let Some(network_interface) =
+        execute_shell_command("ls /sys/class/net/ | grep \"^wl.\\+\"").ok()
+    else {
+        return Err(WifiHotspotConfig {
+            status: Some(NetworkAccessStatus::Error),
+            message: Some(String::from("Wifi Hotspot not supported")),
+            ..Default::default()
+        });
+    };
 
     println!("interface {}", network_interface);
 
@@ -61,7 +63,7 @@ pub fn create_hotspot() -> Result<WifiHotspotConfig, WifiHotspotConfig> {
 
     // Check if the command was successful
     if create_wifi_command.status.success() {
-         Ok(WifiHotspotConfig {
+        Ok(WifiHotspotConfig {
             ssid,
             password,
             gateway,
@@ -100,7 +102,6 @@ fn parse_dns_config(output: &Output) -> Option<Vec<String>> {
         Some(dns_config) // DNS Configuration: Some(["192.168.100.121"])
     }
 }
-
 
 // turn off the hotpot and refresh the virrtual Access card
 pub fn turn_off_hotspot() {

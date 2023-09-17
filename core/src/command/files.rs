@@ -23,4 +23,3 @@ pub async fn get_images() -> Result<CommandData<Vec<files::File>>, CommandData<(
 pub async fn get_videos() -> Result<CommandData<Vec<files::File>>, CommandData<()>> {
     files::video::get_videos()
 }
-

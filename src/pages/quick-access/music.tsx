@@ -23,7 +23,7 @@ export default function Music() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("get_audio_files").then((res) => {
+    invoke("fetch_audio_files").then((res) => {
       setData(res as any);
       setLoading(false);
     });
