@@ -21,7 +21,6 @@ dirs = "5.0.0"
 filesize = "0.2.0"
 futures = "0.3.28"
 hyper = {version = "0.14.27", features = ["full"]}
-image = "0.24.6"
 lazy_static = "1.4.0"
 local-ip-address = "0.5.3"
 mime_guess = "2.0.4"
@@ -31,8 +30,6 @@ network-interface = "1.0.1"
 num-traits = "0.2.15"
 pnet_datalink = "0.33.0"
 portpicker = "0.1.1"
-qrcode = "0.12.0"
-qrcode-generator = "4.1.8"
 regex = "1.9.1"
 reqwest = "0.11.16"
 serde = {version = "1.0", features = ["derive"]}
@@ -41,8 +38,6 @@ sqlx = {version = "0.6.2", features = ["sqlite", "runtime-tokio-native-tls"]}
 sys-info = "0.9.1"
 sysinfo = "0.29.2"
 tauri = {version = "1.2", features = ["app-all", "dialog-all", "fs-all", "path-all", "shell-open"]}
-tauri-plugin-store = {git = "https://github.com/tauri-apps/plugins-workspace", branch = "v1"}
-tauri-plugin-upload = {git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev"}
 tokio = {version = "1.26.0", features = ["full"]}
 tokio-util = {version = "0.7", features = ["io"]}
 tower = {version = "0.4", features = ["util"]}

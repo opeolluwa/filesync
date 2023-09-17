@@ -9,7 +9,7 @@ pub(crate) fn get_audio_files() -> Result<CommandData<Vec<super::File>>, Command
         return Err(CommandData::err("could not find user's home directory", ()));
     };
     let Some(root_path) = home_dir.as_path().to_str() else {
-    return Err(CommandData::err("error getting the audio dir",  ()));
+        return Err(CommandData::err("error getting the audio dir", ()));
     };
     // TODO(@opeolluwa): increase the files supported
     let audio_extensions = Regex::new(r"(?i)\.mp3$|\.wav$|\.flac$|\.ogg$").unwrap();

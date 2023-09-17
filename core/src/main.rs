@@ -10,9 +10,9 @@ use crate::{
         audio::fetch_audio_files,
         connect_with_qr_code::generate_qr_code,
         documents::fetch_documents,
-        files::{get_audio_files, get_documents, get_images, get_videos},
+        // files::{get_audio_files, get_documents, get_images, get_videos},
         hotspot::{create_wifi_hotspot, kill_wifi_hotspot},
-        search::search_downloads_dir,
+        // search::search_downloads_dir,
         send_file::share_file_with_peer,
         utils::{close_splashscreen, get_ip_address, get_system_information},
     },
@@ -37,7 +37,7 @@ lazy_static! {
         let db_path = format!(
             "{downloads_dir}/{upload_dir}",
             downloads_dir = os_default_downloads_dir.display(),
-            upload_dir = ".filesync"
+            upload_dir = ".dat"
         );
         // create the path if not exist path if not exist
         let _ = std::fs::create_dir_all(&db_path);
@@ -49,8 +49,6 @@ fn main() -> Result<(), tauri::Error> {
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(http_server::core_server());
     tauri::Builder::default()
-        .plugin(tauri_plugin_upload::init())
-        .plugin(tauri_plugin_store::Builder::default().build())
         .invoke_handler(tauri::generate_handler![
             get_ip_address,
             fetch_documents,
@@ -59,7 +57,6 @@ fn main() -> Result<(), tauri::Error> {
             share_file_with_peer,
             get_system_information,
             fetch_documents,
-            search_downloads_dir,
             create_wifi_hotspot,
             kill_wifi_hotspot,
             generate_qr_code

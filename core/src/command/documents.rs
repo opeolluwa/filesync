@@ -17,8 +17,8 @@ static ACCEPTABLE_SUFFIXES: &[&str] = &[
 pub fn fetch_documents() -> Result<CommandData<Vec<File>>, CommandData<()>> {
     // if there is an error getting the documents path, fire an error
     let document_dir = dirs::document_dir();
-    let Some(document_dir) = document_dir else{
-        return Err(CommandData::err("error getting the documents dir",  ()));
+    let Some(document_dir) = document_dir else {
+        return Err(CommandData::err("error getting the documents dir", ()));
     };
 
     let entries = search_files("*", &document_dir)

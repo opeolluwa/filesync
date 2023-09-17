@@ -1,29 +1,26 @@
-use std::{collections::HashMap, fmt::Display};
+use std::collections::HashMap;
 
 use chrono::Local;
 use serde::{Deserialize, Serialize};
-use sqlx::{sqlite::SqliteQueryResult, FromRow, Pool, Row, Sqlite, SqlitePool};
+use sqlx::{
+    migrate::MigrateDatabase, sqlite::SqliteQueryResult, FromRow, Pool, Row, Sqlite, SqlitePool,
+};
 use uuid::Uuid;
 
 use crate::DB_URL;
-pub struct Database(pub Vec<Store>);
-impl std::fmt::Display for Database {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        self.0.iter().try_fold((), |_, data| write!(f, "{}", data))
-    }
-}
+pub struct Database;
 #[allow(unused)]
 
 impl Database {
     /*
     initialize the database connection
-    this will create a new sqlite database in the OS home directory
+    this will create a new sqlite database in the OS $Downloads/filesync/.filesync directory
      */
     pub async fn init() {
         if !Sqlite::database_exists(&DB_URL).await.unwrap_or(false) {
             match Sqlite::create_database(&DB_URL).await {
-                Ok(_) => PrintColoredText::success("Database initialized"),
-                Err(_error) => PrintColoredText::error("error creating utility store"),
+                Ok(_) => println!("Database initialized"),
+                Err(_error) => eprintln!("error creating utility store"),
             }
         }
 
@@ -31,12 +28,14 @@ impl Database {
         let file_history_table =
             "CREATE TABLE IF NOT EXISTS transfer_history ( id VARCHAR PRIMARY KEY, file_name VARCHAR, file_size VARCHAR, transaction_type VARCHAR date TEXT, recipient VARCHAR)";
 
+        /* create the settings table,  the table will contain user preference and settings */
+        //TODO:  add device name , device_name VARCHAR
         let settings_table =
-            "CREATE TABLE IF NOT EXISTS settings ( id INTEGER PRIMARY KEY DEFAULT 1, language VARCHAR, theme VARCHAR, first_run BOOLEAN)";
+            "CREATE TABLE IF NOT EXISTS settings ( id INTEGER PRIMARY KEY DEFAULT 1, language VARCHAR, theme VARCHAR)";
 
         let db = SqlitePool::connect(&DB_URL).await.unwrap();
         let _ = sqlx::query(file_history_table).execute(&db).await.unwrap();
-        let _ = sqlx::query(settinsg_table).execute(&db).await.unwrap();
+        let _ = sqlx::query(settings_table).execute(&db).await.unwrap();
     }
 
     // return connection to the database;
@@ -44,7 +43,7 @@ impl Database {
         SqlitePool::connect(&DB_URL).await.unwrap()
     }
 
-     // get the tables in the database
+    // get the tables in the database
     pub async fn tables() -> HashMap<usize, String> {
         let db = Self::conn().await;
         let result: Vec<sqlx::sqlite::SqliteRow> = sqlx::query(
@@ -67,8 +66,20 @@ impl Database {
         tables
     }
 
-    // flush the databse
-    pub async fn flush() {
+    // flush the database, this action remove all data from the database tables  and reset the database
+    pub async fn flush() -> Result<SqliteQueryResult, ()> {
+        let db = Self::conn().await;
+        let _ = sqlx::query("DELETE FROM transfer_history")
+            .execute(&db)
+            .await
+            .unwrap();
+        let _ = sqlx::query("DELETE FROM settings")
+            .execute(&db)
+            .await
+            .unwrap();
+        let _ = sqlx::query("VACUUM").execute(&db).await.unwrap();
+        Ok(sqlx::query("VACUUM").execute(&db).await.unwrap())
+    }
 }
 
 /// file transfer history
@@ -78,15 +89,39 @@ pub struct TransferHistory {
     pub file_name: String,
     pub file_size: String,
     pub date: String,
-    pub transaction_type: TransactionType,
+    pub transaction_type: String, // sent or received
     pub recipient: String,
 }
 
-enum TransactionType {
-    Sent,
-    Received,
+// implement default and display for TransferHistory
+impl Default for TransferHistory {
+    fn default() -> Self {
+        Self {
+            id: Uuid::new_v4().to_string(),
+            file_name: "".to_string(),
+            file_size: "".to_string(),
+            date: Local::now().to_rfc2822().to_string(),
+            transaction_type: "".to_string(),
+            recipient: "".to_string(),
+        }
+    }
 }
 
+// impl display for TransferHistory
+impl std::fmt::Display for TransferHistory {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let history = format!(
+            "id: {}, file_name: {}, file_size: {}, date: {}, transaction_type: {}, recipient: {}",
+            self.id,
+            self.file_name,
+            self.file_size,
+            self.date,
+            self.transaction_type,
+            self.recipient
+        );
+        write!(f, "{}", history)
+    }
+}
 /// settings table
 #[derive(Debug, Clone, Serialize, FromRow, Deserialize)]
 pub struct Settings {
@@ -96,25 +131,27 @@ pub struct Settings {
     pub first_run: bool,
 }
 
+// implement default and display for Settings
 impl Default for Settings {
     fn default() -> Self {
         Self {
             id: 1,
-            language: "en".to_string(),
-            theme: "light".to_string(),
+            language: "English".to_string(),
+            theme: "Dark".to_string(),
             first_run: true,
         }
     }
 }
 
-/// for deserializing data from the database
-#[derive(Clone, FromRow, Debug, Serialize, Deserialize)]
-pub struct Store {
-    pub id: String,
-    pub key: String,
-    pub value: String,
-    pub date_added: String,
-    pub last_updated: String,
+// impl display for Settings
+impl std::fmt::Display for Settings {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let settings = format!(
+            "id: {}, language: {}, theme: {}, first_run: {}",
+            self.id, self.language, self.theme, self.first_run
+        );
+        write!(f, "{}", settings)
+    }
 }
 
 impl Settings {
@@ -188,9 +225,5 @@ impl TransferHistory {
             .fetch_all(&db)
             .await
             .unwrap();
-        // let message = format!("{id} removed successfully");
     }
 }
-
-
-
