@@ -12,8 +12,8 @@ use axum::routing::get_service;
 
 use tower_http::services::ServeDir;
 
-use crate::SERVER_PORT;
 use crate::server::router;
+use crate::SERVER_PORT;
 
 /**
  * @function core_server

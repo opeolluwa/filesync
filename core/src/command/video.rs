@@ -15,8 +15,8 @@ static ACCEPTABLE_SUFFIXES: &[&str] = &[
 pub fn fetch_video_files() -> Result<CommandData<Vec<File>>, CommandData<()>> {
     // if there is an error getting the video path, fire an error
     let video_dir = dirs::video_dir();
-    let Some(video_dir) = video_dir else{
-        return Err(CommandData::err("error getting the video dir",  ()));
+    let Some(video_dir) = video_dir else {
+        return Err(CommandData::err("error getting the video dir", ()));
     };
 
     let entries = search_files("*", &video_dir)
