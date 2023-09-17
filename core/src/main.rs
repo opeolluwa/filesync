@@ -47,7 +47,7 @@ lazy_static! {
 }
 
 fn main() -> Result<(), tauri::Error> {
-    let state = app_state::State;
+    let state = app_state::State{..Default::default()};
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(http_server::core_server());
     tauri::Builder::default()
