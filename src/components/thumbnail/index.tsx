@@ -12,14 +12,12 @@ import documentIcon from "@/assets/common/document.png";
 import textIcon from "@/assets/common/text.png";
 import svgIcon from "@/assets/common/svg.png";
 import Image from "next/image";
+import { File } from "../../../core/bindings/File";
+import { UploadProps } from "antd/lib/upload";
 
 // to interface with audio files coming from the application core
 // the type extends the AppData type
-export interface FileInterface {
-  fileName: string; // the name of the file
-  fileFormat: string; // the format of the file, essentially the file extension without the dot, for example mp3, mp4, pdf, docx, etc
-  fileSize: number; // the size of the file in bytes, this will be converted to a human readable format using the computeFileSize function, for example 4.5Mb, 3.05Kb, 1.2Gb, etc
-  filePath: string; // the path to the file, this will be used to read the file and write it to remote server , for example /home/user/music.mp3
+export interface FileInterface extends File {
 }
 
 // the required data to render the file card component
@@ -73,7 +71,7 @@ export default function FileCard(
         </h6>
         <div className="flex  gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
                 width={30} ">
-          <span>{computeFileSize(fileSize)}</span>{" "}
+          <span>{computeFileSize(fileSize as unknown as number)}</span>{" "}
           <span>
             {/**file duration goes here */}
           </span>
