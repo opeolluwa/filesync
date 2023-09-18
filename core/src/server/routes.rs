@@ -14,7 +14,6 @@ use serde_json::json;
 use serde_json::Value;
 use std::fs;
 
-use crate::files;
 use crate::utils::{system_info::SystemInformation, CommandData};
 use crate::UPLOAD_DIRECTORY;
 #[derive(Debug, Serialize, Deserialize)]
@@ -152,44 +151,10 @@ pub async fn _handle_404() -> impl IntoResponse {
     )
 }
 
-/// get the list of the audio files
-pub async fn get_audio_files() -> Result<(StatusCode, Json<Value>), (StatusCode, Json<Value>)> {
-    let Some(CommandData {
-        data: audio_files, ..
-    }) = files::audio::get_audio_files().ok()
-    else {
-        return Err((
-            StatusCode::INTERNAL_SERVER_ERROR,
-            axum::response::Json(serde_json::json!({
-            "success":false,
-            "data":(),
-            "message":String::from("error getting audio files"),
-            })),
-        ));
-    };
-
-    //   let audio_files = Some()
-    Ok((
-        StatusCode::OK,
-        axum::response::Json(serde_json::json!({
-        "success":true,
-        "data":Some(audio_files),
-        "message":String::from("successfully retrieved audio files"),
-        })),
-    ))
-}
-
-/// get the list of documents
-pub async fn get_documents() {}
-
-/// get the list of the video files
-pub async fn get_video_files() {}
-
-/// get the list of the image files
-pub async fn get_image_files() {}
-
 /// for a given file path, return the file the the used as a downloadable one
-pub async fn get_file() {}
+pub async fn get_file() {
+    unimplemented!()
+}
 
 #[cfg(test)]
 mod basic_endpoints {

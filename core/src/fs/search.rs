@@ -3,7 +3,7 @@ use std::path::PathBuf;
 use walkdir::{DirEntry, WalkDir};
 use wildmatch::WildMatch;
 
-use crate::command::file::File;
+use super::file::File;
 use crate::utils::{is_hidden, CommandData};
 use assert_fs::prelude::*;
 
@@ -11,21 +11,6 @@ fn is_wildcard_match(pattern: &str, entry: &DirEntry) -> bool {
     let file_name = entry.file_name();
     let file_name = file_name.to_str().unwrap();
     WildMatch::new(pattern).matches(file_name)
-}
-
-#[tauri::command]
-pub fn search_home_dir(pattern: &str) -> Result<CommandData<Vec<File>>, CommandData<()>> {
-    let home_dir = dirs::home_dir();
-    let Some(home_dir) = home_dir else {
-        return Err(CommandData::err("error getting the home dir", ()));
-    };
-
-    let entries = search_files(pattern, &home_dir);
-
-    Ok(CommandData::ok(
-        "searched all files in home directory",
-        entries,
-    ))
 }
 
 // searches all files in the root directory that matches with the wildcard pattern
