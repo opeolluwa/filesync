@@ -56,7 +56,7 @@ pub mod document {
     }
 }
 
-pub mod images {
+pub mod image {
     use super::*;
     static ACCEPTABLE_SUFFIXES: &[&str] = &[
         "jpg", "jpeg", "png", "gif", "bmp", "tiff", "raw", "svg", "ai", "eps", "psd", "xcf", "ico",
@@ -156,7 +156,7 @@ pub mod video {
     // get the video file from the default video dir of the OS
     // return an instance of the CommandData and vector of the path if any
     #[tauri::command]
-    pub fn fetch_video() -> Result<CommandData<Vec<File>>, CommandData<()>> {
+    pub fn fetch_videos() -> Result<CommandData<Vec<File>>, CommandData<()>> {
         // if there is an error getting the video path, fire an error
         let video_dir = dirs::video_dir();
         let Some(video_dir) = video_dir else {
@@ -173,10 +173,10 @@ pub mod video {
 
     #[cfg(test)]
     mod tests {
-        use super::video::{fetch_video, ACCEPTABLE_SUFFIXES};
+        use super::video::{fetch_videos, ACCEPTABLE_SUFFIXES};
         #[test] // see if there are files in the video directory path
         fn _fetch_video_files_() {
-            let vid_files = fetch_video().ok();
+            let vid_files = fetch_videos().ok();
             assert!(vid_files.is_some());
 
             let vid_files = vid_files.unwrap().data.unwrap();

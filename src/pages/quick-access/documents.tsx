@@ -1,4 +1,4 @@
-import DocumentComponent from "@/components/thumbnail/DocumentComponent";
+import FileCard, { FileInterface } from "@/components/thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
 import { AppData, AudioFile } from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";
@@ -17,15 +17,12 @@ export default function Document() {
     setLoading(true);
     invoke("fetch_documents").then((res) => {
       setData(res as any);
-      console.log({ res });
-
       setLoading(false);
     });
-    // setLoading(false);
   }, []);
 
   // typecast the response into AppData type
-  const fetchedDocuments = data as unknown as AppData<Array<AudioFile>>;
+  const fetchedDocuments = data as unknown as AppData<Array<FileInterface>>;
   if (isLoading) {
     return (
       <>
@@ -46,13 +43,13 @@ export default function Document() {
       <div>
         <div className="flex flex-wrap  flex-grow gap-4 justify-start mt-12">
           {fetchedDocuments?.data.map((file, index) => (
-            <DocumentComponent
+            <FileCard
               key={index}
               fileName={file.fileName}
               fileSize={file.fileSize}
               fileFormat={file.fileFormat}
               filePath={file.filePath}
-              onClick={() => shareFile(file.filePath)}
+              action={() => shareFile(file.filePath)}
             />
           ))}
         </div>

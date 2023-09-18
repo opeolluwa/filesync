@@ -188,6 +188,7 @@ impl Settings {
     }
 }
 
+#[allow(dead_code)]
 /// impl file transfer history
 impl TransferHistory {
     pub async fn save(&self) -> Result<Self, ()> {

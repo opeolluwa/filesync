@@ -8,8 +8,8 @@ use server::http_server;
 
 use crate::api::{
     fs::{
-        audio::fetch_audio, document::fetch_documents, images::fetch_images, search_home_dir,
-        share_file_with_peer, video::fetch_video,
+        audio::fetch_audio, document::fetch_documents, image::fetch_images, search_home_dir,
+        share_file_with_peer, video::fetch_videos,
     },
     utils::{generate_qr_code, get_ip_address, get_system_information},
     wifi::{create_wifi_hotspot, kill_wifi_hotspot},
@@ -53,7 +53,7 @@ fn main() -> Result<(), tauri::Error> {
         .manage(state)
         .invoke_handler(tauri::generate_handler![
             fetch_audio,
-            fetch_video,
+            fetch_videos,
             fetch_images,
             fetch_documents,
             create_wifi_hotspot,
