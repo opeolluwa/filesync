@@ -6,7 +6,6 @@ import { FileContext, FileTransferStatus } from "@/store/context";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { SystemInformationContext } from "@/store/sys-info";
 
-
 /**
  * @function sharePage -  A page responsible for guiding users on various actions
  * @returns tsx
@@ -26,6 +25,7 @@ export default function ShareFiles() {
       if (status !== FileTransferStatus.UPLOADING) {
         onUpdate(info.fileList);
         // TODO: added uploaded files to application transfer history
+        // await invoke()
       }
       if (status === FileTransferStatus.COMPLETED) {
         message.success(`${info.file.name} file uploaded successfully.`);
@@ -40,17 +40,9 @@ export default function ShareFiles() {
           weekday: "long",
           day: "numeric",
         });
-        /* await database.execute(
-          "INSERT INTO 1? (fileName, fileSize, transferType, transferDate) VALUES (?,?,?,?)",
-          [
-            DatabaseTableNames.FILE_TRANSFER_HISTORY.toString(),
-            fileName,
-            fileSize,
-            transferType,
-            transferDate,
-          ]
-        ); */
-        // setFileTransferStatus({ status });
+
+        // add file to transfer history
+        
       } else if (status === FileTransferStatus.ERROR) {
         message.error(`${info.file.name} file upload failed.`);
       }
