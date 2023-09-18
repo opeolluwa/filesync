@@ -1,5 +1,5 @@
 use super::WifiHotspotConfig;
-use crate::net::NetworkAccessStatus;
+use crate::wifi::NetworkAccessStatus;
 use std::io::{self, BufRead, BufReader};
 use std::process::{Command, Output, Stdio};
 use std::str;

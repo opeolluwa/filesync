@@ -1,11 +1,12 @@
-import MusicFile from "@/components/thumbnail/MusicFile";
+import FileCard, { FileInterface } from "@/components/thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
-import { AppData, AudioFile } from "@/types";
+import { AppData } from "@/types";
 import { convertFileSrc, invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 
 export default function Music() {
+  // display a module to play music
   function playMusic(filePath: string) {
     const assetUrl = convertFileSrc(filePath);
     const audio = document.getElementById("testNode") as HTMLAudioElement;
@@ -23,7 +24,7 @@ export default function Music() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("fetch_audio_files").then((res) => {
+    invoke("fetch_audio").then((res) => {
       setData(res as any);
       setLoading(false);
     });
@@ -31,7 +32,7 @@ export default function Music() {
   // TODO(@opeolluwa): use Tauri Js API to render musicData
   // TODO(@opeolluwa) add modal to play audio file, audio and document using web APIs
   // typecast the response into AppData type
-  const musicData = data as unknown as AppData<Array<AudioFile>>;
+  const musicData = data as unknown as AppData<Array<FileInterface>>;
   if (isLoading) {
     return (
       <>
@@ -53,13 +54,15 @@ export default function Music() {
       <div>
         <div className="flex flex-wrap  flex-grow gap-4 justify-start mt-12">
           {musicData?.data.map((file, index) => (
-            <MusicFile
+            <FileCard
               key={index}
               fileName={file.fileName}
               fileSize={file.fileSize}
               fileFormat={file.fileFormat}
               filePath={file.filePath}
-              onClick={() => playMusic(file.filePath)}
+              action={() => {
+                console.log("play audio file");
+              }}
             />
           ))}
         </div>

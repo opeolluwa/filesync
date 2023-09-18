@@ -1,6 +1,6 @@
 import PageLayout from "@/components/layout/PageLayout";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
-
+import LoaderDevices from "@/components/loaders/LoaderDevices";
 
 export default function HelpPage() {
   return (
@@ -9,7 +9,7 @@ export default function HelpPage() {
         <div>
           <h1>Help</h1>
           <div>some help content goes here</div>
-          <LoaderCircle />
+          <LoaderDevices />
         </div>
       </PageLayout>
     </>

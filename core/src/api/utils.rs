@@ -1,22 +1,15 @@
 use std::net::Ipv4Addr;
 
-use tauri::Manager;
-
 use crate::{
-    net::ip_manager,
     utils::{system_info::SystemInformation, CommandData},
+    wifi::ip_manager,
     SERVER_PORT,
 };
 
-//close the splash screen when this is called
+// TODO: generate the qr code and return data URI
 #[tauri::command]
-pub fn close_splashscreen(window: tauri::Window) {
-    // Close splashscreen
-    if let Some(splashscreen) = window.get_window("splashscreen") {
-        splashscreen.close().unwrap();
-    }
-    // Show main window
-    window.get_window("main").unwrap().show().unwrap();
+pub fn generate_qr_code(ssid: &str, password: &str) -> String {
+    format!("WIFI:S:{};T:WPA;P:{};;", ssid, password)
 }
 
 // give connection details of the application core server

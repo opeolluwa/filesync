@@ -11,7 +11,7 @@ use sys_info;
 use sysinfo::{DiskExt, System, SystemExt};
 
 use super::compute_file_size;
-use crate::net::ip_manager;
+use crate::wifi::ip_manager;
 use crate::SERVER_PORT;
 
 #[derive(Debug, Deserialize, Serialize, Clone)]

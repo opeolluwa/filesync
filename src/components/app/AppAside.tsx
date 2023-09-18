@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import FileCard, { FileInterface } from "../thumbnail/FileCard";
+import FileCard, { FileInterface } from "../thumbnail/FileTransferCard";
 import Image from "next/image";
 import { FileContext } from "@/store/context";
 import { Battery50Icon, BellAlertIcon } from "@heroicons/react/24/outline";

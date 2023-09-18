@@ -37,6 +37,12 @@ impl File {
     }
 }
 
-// fiel hsitory command
-
-// file transfer history command
+///  see if a file is hidden
+// for example .cargo/fhafk
+fn is_hidden(entry: &walkdir::DirEntry) -> bool {
+    entry
+        .file_name()
+        .to_str()
+        .map(|s| s.starts_with('.'))
+        .unwrap_or(false)
+}

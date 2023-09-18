@@ -1,4 +1,5 @@
 // manage the application state
+#[allow(dead_code)]
 
 use crate::database::{Settings, TransferHistory};
 
