@@ -1,8 +1,8 @@
 /// create network interface here using OS specific implementation
 /// once this is done pass the network conf
 use crate::{
-    net::{linux_hotspot, WifiHotspotConfig},
     utils::CommandData,
+    wifi::{linux_hotspot, WifiHotspotConfig},
 };
 
 #[tauri::command]

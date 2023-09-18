@@ -47,7 +47,7 @@ fn create_ap_with_hotspotcommand<T: HotSpotCommand>(hotspotcommand: T, ssid: &st
 }
 
 /// Turnoff the hotspot
-#[warn(dead_code)]
+#[allow(dead_code)]
 pub fn turn_off_hotspot() {
     let hotspotcommand = DefaultHotSpotCommand;
     turn_off_hotspot_with_hotspotcommand(hotspotcommand);

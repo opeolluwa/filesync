@@ -6,7 +6,7 @@ use sqlx::{
     migrate::MigrateDatabase, sqlite::SqliteQueryResult, FromRow, Pool, Row, Sqlite, SqlitePool,
 };
 use uuid::Uuid;
-
+use ts_rs::TS;
 use crate::DB_URL;
 pub struct Database;
 #[allow(unused)]
@@ -83,7 +83,9 @@ impl Database {
 }
 
 /// file transfer history
-#[derive(Debug, Clone, Serialize, FromRow, Deserialize)]
+#[derive(Debug, Clone, Serialize, FromRow, Deserialize, TS)]
+#[serde(rename_all = "camelCase")]
+#[ts(export)]
 pub struct TransferHistory {
     pub id: String,
     pub file_name: String,
@@ -91,6 +93,28 @@ pub struct TransferHistory {
     pub date: String,
     pub transaction_type: String, // sent or received
     pub recipient: String,
+}
+
+/// file transfer builder to be passed to TransferHistory::new()
+#[derive(Debug, Clone, Serialize, FromRow, Deserialize, TS)]
+#[serde(rename_all = "camelCase")]
+#[ts(export)]
+pub struct TransferHistoryBuilder {
+    file_name: String,
+    file_size: String,
+    transaction_type: String,
+    recipient: String,
+}
+
+// impl display for history builder
+impl std::fmt::Display for TransferHistoryBuilder {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        let history = format!(
+            "file_name: {}, file_size: {}, transaction_type: {}, recipient: {}",
+            self.file_name, self.file_size, self.transaction_type, self.recipient
+        );
+        write!(f, "{}", history)
+    }
 }
 
 // implement default and display for TransferHistory
@@ -123,7 +147,9 @@ impl std::fmt::Display for TransferHistory {
     }
 }
 /// settings table
-#[derive(Debug, Clone, Serialize, FromRow, Deserialize)]
+#[derive(Debug, Clone, Serialize, FromRow, Deserialize, TS)]
+#[serde(rename_all = "camelCase")]
+#[ts(export)]
 pub struct Settings {
     pub id: i32,
     pub language: String,
@@ -188,8 +214,25 @@ impl Settings {
     }
 }
 
+#[allow(dead_code)]
 /// impl file transfer history
 impl TransferHistory {
+    // impl new
+    pub fn new(file: TransferHistoryBuilder) -> Self {
+        let TransferHistoryBuilder {
+            file_name,
+            file_size,
+            transaction_type,
+            recipient,
+        } = file;
+        Self {
+            file_name,
+            file_size,
+            transaction_type,
+            recipient,
+            ..Default::default()
+        }
+    }
     pub async fn save(&self) -> Result<Self, ()> {
         let db = Database::conn().await;
         let _ = sqlx::query(

@@ -3,10 +3,11 @@ use filesize::PathExt;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use walkdir::DirEntry;
-
+use ts_rs::TS;
 // the file structure
-#[derive(Debug, Default, Serialize, Deserialize)]
+#[derive(Debug, Default, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
+#[ts(export)]
 pub struct File {
     pub file_name: String,
     pub file_format: String,
@@ -37,6 +38,12 @@ impl File {
     }
 }
 
-// fiel hsitory command
-
-// file transfer history command
+///  see if a file is hidden
+// for example .cargo/fhafk
+fn is_hidden(entry: &walkdir::DirEntry) -> bool {
+    entry
+        .file_name()
+        .to_str()
+        .map(|s| s.starts_with('.'))
+        .unwrap_or(false)
+}

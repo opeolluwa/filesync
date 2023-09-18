@@ -4,28 +4,26 @@
 extern crate uptime_lib;
 
 use lazy_static::lazy_static;
+use server::http_server;
 
-use crate::{
-    command::{
-        audio::fetch_audio_files,
-        connect_with_qr_code::generate_qr_code,
-        documents::fetch_documents,
-        // files::{get_audio_files, get_documents, get_images, get_videos},
-        hotspot::{create_wifi_hotspot, kill_wifi_hotspot},
-        // search::search_downloads_dir,
-        send_file::share_file_with_peer,
-        utils::{close_splashscreen, get_ip_address, get_system_information},
+use crate::api::{
+    fs::{
+        audio::fetch_audio, document::fetch_documents, image::fetch_images,
+        persist_transfer_history, search_home_dir, share_file_with_peer, video::fetch_videos,
     },
-    server::http_server,
+    utils::{generate_qr_code, get_ip_address, get_system_information},
+    wifi::{create_wifi_hotspot, kill_wifi_hotspot},
 };
+use database::Database;
 
+mod api;
 mod app_state;
-mod command;
 mod database;
-mod files;
-mod net;
+mod fs;
 mod server;
 mod utils;
+mod wifi;
+
 // allow sharing of the port
 lazy_static! {
     pub static ref SERVER_PORT: u16 =
@@ -47,22 +45,29 @@ lazy_static! {
 }
 
 fn main() -> Result<(), tauri::Error> {
-    let state = app_state::State{..Default::default()};
+    let state = app_state::State {
+        ..Default::default()
+    };
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(http_server::core_server());
+    // run the database in a separate thread from tauri
+    tauri::async_runtime::spawn(Database::init());
+
     tauri::Builder::default()
         .manage(state)
         .invoke_handler(tauri::generate_handler![
-            get_ip_address,
-            fetch_documents,
-            fetch_audio_files,
-            close_splashscreen,
-            share_file_with_peer,
-            get_system_information,
+            fetch_audio,
+            fetch_videos,
+            fetch_images,
             fetch_documents,
             create_wifi_hotspot,
             kill_wifi_hotspot,
-            generate_qr_code
+            generate_qr_code,
+            get_ip_address,
+            get_system_information,
+            search_home_dir,
+            persist_transfer_history,
+            share_file_with_peer,
         ])
         .run(tauri::generate_context!())
 }

@@ -1,53 +1,59 @@
+import FileCard, { FileInterface } from "@/components/thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
-import { BaseDirectory, FileEntry, readDir } from "@tauri-apps/api/fs";
-// import { pictureDir } from '@tauri-apps/api/path';
+import { AppData, AudioFile } from "@/types";
+import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
-import dynamic from "next/dynamic";
-import { Skeleton } from "antd";
+import { shareFile } from "@/utils";
+import LoaderCircle from "@/components/loaders/LoaderCircle";
 
-// const pictureDir = dynamic(() => import('@tauri-apps/api/path').then((mod) => mod.pictureDir), { ssr: false });
-//TODO(@opeolluwa): use Tauri Js API to fetch image files and render
+const isClient = typeof window !== "undefined";
+
 export default function Images() {
-  const [data, setData] = useState("");
+  const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    // get the picture directory path
-    const pictureDirPath = async () =>
-      (await import("@tauri-apps/api/path")).pictureDir;
-    // console.log(pictureDirPath, " the picture dir path");
-
-    // read the pictures
-    readDir("users", { dir: BaseDirectory.Picture, recursive: true }).then(
-      (result) => {
-        console.log(result, " the read files are");
-        processEntries(result);
-      }
-    );
-    // console.log(entries, " the read files are");
-
-    function processEntries(entries: FileEntry[]) {
-      for (const entry of entries) {
-        console.log(`Entry: ${entry.path}`);
-        if (entry.children) {
-          processEntries(entry.children);
-        }
-      }
-    }
-
-    // setData(entries.toString());
-    setLoading(false);
+    invoke("fetch_images").then((res) => {
+      setData(res as any);
+      setLoading(false);
+    });
   }, []);
 
+  // typecast the response into AppData type
+  const fetchedDocuments = data as unknown as AppData<Array<FileInterface>>;
   if (isLoading) {
-    return <h2>fetch your image files</h2>;
+    return (
+      <>
+        <LoaderCircle />
+        <h2 className="font-xl font-bold mt-8">Loading...</h2>
+        <p className="leading-5 text-gray-400">
+          Please wait while we load your images. This might take a while.
+        </p>
+      </>
+    );
   }
-
   return (
-    <QuickAccessLayout pageTitle={"Images"} includeSearchBar={false}>
-      <Skeleton active />;
+    <QuickAccessLayout
+      pageTitle={"Music"}
+      includeSearchBar={true}
+      searchBarText="search images" 
+    >
+      <div>
+        <div className="flex flex-wrap  flex-grow gap-4 justify-start mt-12">
+          {fetchedDocuments?.data.map((file, index) => (
+            <FileCard
+              key={index}
+              fileName={file.fileName}
+              fileSize={file.fileSize}
+              fileFormat={file.fileFormat}
+              filePath={file.filePath}
+              action={() => shareFile(file.filePath)}
+            />
+          ))}
+        </div>
+      </div>
     </QuickAccessLayout>
   );
 }

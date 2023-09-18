@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -19,19 +15,16 @@
     "jsx": "preserve",
     "incremental": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
-    },
-    
+      "@/*": ["./src/*"],
+      "@binding/*": ["../core/bindings/*"]
+    }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
-, "src/components/DropZone.jsx"  ],
-  "exclude": [
-    "node_modules",
-    "browser"
-  ]
+    "**/*.tsx",
+    "src/components/DropZone.jsx",
+    "../core/bindings/**/*.ts"
+  ],
+  "exclude": ["node_modules", "browser"]
 }
