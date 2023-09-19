@@ -40,7 +40,7 @@ impl File {
 
 ///  see if a file is hidden
 // for example .cargo/fhafk
-fn is_hidden(entry: &walkdir::DirEntry) -> bool {
+fn _is_hidden(entry: &walkdir::DirEntry) -> bool {
     entry
         .file_name()
         .to_str()

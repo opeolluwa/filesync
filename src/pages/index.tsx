@@ -2,13 +2,18 @@
 
 import PageTitle from "@/components/PageTitle";
 import SearchBar from "@/components/SearchBar";
+import LoaderCircle from "@/components/loaders/LoaderCircle";
 import {
   Bars3BottomLeftIcon,
   MusicalNoteIcon,
   PhotoIcon,
   PlayIcon,
 } from "@heroicons/react/24/solid";
+import { invoke } from "@tauri-apps/api/tauri";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { CommandData } from "../../core/bindings/CommandData";
+import { TransferHistory } from "../../core/bindings/TransferHistory";
 
 interface QuickAccessTab {
   name: string;
@@ -86,6 +91,33 @@ const recentFiles = [
 ];
 
 export default function Main() {
+  const [data, setData] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+
+  // get the data from the application core
+  useEffect(() => {
+    setLoading(true);
+    invoke("get_transfer_history").then((res) => {
+      setData(res as any);
+      setLoading(false);
+    });
+  }, []);
+
+  // typecast the response into AppData type
+  const transferHistory = data as unknown as CommandData<
+    Array<TransferHistory>
+  >;
+  if (isLoading) {
+    return (
+      <>
+        <LoaderCircle />
+        <h2 className="font-xl font-bold mt-8">Loading...</h2>
+        <p className="leading-5 text-gray-400">
+          Please wait while we load your documents. This might take a while.
+        </p>
+      </>
+    );
+  }
   return (
     <>
       <section>
@@ -122,7 +154,7 @@ export default function Main() {
         </ul>
       </section>
 
-      {/**recent files section */}
+      {"trasnfer" + JSON.stringify(transferHistory)}
       <section className="my-16">
         <h2 className="flex justify-between mt-24 mb-4 ">
           <span className=" font-medium dark:text-gray-400">Recent Files</span>
@@ -130,7 +162,7 @@ export default function Main() {
             href="/history"
             className="text-gray-500 text-violet-600 dark:text-violet"
           >
-            view all 
+            view all
           </Link>
         </h2>
         <div className="relative overflow-x-auto bg-white rounded-[24px] shadow-lg px-4 py-8 ">
@@ -149,13 +181,15 @@ export default function Main() {
               </tr>
             </thead>
             <tbody className="text-gray-500">
-              {recentFiles.map((file, index) => (
-                <tr key={index}>
-                  <td className="px-6 py-4">{file.name}</td>
-                  <td className="px-6 py-4">{file.size}</td>
-                  <td className="px-6 py-4">{file.lastModified}</td>
-                </tr>
-              ))}
+              {isLoading ? <LoaderCircle /> : (
+                recentFiles.map((file, index) => (
+                  <tr key={index}>
+                    <td className="px-6 py-4">{file.name}</td>
+                    <td className="px-6 py-4">{file.size}</td>
+                    <td className="px-6 py-4">{file.lastModified}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

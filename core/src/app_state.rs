@@ -9,9 +9,9 @@ pub struct State {
 }
 
 impl State {
-    pub async fn fetch() -> Self {
+    pub async fn _fetch() -> Self {
         let settings = Settings::fetch().await;
-        let transfer_history = TransferHistory::fetch().await;
+        let transfer_history = TransferHistory::fetch().await.unwrap();
 
         Self {
             settings,

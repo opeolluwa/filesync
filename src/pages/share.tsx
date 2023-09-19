@@ -5,6 +5,8 @@ import { message, Upload } from "antd";
 import { FileContext, FileTransferStatus } from "@/store/context";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { SystemInformationContext } from "@/store/sys-info";
+import { TransferHistoryBuilder } from "../../core/bindings/TransferHistoryBuilder";
+import { invoke } from "@tauri-apps/api/tauri";
 
 /**
  * @function sharePage -  A page responsible for guiding users on various actions
@@ -32,19 +34,25 @@ export default function ShareFiles() {
         // save the file to transfer history
 
         const fileName = info.file.name;
-        const fileSize = info.file.size;
-        const transferType = "sent";
-        const transferDate = new Date().toLocaleDateString("en-us", {
-          month: "short",
-          year: "numeric",
-          weekday: "long",
-          day: "numeric",
-        });
+        const fileSize = String(info.file.size);
+        const transactionType = "sent";
 
         // add file to transfer history
-        
+        const transferHistory: TransferHistoryBuilder = {
+          fileName,
+          fileSize,
+          transactionType,
+          recipient: "me",
+        };
+
+        const data = await invoke("persist_transfer_history", {
+          file: transferHistory,
+        });
+        console.log(JSON.stringify(data));
       } else if (status === FileTransferStatus.ERROR) {
-        message.error(`${info.file.name} file upload failed.`);
+        message.error(
+          `${info.file.name} file upload failed. due to ${info.file.error}`,
+        );
       }
     },
     onDrop(e) {
