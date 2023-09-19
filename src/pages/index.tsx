@@ -47,49 +47,6 @@ const quickAccessTabs: QuickAccessTab[] = [
   },
 ];
 
-const recentFiles = [
-  {
-    name: "image1.jpg",
-    size: "1.2MB",
-    lastModified: new Date().toLocaleDateString("en-us", {
-      month: "short",
-      year: "numeric",
-      weekday: "long",
-      day: "numeric",
-    }),
-  },
-  {
-    name: "image2.jpg",
-    size: "1.2MB",
-    lastModified: new Date().toLocaleDateString("en-us", {
-      month: "short",
-      year: "numeric",
-      weekday: "long",
-      day: "numeric",
-    }),
-  },
-  {
-    name: "image3.jpg",
-    size: "1.2MB",
-    lastModified: new Date().toLocaleDateString("en-us", {
-      month: "short",
-      year: "numeric",
-      weekday: "long",
-      day: "numeric",
-    }),
-  },
-  {
-    name: "image3.jpg",
-    size: "1.2MB",
-    lastModified: new Date().toLocaleDateString("en-us", {
-      month: "short",
-      year: "numeric",
-      weekday: "long",
-      day: "numeric",
-    }),
-  },
-];
-
 export default function Main() {
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -154,7 +111,6 @@ export default function Main() {
         </ul>
       </section>
 
-      {"trasnfer" + JSON.stringify(transferHistory)}
       <section className="my-16">
         <h2 className="flex justify-between mt-24 mb-4 ">
           <span className=" font-medium dark:text-gray-400">Recent Files</span>
@@ -182,11 +138,11 @@ export default function Main() {
             </thead>
             <tbody className="text-gray-500">
               {isLoading ? <LoaderCircle /> : (
-                recentFiles.map((file, index) => (
+                transferHistory.data?.map((file, index) => (
                   <tr key={index}>
-                    <td className="px-6 py-4">{file.name}</td>
-                    <td className="px-6 py-4">{file.size}</td>
-                    <td className="px-6 py-4">{file.lastModified}</td>
+                    <td className="px-6 py-4">{file.fileName}</td>
+                    <td className="px-6 py-4">{file.fileSize}</td>
+                    <td className="px-6 py-4">{file.date}</td>
                   </tr>
                 ))
               )}
