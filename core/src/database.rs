@@ -28,7 +28,6 @@ impl Database {
         let file_history_table =
             "CREATE TABLE IF NOT EXISTS transfer_history ( id VARCHAR PRIMARY KEY, file_name VARCHAR, file_size VARCHAR, transaction_type VARCHAR, date TEXT, recipient VARCHAR)";
 
-          
         /* create the settings table,  the table will contain user preference and settings */
         //TODO:  add device name , device_name VARCHAR
         let settings_table =
@@ -125,7 +124,10 @@ impl Default for TransferHistory {
             id: Uuid::new_v4().to_string(),
             file_name: "".to_string(),
             file_size: "".to_string(),
-            date: Local::now().to_rfc2822().to_string(),
+            date: Local::now()
+                .date_naive()
+                .format("%a, %-d %b, %C%y")
+                .to_string(),
             transaction_type: "".to_string(),
             recipient: "".to_string(),
         }
