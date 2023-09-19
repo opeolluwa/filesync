@@ -1,17 +1,13 @@
 use reqwest::Method;
 
-use std::path::PathBuf;
-
 use tower_http::cors::Any;
 use tower_http::cors::CorsLayer;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 
 use axum::extract::DefaultBodyLimit;
-use axum::routing::get_service;
 
-use tower_http::services::ServeDir;
-
+use crate::database::Database;
 use crate::server::router;
 use crate::SERVER_PORT;
 
@@ -21,6 +17,9 @@ use crate::SERVER_PORT;
  *  machine and file download to the host machine
  */
 pub async fn core_server() {
+    // initialize database
+    let _ = Database::init().await;
+    // initialize tracing subscriber
     tracing_subscriber::registry()
         .with(tracing_subscriber::EnvFilter::new(
             std::env::var("RUST_LOG")
@@ -41,7 +40,7 @@ pub async fn core_server() {
     let file_size_limit = 10 * 1024 * 1024 * 1024;
     let file_limit = DefaultBodyLimit::max(file_size_limit);
 
-    // TODO: run the https server on localhost then feed off the connection using the wifi gateway, the same way Vite/Vue CLI would do the core server
+    //  run the https server on localhost then feed off the connection using the wifi gateway, the same way Vite/Vue CLI would do the core server
     // this is currently achieved by binding the server to the device default ip address
     let my_local_ip = crate::wifi::ip_manager::autodetect_ip_address()
         .expect("No Ip address detected")
@@ -54,14 +53,8 @@ pub async fn core_server() {
 
     tracing::debug!("server running on http://{}", &ip_address.to_string());
 
-    //mount the application views
-    let views_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("views");
-    let static_files_service =
-        get_service(ServeDir::new(views_dir).append_index_html_on_directories(true));
-
     // build our application with the required routes
     let app = router::app()
-        .fallback(static_files_service)
         .layer(file_limit)
         .layer(cors_layer)
         .layer(tower_http::trace::TraceLayer::new_for_http());

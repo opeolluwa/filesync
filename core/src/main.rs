@@ -8,13 +8,13 @@ use server::http_server;
 
 use crate::api::{
     fs::{
-        audio::fetch_audio, document::fetch_documents, image::fetch_images,
+        audio::fetch_audio, document::fetch_documents, get_transfer_history, image::fetch_images,
         persist_transfer_history, search_home_dir, share_file_with_peer, video::fetch_videos,
     },
+    settings::{get_settings, update_settings},
     utils::{generate_qr_code, get_ip_address, get_system_information},
     wifi::{create_wifi_hotspot, kill_wifi_hotspot},
 };
-use database::Database;
 
 mod api;
 mod app_state;
@@ -30,13 +30,13 @@ lazy_static! {
         portpicker::pick_unused_port().expect("failed to get an unused port");
     pub static ref UPLOAD_DIRECTORY: std::string::String = String::from("filesync");
 
+    /* create a database in the home dir and / save files to $HOME/filesync/.dat */
      pub static ref DB_URL: std::string::String = {
-        //create "utils" directory in the home dir and / save files to $HOME/utils;
         let os_default_downloads_dir = dirs::download_dir().unwrap();
         let db_path = format!(
-            "{downloads_dir}/{upload_dir}",
+            "{downloads_dir}/{db_path}",
             downloads_dir = os_default_downloads_dir.display(),
-            upload_dir = ".dat"
+            db_path = ".dat"
         );
         // create the path if not exist path if not exist
         let _ = std::fs::create_dir_all(&db_path);
@@ -50,8 +50,6 @@ fn main() -> Result<(), tauri::Error> {
     };
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(http_server::core_server());
-    // run the database in a separate thread from tauri
-    tauri::async_runtime::spawn(Database::init());
 
     tauri::Builder::default()
         .manage(state)
@@ -68,6 +66,9 @@ fn main() -> Result<(), tauri::Error> {
             search_home_dir,
             persist_transfer_history,
             share_file_with_peer,
+            get_settings,
+            update_settings,
+            get_transfer_history,
         ])
         .run(tauri::generate_context!())
 }

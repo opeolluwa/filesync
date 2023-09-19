@@ -1,13 +1,13 @@
 use std::collections::HashMap;
 
+use crate::DB_URL;
 use chrono::Local;
 use serde::{Deserialize, Serialize};
 use sqlx::{
     migrate::MigrateDatabase, sqlite::SqliteQueryResult, FromRow, Pool, Row, Sqlite, SqlitePool,
 };
-use uuid::Uuid;
 use ts_rs::TS;
-use crate::DB_URL;
+use uuid::Uuid;
 pub struct Database;
 #[allow(unused)]
 
@@ -26,8 +26,9 @@ impl Database {
 
         // create the file history table
         let file_history_table =
-            "CREATE TABLE IF NOT EXISTS transfer_history ( id VARCHAR PRIMARY KEY, file_name VARCHAR, file_size VARCHAR, transaction_type VARCHAR date TEXT, recipient VARCHAR)";
+            "CREATE TABLE IF NOT EXISTS transfer_history ( id VARCHAR PRIMARY KEY, file_name VARCHAR, file_size VARCHAR, transaction_type VARCHAR, date TEXT, recipient VARCHAR)";
 
+          
         /* create the settings table,  the table will contain user preference and settings */
         //TODO:  add device name , device_name VARCHAR
         let settings_table =
@@ -251,13 +252,18 @@ impl TransferHistory {
         Ok(Self { ..self.clone() })
     }
 
-    pub async fn fetch() -> Vec<Self> {
+    pub async fn fetch() -> Result<Vec<Self>, ()> {
         let db = Database::conn().await;
-
-        sqlx::query_as::<_, Self>("SELECT * FROM transfer_history")
+        let result = sqlx::query_as::<_, Self>("SELECT * FROM transfer_history")
             .fetch_all(&db)
             .await
-            .unwrap()
+            .ok();
+
+        if result.is_none() {
+            return Err(());
+        }
+
+        Ok(result.unwrap())
     }
 
     // delete history

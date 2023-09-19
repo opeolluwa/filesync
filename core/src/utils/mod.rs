@@ -1,8 +1,8 @@
+use serde::{Deserialize, Serialize};
 use std::fmt::{self};
 use std::fs::File;
 use std::path::{Path, PathBuf};
-
-use serde::{Deserialize, Serialize};
+use ts_rs::TS;
 use walkdir::DirEntry;
 
 pub mod system_info;
@@ -34,7 +34,9 @@ pub fn is_hidden(entry: &DirEntry) -> bool {
 }
 
 /// data structure of response to return from Tauri Core
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, TS)]
+#[serde(rename_all = "camelCase")]
+#[ts(export)]
 pub struct CommandData<T> {
     pub data: Option<T>,
     pub message: String,
