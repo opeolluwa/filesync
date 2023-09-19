@@ -14,6 +14,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CommandData } from "../../core/bindings/CommandData";
 import { TransferHistory } from "../../core/bindings/TransferHistory";
+import { AppData } from "@/types";
+import { computeFileSize } from "@/utils";
 
 interface QuickAccessTab {
   name: string;
@@ -98,7 +100,7 @@ export default function Main() {
                 href={"quick-access/" + tab.name.toLowerCase()}
                 className="rounded-[12px] shadow shadow-gray-500 px-3"
                 style={{
-                  backgroundColor: "#3074f5",
+                  backgroundColor: "#4c1d95",
                 }}
               >
                 <div className="hover:brightness-50 sepia-0">{tab.icon}</div>
@@ -137,15 +139,15 @@ export default function Main() {
               </tr>
             </thead>
             <tbody className="text-gray-500">
-              {isLoading ? <LoaderCircle /> : (
-                transferHistory.data?.map((file, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4">{file.fileName}</td>
-                    <td className="px-6 py-4">{file.fileSize}</td>
-                    <td className="px-6 py-4">{file.date}</td>
-                  </tr>
-                ))
-              )}
+              {transferHistory?.data?.map((file, index) => (
+                <tr key={index}>
+                  <td className="px-6 py-4">{file.fileName}</td>
+                  <td className="px-6 py-4">
+                    {computeFileSize(Number(file.fileSize))}
+                  </td>
+                  <td className="px-6 py-4">{file.date}</td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
