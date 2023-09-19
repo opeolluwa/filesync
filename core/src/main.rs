@@ -36,7 +36,7 @@ lazy_static! {
         let db_path = format!(
             "{downloads_dir}/{db_path}",
             downloads_dir = os_default_downloads_dir.display(),
-            db_path = ".dat"
+            db_path = ".store"
         );
         // create the path if not exist path if not exist
         let _ = std::fs::create_dir_all(&db_path);
