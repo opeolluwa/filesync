@@ -34,9 +34,10 @@ export default function Document() {
       </>
     );
   }
+
   return (
     <QuickAccessLayout
-      pageTitle={"Music"}
+      pageTitle={"Document"}
       includeSearchBar={true}
       searchBarText="search document"
     >
