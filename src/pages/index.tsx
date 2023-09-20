@@ -139,7 +139,9 @@ export default function Main() {
               </tr>
             </thead>
             <tbody className="text-gray-500">
-              {transferHistory?.data?.map((file, index) => (
+              {isLoading? 
+              "Loading...":
+              transferHistory?.data?.slice(0, 5).map((file, index) => (
                 <tr key={index}>
                   <td className="px-6 py-4">{file.fileName}</td>
                   <td className="px-6 py-4">

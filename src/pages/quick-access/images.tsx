@@ -36,9 +36,9 @@ export default function Images() {
   }
   return (
     <QuickAccessLayout
-      pageTitle={"Music"}
+      pageTitle={"Image"}
       includeSearchBar={true}
-      searchBarText="search images" 
+      searchBarText="search images"
     >
       <div>
         <div className="flex flex-wrap  flex-grow gap-4 justify-start mt-12">
