@@ -10,7 +10,7 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { getFileIcon } from ".";
+import { getFileIcon } from "../thumbnail";
 
 // the required data to render the file card component
 // the data will be passed dynamically
@@ -24,7 +24,7 @@ type TFileType = {
 };
 
 // the component
-export  function FileTransferCard({
+export function FileTransferCard({
   fileName,
   fileSize,
   fileType,
