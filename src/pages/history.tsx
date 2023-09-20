@@ -40,36 +40,18 @@ export default function HistoryPage() {
   return (
     <>
       <PageLayout pageTitle={"Transfer History"} includeSearchBar={false}>
-        <div className="w-full  px-2 ">
-          <>
-            {fetchedData?.data?.length == 0
-              ? (
-                <div className="flex flex-col items-center gap-4 mt-10">
-                  <Image
-                    src={"/icons/empty-state.svg"} // Route of the image file
-                    height={100} // Desired size with correct aspect ratio
-                    width={100} // Desired size with correct aspect ratio
-                    alt="file card icon"
-                    className="" // automatic height calculation
-                  />
-                  <h3 className="text-gray-400 mt-1 italic">no recent files</h3>
-                </div>
-              )
-              : (
-                fetchedData?.data?.map((history, index) => {
-                  <FileHistory
-                    key={index}
-                    id={history.id}
-                    fileName={history.fileName}
-                    fileSize={history.fileSize}
-                    date={history.date}
-                    transactionType={history.transactionType}
-                    recipient={history.recipient}
-                  />;
-                })
-              )}
-          </>
-          {JSON.stringify(fetchedData.data)}
+        <div className="flex flex-wrap  flex-grow gap-10 justify-start my-1 first:my-1 last:mb-8">
+          {fetchedData?.data?.map((history, index) => (
+            <FileHistory
+              key={index}
+              id={history.id}
+              fileName={history.fileName}
+              fileSize={history.fileSize}
+              date={history.date}
+              transactionType={history.transactionType}
+              recipient={history.recipient}
+            />
+          ))}
         </div>
       </PageLayout>
     </>

@@ -34,6 +34,7 @@ export default function Document() {
       </>
     );
   }
+
   return (
     <QuickAccessLayout
       pageTitle={"Document"}
