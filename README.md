@@ -32,7 +32,7 @@ In addition, this project uses Tauri v1.3, see [prerequisite](https://tauri.app/
 Once you have the dependencies installed, clone the project and install the required packages:
 
 ```sh
-git clone https://github.com/opeolluwa/filesync.git wi-share
+git clone https://github.com/opeolluwa/filesync.git
 cd filesync # navigate to the cloned directory
 yarn install # install the dependencies
 yarn tauri dev # run the application locally
