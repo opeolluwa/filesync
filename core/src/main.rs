@@ -39,7 +39,7 @@ lazy_static! {
             db_path = ".dat"
         );
         //TODO create the path if not exist path if not exist
-        // let _ = std::fs::create_dir_all(&db_path);
+        let _ = std::fs::create_dir_all(&db_path);
     format!("sqlite://{db_path}/filesync.db")
     };
 }

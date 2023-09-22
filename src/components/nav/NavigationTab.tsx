@@ -24,7 +24,7 @@ export default function NavigationTab({
       <Link
         href={path}
         className={router.pathname == path.trim()
-          ? "flex items-center justify-center lg:justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out  text-app  bg-app-50  py-3 px-1 lg:pl-2 first:mt-4 cursor-pointer"
+          ? "flex items-center justify-center lg:justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out  text-app dark:bg-dark-900  bg-app-50  py-3 px-1 lg:pl-2 first:mt-4 cursor-pointer"
           : "flex items-center justify-center lg:justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out dark:text-dark-500 hover:text-app py-3 px-1 lg:pl-2 first:mt-4  text-gray-500 cursor-pointer"}
         onBlur={() => setIcon(icon)}
         onMouseEnter={() => setIcon(alternateIcon)}
