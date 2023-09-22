@@ -52,7 +52,7 @@ export default function FileCard(
   return (
     <div
       onClick={action}
-      className="flex w-full  flex-wrap items-center gap-2 border-b border-b-gray-100   cursor-pointer px-4 py-2 last:mb-10"
+      className="flex w-full  flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10"
     >
       <div>
         {

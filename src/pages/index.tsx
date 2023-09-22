@@ -16,6 +16,8 @@ import { CommandData } from "../../core/bindings/CommandData";
 import { TransferHistory } from "../../core/bindings/TransferHistory";
 import { AppData } from "@/types";
 import { computeFileSize } from "@/utils";
+import Text from "@/components/app/Text";
+import Heading from "@/components/app/Heading";
 
 interface QuickAccessTab {
   name: string;
@@ -70,10 +72,8 @@ export default function Main() {
     return (
       <>
         <LoaderCircle />
-        <h2 className="font-xl font-bold mt-8">Loading...</h2>
-        <p className="leading-5 text-gray-400">
-          Please wait while we load your documents. This might take a while.
-        </p>
+        <Heading context="Loading..." withStyle="font-xl font-bold" />
+        <Text context="Please wait while we load your documents. This might take a while." />
       </>
     );
   }
