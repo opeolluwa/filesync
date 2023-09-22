@@ -31,15 +31,16 @@ export const MemoryInformation = ({
           </span>
         }
 
-        <span className=" font-medium text-blue-700 text-sm">
+        <span className=" font-medium text-blue-700  dark:text-gray-500 text-sm">
           {totalMemory} of {usedMemory}
         </span>
       </div>
       <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
         <div
-          className="bg-app-400 h-1.5 rounded-full"
+          className="bg-app-400 dark:bg-app h-2 rounded-full"
           style={{ width: memBarWidth }}
-        ></div>
+        >
+        </div>
       </div>
     </div>
   );
