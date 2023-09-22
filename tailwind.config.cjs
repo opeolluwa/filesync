@@ -16,6 +16,7 @@ module.exports = {
       indigo: colors.indigo,
       yellow: colors.yellow,
       dark: colors.neutral,
+      red: colors.red,
       app: {
         DEFAULT: "#3074F5",
         50: "#DFEAFD",

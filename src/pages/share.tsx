@@ -26,8 +26,6 @@ export default function ShareFiles() {
       const { status } = info.file;
       if (status !== FileTransferStatus.UPLOADING) {
         onUpdate(info.fileList);
-        // TODO: added uploaded files to application transfer history
-        // await invoke()
       }
       if (status === FileTransferStatus.COMPLETED) {
         message.success(`${info.file.name} file uploaded successfully.`);
@@ -42,7 +40,7 @@ export default function ShareFiles() {
           fileName,
           fileSize,
           transactionType,
-          recipient: "me",
+          recipient: "",
         };
 
         const data = await invoke("persist_transfer_history", {
@@ -51,7 +49,7 @@ export default function ShareFiles() {
         console.log(JSON.stringify(data));
       } else if (status === FileTransferStatus.ERROR) {
         message.error(
-          `${info.file.name} file upload failed. due to ${info.file.error}`,
+          `${info.file.name} file upload failed. due to ${info.file.error}`
         );
       }
     },
