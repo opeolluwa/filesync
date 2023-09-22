@@ -271,7 +271,7 @@ impl TransferHistory {
     // delete history
     pub async fn delete(id: &str) {
         let db = Database::conn().await;
-        let _ = sqlx::query_as::<_, Self>("DELETE FROM transfer_history WHERE id = ?")
+        let _ = sqlx::query_as::<_, Self>("DELETE FROM transfer_history WHERE id = ? ")
             .bind(id)
             .fetch_all(&db)
             .await
