@@ -17,7 +17,7 @@ export default function Layout({ children }: Props) {
       }}
     >
       <Nav />
-      <main className="col-span-11 lg:col-span-7  pt-10 px-20 bg-[rgba(241,246,251,255)]  overflow-y-scroll">
+      <main className="col-span-11 lg:col-span-7  pt-10 px-20 bg-[rgba(241,246,251,255)] dark:bg-dark-800 overflow-y-scroll">
         {children}
       </main>
       <Aside />

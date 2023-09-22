@@ -36,9 +36,9 @@ lazy_static! {
         let db_path = format!(
             "{downloads_dir}/{db_path}",
             downloads_dir = os_default_downloads_dir.display(),
-            db_path = "store"
+            db_path = ".dat"
         );
-        // create the path if not exist path if not exist
+        //TODO create the path if not exist path if not exist
         let _ = std::fs::create_dir_all(&db_path);
     format!("sqlite://{db_path}/filesync.db")
     };
@@ -48,7 +48,7 @@ fn main() -> Result<(), tauri::Error> {
     let state = app_state::State {
         ..Default::default()
     };
-  
+
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(http_server::core_server());
 

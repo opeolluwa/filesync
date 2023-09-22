@@ -26,25 +26,25 @@ const quickAccessTabs: QuickAccessTab[] = [
   {
     name: "Images",
     icon: (
-      <PhotoIcon className="rounded-lg my-4 mx-2 flex w-[47.5px] text-gray-100 " />
+      <PhotoIcon className="rounded-lg my-4 mx-2 flex w-[47.5px] text-gray-100 dark:text-dark-900" />
     ),
   },
   {
     name: "Music",
     icon: (
-      <MusicalNoteIcon className="rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100" />
+      <MusicalNoteIcon className="rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100 dark:text-dark-900" />
     ),
   },
   {
     name: "Videos",
     icon: (
-      <PlayIcon className="rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100" />
+      <PlayIcon className="rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100 dark:text-dark-900" />
     ),
   },
   {
     name: "Documents",
     icon: (
-      <Bars3BottomLeftIcon className="rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100" />
+      <Bars3BottomLeftIcon className="rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100 dark:text-dark-900" />
     ),
   },
 ];
@@ -98,14 +98,15 @@ export default function Main() {
             >
               <Link
                 href={"quick-access/" + tab.name.toLowerCase()}
-                className="rounded-[12px] shadow shadow-gray-500 px-3"
+                className="rounded-[12px] shadow shadow-gray-500 px-3 dark:shadow-none"
                 style={{
-                  backgroundColor: "#3074f5",
+                  // backgroundColor: "#3074f5",
+                  backgroundColor: "#578EF7",
                 }}
               >
-                <div className="hover:brightness-50 sepia-0">{tab.icon}</div>
+                <div className="hover:brightness-25 sepia-0">{tab.icon}</div>
               </Link>
-              <span className="text-gray-600 block mt-2 text-small">
+              <span className="text-gray-600 dark:text-dark-500 block mt-2 text-small">
                 {tab.name}
               </span>
             </li>
@@ -115,15 +116,17 @@ export default function Main() {
 
       <section className="my-16">
         <h2 className="flex justify-between mt-24 mb-4 ">
-          <span className=" font-medium dark:text-gray-400">Recent Files</span>
+          <span className=" font-medium dark:text-dark-400 text-gray-400">
+            Recent Files
+          </span>
           <Link
             href="/history"
-            className="text-gray-500 text-violet-600 dark:text-violet"
+            className="text-gray-500 text-violet-600 dark:text-dark"
           >
             view all
           </Link>
         </h2>
-        <div className="relative overflow-x-auto bg-white rounded-[24px] shadow-lg px-4 py-8 ">
+        <div className="relative overflow-x-auto bg-white rounded-[24px] shadow-lg px-4 py-8  dark:bg-dark-900 dark:shadow-none">
           <table className="w-full text-sm text-left">
             <thead className="text-gray-500">
               <tr>
@@ -139,17 +142,17 @@ export default function Main() {
               </tr>
             </thead>
             <tbody className="text-gray-500">
-              {isLoading? 
-              "Loading...":
-              transferHistory?.data?.slice(0, 5).map((file, index) => (
-                <tr key={index}>
-                  <td className="px-6 py-4">{file.fileName}</td>
-                  <td className="px-6 py-4">
-                    {computeFileSize(Number(file.fileSize))}
-                  </td>
-                  <td className="px-6 py-4">{file.date}</td>
-                </tr>
-              ))}
+              {isLoading
+                ? "Loading..."
+                : transferHistory?.data?.slice(0, 5).map((file, index) => (
+                    <tr key={index}>
+                      <td className="px-6 py-4">{file.fileName}</td>
+                      <td className="px-6 py-4">
+                        {computeFileSize(Number(file.fileSize))}
+                      </td>
+                      <td className="px-6 py-4">{file.date}</td>
+                    </tr>
+                  ))}
             </tbody>
           </table>
         </div>

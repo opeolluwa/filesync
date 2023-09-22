@@ -1,21 +1,21 @@
 "is client";
 import {
+  ClockIcon,
   Cog8ToothIcon,
-  HomeIcon,
   FolderOpenIcon,
+  HomeIcon,
   InformationCircleIcon,
   ShareIcon,
-  ClockIcon,
   SignalIcon,
 } from "@heroicons/react/24/outline";
 import {
+  ClockIcon as SolidClockIcon,
   Cog8ToothIcon as SolidCog8ToothIcon,
-  HomeIcon as SolidHomeIcon,
   FolderOpenIcon as SolidFolderIconOpen,
+  HomeIcon as SolidHomeIcon,
   InformationCircleIcon as SolidInformationIcon,
   ShareIcon as SolidShareIcon,
   SignalIcon as SolidSignalIcon,
-  ClockIcon as SolidClockIcon,
 } from "@heroicons/react/24/solid";
 import { goToPage as gotoPage } from "@/utils";
 import NavigationTab, { Route } from "./NavigationTab";
@@ -47,10 +47,8 @@ export default function Navigation() {
     }
   };
   let [systemInformation, setSystemInformation] = useState(
-    {} as SystemInformation
+    {} as SystemInformation,
   );
-
-
 
   useEffect(() => {
     // fetch sys information from app core
@@ -116,7 +114,7 @@ export default function Navigation() {
   return (
     <>
       <nav
-        className="col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)]  px-[1px]   text-gray-600  pt-10"
+        className="col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)] dark:bg-dark-900  px-[1px]   text-gray-600  pt-10"
         style={{
           height: "calc(100vh-200px)",
           overflowY: "hidden",
