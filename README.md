@@ -1,9 +1,8 @@
 # FIleSync: WiFi File Sharing Application
 
-
 _⚠️ the application is still a work in progress, hence, Some features are missing. Please see the [issues](https://github.com/opeolluwa/send-file/issues) page to contribute_
 
-![screenshot](screenshots/share-files.png)
+![screenshot](screenshots/filesync.png)
 
 ## Table of Contents
 
@@ -33,8 +32,8 @@ In addition, this project uses Tauri v1.3, see [prerequisite](https://tauri.app/
 Once you have the dependencies installed, clone the project and install the required packages:
 
 ```sh
-git clone https://github.com/opeolluwa/wi-share.git wi-share
-cd wi-share # navigate to the cloned directory
+git clone https://github.com/opeolluwa/filesync.git wi-share
+cd filesync # navigate to the cloned directory
 yarn install # install the dependencies
 yarn tauri dev # run the application locally
 
@@ -56,14 +55,13 @@ WiShare is built primarily on the following technologies
 ## Features
 
 - [x] Adaptive UI
-- [x] scan to connect mobile
 - [x] build an executable for the Mac operating system
 - [x] build an executable for the Linux Operating system
+- [x] build an executable for Window
 - [ ] create a wifi hotspot
-- [ ] build the user interface for mobile devices
+- [ ] support mobile devices
 - [ ] support dark mode
 - [ ] add walkthrough after installation
-- [ ] build an executable for Window
 
 ## Acknowledgements
 
