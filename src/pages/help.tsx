@@ -8,22 +8,23 @@ export default function HelpPage() {
     <>
       <PageLayout pageTitle={"Help"} includeSearchBar={false}>
         <div className="p-4 rounded-lg dark:dark-900">
-          <div className="block w-[200px] mb-4 ">
+          <div className="block mb-4 ">
             <Image
-              src="/app-icon.png"
+              src="icons/app-icon.png"
               alt="app icon"
               width={200}
               height={200}
+              className="w-[50px] block mx-auto"
             />
 
-            <div className="flex flex-col items-center my-4 p-4 dark:bg-dark-900">
+            <div className="flex flex-col rounded-lg full my-4 p-4 dark:bg-dark-900">
               <Heading context="File Sync" />
-              <Text context="Securely share file without internet " />
+              <Text context="Securely share file without internet  " withStyle="mb-4" />
             </div>
 
-            <div className="flex flex-col items-center my-4 p-4 dark:bg-dark-900">
+            <div className="flex flex-col rounded-lg items-center my-4 p-4 dark:bg-dark-900">
               <Text context=" give a star on GitHub" />
-              <a href="https://github.com/opeolluwa/filesync">
+              <a href="https://github.com/opeolluwa/filesync" className="small text-gray text-dark">
                 https://github.com/opeolluwa/filesync
               </a>{" "}
               {""}
