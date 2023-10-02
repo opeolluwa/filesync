@@ -1,7 +1,7 @@
 "use client";
 
 import PageTitle from "@/components/PageTitle";
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/components/Search";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 import {
   Bars3BottomLeftIcon,
@@ -16,8 +16,8 @@ import { CommandData } from "../../core/bindings/CommandData";
 import { TransferHistory } from "../../core/bindings/TransferHistory";
 import { AppData } from "@/types";
 import { computeFileSize } from "@/utils";
-import Text from "@/components/app/Text";
-import Heading from "@/components/app/Heading";
+import Text from "@/components/Text";
+import Heading from "@/components/Heading";
 
 interface QuickAccessTab {
   name: string;
@@ -117,7 +117,7 @@ export default function Main() {
       <section className="my-16">
         <h2 className="flex justify-between mt-24 mb-4 ">
           <span className=" font-medium dark:text-dark-400 text-gray-400">
-            Recent Files
+            <Heading context={"Recent Files"} />
           </span>
           <Link
             href="/history"

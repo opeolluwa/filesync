@@ -1,6 +1,6 @@
 import PageTitle from "@/components/PageTitle";
 import Heading from "@/components/app/Heading";
-import Text from "@/components/app/Text";
+import Text from "@/components/Text";
 import PageLayout from "@/components/layout/PageLayout";
 import { Switch, Modal, Button } from "antd";
 import { useState } from "react";
@@ -49,7 +49,6 @@ export default function ConnectionPage() {
                 className="flex justify-between items-center py-4 rounded-lg px-4"
               >
                 <div className="flex flex-col gap-4">
-                  
                   <Text context={network} withStyle="font-medium" />
                 </div>
                 <Button className="bg-app text-gray-100 dark:text-dark-100 border-none hover:text-dark-600">
