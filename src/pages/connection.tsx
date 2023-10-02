@@ -38,7 +38,7 @@ export default function ConnectionPage() {
                 withStyle="-mt-3 leading-6"
               />
             </div>
-            <Switch onChange={() => setIsModalOpen(true)} className />
+            <Switch onChange={() => setIsModalOpen(true)} />
           </div>
 
           <Heading context="Available Network" withStyle="mt-12 mb-2" />
@@ -86,7 +86,7 @@ export default function ConnectionPage() {
       >
         <Text
           context={
-            "Wi-Fi HotSpot makes your device discoverable to peer devices and allows the transfer of files"
+            "WiFi HotSpot makes your device discoverable to peer devices and allows the transfer of files"
           }
         />
         <div className="flex flex-col gap-8 my-8 ">
