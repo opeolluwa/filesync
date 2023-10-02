@@ -82,7 +82,7 @@ export default function Navigation() {
     {
       path: "/history",
       icon: <ClockIcon className="w-6 h-6" />,
-      name: "History",
+      name: "Transfer History",
       alternateIcon: <SolidClockIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "history" }),
     },

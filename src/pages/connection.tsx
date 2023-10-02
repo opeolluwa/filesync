@@ -1,5 +1,5 @@
 import PageTitle from "@/components/PageTitle";
-import Heading from "@/components/app/Heading";
+import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import PageLayout from "@/components/layout/PageLayout";
 import { Switch, Modal, Button } from "antd";
@@ -38,7 +38,7 @@ export default function ConnectionPage() {
                 withStyle="-mt-3 leading-6"
               />
             </div>
-            <Switch onChange={() => setIsModalOpen(true)} className="bg-app" />
+            <Switch onChange={() => setIsModalOpen(true)} className />
           </div>
 
           <Heading context="Available Network" withStyle="mt-12 mb-2" />

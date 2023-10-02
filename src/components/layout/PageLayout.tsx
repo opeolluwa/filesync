@@ -1,6 +1,6 @@
 import { goToPrevPage, goToNextPage } from "@/utils";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import SearchBar from "../Search/SearchBar";
+import SearchBar from "../Search";
 import PageTitle from "../PageTitle";
 
 interface Props {

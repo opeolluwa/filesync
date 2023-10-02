@@ -13,7 +13,6 @@ import textIcon from "@/assets/common/text.png";
 import svgIcon from "@/assets/common/svg.png";
 import Image from "next/image";
 import { File } from "../../../core/bindings/File";
-import { UploadProps } from "antd/lib/upload";
 
 // to interface with audio files coming from the application core
 // the type extends the AppData type
@@ -52,7 +51,7 @@ export default function FileCard(
   return (
     <div
       onClick={action}
-      className="flex w-full  flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10"
+      className="flex w-full  flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10 dark:bg-dark-800"
     >
       <div>
         {
