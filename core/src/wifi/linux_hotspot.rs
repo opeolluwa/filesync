@@ -46,20 +46,20 @@ pub fn create_hotspot() -> Result<WifiHotspotConfig, WifiHotspotConfig> {
     println!("interface {}", network_interface);
 
     // Execute 'nmcli' commands to create a hotspot
-    let create_wifi_command = Command::new("nmcli")
+    let create_wifi_command = std::process::Command::new("nmcli")
         .arg("device")
         .arg("wifi")
         .arg("hotspot")
         .arg("ifname")
         .arg(&network_interface) // Replace 'wlan0' with the appropriate network interface name
         .arg("con-name")
-        .arg("wishare") // Replace 'my-hotspot' with the desired connection name
+        .arg("filesync") // Replace with the desired connection name
         .arg("ssid")
         .arg(&ssid) //the desired SSID name
         .arg("password")
         .arg(&password) // Replace 'MyPassword' with the desired password
         .output()
-        .expect("Failed to execute 'nmcli' command."); //nmcli dev wifi hotspot ifname wlo1 con-name wishare ssid ghost password 1234test1234
+        .expect("Failed to execute 'nmcli' command."); //nmcli dev wifi hotspot ifname wlo1 con-name filesync ssid ghost password 1234test1234
 
     // Check if the command was successful
     if create_wifi_command.status.success() {

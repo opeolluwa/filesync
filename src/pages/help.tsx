@@ -1,6 +1,6 @@
 import Image from "next/image";
 import PageLayout from "@/components/layout/PageLayout";
-import Heading from "@/components/app/Heading";
+import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 
 export default function HelpPage() {
