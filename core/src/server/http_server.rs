@@ -58,8 +58,8 @@ pub async fn core_server() {
     let app = router::app()
         .layer(file_limit)
         .layer(cors_layer)
-        .layer(tower_http::trace::TraceLayer::new_for_http())
-        .fallback(handle_404);
+        .layer(tower_http::trace::TraceLayer::new_for_http());
+        // .fallback(handle_404);
 
     // add a fallback service for handling routes to unknown paths
     // let app = app.fallback(handle_404);
