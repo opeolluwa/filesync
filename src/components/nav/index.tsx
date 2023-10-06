@@ -47,7 +47,7 @@ export default function Navigation() {
     }
   };
   let [systemInformation, setSystemInformation] = useState(
-    {} as SystemInformation,
+    {} as SystemInformation
   );
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function Navigation() {
     },
     {
       icon: <SignalIcon className="w-6 h-6" />,
-      name: "Connection",
+      name: "Connect Device",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "/connection" }),
       path: "/connection",
@@ -82,7 +82,7 @@ export default function Navigation() {
     {
       path: "/history",
       icon: <ClockIcon className="w-6 h-6" />,
-      name: "History",
+      name: "Transfer History",
       alternateIcon: <SolidClockIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "history" }),
     },

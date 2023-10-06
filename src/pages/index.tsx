@@ -1,7 +1,7 @@
 "use client";
 
 import PageTitle from "@/components/PageTitle";
-import SearchBar from "@/components/SearchBar";
+import SearchBar from "@/components/Search";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 import {
   Bars3BottomLeftIcon,
@@ -14,15 +14,16 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CommandData } from "../../core/bindings/CommandData";
 import { TransferHistory } from "../../core/bindings/TransferHistory";
-import { AppData } from "@/types";
 import { computeFileSize } from "@/utils";
-import Text from "@/components/app/Text";
-import Heading from "@/components/app/Heading";
-
+import Text from "@/components/Text";
+import Heading from "@/components/Heading";
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 interface QuickAccessTab {
   name: string;
   icon: any;
 }
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const quickAccessTabs: QuickAccessTab[] = [
   {
@@ -71,7 +72,7 @@ export default function Main() {
   if (isLoading) {
     return (
       <>
-        <LoaderCircle />
+        <Spin indicator={antIcon} />
         <Heading context="Loading..." withStyle="font-xl font-bold" />
         <Text context="Please wait while we load your documents. This might take a while." />
       </>
@@ -117,7 +118,7 @@ export default function Main() {
       <section className="my-16">
         <h2 className="flex justify-between mt-24 mb-4 ">
           <span className=" font-medium dark:text-dark-400 text-gray-400">
-            Recent Files
+            <Heading context={"Recent Files"} />
           </span>
           <Link
             href="/history"
@@ -141,18 +142,20 @@ export default function Main() {
                 </th>
               </tr>
             </thead>
-            <tbody className="text-gray-500">
-              {isLoading
-                ? "Loading..."
-                : transferHistory?.data?.slice(0, 5).map((file, index) => (
-                    <tr key={index}>
-                      <td className="px-6 py-4">{file.fileName}</td>
-                      <td className="px-6 py-4">
-                        {computeFileSize(Number(file.fileSize))}
-                      </td>
-                      <td className="px-6 py-4">{file.date}</td>
-                    </tr>
-                  ))}
+            <tbody className="text-gray-500 transition-all delay-75 ease-in">
+              {isLoading ? (
+                <Spin indicator={antIcon} />
+              ) : (
+                transferHistory?.data?.slice(0, 5).map((file, index) => (
+                  <tr key={index}>
+                    <td className="px-6 py-4">{file.fileName}</td>
+                    <td className="px-6 py-4">
+                      {computeFileSize(Number(file.fileSize))}
+                    </td>
+                    <td className="px-6 py-4">{file.date}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

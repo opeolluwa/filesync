@@ -3,9 +3,17 @@
 
 extern crate uptime_lib;
 
-use lazy_static::lazy_static;
-use server::http_server;
-
+/**
+ * the application is structured into
+ * src
+ * |_____api
+ * |_____server
+ * |_____fs
+ * |____ ...more features/folders
+ *
+ * the api folder is the where the IPC (internal procedure calls are defined )
+ * the remaining folders are implementation of the business logic
+ */
 use crate::api::{
     fs::{
         audio::fetch_audio, document::fetch_documents, get_transfer_history, image::fetch_images,
@@ -13,8 +21,10 @@ use crate::api::{
     },
     settings::{get_settings, update_settings},
     utils::{generate_qr_code, get_ip_address, get_system_information},
-    wifi::{create_wifi_hotspot, kill_wifi_hotspot},
+    wifi::{create_wifi_hotspot, kill_wifi_hotspot, scan_wifi},
 };
+use lazy_static::lazy_static;
+use server::http_server;
 
 mod api;
 mod app_state;
@@ -24,8 +34,13 @@ mod server;
 mod utils;
 mod wifi;
 
-// allow sharing of the port
 lazy_static! {
+    /**
+ * the lazy static crate allow the lazy evaluation of constants thus, one can bypass the impossible dynamic bindings of constants
+ *
+ *
+ * Herein the server port made globally available, this allow for ease of sharing same with file upload directory
+ */
     pub static ref SERVER_PORT: u16 =
         portpicker::pick_unused_port().expect("failed to get an unused port");
     pub static ref UPLOAD_DIRECTORY: std::string::String = String::from("filesync");
@@ -44,14 +59,33 @@ lazy_static! {
     };
 }
 
+/**
+ * the application runs two major thing, a file sever and the tauri runtime responsible for rendering the UI and general UI interactions
+ *
+ * since both are async operations they have to be run in separate threads
+ * this prevent one path blocking the other
+ *
+ * for a deeper understanding, consider
+ * ```rust
+ * http::core_server::run().await  // run the http serer
+ *
+ * tauri::Builder::default().run().await // run the ui process
+ *
+ * ```
+ *
+ * That was the prev implementation but it doesn't work, either the server isn't up or the UI is not rendered
+ *
+ * thus the app was moved to run in separate thread
+ */
 fn main() -> Result<(), tauri::Error> {
     let state = app_state::State {
         ..Default::default()
     };
 
+    scan_wifi();
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(http_server::core_server());
-
+    // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
         .manage(state)
         .invoke_handler(tauri::generate_handler![
@@ -70,6 +104,7 @@ fn main() -> Result<(), tauri::Error> {
             get_settings,
             update_settings,
             get_transfer_history,
+            scan_wifi // download_file, TODO: implement file transfering between peers
         ])
         .run(tauri::generate_context!())
 }

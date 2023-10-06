@@ -3,36 +3,10 @@ use std::fmt::{self};
 use std::fs::File;
 use std::path::{Path, PathBuf};
 use ts_rs::TS;
-use walkdir::DirEntry;
 
+pub mod fs;
+pub mod shell;
 pub mod system_info;
-// pub mod storage_information;
-/// a function to compute file size
-/// accept files size in byte and parse it to human readable KB, MB, TB, GB e.t.c
-pub fn compute_file_size(size: u128) -> String {
-    if size > (1024 * 1024 * 1024 * 1024) {
-        format!("{:.2} TB", size / (1024 * 1024 * 1024 * 1024))
-    } else if size > (1024 * 1024 * 1024) {
-        format!("{:.2} GB", size / (1024 * 1024 * 1024))
-    } else if size > (1024 * 1024) {
-        format!("{:.2} MB", size / (1024 * 1024))
-    } else if size > 1024 {
-        format!("{:.2} KB", size / (1024))
-    } else {
-        format!("{:.2} B", size)
-    }
-}
-
-/// see if file is a dot file eg .cache .yarn
-/// ignore if true
-pub fn is_hidden(entry: &DirEntry) -> bool {
-    entry
-        .file_name()
-        .to_str()
-        .map(|s| s.starts_with('.'))
-        .unwrap_or(false)
-}
-
 /// data structure of response to return from Tauri Core
 #[derive(Debug, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import PageLayout from "@/components/layout/PageLayout";
-import Heading from "@/components/app/Heading";
-import Text from "@/components/app/Text";
+import Heading from "@/components/Heading";
+import Text from "@/components/Text";
 
 export default function HelpPage() {
   return (
@@ -19,12 +19,18 @@ export default function HelpPage() {
 
             <div className="flex flex-col rounded-lg full my-4 p-4 dark:bg-dark-900">
               <Heading context="File Sync" />
-              <Text context="Securely share file without internet  " withStyle="mb-4" />
+              <Text
+                context="Securely share file without internet  "
+                withStyle="mb-4"
+              />
             </div>
 
             <div className="flex flex-col rounded-lg items-center my-4 p-4 dark:bg-dark-900">
               <Text context=" give a star on GitHub" />
-              <a href="https://github.com/opeolluwa/filesync" className="small text-gray text-dark">
+              <a
+                href="https://github.com/opeolluwa/filesync"
+                className="small text-gray text-dark"
+              >
                 https://github.com/opeolluwa/filesync
               </a>{" "}
               {""}

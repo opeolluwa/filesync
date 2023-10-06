@@ -1,14 +1,17 @@
 import { invoke } from "@tauri-apps/api/tauri";
 import { ReactNode, createContext, useEffect, useState } from "react";
-export interface SystemInformation {
+import { SystemInformation as CoreSysInfo } from "../../core/bindings/SystemInformation";
+
+export interface SystemInformation extends CoreSysInfo {
   usedDisk: string;
+
   availableDisk: string;
   /// the current user name eg - drizzle
   systemName: string;
   /// available store
   freeMemory: string;
   /// the port on which the core server runs
-  port: number;
+  port: bigint;
   /// the system ip address,ex:  192.168.213.230
   ipAddress: string;
   /// the uptime e.g 2 hours
@@ -41,6 +44,8 @@ export default function SystemInfoStore({ children }: { children: ReactNode }) {
         serverBaseUrl: systemInformation.serverBaseUrl,
         availableDisk: systemInformation.availableDisk,
         usedDisk: systemInformation.usedDisk,
+        disk: systemInformation.disk,
+        remainingTime: systemInformation.remainingTime,
       }}
     >
       {children}
