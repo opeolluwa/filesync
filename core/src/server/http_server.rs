@@ -10,6 +10,7 @@ use axum::extract::DefaultBodyLimit;
 use crate::database::Database;
 use crate::server::router;
 use crate::SERVER_PORT;
+use crate::server::routes::handle_404;
 
 /**
  * @function core_server
@@ -57,7 +58,8 @@ pub async fn core_server() {
     let app = router::app()
         .layer(file_limit)
         .layer(cors_layer)
-        .layer(tower_http::trace::TraceLayer::new_for_http());
+        .layer(tower_http::trace::TraceLayer::new_for_http())
+        .fallback(handle_404);
 
     // add a fallback service for handling routes to unknown paths
     // let app = app.fallback(handle_404);

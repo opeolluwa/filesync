@@ -1,3 +1,5 @@
+use crate::utils::shell::execute_shell_command;
+
 /**
  * see available network on linux OS
  * this is achieved using a nmcli
@@ -5,5 +7,7 @@
  */
 
 pub fn scan_wifi() {
-    println!("scan wifi on linux");
+    let command = "nmcli dev wifi list";
+    let available_networks = execute_shell_command(command);
+    println!("{:#?}", available_networks);
 }

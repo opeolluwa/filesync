@@ -14,7 +14,6 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CommandData } from "../../core/bindings/CommandData";
 import { TransferHistory } from "../../core/bindings/TransferHistory";
-import { AppData } from "@/types";
 import { computeFileSize } from "@/utils";
 import Text from "@/components/Text";
 import Heading from "@/components/Heading";
@@ -143,7 +142,7 @@ export default function Main() {
                 </th>
               </tr>
             </thead>
-            <tbody className="text-gray-500">
+            <tbody className="text-gray-500 transition-all delay-75 ease-in">
               {isLoading ? (
                 <Spin indicator={antIcon} />
               ) : (

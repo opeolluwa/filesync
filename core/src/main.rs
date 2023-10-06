@@ -82,6 +82,7 @@ fn main() -> Result<(), tauri::Error> {
         ..Default::default()
     };
 
+    scan_wifi();
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(http_server::core_server());
     // run the UI code and the IPC (internal Procedure Call functions)
