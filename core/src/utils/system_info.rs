@@ -9,12 +9,16 @@ use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
 use sys_info;
 use sysinfo::{DiskExt, System, SystemExt};
+use ts_rs::TS;
 
-use super::compute_file_size;
 use crate::wifi::ip_manager;
 use crate::SERVER_PORT;
 
-#[derive(Debug, Deserialize, Serialize, Clone)]
+use super::fs::compute_file_size;
+
+#[derive(Debug, Deserialize, Serialize, Clone, TS)]
+#[ts(export)]
+#[serde(rename_all = "camelCase")]
 struct MyDisk {
     type_: String,
     device_name: String,
@@ -24,13 +28,16 @@ struct MyDisk {
     available_space: u64,
     is_removable: bool,
 }
-#[derive(Debug, Deserialize, Serialize, Clone)]
+#[derive(Debug, Deserialize, Serialize, Clone, TS)]
+#[ts(export)]
+#[serde(rename_all = "camelCase")]
 pub struct Drives {
     array_of_drives: Vec<MyDisk>,
 }
 
-#[derive(Debug, Serialize, Deserialize, Clone)]
+#[derive(Debug, Serialize, Deserialize, Clone, TS)]
 #[serde(rename_all = "camelCase")]
+#[ts(export)]
 pub struct SystemInformation {
     /// the current user name eg - drizzle
     pub system_name: String,

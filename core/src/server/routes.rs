@@ -1,3 +1,4 @@
+use axum::response::Html;
 use axum::{BoxError, Json};
 // get documents, audio, video, e.t.c and render the in the browser
 use axum::{extract::Query, http::StatusCode, response::IntoResponse};
@@ -60,6 +61,32 @@ pub async fn system_information() -> (StatusCode, Json<CommandData<SystemInforma
             "connected system information ",
             SystemInformation::new(),
         )),
+    )
+}
+
+// return an html page to receive file upload
+pub async fn file_upload_form() -> Html<String> {
+    Html(
+        r#"
+         <!doctype html>
+   <html>
+<head>
+
+</head>
+<body>
+<h1> hey man </h1>
+    <form action='/upload' method='post' enctype='multipart/form-data'>
+        <label>
+            Upload file:
+            <input type='file' name='file' multiple>
+        </label>
+        <input type='submit' value='Upload files'>
+    </form>
+</body>
+
+</html>
+   "#
+        .to_string(),
     )
 }
 
@@ -141,7 +168,7 @@ fn path_is_valid(path: &str) -> bool {
 }
 
 // 404 handler
-pub async fn _handle_404() -> impl IntoResponse {
+pub async fn handle_404() -> impl IntoResponse {
     (
         StatusCode::NOT_FOUND,
         axum::response::Json(serde_json::json!({

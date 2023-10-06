@@ -2,7 +2,7 @@
 /// once this is done pass the network conf
 use crate::{
     utils::CommandData,
-    wifi::{linux_hotspot, WifiHotspotConfig},
+    wifi::{hotspot, network_scanner, WifiHotspotConfig},
 };
 
 #[tauri::command]
@@ -10,7 +10,7 @@ pub fn create_wifi_hotspot() -> CommandData<WifiHotspotConfig> {
     #[cfg(target_os = "linux")]
     {
         // Linux-specific command
-        let Some(new_access_point) = linux_hotspot::create_hotspot().ok() else {
+        let Some(new_access_point) = hotspot::linux::create_hotspot().ok() else {
             return CommandData::err("failed to create access point", WifiHotspotConfig::err());
         };
         CommandData::ok("created access point", new_access_point)
@@ -18,41 +18,49 @@ pub fn create_wifi_hotspot() -> CommandData<WifiHotspotConfig> {
 
     #[cfg(target_os = "windows")]
     {
-        // Windows-specific command
         todo!();
     }
 
     #[cfg(target_os = "macos")]
     {
-        // macOS-specific command
-        todo!();
-        /*  tauri::Command::new("open")
-        .arg("https://www.example.com")
-        .spawn()
-        .expect("Failed to execute command"); */
+        todo!()
     }
 }
 
+// turn off wifi hotspot
 #[tauri::command]
 pub fn kill_wifi_hotspot() {
     #[cfg(target_os = "linux")]
     {
-        linux_hotspot::turn_off_hotspot()
+        hotspot::linux::turn_off_hotspot()
     }
 
     #[cfg(target_os = "windows")]
     {
-        // Windows-specific command
         todo!();
     }
 
     #[cfg(target_os = "macos")]
     {
-        // macOS-specific command
         todo!();
-        /*  tauri::Command::new("open")
-        .arg("https://www.example.com")
-        .spawn()
-        .expect("Failed to execute command"); */
+    }
+}
+
+// scan for available network
+#[tauri::command]
+pub fn scan_wifi() {
+    #[cfg(target_os = "linux")]
+    {
+        network_scanner::linux::scan_wifi();
+    }
+
+    #[cfg(target_os = "windows")]
+    {
+        network_scanner::windows::scan_wifi();
+    }
+
+    #[cfg(target_os = "macos")]
+    {
+        network_scanner::mac::scan_wifi();
     }
 }

@@ -4,7 +4,7 @@ use walkdir::{DirEntry, WalkDir};
 use wildmatch::WildMatch;
 
 use super::file::File;
-use crate::utils::{is_hidden, CommandData};
+use crate::utils::{fs::is_hidden, CommandData};
 use assert_fs::prelude::*;
 
 fn is_wildcard_match(pattern: &str, entry: &DirEntry) -> bool {

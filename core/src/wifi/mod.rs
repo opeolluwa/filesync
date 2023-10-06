@@ -4,11 +4,9 @@ use crate::utils::system_info::SystemInformation;
 use nanoid::nanoid;
 use serde::{Deserialize, Serialize};
 
+pub mod hotspot;
 pub mod ip_manager;
-pub mod linux_hotspot;
-pub mod mac_hotspot;
-pub mod wifi_scanner;
-pub mod windows_hotspot;
+pub mod network_scanner;
 /// the network interface type contains the
 /// - gateway ex 192.168.0.0.1
 /// - username ex sillicone
@@ -81,15 +79,6 @@ impl WifiHotspotConfig {
         }
     }
 }
-
-// impl std::default::Default for WifiHotspotConfig {
-//     fn default() -> Self {
-//         Self {
-//             gateway: String::from("0.0.0.0"),
-//             ..Default::default()
-//         }
-//     }
-// }
 
 impl fmt::Display for WifiHotspotConfig {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {

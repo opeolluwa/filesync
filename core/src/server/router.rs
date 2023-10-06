@@ -5,12 +5,14 @@ use axum::{
     Router,
 };
 
-use super::routes::{accept_file_upload, download_file, get_file, system_information};
+use super::routes::{
+    accept_file_upload, download_file, file_upload_form, get_file, system_information,
+};
 
 // the app is moved here to allow sharing across test modules
 pub fn app() -> Router {
     Router::new()
-        .route("/upload", post(accept_file_upload))
+        .route("/upload", post(accept_file_upload).get(file_upload_form))
         .route("/api/sys-info", get(system_information))
         .route("/api/download", get(download_file))
         .route("/api/file", get(get_file))

@@ -1,4 +1,4 @@
-use crate::utils::compute_file_size;
+use crate::utils::fs::compute_file_size;
 use filesize::PathExt;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
