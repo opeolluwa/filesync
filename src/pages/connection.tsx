@@ -51,9 +51,9 @@ export default function ConnectionPage() {
                 <div className="flex flex-col gap-4">
                   <Text context={network} withStyle="font-medium" />
                 </div>
-                <Button className="bg-app text-gray-100 dark:text-dark-100 border-none hover:text-dark-600">
+                <button className="bg-app rounded-md px-4 py-1 text-gray-100 dark:text-dark-100 border-none hover:text-dark-600">
                   Connect
-                </Button>
+                </button>
               </div>
             ))}
           </div>
@@ -78,7 +78,7 @@ export default function ConnectionPage() {
           <Button
             key="Cancel"
             onClick={handleCancel}
-            className="bg-red text-gray-100 dark:text-dark-100"
+            className="bg-gray-100 text-gray-500"
           >
             Cancel
           </Button>,
@@ -93,19 +93,21 @@ export default function ConnectionPage() {
           <div>
             <Heading context={"Network Name"} />
             <input
-              className="px-4 py-3 rounded-md block w-full border-gray-400 dark:border-transparent bg-gray-100 dark:bg-dark-900 hover:border-none  border-none"
+              className="px-4 py-3 rounded-md block w-full border-gray-400 dark:border-transparent bg-gray-100 dark:bg-dark-900 hover:border-none  border-none dark:text-gray-400 small "
               type="text"
               value={networkName}
               onChange={(e) => setNetworkName(e.target.value)}
+              placeholder="ssid"
             />
           </div>
           <div>
             <Heading context={"Password"} />
             <input
-              className="px-4 py-3 rounded-md block w-full border-gray-400 dark:border-transparent bg-gray-100 dark:bg-dark-900 hover:border-none  border-none dark:text-dark-800 text-gray-200 "
+              className="px-4 py-3 rounded-md block w-full border-gray-400 dark:border-transparent bg-gray-100 dark:bg-dark-900 hover:border-none  border-none dark:text-gray-400 small text-gray-200 "
               type="text"
               value={passkey}
               onChange={(e) => setPasskey(e.target.value)}
+              placeholder="password"
             />
           </div>
         </div>

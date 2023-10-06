@@ -21,7 +21,7 @@ use crate::api::{
     },
     settings::{get_settings, update_settings},
     utils::{generate_qr_code, get_ip_address, get_system_information},
-    wifi::{create_wifi_hotspot, kill_wifi_hotspot},
+    wifi::{create_wifi_hotspot, kill_wifi_hotspot, scan_wifi},
 };
 use lazy_static::lazy_static;
 use server::http_server;
@@ -103,6 +103,7 @@ fn main() -> Result<(), tauri::Error> {
             get_settings,
             update_settings,
             get_transfer_history,
+            scan_wifi // download_file, TODO: implement file transfering between peers
         ])
         .run(tauri::generate_context!())
 }

@@ -10,9 +10,10 @@ use std::collections::HashSet;
 use sys_info;
 use sysinfo::{DiskExt, System, SystemExt};
 
-use super::compute_file_size;
 use crate::wifi::ip_manager;
 use crate::SERVER_PORT;
+
+use super::fs::compute_file_size;
 
 #[derive(Debug, Deserialize, Serialize, Clone)]
 struct MyDisk {

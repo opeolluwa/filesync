@@ -18,11 +18,13 @@ import { AppData } from "@/types";
 import { computeFileSize } from "@/utils";
 import Text from "@/components/Text";
 import Heading from "@/components/Heading";
-
+import { LoadingOutlined } from "@ant-design/icons";
+import { Spin } from "antd";
 interface QuickAccessTab {
   name: string;
   icon: any;
 }
+const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const quickAccessTabs: QuickAccessTab[] = [
   {
@@ -71,7 +73,7 @@ export default function Main() {
   if (isLoading) {
     return (
       <>
-        <LoaderCircle />
+        <Spin indicator={antIcon} />
         <Heading context="Loading..." withStyle="font-xl font-bold" />
         <Text context="Please wait while we load your documents. This might take a while." />
       </>
@@ -142,17 +144,19 @@ export default function Main() {
               </tr>
             </thead>
             <tbody className="text-gray-500">
-              {isLoading
-                ? "Loading..."
-                : transferHistory?.data?.slice(0, 5).map((file, index) => (
-                    <tr key={index}>
-                      <td className="px-6 py-4">{file.fileName}</td>
-                      <td className="px-6 py-4">
-                        {computeFileSize(Number(file.fileSize))}
-                      </td>
-                      <td className="px-6 py-4">{file.date}</td>
-                    </tr>
-                  ))}
+              {isLoading ? (
+                <Spin indicator={antIcon} />
+              ) : (
+                transferHistory?.data?.slice(0, 5).map((file, index) => (
+                  <tr key={index}>
+                    <td className="px-6 py-4">{file.fileName}</td>
+                    <td className="px-6 py-4">
+                      {computeFileSize(Number(file.fileSize))}
+                    </td>
+                    <td className="px-6 py-4">{file.date}</td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
