@@ -65,30 +65,88 @@ pub async fn system_information() -> (StatusCode, Json<CommandData<SystemInforma
 }
 
 // return an html page to receive file upload
-pub async fn file_upload_form() -> Html<String> {
+pub async fn file_upload_form() -> Html<&'static str> {
     Html(
         r#"
-         <!doctype html>
-   <html>
-<head>
+        <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>File Upload Form</title>
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
 
-</head>
-<body>
-<h1> hey man </h1>
-    <form action='/upload' method='post' enctype='multipart/form-data'>
-        <label>
-            Upload file:
-            <input type='file' name='file' multiple>
-        </label>
-        <input type='submit' value='Upload files'>
-    </form>
-</body>
+      .container {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 400px;
+      }
 
+      .form-container {
+        padding: 20px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        color: #333;
+      }
+
+      input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 16px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      input[type="submit"] {
+        background-color: #4caf50;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #45a049;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="form-container">
+        <h2>File Upload Form</h2>
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <label for="file">Choose a file:</label>
+          <input type="file" id="file" name="file" multiple required />
+          <input type="submit" value="Upload" />
+        </form>
+      </div>
+    </div>
+  </body>
 </html>
-   "#
-        .to_string(),
+
+   "#,
     )
 }
+
 
 // Handler that accepts a multipart form upload and streams each field to a file.
 pub async fn accept_file_upload(
