@@ -2,7 +2,6 @@
 import {
   ClockIcon,
   Cog8ToothIcon,
-  FolderOpenIcon,
   HomeIcon,
   InformationCircleIcon,
   ShareIcon,
@@ -85,14 +84,6 @@ export default function Navigation() {
       name: "Transfer History",
       alternateIcon: <SolidClockIcon className="w-6 h-6" />,
       action: () => gotoPage({ routePath: "history" }),
-    },
-    {
-      //TODO: open saved files directory
-      path: "/files",
-      icon: <FolderOpenIcon className="w-6 h-6" />,
-      action: openFileManager,
-      alternateIcon: <SolidFolderIconOpen className="w-6 h-6" />,
-      name: "File Manager",
     },
 
     {
