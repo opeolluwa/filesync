@@ -3,7 +3,7 @@ authors = ["adeoye adefemi <adefemiadeoye@yahoo.com>"]
 description = "securely share files over a wifi without internet"
 edition = "2021"
 license = "MIT"
-name = "wishare"
+name = "filesync"
 repository = "https://github.com/opeolluwa/filesync"
 version = "0.6.0"
 

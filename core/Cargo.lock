@@ -908,6 +908,50 @@ dependencies = [
 ]
 
 [[package]]
+name = "filesync"
+version = "0.6.0"
+dependencies = [
+ "assert_fs",
+ "axum",
+ "battery",
+ "chrono",
+ "dirs",
+ "filesize",
+ "futures",
+ "hyper",
+ "lazy_static",
+ "local-ip-address",
+ "mime_guess",
+ "mockall",
+ "nanoid",
+ "network-interface",
+ "num-traits",
+ "pnet",
+ "pnet_datalink 0.33.0",
+ "portpicker",
+ "regex",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "sqlx",
+ "sys-info",
+ "sysinfo",
+ "tauri",
+ "tauri-build",
+ "tokio",
+ "tokio-util",
+ "tower",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "ts-rs",
+ "uptime_lib",
+ "uuid",
+ "walkdir",
+ "wildmatch",
+]
+
+[[package]]
 name = "filetime"
 version = "0.2.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5113,50 +5157,6 @@ checksum = "76a1a57ff50e9b408431e8f97d5456f2807f8eb2a2cd79b06068fc87f8ecf189"
 dependencies = [
  "cfg-if",
  "winapi",
-]
-
-[[package]]
-name = "wishare"
-version = "0.6.0"
-dependencies = [
- "assert_fs",
- "axum",
- "battery",
- "chrono",
- "dirs",
- "filesize",
- "futures",
- "hyper",
- "lazy_static",
- "local-ip-address",
- "mime_guess",
- "mockall",
- "nanoid",
- "network-interface",
- "num-traits",
- "pnet",
- "pnet_datalink 0.33.0",
- "portpicker",
- "regex",
- "reqwest",
- "serde",
- "serde_json",
- "sqlx",
- "sys-info",
- "sysinfo",
- "tauri",
- "tauri-build",
- "tokio",
- "tokio-util",
- "tower",
- "tower-http",
- "tracing",
- "tracing-subscriber",
- "ts-rs",
- "uptime_lib",
- "uuid",
- "walkdir",
- "wildmatch",
 ]
 
 [[package]]
