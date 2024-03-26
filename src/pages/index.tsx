@@ -95,7 +95,7 @@ export default function Main() {
           {quickAccessTabs.map((tab, index) => (
             <li
               key={index}
-              className="flex flex-col items-center justify-center w-6 h-6 lg:w-20 lg:h-20"
+              className="flex flex-col items-center justify-evenly w-6 h-6 lg:w-20 lg:h-20"
             >
               <Link
                 href={"quick-access/" + tab.name.toLowerCase()}
