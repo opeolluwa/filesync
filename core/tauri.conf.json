@@ -74,9 +74,9 @@
         "fullscreen": false,
         "resizable": false,
         "title": "FileSync",
-        "width": 800,
-        "height": 600,
-        "fileDropEnabled": false
+        "width": 1000,
+        "height": 800,
+        "fileDropEnabled": true
       }
     ]
   }

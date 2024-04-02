@@ -53,7 +53,7 @@ export default function HelpPage() {
         includeSearchBar={false}
         // placeholder="search settings"
       >
-        <div>
+        {/* <div>
           <Heading context="Personalization" withStyle="mt-12 mb-2" />
           <div className="dark:bg-dark-900 flex justify-between py-2 rounded-lg px-4 flex-col lg:px-4 lg:pl-6  capitalize">
             {settings.map((control, index) => (
@@ -94,7 +94,8 @@ export default function HelpPage() {
               withStyle="lowercase"
             />
           </div>
-        </div>
+        </div> */}
+        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Doloribus provident incidunt illo dolorum deserunt consectetur nostrum quas. Voluptate at facilis, eveniet cupiditate illum, incidunt non saepe fugiat temporibus, labore libero.
       </PageLayout>
     </>
   );

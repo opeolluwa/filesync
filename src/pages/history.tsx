@@ -40,7 +40,8 @@ export default function HistoryPage() {
   return (
     <>
       <PageLayout pageTitle={"Transfer History"} includeSearchBar={false}>
-        <div className="flex flex-wrap  flex-grow gap-10 justify-start my-1 first:my-1 last:mb-8">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. At obcaecati non voluptate rem exercitationem provident perferendis omnis nesciunt, aut voluptas vero similique in, aspernatur asperiores error nostrum, harum et neque!
+        {/* <div className="flex flex-wrap  flex-grow gap-10 justify-start my-1 first:my-1 last:mb-8">
           {fetchedData?.data?.map((history, index) => (
             <FileHistory
               key={index}
@@ -52,7 +53,7 @@ export default function HistoryPage() {
               recipient={history.recipient}
             />
           ))}
-        </div>
+        </div> */}
       </PageLayout>
     </>
   );

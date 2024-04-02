@@ -94,18 +94,18 @@ export default function Navigation() {
       name: "settings",
     },
     {
-      path: "/help",
+      path: "/about",
       icon: <InformationCircleIcon className="w-6 h-6" />,
       alternateIcon: <SolidInformationIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "help" }),
-      name: "help",
+      action: () => gotoPage({ routePath: "about" }),
+      name: "About",
     },
   ];
 
   return (
     <>
       <nav
-        className="col-span-1 lg:col-span-2 bg-[rgba(249,250,254,255)] dark:bg-dark-900  px-[1px]   text-gray-600  pt-10"
+        className="col-span-3 lg:col-span-3 bg-[rgba(249,250,254,255)]   px-[1px]   text-gray-600  pt-10"
         style={{
           height: "calc(100vh-200px)",
           overflowY: "hidden",

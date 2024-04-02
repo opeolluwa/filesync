@@ -4,7 +4,9 @@ import PageTitle from "@/components/PageTitle";
 import SearchBar from "@/components/Search";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 import {
+  ArchiveBoxIcon,
   Bars3BottomLeftIcon,
+  DocumentDuplicateIcon,
   MusicalNoteIcon,
   PhotoIcon,
   PlayIcon,
@@ -19,6 +21,7 @@ import Text from "@/components/Text";
 import Heading from "@/components/Heading";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
+import { FilmIcon } from "@heroicons/react/24/outline";
 interface QuickAccessTab {
   name: string;
   icon: any;
@@ -27,27 +30,33 @@ const antIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 
 const quickAccessTabs: QuickAccessTab[] = [
   {
-    name: "Images",
+    name: "Pictures",
     icon: (
-      <PhotoIcon className="rounded-lg my-4 mx-2 flex w-[47.5px] text-gray-100 dark:text-dark-900" />
+      <PhotoIcon className="rounded-lg my-4 mx-2 flex w-[40px] text-gray-100 " />
     ),
   },
   {
-    name: "Music",
+    name: "Audio",
     icon: (
-      <MusicalNoteIcon className="rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100 dark:text-dark-900" />
+      <MusicalNoteIcon className="rounded-lg my-4 mx-2 flex w-[40px]   text-gray-100 " />
+    ),
+  },
+  {
+    name: "Document",
+    icon: (
+      <DocumentDuplicateIcon className="rounded-lg my-4 mx-2 flex w-[40px]   text-gray-100 " />
     ),
   },
   {
     name: "Videos",
     icon: (
-      <PlayIcon className="rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100 dark:text-dark-900" />
+      <FilmIcon className="rounded-lg my-4 mx-2 flex w-[40px]   text-gray-100 " />
     ),
   },
   {
-    name: "Documents",
+    name: "Zipped",
     icon: (
-      <Bars3BottomLeftIcon className="rounded-lg my-4 mx-2 flex w-[47.5px]   text-gray-100 dark:text-dark-900" />
+      <ArchiveBoxIcon className="rounded-sm my-4 mx-2 flex w-[40px]  text-gray-100 " />
     ),
   },
 ];
@@ -91,15 +100,15 @@ export default function Main() {
 
       <section className="my-12">
         <PageTitle styles="mb-12" title={"Quick Access"} />
-        <ul className="flex flex-wrap gap-24 items-center justify-start mt-4 px-8">
+        <ul className="grid grid-flow-col col-4 gap-24 items-center justify-start mt-4 px-8">
           {quickAccessTabs.map((tab, index) => (
             <li
               key={index}
-              className="flex flex-col items-center justify-center w-6 h-6 lg:w-20 lg:h-20"
+              className="flex flex-col items-center justify-evenly w-6 h-6 lg:w-20 lg:h-20"
             >
               <Link
                 href={"quick-access/" + tab.name.toLowerCase()}
-                className="rounded-[12px] shadow shadow-gray-500 px-3 dark:shadow-none"
+                className="rounded-[12px] px-3 hover:bg-[#3074f5]"
                 style={{
                   // backgroundColor: "#3074f5",
                   backgroundColor: "#578EF7",
@@ -107,7 +116,7 @@ export default function Main() {
               >
                 <div className="hover:brightness-25 sepia-0">{tab.icon}</div>
               </Link>
-              <span className="text-gray-600 dark:text-dark-500 block mt-2 text-small">
+              <span className="text-gray-600 block mt-2 text-small">
                 {tab.name}
               </span>
             </li>
@@ -117,17 +126,14 @@ export default function Main() {
 
       <section className="my-16">
         <h2 className="flex justify-between mt-24 mb-4 ">
-          <span className=" font-medium dark:text-dark-400 text-gray-400">
-            <Heading context={"Recent Files"} />
+          <span className=" font-medium text-gray-400">
+            <PageTitle styles="" title={"Recent Files"} />
           </span>
-          <Link
-            href="/history"
-            className="text-gray-500 text-violet-600 dark:text-dark"
-          >
+          <Link href="/history" className="text-gray-500 text-violet-600 ">
             view all
           </Link>
         </h2>
-        <div className="relative overflow-x-auto bg-white rounded-[24px] shadow-lg px-4 py-8  dark:bg-dark-900 dark:shadow-none">
+        <div className="relative overflow-x-auto bg-white rounded-[24px] shadow-sm px-4 py-8">
           <table className="w-full text-sm text-left">
             <thead className="text-gray-500">
               <tr>
@@ -146,15 +152,22 @@ export default function Main() {
               {isLoading ? (
                 <Spin indicator={antIcon} />
               ) : (
-                transferHistory?.data?.slice(0, 5).map((file, index) => (
-                  <tr key={index}>
-                    <td className="px-6 py-4">{file.fileName}</td>
-                    <td className="px-6 py-4">
-                      {computeFileSize(Number(file.fileSize))}
-                    </td>
-                    <td className="px-6 py-4">{file.date}</td>
-                  </tr>
-                ))
+                transferHistory?.data
+                  ?.sort(
+                    (a, b) =>
+                      new Date(a.date).getTime() - new Date(b.date).getTime()
+                  )
+                  .reverse()
+                  .slice(0, 5)
+                  .map((file, index) => (
+                    <tr key={index}>
+                      <td className="px-6 py-4">{file.fileName}</td>
+                      <td className="px-6 py-4">
+                        {computeFileSize(Number(file.fileSize))}
+                      </td>
+                      <td className="px-6 py-4">{file.date}</td>
+                    </tr>
+                  ))
               )}
             </tbody>
           </table>
