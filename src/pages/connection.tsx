@@ -28,7 +28,7 @@ export default function ConnectionPage() {
     <>
       <PageLayout pageTitle={"Connect Device"} includeSearchBar={false}>
         <>
-          <div className="dark:bg-dark-900 flex justify-between items-center py-4 rounded-lg px-4">
+          <div className="hidden flex justify-between items-center py-4 rounded-lg px-4">
             <div className="flex flex-col gap-4">
               <Heading context={"Turn on hotspot"} />
               <Text
@@ -42,7 +42,7 @@ export default function ConnectionPage() {
           </div>
 
           <Heading context="Available Network" withStyle="mt-12 mb-2" />
-          <div className="dark:bg-dark-900 p-4 rounded-lg">
+          <div className=" p-4 rounded-lg">
             {availableNetwork.map((network, index) => (
               <div
                 key={index}
@@ -51,7 +51,7 @@ export default function ConnectionPage() {
                 <div className="flex flex-col gap-4">
                   <Text context={network} withStyle="font-medium" />
                 </div>
-                <button className="bg-app rounded-md px-4 py-1 text-gray-100 dark:text-dark-100 border-none hover:text-dark-600">
+                <button className=" rounded-md px-4 py-1 text-gray-400  hover:text-dark-600 border border-1">
                   Connect
                 </button>
               </div>
