@@ -10,7 +10,7 @@ import {
   MusicalNoteIcon,
   PhotoIcon,
   PlayIcon,
-} from "@heroicons/react/24/solid";
+} from "@heroicons/react/24/outline";
 import { invoke } from "@tauri-apps/api/tauri";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -21,7 +21,7 @@ import Text from "@/components/Text";
 import Heading from "@/components/Heading";
 import { LoadingOutlined } from "@ant-design/icons";
 import { Spin } from "antd";
-import { FilmIcon } from "@heroicons/react/24/outline";
+import { ChartPieIcon, FilmIcon } from "@heroicons/react/24/outline";
 interface QuickAccessTab {
   name: string;
   icon: any;
@@ -57,6 +57,12 @@ const quickAccessTabs: QuickAccessTab[] = [
     name: "Zipped",
     icon: (
       <ArchiveBoxIcon className="rounded-sm my-4 mx-2 flex w-[40px]  text-gray-100 " />
+    ),
+  },
+  {
+    name: "Bigfiles",
+    icon: (
+      <ChartPieIcon className="rounded-sm my-4 mx-2 flex w-[40px]  text-gray-100 " />
     ),
   },
 ];
@@ -100,11 +106,11 @@ export default function Main() {
 
       <section className="my-12">
         <PageTitle styles="mb-12" title={"Quick Access"} />
-        <ul className="grid grid-flow-col col-4 gap-24 items-center justify-start mt-4 px-8">
+        <ul className="grid grid-flow-col col-4 gap-24 items-center justify-start mt-4 px-6">
           {quickAccessTabs.map((tab, index) => (
             <li
               key={index}
-              className="flex flex-col items-center justify-evenly w-6 h-6 lg:w-20 lg:h-20"
+              className="flex flex-col items-center justify-evenly w-6 h-6"
             >
               <Link
                 href={"quick-access/" + tab.name.toLowerCase()}

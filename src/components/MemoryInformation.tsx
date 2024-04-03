@@ -24,11 +24,11 @@ export const MemoryInformation = ({
       }}
     >
       <div className="flex justify-between mb-2 px-4">
-        {
+        {/* {
           <span className=" font-medium text-blue-700 text-sm capitalize ">
             {systemName}
           </span>
-        }
+        } */}
 
         <span className=" font-medium text-blue-700 text-sm">
           {usedMemory} of {totalMemory}
