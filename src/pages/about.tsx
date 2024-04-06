@@ -28,7 +28,7 @@ export default function HelpPage() {
             />
 
             <div className="flex flex-col rounded-lg items-center my-4 p-4">
-              <Text  context={`${appName} V${appVersion}`} />
+              <Text  context={`${appName} v${appVersion}`} />
               <a
                 href="https://github.com/opeolluwa/filesync"
                 className="small text-gray text-dark"
@@ -36,9 +36,9 @@ export default function HelpPage() {
                 https://github.com/opeolluwa/filesync
               </a>{" "}
               {""}
-              <small className="text-gray-400 block mt-1 ">
-                &copy; Adeoye Adefemi {new Date().getFullYear()}
-              </small>
+              <a href="https://twitter.com/_opeolluwa" className="text-gray-400 block mt-1 ">
+                 Adeoye Adefemi 
+              </a>
             </div>
           </div>
         </div>
