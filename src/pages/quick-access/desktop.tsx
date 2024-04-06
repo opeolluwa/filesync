@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { shareFile } from "@/utils";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 
-const isClient = typeof window !== "undefined";
 
 export default function Document() {
   const [data, setData] = useState(null);
@@ -37,9 +36,9 @@ export default function Document() {
 
   return (
     <QuickAccessLayout
-      pageTitle={"Document"}
+      pageTitle={"Desktop"}
       includeSearchBar={true}
-      searchBarText="search document"
+      searchBarText="search desktop"
     >
       <div>
         <div className="flex flex-wrap  flex-grow gap-4 justify-start mt-12">

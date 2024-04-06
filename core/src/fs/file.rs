@@ -2,8 +2,8 @@ use crate::utils::fs::compute_file_size;
 use filesize::PathExt;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
-use walkdir::DirEntry;
 use ts_rs::TS;
+use walkdir::DirEntry;
 // the file structure
 #[derive(Debug, Default, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
@@ -36,6 +36,22 @@ impl File {
             file_format: file_format.into(),
         }
     }
+
+    // from path 
+    pub fn from_path(path: &PathBuf) -> Self {
+        let file_name = path.file_name().unwrap().to_str().unwrap();
+        let file_path = path.display().to_string();
+        let file_size: u128 = path.size_on_disk().unwrap_or(0).into();
+        let file_format = path.extension().unwrap_or_default().to_str().unwrap_or_default();
+
+        Self {
+            file_name: file_name.into(),
+            file_path: file_path.into(),
+            file_size: compute_file_size(file_size),
+            file_format: file_format.into(),
+        }
+    }
+
 }
 
 ///  see if a file is hidden
