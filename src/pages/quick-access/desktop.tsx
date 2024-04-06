@@ -5,7 +5,6 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
 import { shareFile } from "@/utils";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
-import { Dir } from "../../../core/bindings/Dir";
 
 const isClient = typeof window !== "undefined";
 
@@ -16,7 +15,7 @@ export default function Document() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("read_dir", {path: "documents"}).then((res) => {
+    invoke("read_dir", { path: "desktop" }).then((res) => {
       setData(res as any);
       setLoading(false);
     });

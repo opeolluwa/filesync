@@ -5,11 +5,10 @@ import SearchBar from "@/components/Search";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 import {
   ArchiveBoxIcon,
-  Bars3BottomLeftIcon,
+  ComputerDesktopIcon,
   DocumentDuplicateIcon,
   MusicalNoteIcon,
   PhotoIcon,
-  PlayIcon,
 } from "@heroicons/react/24/outline";
 import { invoke } from "@tauri-apps/api/tauri";
 import Link from "next/link";
@@ -42,7 +41,7 @@ const quickAccessTabs: QuickAccessTab[] = [
     ),
   },
   {
-    name: "Document",
+    name: "Documents",
     icon: (
       <DocumentDuplicateIcon className="rounded-lg my-4 mx-2 flex w-[40px]   text-gray-100 " />
     ),
@@ -60,9 +59,9 @@ const quickAccessTabs: QuickAccessTab[] = [
     ),
   },
   {
-    name: "Bigfiles",
+    name: "Desktop",
     icon: (
-      <ChartPieIcon className="rounded-sm my-4 mx-2 flex w-[40px]  text-gray-100 " />
+      <ComputerDesktopIcon className="rounded-sm my-4 mx-2 flex w-[40px]  text-gray-100 " />
     ),
   },
 ];

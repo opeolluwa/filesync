@@ -15,10 +15,12 @@ export default function Images() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("fetch_images").then((res) => {
-      setData(res as any);
-      setLoading(false);
-    });
+  invoke("read_dir", { path: "pictures" }).then((res) => {
+      console.log({ res: JSON.stringify(res) });
+
+    setData(res as any);
+    setLoading(false);
+  });
   }, []);
 
   // typecast the response into AppData type
