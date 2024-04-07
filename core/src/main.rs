@@ -4,26 +4,30 @@
 extern crate uptime_lib;
 
 /**
- * the application is structured into
+ * the application is structured thus
  * src
- * |_____api
- * |_____server
- * |_____fs
- * |____ ...more features/folders
- *
- * the api folder is the where the IPC (internal procedure calls are defined )
- * the remaining folders are implementation of the business logic
+ * __api
+ * __server
+ * __fs
+ * ...
  */
-use crate::api::{
-    fs::{
-        audio::fetch_audio, document::fetch_documents, get_transfer_history, image::fetch_images,
-        persist_transfer_history, search_home_dir, share_file_with_peer, video::fetch_videos,
-    },
-    settings::{get_settings, update_settings},
-    utils::{generate_qr_code, get_ip_address, get_system_information},
-    wifi::{create_wifi_hotspot, kill_wifi_hotspot, scan_wifi},
-};
+
+
+use  crate::api::fs_api::read_dir;
+use  crate::api::fs_api::get_transfer_history;
+// Import individual items from crate::api::settings
+use crate::api::settings::{get_settings, update_settings};
+
+// Import individual items from crate::api::utils
+use crate::api::utils::{generate_qr_code, get_ip_address, get_system_information};
+
+// Import individual items from crate::api::wifi
+use crate::api::wifi::{create_wifi_hotspot, kill_wifi_hotspot, scan_wifi};
+
+// Import lazy_static crate
 use lazy_static::lazy_static;
+
+// Import http_server from server module
 use server::http_server;
 
 mod api;
@@ -53,7 +57,7 @@ lazy_static! {
             downloads_dir = os_default_downloads_dir.display(),
             db_path = ".dat"
         );
-        //TODO create the path if not exist path if not exist
+        // create the path if not exist path if not exist
         let _ = std::fs::create_dir_all(&db_path);
     format!("sqlite://{db_path}/filesync.db")
     };
@@ -89,21 +93,15 @@ fn main() -> Result<(), tauri::Error> {
     tauri::Builder::default()
         .manage(state)
         .invoke_handler(tauri::generate_handler![
-            fetch_audio,
-            fetch_videos,
-            fetch_images,
-            fetch_documents,
             create_wifi_hotspot,
             kill_wifi_hotspot,
             generate_qr_code,
             get_ip_address,
             get_system_information,
-            search_home_dir,
-            persist_transfer_history,
-            share_file_with_peer,
+            get_transfer_history,
             get_settings,
             update_settings,
-            get_transfer_history,
+            read_dir,
             scan_wifi // download_file, TODO: implement file transfering between peers
         ])
         .run(tauri::generate_context!())

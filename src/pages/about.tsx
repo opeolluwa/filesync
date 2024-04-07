@@ -1,12 +1,22 @@
 import Image from "next/image";
 import PageLayout from "@/components/layout/PageLayout";
-import Heading from "@/components/Heading";
 import Text from "@/components/Text";
+import { getName, getVersion } from "@tauri-apps/api/app";
+import { useEffect, useState } from "react";
 
 export default function HelpPage() {
+  const [appName, setAppName] = useState("");
+  const [appVersion, setAppVersion] = useState("");
+
+  useEffect(() => {
+     getVersion().then((version) => setAppVersion(version));
+     getName().then((name) => setAppName(name));
+     
+  }, []);
+
   return (
     <>
-      <PageLayout pageTitle={"Help"} includeSearchBar={false}>
+      <PageLayout pageTitle={"About"} includeSearchBar={false}>
         <div className="p-4 rounded-lg">
           <div className="block mb-4 ">
             <Image
@@ -18,7 +28,7 @@ export default function HelpPage() {
             />
 
             <div className="flex flex-col rounded-lg items-center my-4 p-4">
-              <Text context="Give a star on GitHub" />
+              <Text  context={`${appName} v${appVersion}`} />
               <a
                 href="https://github.com/opeolluwa/filesync"
                 className="small text-gray text-dark"
@@ -26,9 +36,9 @@ export default function HelpPage() {
                 https://github.com/opeolluwa/filesync
               </a>{" "}
               {""}
-              <small className="text-gray-400 block mt-4 ">
-                &copy; Adeoye Adefemi {new Date().getFullYear()}
-              </small>
+              <a href="https://twitter.com/_opeolluwa" className="text-gray-400 block mt-1 ">
+                 Adeoye Adefemi 
+              </a>
             </div>
           </div>
         </div>

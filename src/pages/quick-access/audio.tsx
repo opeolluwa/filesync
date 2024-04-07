@@ -24,10 +24,11 @@ export default function Music() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("fetch_audio").then((res) => {
-      setData(res as any);
-      setLoading(false);
-    });
+     invoke("read_dir", { path: "audio" }).then((res) => {
+      
+       setData(res as any);
+       setLoading(false);
+     });
   }, []);
   // TODO(@opeolluwa): use Tauri Js API to render musicData
   // TODO(@opeolluwa) add modal to play audio file, audio and document using web APIs
@@ -60,6 +61,8 @@ export default function Music() {
               fileSize={file.fileSize}
               fileFormat={file.fileFormat}
               filePath={file.filePath}
+              isHidden={file.isHidden}
+              isFolder={file.isFolder}
               action={() => {
                 console.log("play audio file");
               }}
