@@ -11,7 +11,8 @@ import archiveIcon from "@/assets/common/archived.png";
 import documentIcon from "@/assets/common/document.png";
 import textIcon from "@/assets/common/text.png";
 import svgIcon from "@/assets/common/svg.png";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
+import folderIcon from "@/assets/common/folder-icon.png";
 import { File } from "../../../core/bindings/File";
 
 // to interface with audio files coming from the application core
@@ -45,13 +46,18 @@ interface Props extends FileCardInterface {
 }
 
 export default function FileCard(
-  { fileName, fileFormat, filePath, fileSize, action }: Props,
+  { fileName, fileFormat, filePath, fileSize, action, isFolder, isHidden }: Props,
 ) {
-  const thumbnail = getFileIcon(fileFormat);
+  let thumbnail: StaticImageData ;
+  if (isFolder) {
+    thumbnail = folderIcon;
+  } else {
+    thumbnail = getFileIcon(fileFormat);
+  }
   return (
     <div
       onClick={action}
-      className="flex w-full  flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10 dark:bg-dark-800"
+      className="flex w-full hover:shadow hover:rounded-lg rouned bg-[#f9fbfe] flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10 "
     >
       <div>
         {
@@ -60,7 +66,7 @@ export default function FileCard(
             height={144} // Desired size with correct aspect ratio
             width={144} // Desired size with correct aspect ratio
             alt="file card icon"
-            className="w-[32px]  mr-10 " // automatic height calculation
+            className="w-[32px]  mr-4" // automatic height calculation
           />
         }
       </div>
@@ -68,12 +74,13 @@ export default function FileCard(
         <h6 className=" dark:text-gray-500 small overflow-clip  w-[240px] lg:w-[400px]  truncate">
           {fileName}
         </h6>
-        <div className="flex  gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
-                width={30} ">
+       
+        <div
+          className="flex gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
+                width={30} "
+        >
           <span>{computeFileSize(fileSize as unknown as number)}</span>{" "}
-          <span>
-            {/**file duration goes here */}
-          </span>
+          <span>{/**file duration goes here */}</span>
         </div>
       </div>
     </div>

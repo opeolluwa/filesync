@@ -24,8 +24,8 @@ export default function NavigationTab({
       <Link
         href={path}
         className={router.pathname == path.trim()
-          ? "flex items-center justify-center lg:justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out  text-app dark:bg-dark-700  bg-app-50  py-3 px-1 lg:pl-2 first:mt-4 cursor-pointer"
-          : "flex items-center justify-center lg:justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out dark:text-dark-500 hover:text-app py-3 px-1 lg:pl-2 first:mt-4  text-gray-500 cursor-pointer"}
+          ? "flex items-left justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out  text-app  bg-app-50  py-3 px-1 lg:pl-2 first:mt-4 cursor-pointer"
+          : "flex items-left justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out  hover:text-app py-3 px-1 lg:pl-2 first:mt-4  text-gray-500 cursor-pointer"}
         onBlur={() => setIcon(icon)}
         onMouseEnter={() => setIcon(alternateIcon)}
         onClick={() => setIcon(alternateIcon)}
@@ -33,9 +33,9 @@ export default function NavigationTab({
       >
         <span className="cursor-pointer">
           <span className="sr-only">{path}</span>
-          <div className="gap-2 justify-center align-center flex capitalize">
+          <div className="gap-2 justify-left mx-4  flex capitalize">
             {router.pathname == path.trim() ? alternateIcon : currentIcon}
-            <span className="hidden lg:block">{name}</span>
+            <span className="">{name}</span>
           </div>
         </span>
       </Link>

@@ -1,13 +1,23 @@
 import Image from "next/image";
 import PageLayout from "@/components/layout/PageLayout";
-import Heading from "@/components/Heading";
 import Text from "@/components/Text";
+import { getName, getVersion } from "@tauri-apps/api/app";
+import { useEffect, useState } from "react";
 
 export default function HelpPage() {
+  const [appName, setAppName] = useState("");
+  const [appVersion, setAppVersion] = useState("");
+
+  useEffect(() => {
+     getVersion().then((version) => setAppVersion(version));
+     getName().then((name) => setAppName(name));
+     
+  }, []);
+
   return (
     <>
-      <PageLayout pageTitle={"Help"} includeSearchBar={false}>
-        <div className="p-4 rounded-lg dark:dark-900">
+      <PageLayout pageTitle={"About"} includeSearchBar={false}>
+        <div className="p-4 rounded-lg">
           <div className="block mb-4 ">
             <Image
               src="icons/app-icon.png"
@@ -17,16 +27,8 @@ export default function HelpPage() {
               className="w-[50px] block mx-auto"
             />
 
-            <div className="flex flex-col rounded-lg full my-4 p-4 dark:bg-dark-900">
-              <Heading context="File Sync" />
-              <Text
-                context="Securely share file without internet  "
-                withStyle="mb-4"
-              />
-            </div>
-
-            <div className="flex flex-col rounded-lg items-center my-4 p-4 dark:bg-dark-900">
-              <Text context=" give a star on GitHub" />
+            <div className="flex flex-col rounded-lg items-center my-4 p-4">
+              <Text  context={`${appName} v${appVersion}`} />
               <a
                 href="https://github.com/opeolluwa/filesync"
                 className="small text-gray text-dark"
@@ -34,9 +36,9 @@ export default function HelpPage() {
                 https://github.com/opeolluwa/filesync
               </a>{" "}
               {""}
-              <small className="text-gray-400  dark:text-dark-400">
-                &copy; Adeoye Adefemi {new Date().getFullYear()}
-              </small>
+              <a href="https://twitter.com/_opeolluwa" className="text-gray-400 block mt-1 ">
+                 Adeoye Adefemi 
+              </a>
             </div>
           </div>
         </div>

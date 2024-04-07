@@ -27,8 +27,6 @@ pub fn is_hidden(entry: &walkdir::DirEntry) -> bool {
         .unwrap_or(false)
 }
 
-
-
 #[derive(serde::Serialize, Debug)]
 pub struct DriveInformation {
     name: String,

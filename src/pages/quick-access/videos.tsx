@@ -5,6 +5,7 @@ import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
 import { shareFile } from "@/utils";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
+import path from "path";
 
 const isClient = typeof window !== "undefined";
 
@@ -15,7 +16,7 @@ export default function Video() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("fetch_videos").then((res) => {
+    invoke("read_dir", {path:"videos"}).then((res) => {
       setData(res as any);
       setLoading(false);
     });
@@ -49,6 +50,8 @@ export default function Video() {
               fileSize={file.fileSize}
               fileFormat={file.fileFormat}
               filePath={file.filePath}
+              isHidden={file.isHidden}
+              isFolder={file.isFolder}
               action={() => shareFile(file.filePath)}
             />
           ))}

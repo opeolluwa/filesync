@@ -908,6 +908,52 @@ dependencies = [
 ]
 
 [[package]]
+name = "filesync"
+version = "0.6.0"
+dependencies = [
+ "assert_fs",
+ "axum",
+ "battery",
+ "chrono",
+ "dirs",
+ "filesize",
+ "futures",
+ "hyper",
+ "lazy_static",
+ "local-ip-address",
+ "mime_guess",
+ "mockall",
+ "nanoid",
+ "network-interface",
+ "num-traits",
+ "open 5.1.2",
+ "path-absolutize",
+ "pnet",
+ "pnet_datalink 0.33.0",
+ "portpicker",
+ "regex",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "sqlx",
+ "sys-info",
+ "sysinfo",
+ "tauri",
+ "tauri-build",
+ "tokio",
+ "tokio-util",
+ "tower",
+ "tower-http",
+ "tracing",
+ "tracing-subscriber",
+ "ts-rs",
+ "uptime_lib",
+ "uuid",
+ "walkdir",
+ "wildmatch",
+]
+
+[[package]]
 name = "filetime"
 version = "0.2.20"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1750,6 +1796,25 @@ dependencies = [
 ]
 
 [[package]]
+name = "is-docker"
+version = "0.2.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "928bae27f42bc99b60d9ac7334e3a21d10ad8f1835a4e12ec3ec0464765ed1b3"
+dependencies = [
+ "once_cell",
+]
+
+[[package]]
+name = "is-wsl"
+version = "0.4.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "173609498df190136aa7dea1a91db051746d339e18476eed5ca40521f02d7aa5"
+dependencies = [
+ "is-docker",
+ "once_cell",
+]
+
+[[package]]
 name = "itertools"
 version = "0.10.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2400,6 +2465,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "open"
+version = "5.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "449f0ff855d85ddbf1edd5b646d65249ead3f5e422aaa86b7d2d0b049b103e32"
+dependencies = [
+ "is-wsl",
+ "libc",
+ "pathdiff",
+]
+
+[[package]]
 name = "openssl"
 version = "0.10.47"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2528,6 +2604,24 @@ name = "paste"
 version = "1.0.12"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "9f746c4065a8fa3fe23974dd82f15431cc8d40779821001404d10d2e79ca7d79"
+
+[[package]]
+name = "path-absolutize"
+version = "3.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "e4af381fe79fa195b4909485d99f73a80792331df0625188e707854f0b3383f5"
+dependencies = [
+ "path-dedot",
+]
+
+[[package]]
+name = "path-dedot"
+version = "3.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "07ba0ad7e047712414213ff67533e6dd477af0a4e1d14fb52343e53d30ea9397"
+dependencies = [
+ "once_cell",
+]
 
 [[package]]
 name = "pathdiff"
@@ -3863,7 +3957,7 @@ dependencies = [
  "ignore",
  "objc",
  "once_cell",
- "open",
+ "open 3.4.0",
  "percent-encoding",
  "rand 0.8.5",
  "raw-window-handle",
@@ -5113,50 +5207,6 @@ checksum = "76a1a57ff50e9b408431e8f97d5456f2807f8eb2a2cd79b06068fc87f8ecf189"
 dependencies = [
  "cfg-if",
  "winapi",
-]
-
-[[package]]
-name = "wishare"
-version = "0.6.0"
-dependencies = [
- "assert_fs",
- "axum",
- "battery",
- "chrono",
- "dirs",
- "filesize",
- "futures",
- "hyper",
- "lazy_static",
- "local-ip-address",
- "mime_guess",
- "mockall",
- "nanoid",
- "network-interface",
- "num-traits",
- "pnet",
- "pnet_datalink 0.33.0",
- "portpicker",
- "regex",
- "reqwest",
- "serde",
- "serde_json",
- "sqlx",
- "sys-info",
- "sysinfo",
- "tauri",
- "tauri-build",
- "tokio",
- "tokio-util",
- "tower",
- "tower-http",
- "tracing",
- "tracing-subscriber",
- "ts-rs",
- "uptime_lib",
- "uuid",
- "walkdir",
- "wildmatch",
 ]
 
 [[package]]

@@ -17,6 +17,10 @@ pub struct CommandData<T> {
     pub status: bool,
 }
 
+
+pub type ApiResponse<D, E> =  Result<CommandData<D>, CommandData<E>>;
+
+
 impl<T: fmt::Display + fmt::Debug> fmt::Display for CommandData<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         write!(
@@ -41,7 +45,9 @@ impl<T> Default for CommandData<T> {
 }
 
 impl<T> CommandData<T> {
-    // if no error
+    /// if the response is ok
+    /// returns a CommandData struct
+    /// with the data, message, and status
     pub fn ok(message: &str, data: T) -> Self {
         Self {
             data: Some(data),
@@ -50,7 +56,9 @@ impl<T> CommandData<T> {
         }
     }
 
-    // if error
+    /// if the response is an error
+    /// returns a CommandData struct
+    /// with the data, message, and status
     pub fn err(message: &str, data: T) -> Self {
         Self {
             data: Some(data),

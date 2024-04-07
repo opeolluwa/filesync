@@ -8,12 +8,12 @@ export const MemoryInformation = ({
   usedMemory: string;
   totalMemory: string;
 }) => {
-  let _freeMem = usedMemory?.split(" ")[0].trim() as unknown as number; // [10, GB]
-  let _totMem = totalMemory?.split(" ")[0].trim() as unknown as number; // [106, GB]
+  const freeMemory =
+    Number(totalMemory?.split(" ")[0]) - Number(usedMemory?.split(" ")[0]);
+  // const memBarWidth =
+  //   Math.round(freeMemory / Number(totalMemory?.split(" ")[0])) + "%";
 
-  const usedMem = Math.round((1 - _totMem / _freeMem) * 100); //
-  const memBarWidth = usedMem + "%";
-
+  const memBarWidth = "56%";
   return (
     <div
       style={{
@@ -22,25 +22,23 @@ export const MemoryInformation = ({
         left: 0,
         bottom: "45px",
       }}
-      className="hidden lg:block"
     >
       <div className="flex justify-between mb-2 px-4">
-        {
+        {/* {
           <span className=" font-medium text-blue-700 text-sm capitalize ">
             {systemName}
           </span>
-        }
+        } */}
 
-        <span className=" font-medium text-blue-700  dark:text-gray-500 text-sm">
-          {totalMemory} of {usedMemory}
+        <span className=" font-medium text-blue-700 text-sm">
+          {usedMemory} of {totalMemory}
         </span>
       </div>
       <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
         <div
-          className="bg-app-400 dark:bg-app h-2 rounded-full"
+          className="bg-app-400 h-2 rounded-full"
           style={{ width: memBarWidth }}
-        >
-        </div>
+        ></div>
       </div>
     </div>
   );
