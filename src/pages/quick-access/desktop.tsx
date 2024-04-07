@@ -15,6 +15,7 @@ export default function Document() {
   useEffect(() => {
     setLoading(true);
     invoke("read_dir", { path: "desktop" }).then((res) => {
+      console.log(JSON.stringify(res ));
       setData(res as any);
       setLoading(false);
     });
@@ -49,6 +50,8 @@ export default function Document() {
               fileSize={file.fileSize}
               fileFormat={file.fileFormat}
               filePath={file.filePath}
+              isHidden={file.isHidden}
+              isFolder={file.isFolder}
               action={() => shareFile(file.filePath)}
             />
           ))}

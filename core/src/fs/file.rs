@@ -2,8 +2,12 @@ use crate::utils::fs::compute_file_size;
 use filesize::PathExt;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
+use std::{fs, path::Path};
 use ts_rs::TS;
 use walkdir::DirEntry;
+extern crate dirs;
+use path_absolutize::*;
+
 // the file structure
 #[derive(Debug, Default, Serialize, Deserialize, TS)]
 #[serde(rename_all = "camelCase")]
@@ -13,6 +17,8 @@ pub struct File {
     pub file_format: String,
     file_path: PathBuf,
     file_size: String,
+    pub is_hidden: bool,
+    pub is_folder: bool,
 }
 
 impl File {
@@ -34,32 +40,54 @@ impl File {
             file_path: file_path.into(),
             file_size: compute_file_size(file_size),
             file_format: file_format.into(),
+            ..Default::default()
         }
     }
 
-    // from path 
+    // from path
     pub fn from_path(path: &PathBuf) -> Self {
         let file_name = path.file_name().unwrap().to_str().unwrap();
         let file_path = path.display().to_string();
         let file_size: u128 = path.size_on_disk().unwrap_or(0).into();
-        let file_format = path.extension().unwrap_or_default().to_str().unwrap_or_default();
+        let file_format = path
+            .extension()
+            .unwrap_or_default()
+            .to_str()
+            .unwrap_or_default();
+
+        let is_folder = path.is_dir();
+
+        let is_hidden = path
+            .file_name()
+            .unwrap()
+            .to_str()
+            .map(|s| s.starts_with("."))
+            .unwrap();
 
         Self {
             file_name: file_name.into(),
             file_path: file_path.into(),
             file_size: compute_file_size(file_size),
             file_format: file_format.into(),
+            is_folder,
+            is_hidden,
         }
     }
-
 }
 
-///  see if a file is hidden
-// for example .cargo/fhafk
-fn _is_hidden(entry: &walkdir::DirEntry) -> bool {
-    entry
-        .file_name()
-        .to_str()
-        .map(|s| s.starts_with('.'))
-        .unwrap_or(false)
+
+/// get all the files in a directory
+/// returns a vector of the file path
+pub async fn get_files_in_directory(dir: &Path) -> Result<Vec<String>, String> {
+    let paths = fs::read_dir(dir).map_err(|err| err.to_string())?;
+    let mut files = Vec::new();
+    for path in paths {
+        let dir_entry_path = path.unwrap().path();
+        let absolutized_path = dir_entry_path.absolutize().unwrap();
+        let absolute_path = absolutized_path.to_str().unwrap();
+        let file_path = absolute_path.to_string();
+        files.push(file_path);
+    }
+
+    Ok(files)
 }

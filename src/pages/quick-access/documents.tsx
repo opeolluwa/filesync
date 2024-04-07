@@ -16,7 +16,7 @@ export default function Document() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("read_dir", {path: "documents"}).then((res) => {
+    invoke("read_dir", { path: "documents" }).then((res) => {
       setData(res as any);
       setLoading(false);
     });
@@ -52,6 +52,8 @@ export default function Document() {
               fileFormat={file.fileFormat}
               filePath={file.filePath}
               action={() => shareFile(file.filePath)}
+              isHidden={file.isHidden}
+              isFolder={file.isFolder}
             />
           ))}
         </div>

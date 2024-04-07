@@ -11,15 +11,10 @@ extern crate uptime_lib;
  * __fs
  * ...
  */
-// Import individual items from crate::api::fs
-use crate::api::fs::{
-    audio::fetch_audio, document::fetch_documents, get_transfer_history, image::fetch_images,
-    persist_transfer_history, search_home_dir, share_file_with_peer, video::fetch_videos,
-};
 
 
 use  crate::api::fs_api::read_dir;
-
+use  crate::api::fs_api::get_transfer_history;
 // Import individual items from crate::api::settings
 use crate::api::settings::{get_settings, update_settings};
 
@@ -98,21 +93,14 @@ fn main() -> Result<(), tauri::Error> {
     tauri::Builder::default()
         .manage(state)
         .invoke_handler(tauri::generate_handler![
-            fetch_audio,
-            fetch_videos,
-            fetch_images,
-            fetch_documents,
             create_wifi_hotspot,
             kill_wifi_hotspot,
             generate_qr_code,
             get_ip_address,
             get_system_information,
-            search_home_dir,
-            persist_transfer_history,
-            share_file_with_peer,
+            get_transfer_history,
             get_settings,
             update_settings,
-            get_transfer_history,
             read_dir,
             scan_wifi // download_file, TODO: implement file transfering between peers
         ])

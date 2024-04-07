@@ -61,6 +61,8 @@ export default function Music() {
               fileSize={file.fileSize}
               fileFormat={file.fileFormat}
               filePath={file.filePath}
+              isHidden={file.isHidden}
+              isFolder={file.isFolder}
               action={() => {
                 console.log("play audio file");
               }}

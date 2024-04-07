@@ -51,6 +51,8 @@ export default function Images() {
               fileSize={file.fileSize}
               fileFormat={file.fileFormat}
               filePath={file.filePath}
+              isHidden={file.isHidden}
+              isFolder={file.isFolder}
               action={() => shareFile(file.filePath)}
             />
           ))}

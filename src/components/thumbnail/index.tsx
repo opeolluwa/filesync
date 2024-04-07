@@ -45,7 +45,7 @@ interface Props extends FileCardInterface {
 }
 
 export default function FileCard(
-  { fileName, fileFormat, filePath, fileSize, action }: Props,
+  { fileName, fileFormat, filePath, fileSize, action, isFolder, isHidden }: Props,
 ) {
   const thumbnail = getFileIcon(fileFormat);
   return (
@@ -68,6 +68,7 @@ export default function FileCard(
         <h6 className=" dark:text-gray-500 small overflow-clip  w-[240px] lg:w-[400px]  truncate">
           {fileName}
         </h6>
+       
         <div
           className="flex gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
                 width={30} "
