@@ -11,7 +11,8 @@ import archiveIcon from "@/assets/common/archived.png";
 import documentIcon from "@/assets/common/document.png";
 import textIcon from "@/assets/common/text.png";
 import svgIcon from "@/assets/common/svg.png";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
+import folderIcon from "@/assets/common/folder-icon.png";
 import { File } from "../../../core/bindings/File";
 
 // to interface with audio files coming from the application core
@@ -47,7 +48,12 @@ interface Props extends FileCardInterface {
 export default function FileCard(
   { fileName, fileFormat, filePath, fileSize, action, isFolder, isHidden }: Props,
 ) {
-  const thumbnail = getFileIcon(fileFormat);
+  let thumbnail: StaticImageData ;
+  if (isFolder) {
+    thumbnail = folderIcon;
+  } else {
+    thumbnail = getFileIcon(fileFormat);
+  }
   return (
     <div
       onClick={action}
