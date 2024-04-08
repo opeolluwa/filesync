@@ -24,11 +24,11 @@ const createWebView = () => {
   // if the window already exist close it
 
   // if it is known filetype or a broken file, in as much as it n ot a folder,try to render it
-  const webview = new WebviewWindow("default-" + new Date().getTime(), {
-    // url: "../out/media_renderer/index.html",
-    url: "https://google.com",
-    // resizable: false,
-    // alwaysOnTop: true,
+  const webview = new WebviewWindow("default", {
+    url: "../out/media_renderer/index.html",
+    // url: "https://google.com",
+    resizable: false,
+    alwaysOnTop: true,
     // focus: true,
     // minimizable: false,
     // center: true,
@@ -44,6 +44,13 @@ const createWebView = () => {
     // an error happened creating the webview window
     console.log("an error occured while opening the window due to ", e);
   });
+
+  console.log("window successfully created");
+  webview.setAlwaysOnTop(true);
+  webview.center();
+  webview.requestUserAttention;
+  webview.isDecorated();
+  webview.setFocus();
 };
 
 // to interface with audio files coming from the application core
