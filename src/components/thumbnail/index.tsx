@@ -1,57 +1,24 @@
 "use client";
 
-import { FileTransferStatus } from "@/store/context";
-import { computeFileSize } from "@/utils";
-import imageIcon from "@/assets/common/image.png";
+import archiveIcon from "@/assets/common/archived.png";
 import audioIcon from "@/assets/common/audio.png";
-import presentationIcon from "@/assets/common/presentation.png";
-import pdfIcon from "@/assets/common/pdf.png";
-import videoIcon from "@/assets/common/video.png";
 import csvIcon from "@/assets/common/csv.png";
 import defaultIcon from "@/assets/common/default.png";
-import archiveIcon from "@/assets/common/archived.png";
 import documentIcon from "@/assets/common/document.png";
-import textIcon from "@/assets/common/text.png";
-import svgIcon from "@/assets/common/svg.png";
-import Image, { StaticImageData } from "next/image";
 import folderIcon from "@/assets/common/folder-icon.png";
-import { File } from "../../../core/bindings/File";
-import { WebviewWindow } from "@tauri-apps/api/window";
+import imageIcon from "@/assets/common/image.png";
+import pdfIcon from "@/assets/common/pdf.png";
+import presentationIcon from "@/assets/common/presentation.png";
+import svgIcon from "@/assets/common/svg.png";
+import textIcon from "@/assets/common/text.png";
+import videoIcon from "@/assets/common/video.png";
+import { FileTransferStatus } from "@/store/context";
+import { computeFileSize } from "@/utils";
+import Modal from "antd/es/modal/Modal";
+import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/router";
-import Link from "next/link";
-
-const createWebView = () => {
-  // if the window already exist close it
-
-  // if it is known filetype or a broken file, in as much as it n ot a folder,try to render it
-  const webview = new WebviewWindow("default", {
-    url: "../../../out/media_renderer/index.html",
-    // url: "https://google.com",
-    resizable: false,
-    alwaysOnTop: true,
-    // focus: true,
-    // minimizable: false,
-    // center: true,
-    // skipTaskbar: true,
-  });
-
-  webview.once("tauri://created", function () {
-    // webview window successfully created
-    console.log("window created successfully");
-  });
-
-  webview.once("tauri://error", function (e) {
-    // an error happened creating the webview window
-    console.log("an error occured while opening the window due to ", e);
-  });
-
-  console.log("window successfully created");
-  webview.setAlwaysOnTop(true);
-  webview.center();
-  webview.requestUserAttention;
-  webview.isDecorated();
-  webview.setFocus();
-};
+import { useState } from "react";
+import { File } from "../../../core/bindings/File";
 
 // to interface with audio files coming from the application core
 // the type extends the AppData type
@@ -70,7 +37,6 @@ type TFileType = {
   fileName: string;
   fileSize: number;
   status: FileTransferStatus;
-  // status: 'error' | 'done' | 'pending' | 'completed' | 'downloading' | 'paused';
 };
 export interface FileTransferInterface {
   fileType: string;
@@ -94,9 +60,12 @@ export default function FileCard({
   if (isFolder) {
     thumbnail = folderIcon;
   } else {
-    thumbnail = getFileIcon(fileFormat);
+    thumbnail = getFileIcon(fileFormat).icon;
   }
+  const [openModal, setOpenModal] = useState(false);
 
+
+  const fileMeta = getFileIcon(fileFormat);
   const router = useRouter();
 
   // if it is a folder open in folder renderer
@@ -109,41 +78,79 @@ export default function FileCard({
   }
 
   return (
-    <div
-      // href={path}
-      // onClick={() => {
-      //   isFolder ? router.push(path): createWebView;
-      // }}
-      onClick={createWebView}
-      className="flex w-full hover:shadow hover:rounded-lg rouned bg-[#f9fbfe] flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10 "
-    >
-      <div>
-        {
-          <Image
-            src={thumbnail} // Route of the image file
-            height={144} // Desired size with correct aspect ratio
-            width={144} // Desired size with correct aspect ratio
-            alt="file card icon"
-            className="w-[32px]  mr-4" // automatic height calculation
-          />
-        }
-      </div>
-      <div className="flex flex-col justify-between mt-3">
-        <h6 className=" dark:text-gray-500 small overflow-clip  w-[240px] lg:w-[400px]  truncate select-none">
-          {fileName}
-        </h6>
+    <>
+      <Modal
+        title={"Preview Media"}
+        open={openModal}
+        onOk={() => setOpenModal(false)}
+        onCancel={() => setOpenModal(false)}
+        centered
+        okText=""
+        cancelText=""
+        okButtonProps={{ hidden: true }}
+        cancelButtonProps={{ hidden: true }}
+        width={500}
+        style={{ height: "1000px!Important" }}
+      >
+        
+        <div className="h-[400px] ">
+          
+          {fileMeta.type}
+        </div>
+      </Modal>
+      <div
+        onClick={() => {
+          isFolder ? router.push(path) : setOpenModal(true);
+        }}
+        className="flex w-full hover:shadow hover:rounded-lg rouned bg-[#f9fbfe] flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10 "
+      >
+        <div>
+          {
+            <Image
+              src={thumbnail} // Route of the image file
+              height={144} // Desired size with correct aspect ratio
+              width={144} // Desired size with correct aspect ratio
+              alt="file card icon"
+              className="w-[32px]  mr-4" // automatic height calculation
+            />
+          }
+        </div>
+        <div className="flex flex-col justify-between mt-3">
+          <h6 className=" dark:text-gray-500 small overflow-clip  w-[240px] lg:w-[400px]  truncate select-none">
+            {fileName}
+          </h6>
 
-        <div
-          className="flex gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
+          <div
+            className="flex gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
                 width={30} "
-        >
-          <span className="select-none">
-            {computeFileSize(fileSize as unknown as number)}
-          </span>
+          >
+            <span className="select-none">
+              {computeFileSize(fileSize as unknown as number)}
+            </span>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
+}
+
+enum FileType {
+  Image = "image",
+  Audio = "audio",
+  PDF = "pdf",
+  CSV = "csv",
+  Presentation = "presentation",
+  Video = "video",
+  Archive = "archive",
+  Document = "document",
+  Text = "text",
+  SVG = "svg",
+  Default = "default",
+}
+
+interface FileTypeResult {
+  type: FileType;
+  icon?: string;
 }
 
 export function getFileIcon(fileExtension: string) {
@@ -356,26 +363,26 @@ export function getFileIcon(fileExtension: string) {
   const extension = fileExtension.toLocaleLowerCase().trim();
 
   if (imageExtensions.includes(extension)) {
-    return imageIcon;
+    return { type: FileType.Image, icon: imageIcon };
   } else if (audioExtensions.includes(extension)) {
-    return audioIcon;
+    return { type: FileType.Audio, icon: audioIcon };
   } else if (pdfExtensions.includes(extension)) {
-    return pdfIcon;
+    return { type: FileType.PDF, icon: pdfIcon };
   } else if (csvExtensions.includes(extension)) {
-    return csvIcon;
+    return { type: FileType.CSV, icon: csvIcon };
   } else if (presentationExtensions.includes(extension)) {
-    return presentationIcon;
+    return { type: FileType.Presentation, icon: presentationIcon };
   } else if (videoExtensions.includes(extension)) {
-    return videoIcon;
+    return { type: FileType.Video, icon: videoIcon };
   } else if (archiveExtensions.includes(extension)) {
-    return archiveIcon;
+    return { type: FileType.Archive, icon: archiveIcon };
   } else if (documentExtensions.includes(extension)) {
-    return documentIcon;
+    return { type: FileType.Document, icon: documentIcon };
   } else if (textExtensions.includes(extension)) {
-    return textIcon;
+    return { type: FileType.Text, icon: textIcon };
   } else if (svgExtensions.includes(extension)) {
-    return svgIcon;
+    return { type: FileType.SVG, icon: svgIcon };
   } else {
-    return defaultIcon;
+    return { type: FileType.Default, icon: defaultIcon };
   }
 }
