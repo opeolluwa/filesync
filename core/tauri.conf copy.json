@@ -13,10 +13,6 @@
   "tauri": {
     "allowlist": {
       "all": false,
-       "window": {
-        "all": true
-        
-       },
       "app": {
         "all": true,
         "hide": true,
@@ -81,6 +77,20 @@
         "width": 1000,
         "height": 800,
         "fileDropEnabled": true
+        
+      },
+      {
+        "fullscreen": false,
+        "resizable": true,
+        "title": "file_renderer",
+        "titleBarStyle": "Overlay",
+        "center": true,
+        "alwaysOnTop": true,
+        "closable": true,
+        "decorations": true,
+        "label": "Preview",
+        "additionalBrowserArgs": "fileType",
+        "url": "../out/media_renderer/index.html"
       }
     ]
   }
