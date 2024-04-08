@@ -1,3 +1,5 @@
+"use client";
+
 import { FileTransferStatus } from "@/store/context";
 import { computeFileSize, isClient } from "@/utils";
 import imageIcon from "@/assets/common/image.png";
@@ -54,16 +56,6 @@ export default function FileCard({
   isFolder,
   isHidden,
 }: Props) {
-  // a webview to render media files
-  const webview = new WebviewWindow("media_renderer", {
-    url: "out/media_renderer/index.html",
-  });
-
-  webview.once("tauri://created", function () {
-    // webview window successfully created
-    window.alert("hey! into renderer");
-  });
-
   let thumbnail: StaticImageData;
   if (isFolder) {
     thumbnail = folderIcon;
@@ -75,13 +67,14 @@ export default function FileCard({
   // otherwise open in file renderer
   let path;
   if (isFolder) {
-    path =`/render?filePath=${filePath}&fileType=${fileFormat}&isFolder=${isFolder}`;
+    path = `/render?filePath=${filePath}&fileType=${fileFormat}&isFolder=${isFolder}`;
   } else {
     path = `/render?filePath=${filePath}&fileType=${fileFormat}&isFolder=${isFolder}`;
   }
 
   return (
-    <Link href={path}
+    <Link
+      href={path}
       className="flex w-full hover:shadow hover:rounded-lg rouned bg-[#f9fbfe] flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10 "
     >
       <div>
