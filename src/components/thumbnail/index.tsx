@@ -25,7 +25,7 @@ const createWebView = () => {
 
   // if it is known filetype or a broken file, in as much as it n ot a folder,try to render it
   const webview = new WebviewWindow("default", {
-    url: "../out/media_renderer/index.html",
+    url: "../../../out/media_renderer/index.html",
     // url: "https://google.com",
     resizable: false,
     alwaysOnTop: true,
