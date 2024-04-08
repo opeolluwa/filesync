@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    user-select: none!important;
+}
 
 #layout>aside,
 #layout>main {

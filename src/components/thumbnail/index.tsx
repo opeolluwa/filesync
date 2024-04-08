@@ -1,7 +1,7 @@
 "use client";
 
 import { FileTransferStatus } from "@/store/context";
-import { computeFileSize, isClient } from "@/utils";
+import { computeFileSize } from "@/utils";
 import imageIcon from "@/assets/common/image.png";
 import audioIcon from "@/assets/common/audio.png";
 import presentationIcon from "@/assets/common/presentation.png";
@@ -19,6 +19,33 @@ import { File } from "../../../core/bindings/File";
 import { WebviewWindow } from "@tauri-apps/api/window";
 import { useRouter } from "next/router";
 import Link from "next/link";
+
+const createWebView = () => {
+  // if the window already exist close it
+
+  // if it is known filetype or a broken file, in as much as it n ot a folder,try to render it
+  const webview = new WebviewWindow("default-" + new Date().getTime(), {
+    // url: "../out/media_renderer/index.html",
+    url: "https://google.com",
+    // resizable: false,
+    // alwaysOnTop: true,
+    // focus: true,
+    // minimizable: false,
+    // center: true,
+    // skipTaskbar: true,
+  });
+
+  webview.once("tauri://created", function () {
+    // webview window successfully created
+    console.log("window created successfully");
+  });
+
+  webview.once("tauri://error", function (e) {
+    // an error happened creating the webview window
+    console.log("an error occured while opening the window due to ", e);
+  });
+};
+
 // to interface with audio files coming from the application core
 // the type extends the AppData type
 export interface FileInterface extends File {}
@@ -63,6 +90,8 @@ export default function FileCard({
     thumbnail = getFileIcon(fileFormat);
   }
 
+  const router = useRouter();
+
   // if it is a folder open in folder renderer
   // otherwise open in file renderer
   let path;
@@ -73,8 +102,12 @@ export default function FileCard({
   }
 
   return (
-    <Link
-      href={path}
+    <div
+      // href={path}
+      // onClick={() => {
+      //   isFolder ? router.push(path): createWebView;
+      // }}
+      onClick={createWebView}
       className="flex w-full hover:shadow hover:rounded-lg rouned bg-[#f9fbfe] flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10 "
     >
       <div>
@@ -89,7 +122,7 @@ export default function FileCard({
         }
       </div>
       <div className="flex flex-col justify-between mt-3">
-        <h6 className=" dark:text-gray-500 small overflow-clip  w-[240px] lg:w-[400px]  truncate">
+        <h6 className=" dark:text-gray-500 small overflow-clip  w-[240px] lg:w-[400px]  truncate select-none">
           {fileName}
         </h6>
 
@@ -97,10 +130,12 @@ export default function FileCard({
           className="flex gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
                 width={30} "
         >
-          <span>{computeFileSize(fileSize as unknown as number)}</span>
+          <span className="select-none">
+            {computeFileSize(fileSize as unknown as number)}
+          </span>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }
 
