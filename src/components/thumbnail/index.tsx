@@ -14,11 +14,12 @@ import svgIcon from "@/assets/common/svg.png";
 import Image, { StaticImageData } from "next/image";
 import folderIcon from "@/assets/common/folder-icon.png";
 import { File } from "../../../core/bindings/File";
-
+import { WebviewWindow } from "@tauri-apps/api/window";
+import { useRouter } from "next/router";
+import Link from "next/link";
 // to interface with audio files coming from the application core
 // the type extends the AppData type
-export interface FileInterface extends File {
-}
+export interface FileInterface extends File {}
 
 // the required data to render the file card component
 export interface FileCardInterface extends FileInterface {
@@ -42,21 +43,45 @@ export interface FileTransferInterface {
   status: FileTransferStatus;
 }
 
-interface Props extends FileCardInterface {
-}
+interface Props extends FileCardInterface {}
 
-export default function FileCard(
-  { fileName, fileFormat, filePath, fileSize, action, isFolder, isHidden }: Props,
-) {
-  let thumbnail: StaticImageData ;
+export default function FileCard({
+  fileName,
+  fileFormat,
+  filePath,
+  fileSize,
+  // action,
+  isFolder,
+  isHidden,
+}: Props) {
+  // a webview to render media files
+  const webview = new WebviewWindow("media_renderer", {
+    url: "out/media_renderer/index.html",
+  });
+
+  webview.once("tauri://created", function () {
+    // webview window successfully created
+    window.alert("hey! into renderer");
+  });
+
+  let thumbnail: StaticImageData;
   if (isFolder) {
     thumbnail = folderIcon;
   } else {
     thumbnail = getFileIcon(fileFormat);
   }
+
+  // if it is a folder open in folder renderer
+  // otherwise open in file renderer
+  let path;
+  if (isFolder) {
+    path =`/render?filePath=${filePath}&fileType=${fileFormat}&isFolder=${isFolder}`;
+  } else {
+    path = `/render?filePath=${filePath}&fileType=${fileFormat}&isFolder=${isFolder}`;
+  }
+
   return (
-    <div
-      onClick={action}
+    <Link href={path}
       className="flex w-full hover:shadow hover:rounded-lg rouned bg-[#f9fbfe] flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10 "
     >
       <div>
@@ -74,16 +99,15 @@ export default function FileCard(
         <h6 className=" dark:text-gray-500 small overflow-clip  w-[240px] lg:w-[400px]  truncate">
           {fileName}
         </h6>
-       
+
         <div
           className="flex gap-3 mt[1.5px] text-gray-600  text-xs height={30} // Desired size with correct aspect ratio
                 width={30} "
         >
-          <span>{computeFileSize(fileSize as unknown as number)}</span>{" "}
-          <span>{/**file duration goes here */}</span>
+          <span>{computeFileSize(fileSize as unknown as number)}</span>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -304,9 +328,7 @@ export function getFileIcon(fileExtension: string) {
     return pdfIcon;
   } else if (csvExtensions.includes(extension)) {
     return csvIcon;
-  } else if (
-    presentationExtensions.includes(extension)
-  ) {
+  } else if (presentationExtensions.includes(extension)) {
     return presentationIcon;
   } else if (videoExtensions.includes(extension)) {
     return videoIcon;

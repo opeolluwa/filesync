@@ -11,7 +11,7 @@ use serde_json::{json, Value};
 use ts_rs::TS;
 
 use crate::database::{self, TransferHistory, TransferHistoryBuilder};
-use crate::fs::search::search_files;
+// use crate::fs::search::search_files;
 use crate::wifi::ip_manager;
 use tokio::io::AsyncReadExt;
 

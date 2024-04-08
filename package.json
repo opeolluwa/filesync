@@ -11,7 +11,8 @@
     "export": "next export",
     "start": "next start",
     "tauri": "tauri",
-    "lint": "next lint"
+    "lint": "next lint",
+    "postbuild":"sh ./scripts/copy_renderer_files"
   },
   "dependencies": {
     "@headlessui/react": "^1.7.13",
