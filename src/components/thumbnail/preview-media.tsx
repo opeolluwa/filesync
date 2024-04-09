@@ -27,6 +27,7 @@ export default function PreviewMedia({ fileType, filePath }: Props) {
     <FileViewer
       fileType={fileType}
       filePath={
+        //TODo: replace with the actual file path
         "https://ik.imagekit.io/nethbooks/FunaabPayInvoice_80118121__4jRm5vp7L.pdf?updatedAt=1712070984568"
       }
     />

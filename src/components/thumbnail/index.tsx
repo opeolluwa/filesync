@@ -40,10 +40,10 @@ export default function FileCard({
         centered
         okButtonProps={{ hidden: true }}
         cancelButtonProps={{ hidden: true }}
-        width={500}
+        width={600}
       >
         <>
-          <div className="h-[400px] ">
+          <div className="h-[600px] ">
             <PreviewMedia fileType={fileFormat} filePath={filePath}/>
           </div>
         </>
