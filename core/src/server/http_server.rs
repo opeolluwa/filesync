@@ -9,7 +9,7 @@ use axum::extract::DefaultBodyLimit;
 
 use crate::database::Database;
 use crate::server::router;
-use crate::server::routes::handle_404;
+
 use crate::SERVER_PORT;
 
 /**

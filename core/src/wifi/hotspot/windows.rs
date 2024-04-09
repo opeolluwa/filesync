@@ -2,7 +2,7 @@ use mockall::predicate::*;
 use mockall::*;
 use std::process::Command;
 fn command_output_to_string(output: &Vec<u8>) -> String {
-    let _output = std::str::from_utf8(&output);
+    let _output = std::str::from_utf8(output);
     match _output {
         Ok(s) => s.to_string(),
         Err(_) => "None".to_string(),
@@ -41,9 +41,8 @@ fn create_ap_with_hotspotcommand<T: HotSpotCommand>(hotspotcommand: T, ssid: &st
         Ok(_) => println!("Started a new hotspot"),
         Err(e) => {
             println!("{}", e);
-            return;
         }
-    };
+    }
 }
 
 /// Turnoff the hotspot
@@ -84,7 +83,7 @@ impl HotSpotCommand for DefaultHotSpotCommand {
                     Ok(false)
                 }
             }
-            Err(_) => Err(format!("Failed to get the wlan drivers information")),
+            Err(_) => Err("Failed to get the wlan drivers information".to_string()),
         }
     }
 
@@ -100,16 +99,16 @@ impl HotSpotCommand for DefaultHotSpotCommand {
             .output()
         {
             Ok(output) => {
-                if let true = output.status.success() {
-                    return Ok(());
+                if output.status.success() {
+                    Ok(())
                 } else {
-                    return Err(format!(
+                    Err(format!(
                         "Failed to create hotspot: {}",
                         command_output_to_string(&output.stderr)
-                    ));
+                    ))
                 }
             }
-            Err(_) => return Err(format!("Failed to execute create hotspot through netsh.")),
+            Err(_) => Err("Failed to execute create hotspot through netsh.".to_string()),
         }
     }
 
@@ -121,12 +120,12 @@ impl HotSpotCommand for DefaultHotSpotCommand {
             Ok(output) => {
                 if command_output_to_string(&output.stdout).contains("The hosted network started.")
                 {
-                    return Ok(());
+                    Ok(())
                 } else {
-                    return Err(format!("Failed to start the hosted network"));
+                    Err("Failed to start the hosted network".to_string())
                 }
             }
-            Err(_) => return Err(format!("Failed to start the hosted network through netsh")),
+            Err(_) => Err("Failed to start the hosted network through netsh".to_string()),
         }
     }
 
@@ -137,12 +136,12 @@ impl HotSpotCommand for DefaultHotSpotCommand {
         {
             Ok(output) => {
                 if command_output_to_string(&output.stdout).contains("The hosted network stoped.") {
-                    return Ok(());
+                    Ok(())
                 } else {
-                    return Err(format!("Failed to stop the hosted network"));
+                    Err("Failed to stop the hosted network".to_string())
                 }
             }
-            Err(_) => return Err(format!("Failed to stop the hosted network through netsh")),
+            Err(_) => Err("Failed to stop the hosted network through netsh".to_string()),
         }
     }
 }
@@ -212,7 +211,7 @@ mod tests {
         mock_hotspotcommand
             .expect_create_hotspot()
             .times(1)
-            .returning(|_, _| Err(format!("Failed")))
+            .returning(|_, _| Err("Failed".to_string()))
             .in_sequence(&mut seq);
         mock_hotspotcommand.expect_start_hotspot().times(0);
         create_ap_with_hotspotcommand(mock_hotspotcommand, ssid, key);
@@ -237,7 +236,7 @@ mod tests {
         mock_hotspotcommand
             .expect_start_hotspot()
             .times(1)
-            .returning(|| Err(format!("Failed")))
+            .returning(|| Err("Failed".to_string()))
             .in_sequence(&mut seq);
         create_ap_with_hotspotcommand(mock_hotspotcommand, ssid, key);
     }
@@ -259,7 +258,7 @@ mod tests {
         mock_hotspotcommand
             .expect_stop_hotspot()
             .times(1)
-            .returning(|| Err(format!("Failed")));
+            .returning(|| Err("Failed".to_string()));
         turn_off_hotspot_with_hotspotcommand(mock_hotspotcommand);
     }
 }
