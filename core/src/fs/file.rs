@@ -64,7 +64,7 @@ impl File {
             .file_name()
             .unwrap()
             .to_str()
-            .map(|s| s.starts_with("."))
+            .map(|s| s.starts_with('.'))
             .unwrap();
 
         Self {

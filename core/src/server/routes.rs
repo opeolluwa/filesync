@@ -20,12 +20,12 @@ use crate::UPLOAD_DIRECTORY;
 #[derive(Debug, Serialize, Deserialize)]
 
 /// destructure query parameter
-pub struct Params {
+pub struct QueryParams {
     pub file_path: String,
 }
 /// accept file path amd return the file
-pub async fn download_file(Query(params): Query<Params>) -> impl IntoResponse {
-    let Params { file_path } = params;
+pub async fn download_file(Query(params): Query<QueryParams>) -> impl IntoResponse {
+    let QueryParams { file_path } = params;
 
     let Some(file) = tokio::fs::File::open(file_path).await.ok() else {
         return Err((
@@ -64,7 +64,7 @@ pub async fn system_information() -> (StatusCode, Json<CommandData<SystemInforma
     )
 }
 
-// return an html page to receive file upload
+/// return an html page to receive file upload
 pub async fn file_upload_form() -> Html<&'static str> {
     Html(
         r#"
@@ -235,9 +235,46 @@ pub async fn handle_404() -> impl IntoResponse {
     )
 }
 
+
+/// health check handler 
+pub async fn health_check() -> impl IntoResponse {
+    (
+        StatusCode::OK,
+        axum::response::Json(serde_json::json!({
+        "success":true,
+        "message":String::from("Server is ready to accept connection"),
+        })),
+    )
+}
+
+/// ping the server
+pub async fn ping_server() -> impl IntoResponse {
+   "FileSync Server 1.0.0"
+}
+
+
+
 /// for a given file path, return the file the the used as a downloadable one
-pub async fn get_file() {
-    unimplemented!()
+pub async fn get_file(Query(QueryParams { file_path }): Query<QueryParams>) -> impl IntoResponse {
+    // `File` implements `AsyncRead`
+    let file = match tokio::fs::File::open(file_path).await {
+        Ok(file) => file,
+        Err(err) => return Err((StatusCode::NOT_FOUND, format!("File not found: {}", err))),
+    };
+    // convert the `AsyncRead` into a `Stream`
+    let stream = ReaderStream::new(file);
+    // convert the `Stream` into an `axum::body::HttpBody`
+    let body = StreamBody::new(stream);
+
+    let headers =[
+        (header::CONTENT_TYPE, "text/toml; charset=utf-8"),
+        (
+            header::CONTENT_DISPOSITION,
+            "attachment; filename=\"Cargo.toml\"",
+        ),
+    ];
+
+    Ok((headers, body))
 }
 
 #[cfg(test)]

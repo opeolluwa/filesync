@@ -13,10 +13,9 @@
   "tauri": {
     "allowlist": {
       "all": false,
-       "window": {
+      "window": {
         "all": true
-        
-       },
+      },
       "app": {
         "all": true,
         "hide": true,

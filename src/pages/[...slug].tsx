@@ -3,12 +3,13 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import FileCard, { FileInterface } from "@/components/thumbnail";
+import FileCard from "@/components/thumbnail";
 import { AppData } from "@/types";
 import { invoke } from "@tauri-apps/api";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 import QuickAccessLayout from "@/components/layout/PageLayout";
-import { WebviewWindow } from "@tauri-apps/api/window";
+import {File} from "../../core/bindings/File"
+
 
 export default function PreviewMediaPage() {
   const [data, setData] = useState(null);
@@ -20,28 +21,7 @@ export default function PreviewMediaPage() {
   const isFolder = searchParams.get("isFolder");
   const fileType = searchParams.get("fileType");
 
-  const createWebView = () => {
-    // if it is known filetype or a broken file, in as much as it n ot a folder,try to render it
-    const webview = new WebviewWindow("render_media", {
-      url: "https://google.com",
-    });
-
-    webview.once("tauri://created", function () {
-      // webview window successfully created
-    });
-
-    webview.once("tauri://error", function (e) {
-      // an error happened creating the webview window
-      console.log("an error occured while opening the window due to ", e);
-    });
-
-    // console.log("window successfully created");
-    // webview.setAlwaysOnTop(true);
-    // webview.center();
-    // webview.requestUserAttention;
-    // webview.isDecorated();
-    // webview.setFocus();
-  };
+ 
 
   const openInWebView = (filePath: string|null) => {
     console.log({ filePath });
@@ -61,7 +41,7 @@ export default function PreviewMediaPage() {
   }, [filePath, isFolder]);
 
   // typecast the response into AppData type
-  const fetchedFiles = data as unknown as AppData<Array<FileInterface>>;
+  const fetchedFiles = data as unknown as AppData<Array<File>>;
 
   // if it is a folder, get the files nd list them
   // get the data from the application core
@@ -102,19 +82,5 @@ export default function PreviewMediaPage() {
         </div>
       </QuickAccessLayout>
     );
-  } else {
-    createWebView();
-    openInWebView(filePath);
-
-    return (
-      <>
-        <div>
-          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Impedit
-          repudiandae deleniti, molestiae architecto dolore earum asperiores
-          labore, ut blanditiis doloremque eaque cum natus nulla nemo officia
-          perspiciatis deserunt? Facilis, maiores!
-        </div>
-      </>
-    );
-  }
+  } 
 }

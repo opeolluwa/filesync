@@ -9,6 +9,7 @@ use axum::extract::DefaultBodyLimit;
 
 use crate::database::Database;
 use crate::server::router;
+
 use crate::server::routes::handle_404;
 use crate::SERVER_PORT;
 
@@ -52,17 +53,14 @@ pub async fn core_server() {
         .parse::<std::net::SocketAddr>()
         .expect("invalid socket address");
 
-    tracing::debug!("server running on http://{}", &ip_address.to_string());
+    println!(" the server port is http://{}", ip_address);
 
     // build our application with the required routes
     let app = router::app()
         .layer(file_limit)
         .layer(cors_layer)
-        .layer(tower_http::trace::TraceLayer::new_for_http());
-    // .fallback(handle_404);
-
-    // add a fallback service for handling routes to unknown paths
-    // let app = app.fallback(handle_404);
+        .layer(tower_http::trace::TraceLayer::new_for_http())
+        .fallback(handle_404);
 
     // run the server
     axum::Server::bind(&ip_address)

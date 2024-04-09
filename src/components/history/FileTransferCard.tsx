@@ -10,7 +10,7 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { getFileIcon } from "../thumbnail";
+import { getFileIcon } from "../thumbnail/media-icon-maker";
 
 // the required data to render the file card component
 // the data will be passed dynamically
@@ -71,7 +71,7 @@ function FileIcon({ fileType }: { fileType: string }) {
   return (
     <>
       <Image
-        src={thumbnail}
+        src={thumbnail.icon}
         height={120}
         width={120}
         alt="file card icon"
