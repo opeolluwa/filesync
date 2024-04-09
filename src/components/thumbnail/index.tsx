@@ -1,70 +1,23 @@
 "use client";
 
-import archiveIcon from "@/assets/common/archived.png";
-import audioIcon from "@/assets/common/audio.png";
-import csvIcon from "@/assets/common/csv.png";
-import defaultIcon from "@/assets/common/default.png";
-import documentIcon from "@/assets/common/document.png";
-import folderIcon from "@/assets/common/folder-icon.png";
-import imageIcon from "@/assets/common/image.png";
-import pdfIcon from "@/assets/common/pdf.png";
-import presentationIcon from "@/assets/common/presentation.png";
-import svgIcon from "@/assets/common/svg.png";
-import textIcon from "@/assets/common/text.png";
-import videoIcon from "@/assets/common/video.png";
-import { FileTransferStatus } from "@/store/context";
 import { computeFileSize } from "@/utils";
 import Modal from "antd/es/modal/Modal";
-import Image, { StaticImageData } from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { File } from "../../../core/bindings/File";
-
-// to interface with audio files coming from the application core
-// the type extends the AppData type
-export interface FileInterface extends File {}
-
-// the required data to render the file card component
-export interface FileCardInterface extends FileInterface {
-  action?: () => void; // the action to perform when the file is clicked, for example it can be used to play an audio file
-}
-
-// the required data to render the file card component
-// the data will be passed dynamically
-
-type TFileType = {
-  fileType: string;
-  fileName: string;
-  fileSize: number;
-  status: FileTransferStatus;
-};
-export interface FileTransferInterface {
-  fileType: string;
-  fileName: string;
-  fileSize: number;
-  status: FileTransferStatus;
-}
-
-interface Props extends FileCardInterface {}
+import PreviewMedia, { FileType } from "./preview-media";
+import { getFileIcon } from "./media-icon-maker";
+import ThumbnailIcon from "./icon-renderer";
 
 export default function FileCard({
   fileName,
   fileFormat,
   filePath,
   fileSize,
-  // action,
   isFolder,
   isHidden,
-}: Props) {
-  let thumbnail: StaticImageData;
-  if (isFolder) {
-    thumbnail = folderIcon;
-  } else {
-    thumbnail = getFileIcon(fileFormat).icon;
-  }
+}: File) {
   const [openModal, setOpenModal] = useState(false);
-
-
   const fileMeta = getFileIcon(fileFormat);
   const router = useRouter();
 
@@ -85,18 +38,15 @@ export default function FileCard({
         onOk={() => setOpenModal(false)}
         onCancel={() => setOpenModal(false)}
         centered
-        okText=""
-        cancelText=""
         okButtonProps={{ hidden: true }}
         cancelButtonProps={{ hidden: true }}
         width={500}
-        style={{ height: "1000px!Important" }}
       >
-        
-        <div className="h-[400px] ">
-          
-          {fileMeta.type}
-        </div>
+        <>
+          <div className="h-[400px] ">
+            <PreviewMedia fileType={fileMeta.type} filePath={filePath}/>
+          </div>
+        </>
       </Modal>
       <div
         onClick={() => {
@@ -104,17 +54,7 @@ export default function FileCard({
         }}
         className="flex w-full hover:shadow hover:rounded-lg rouned bg-[#f9fbfe] flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10 "
       >
-        <div>
-          {
-            <Image
-              src={thumbnail} // Route of the image file
-              height={144} // Desired size with correct aspect ratio
-              width={144} // Desired size with correct aspect ratio
-              alt="file card icon"
-              className="w-[32px]  mr-4" // automatic height calculation
-            />
-          }
-        </div>
+        <ThumbnailIcon isFolder={isFolder} fileFormat={fileFormat} />
         <div className="flex flex-col justify-between mt-3">
           <h6 className=" dark:text-gray-500 small overflow-clip  w-[240px] lg:w-[400px]  truncate select-none">
             {fileName}
@@ -134,255 +74,3 @@ export default function FileCard({
   );
 }
 
-enum FileType {
-  Image = "image",
-  Audio = "audio",
-  PDF = "pdf",
-  CSV = "csv",
-  Presentation = "presentation",
-  Video = "video",
-  Archive = "archive",
-  Document = "document",
-  Text = "text",
-  SVG = "svg",
-  Default = "default",
-}
-
-interface FileTypeResult {
-  type: FileType;
-  icon?: string;
-}
-
-export function getFileIcon(fileExtension: string) {
-  const imageExtensions = [
-    "jpg",
-    "jpeg",
-    "png",
-    "gif",
-    "bmp",
-    "tiff",
-    "raw",
-    "svg",
-    "ai",
-    "eps",
-    "psd",
-    "xcf",
-    "ico",
-    "webp",
-    "jxr",
-    "hdr",
-    "tif",
-    "exif",
-    "pgm",
-    "ppm",
-    "pbm",
-    "pnm",
-    "heic",
-    "heif",
-    "dng",
-    "cr2",
-    "nef",
-    "arw",
-    "orf",
-    "rw2",
-    "sr2",
-    "raf",
-    "mrw",
-    "pef",
-    "x3f",
-    "3fr",
-    "kdc",
-    "srw",
-    "nrw",
-    "rwz",
-    "rwl",
-    "iiq",
-    "rw1",
-    "r3d",
-    "fff",
-    "yuv",
-    "cin",
-    "dpx",
-    "jp2",
-    "j2k",
-    "jpf",
-    "jpx",
-    "jpm",
-    "mj2",
-    "wdp",
-    "hdp",
-    "dds",
-    "pvr",
-    "tga",
-    "cur",
-    "icl",
-    "thm",
-    "sai",
-    "ora",
-    "pdn",
-    "kra",
-    "cpt",
-    "pdd",
-    "mng",
-    "apng",
-    "svgz",
-    "emf",
-    "wmf",
-  ];
-  const documentExtensions = [
-    "doc",
-    "docx",
-    "rtf",
-    "odt",
-    "ods",
-    "odp",
-    "odg",
-    "odp",
-    "fodp",
-    "otp",
-    "doc",
-    "dot",
-    "docx",
-    "docm",
-    "dotx",
-    "dotm",
-    "docb",
-    "odt",
-    "fodt",
-  ];
-  const svgExtensions = ["svg"];
-  const textExtensions = ["txt"];
-  const audioExtensions = [
-    "3gp",
-    "aa",
-    "aac",
-    "aax",
-    "act",
-    "aiff",
-    "alac",
-    "amr",
-    "ape",
-    "au",
-    "awb",
-    "dss",
-    "dvf",
-    "flac",
-    "gsm",
-    "iklax",
-    "ivs",
-    "m4a",
-    "m4b",
-    "m4p",
-    "mmf",
-    "movpkg",
-    "mp3",
-    "mpc",
-    "msv",
-    "nmf",
-    "ogg",
-    "oga",
-    "mogg",
-    "opus",
-    "ra",
-    "rm",
-    "raw",
-    "rf64",
-    "sln",
-    "tta",
-    "voc",
-    "vox",
-    "wav",
-    "wma",
-    "wv",
-    "webm",
-    "8svx",
-    "cda",
-  ];
-  const pdfExtensions = ["pdf"];
-  const csvExtensions = ["csv"];
-  const presentationExtensions = [
-    "ppt",
-    "pot",
-    "pps",
-    "pptx",
-    "pptm",
-    "potx",
-    "potm",
-    "ppam",
-    "ppsx",
-    "ppsm",
-    "sldx",
-    "sldm",
-    "thmx",
-  ];
-  const videoExtensions = [
-    "mp4",
-    "mkv",
-    "webm",
-    "flv",
-    "vob",
-    "ogv",
-    "ogg",
-    "drc",
-    "gif",
-    "gifv",
-    "mng",
-    "avi",
-    "MTS",
-    "MT2S",
-    "TS",
-    "mov",
-    "qt",
-    "wmv",
-    "yuv",
-    "rm",
-    "rmvb",
-    "viv",
-    "asf",
-    "amv",
-    "m4p",
-    "m4v",
-    "mpg",
-    "mp2",
-    "mpeg",
-    "mpe",
-    "mpv",
-    "m2v",
-    "svi",
-    "3gp",
-    "3g2",
-    "mxf",
-    "roq",
-    "nsv",
-    "f4v",
-    "f4p",
-    "f4a",
-    "f4b",
-  ];
-  const archiveExtensions = ["zip", "rar", "tar", "gz"];
-  const extension = fileExtension.toLocaleLowerCase().trim();
-
-  if (imageExtensions.includes(extension)) {
-    return { type: FileType.Image, icon: imageIcon };
-  } else if (audioExtensions.includes(extension)) {
-    return { type: FileType.Audio, icon: audioIcon };
-  } else if (pdfExtensions.includes(extension)) {
-    return { type: FileType.PDF, icon: pdfIcon };
-  } else if (csvExtensions.includes(extension)) {
-    return { type: FileType.CSV, icon: csvIcon };
-  } else if (presentationExtensions.includes(extension)) {
-    return { type: FileType.Presentation, icon: presentationIcon };
-  } else if (videoExtensions.includes(extension)) {
-    return { type: FileType.Video, icon: videoIcon };
-  } else if (archiveExtensions.includes(extension)) {
-    return { type: FileType.Archive, icon: archiveIcon };
-  } else if (documentExtensions.includes(extension)) {
-    return { type: FileType.Document, icon: documentIcon };
-  } else if (textExtensions.includes(extension)) {
-    return { type: FileType.Text, icon: textIcon };
-  } else if (svgExtensions.includes(extension)) {
-    return { type: FileType.SVG, icon: svgIcon };
-  } else {
-    return { type: FileType.Default, icon: defaultIcon };
-  }
-}
