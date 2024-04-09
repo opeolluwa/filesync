@@ -25,7 +25,7 @@ interface Props {
 }
 
 export default function PreviewMedia({ fileType, filePath }: Props) {
-  const fileUrl = isClient ? `${process.env.NEXT_PUBLIC_API_URL}/file/${filePath}` : "";
+  const fileUrl = isClient ? `http://192.168.0.170:18005/api/file?file_path=${filePath}` : "";
 
   return (
     <div className="w-full h-full">
