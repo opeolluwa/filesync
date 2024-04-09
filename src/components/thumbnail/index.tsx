@@ -1,13 +1,13 @@
 "use client";
 
 import { computeFileSize } from "@/utils";
-import Modal from "antd/es/modal/Modal";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { File } from "../../../core/bindings/File";
-import PreviewMedia, { FileType } from "./preview-media";
+import PreviewMedia from "./preview-media";
 import { getFileIcon } from "./media-icon-maker";
 import ThumbnailIcon from "./icon-renderer";
+import { Modal } from "antd";
 
 export default function FileCard({
   fileName,

@@ -3,6 +3,8 @@
 /// give preview for differet file type
 import FileViewer from "react-file-viewer";
 
+const isClient = typeof window !== "undefined";
+
 export enum FileType {
   Image = "image",
   Audio = "audio",
@@ -23,13 +25,14 @@ interface Props {
 }
 
 export default function PreviewMedia({ fileType, filePath }: Props) {
+  const fileUrl = isClient ? `${process.env.NEXT_PUBLIC_API_URL}/file/${filePath}` : "";
+
   return (
-    <FileViewer
-      fileType={fileType}
-      filePath={
-        //TODo: replace with the actual file path
-        "https://ik.imagekit.io/nethbooks/FunaabPayInvoice_80118121__4jRm5vp7L.pdf?updatedAt=1712070984568"
-      }
-    />
+    <div className="w-full h-full">
+      <FileViewer
+        fileType={fileType}
+        filePath={fileUrl}
+      />
+    </div>
   );
 }

@@ -8,32 +8,8 @@ import { AppData } from "@/types";
 import { invoke } from "@tauri-apps/api";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 import QuickAccessLayout from "@/components/layout/PageLayout";
-import { WebviewWindow } from "@tauri-apps/api/window";
 import {File} from "../../core/bindings/File"
 
-
- const createWebView = () => {
-   // if it is known filetype or a broken file, in as much as it n ot a folder,try to render it
-   const webview = new WebviewWindow("google", {
-     url: "https://google.com",
-   });
-
-   webview.once("tauri://created", function () {
-     // webview window successfully created
-   });
-
-   webview.once("tauri://error", function (e) {
-     // an error happened creating the webview window
-     console.log("an error occured while opening the window due to ", e);
-   });
-
-   // console.log("window successfully created");
-   // webview.setAlwaysOnTop(true);
-   // webview.center();
-   // webview.requestUserAttention;
-   // webview.isDecorated();
-   // webview.setFocus();
- };
 
 export default function PreviewMediaPage() {
   const [data, setData] = useState(null);
@@ -81,11 +57,6 @@ export default function PreviewMediaPage() {
     );
   }
 
-
-  if (!isFolder){
-    createWebView();
-    return
-  }
   // render them
   if (data) {
     return (

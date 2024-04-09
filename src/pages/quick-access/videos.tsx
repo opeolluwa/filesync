@@ -1,13 +1,12 @@
+"is client";
+
 import FileCard, { FileInterface } from "@/components/thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
-import { AppData, AudioFile } from "@/types";
+import { AppData } from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
-import { shareFile } from "@/utils";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
-import path from "path";
 
-const isClient = typeof window !== "undefined";
 
 export default function Video() {
   const [data, setData] = useState(null);
@@ -16,7 +15,7 @@ export default function Video() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("read_dir", {path:"videos"}).then((res) => {
+    invoke("read_dir", { path: "videos" }).then((res) => {
       setData(res as any);
       setLoading(false);
     });
