@@ -34,3 +34,5 @@ mobile/node_modules
 
 core/test.db
 core/src/scripts
+
+public/test

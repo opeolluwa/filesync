@@ -44,7 +44,7 @@ export default function FileCard({
       >
         <>
           <div className="h-[400px] ">
-            <PreviewMedia fileType={fileMeta.type} filePath={filePath}/>
+            <PreviewMedia fileType={fileFormat} filePath={filePath}/>
           </div>
         </>
       </Modal>
