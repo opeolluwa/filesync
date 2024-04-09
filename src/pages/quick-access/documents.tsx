@@ -51,7 +51,6 @@ export default function Document() {
               fileSize={file.fileSize}
               fileFormat={file.fileFormat}
               filePath={file.filePath}
-              action={() => shareFile(file.filePath)}
               isHidden={file.isHidden}
               isFolder={file.isFolder}
             />

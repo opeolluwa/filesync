@@ -3,13 +3,13 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import FileCard, { FileInterface } from "@/components/thumbnail";
+import FileCard from "@/components/thumbnail";
 import { AppData } from "@/types";
 import { invoke } from "@tauri-apps/api";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 import QuickAccessLayout from "@/components/layout/PageLayout";
 import { WebviewWindow } from "@tauri-apps/api/window";
-
+import {File} from "../../core/bindings/File"
 
 
  const createWebView = () => {
@@ -65,7 +65,7 @@ export default function PreviewMediaPage() {
   }, [filePath, isFolder]);
 
   // typecast the response into AppData type
-  const fetchedFiles = data as unknown as AppData<Array<FileInterface>>;
+  const fetchedFiles = data as unknown as AppData<Array<File>>;
 
   // if it is a folder, get the files nd list them
   // get the data from the application core

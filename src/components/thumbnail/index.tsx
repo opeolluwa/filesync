@@ -23,7 +23,7 @@ export default function FileCard({
 
   // if it is a folder open in folder renderer
   // otherwise open in file renderer
-  let path;
+  let path:string;
   if (isFolder) {
     path = `/render?filePath=${filePath}&fileType=${fileFormat}&isFolder=${isFolder}`;
   } else {
@@ -74,3 +74,6 @@ export default function FileCard({
   );
 }
 
+
+
+export interface FileInterface extends File {}

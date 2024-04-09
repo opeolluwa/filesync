@@ -52,7 +52,6 @@ export default function Document() {
               filePath={file.filePath}
               isHidden={file.isHidden}
               isFolder={file.isFolder}
-              action={() => shareFile(file.filePath)}
             />
           ))}
         </div>

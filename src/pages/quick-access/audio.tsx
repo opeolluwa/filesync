@@ -63,9 +63,7 @@ export default function Music() {
               filePath={file.filePath}
               isHidden={file.isHidden}
               isFolder={file.isFolder}
-              action={() => {
-                console.log("play audio file");
-              }}
+          
             />
           ))}
         </div>
