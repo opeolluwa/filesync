@@ -1,5 +1,7 @@
 "use client";
 
+import { SystemInformationContext } from "@/store/sys-info";
+import { useContext } from "react";
 /// give preview for differet file type
 import FileViewer from "react-file-viewer";
 
@@ -25,14 +27,15 @@ interface Props {
 }
 
 export default function PreviewMedia({ fileType, filePath }: Props) {
-  const fileUrl = isClient ? `http://192.168.0.170:18005/api/file?file_path=${filePath}` : "";
+  const { serverBaseUrl } = useContext(SystemInformationContext);
+
+  const fileUrl = isClient
+    ? `${serverBaseUrl}/api/file?file_path=${filePath}`
+    : "";
 
   return (
     <div className="w-full h-full">
-      <FileViewer
-        fileType={fileType}
-        filePath={fileUrl}
-      />
+      <FileViewer fileType={fileType} filePath={fileUrl} />
     </div>
   );
 }
