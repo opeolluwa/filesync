@@ -17,7 +17,9 @@ use crate::api::fs_api::read_dir;
 use crate::api::settings::{get_settings, update_settings};
 
 // Import individual items from crate::api::utils
-use crate::api::utils::{generate_qr_code, get_ip_address, get_system_information};
+use crate::api::utils::{
+    generate_qr_code, get_ip_address, get_system_information, is_connected_to_wifi,
+};
 
 // Import individual items from crate::api::wifi
 use crate::api::wifi::{create_wifi_hotspot, kill_wifi_hotspot, scan_wifi};
@@ -97,6 +99,7 @@ fn main() -> Result<(), tauri::Error> {
             get_system_information,
             get_transfer_history,
             get_settings,
+            is_connected_to_wifi,
             update_settings,
             read_dir,
             scan_wifi // download_file, TODO: implement file transfering between peers
