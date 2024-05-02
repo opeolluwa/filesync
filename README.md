@@ -16,7 +16,7 @@ _⚠️ the application is still a work in progress, hence, Some features are mi
 
 ## Description
 
-FIleSync is an offline file-sharing application designed for Windows, Mac, and Linux operating systems. It allows users to transfer files seamlessly between PCs over WiFi without an internet connection.
+FIleSync is an wifi file-sharing application designed for Windows, Mac, and Linux operating systems. It allows users to transfer files seamlessly between PCs over WiFi without an internet connection.
 
 ## Getting Started
 

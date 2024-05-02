@@ -1,11 +1,11 @@
 import { ReactNode, createContext, useState } from "react";
 
-interface TFileData  {
+interface TFileData {
   size: number;
   type: string;
   name: string;
   status: FileTransferStatus;
-};
+}
 
 export enum FileTransferStatus {
   DOWNLOADING = "downloading",

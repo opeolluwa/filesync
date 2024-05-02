@@ -1,8 +1,7 @@
-import PageTitle from "@/components/PageTitle";
 import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import PageLayout from "@/components/layout/PageLayout";
-import { Switch, Modal, Button } from "antd";
+import { Button, Modal, Switch } from "antd";
 import { useState } from "react";
 export default function ConnectionPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -28,7 +27,7 @@ export default function ConnectionPage() {
     <>
       <PageLayout pageTitle={"Connect Device"} includeSearchBar={false}>
         <>
-          <div className="hidden flex justify-between items-center py-4 rounded-lg px-4">
+          <div className="hidden justify-between items-center py-4 rounded-lg px-4">
             <div className="flex flex-col gap-4">
               <Heading context={"Turn on hotspot"} />
               <Text

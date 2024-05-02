@@ -1,4 +1,4 @@
-function HelloWorld() {
+function Loader() {
   return (
     <>
       <span className="loader block my-10"></span>
@@ -43,4 +43,4 @@ function HelloWorld() {
   );
 }
 
-export default HelloWorld;
+export default Loader;
