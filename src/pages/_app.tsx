@@ -3,14 +3,18 @@ import FileStore from "@/store/context";
 import SystemInfoStore from "@/store/sys-info";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
+import WifiStatus from "@/store/wifi-status";
+
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SystemInfoStore>
       <FileStore>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <WifiStatus>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </WifiStatus>
       </FileStore>
     </SystemInfoStore>
   );
