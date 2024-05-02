@@ -87,7 +87,7 @@ export default function Navigation() {
               action={route.action}
               alternateIcon={route.alternateIcon}
               path={route.path}
-              disabled={Boolean(isConnectedToWifi)}
+              disabled={Boolean(isConnectedToWifi)=== false}
             />
           ))}
         </div>

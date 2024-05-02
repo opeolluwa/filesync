@@ -85,7 +85,7 @@ export default function Main() {
       await exit(1).then(()=>{
         console.log("exited")
       }).catch(error => {
-        console.log("exited");
+        console.log(error.message);
       });
     }
   }
@@ -95,7 +95,7 @@ export default function Main() {
     await relaunch().then(()=>{
       console.log("refreshed")
     }).catch(error => {
-      console.log("refreshed");
+      console.log(error.message);
 
     });
   }
@@ -125,7 +125,7 @@ export default function Main() {
   }
 
   // if done loading and not connected to wifi
-  if (!isLoading && isConnectedToWifi === true) {
+  if (!isLoading && !isConnectedToWifi) {
     return (
       <>
         <div className="">
