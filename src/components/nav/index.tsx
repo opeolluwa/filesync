@@ -9,52 +9,24 @@ import {
 } from "@heroicons/react/24/outline";
 import {
   ClockIcon as SolidClockIcon,
-  Cog8ToothIcon as SolidCog8ToothIcon,
-  FolderOpenIcon as SolidFolderIconOpen,
-  HomeIcon as SolidHomeIcon,
+  Cog8ToothIcon as SolidCog8ToothIcon, HomeIcon as SolidHomeIcon,
   InformationCircleIcon as SolidInformationIcon,
   ShareIcon as SolidShareIcon,
-  SignalIcon as SolidSignalIcon,
+  SignalIcon as SolidSignalIcon
 } from "@heroicons/react/24/solid";
-import { goToPage as gotoPage } from "@/utils";
-import NavigationTab, { Route } from "./NavigationTab";
-import { useEffect, useState } from "react";
-import { SystemInformation } from "@/store/sys-info";
-import { invoke } from "@tauri-apps/api/tauri";
+import NavigationTab, { Route } from "./NavItem";
+import { useContext } from "react";
+import {
+  SystemInformationContext
+} from "@/store/sys-info";
 import { MemoryInformation } from "../MemoryInformation";
-import { message } from "@tauri-apps/api/dialog";
-import { open } from "@tauri-apps/api/dialog";
-export default function Navigation() {
-  /**
-   * @function openFileManager - opens a file manager
-   * @returns {Array<Files>} an array of selected files
-   */
-  const openFileManager = async () => /* : Array<File> */ {
-    try {
-      const selectedFilePath = await open({
-        directory: false,
-        multiple: true,
-        // filters: allowedExtension,
-        // defaultPath: await pictureDir(),
-      });
-      // upload select file with tauri upload plugin
-    } catch (err) {
-      message((err as Error).message, {
-        title: "Access error",
-        type: "error",
-      });
-    }
-  };
-  let [systemInformation, setSystemInformation] = useState(
-    {} as SystemInformation
-  );
+import { WifiStatusContext } from "@/store/wifi-status";
 
-  useEffect(() => {
-    // fetch sys information from app core
-    invoke("get_system_information").then((sysInfo) => {
-      setSystemInformation((sysInfo as any).data);
-    });
-  }, []);
+export default function Navigation() {
+  const { data: isConnectedToWifi } = useContext(WifiStatusContext);
+  const { availableDisk, usedDisk, systemName } = useContext(
+    SystemInformationContext
+  );
 
   const routes: Route[] = [
     {
@@ -62,13 +34,11 @@ export default function Navigation() {
       icon: <HomeIcon className="w-6 h-6" />,
       name: "home",
       alternateIcon: <SolidHomeIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "/" }),
     },
     {
       icon: <SignalIcon className="w-6 h-6" />,
       name: "Connect Device",
       alternateIcon: <SolidSignalIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "/connection" }),
       path: "/connection",
     },
     {
@@ -76,28 +46,24 @@ export default function Navigation() {
       icon: <ShareIcon className="w-6 h-6" />,
       name: "Share files",
       alternateIcon: <SolidShareIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "share" }),
     },
     {
       path: "/history",
       icon: <ClockIcon className="w-6 h-6" />,
       name: "Transfer History",
       alternateIcon: <SolidClockIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "history" }),
     },
 
     {
       path: "/settings",
       icon: <Cog8ToothIcon className="w-6 h-6" />,
       alternateIcon: <SolidCog8ToothIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "settings" }),
       name: "settings",
     },
     {
       path: "/about",
       icon: <InformationCircleIcon className="w-6 h-6" />,
       alternateIcon: <SolidInformationIcon className="w-6 h-6" />,
-      action: () => gotoPage({ routePath: "about" }),
       name: "About",
     },
   ];
@@ -121,14 +87,15 @@ export default function Navigation() {
               action={route.action}
               alternateIcon={route.alternateIcon}
               path={route.path}
+              disabled={Boolean(isConnectedToWifi)}
             />
           ))}
         </div>
 
         <MemoryInformation
-          systemName={systemInformation.systemName}
-          usedMemory={systemInformation.usedDisk}
-          totalMemory={systemInformation.availableDisk}
+          systemName={systemName}
+          usedMemory={usedDisk}
+          totalMemory={availableDisk}
         />
       </nav>
     </>
