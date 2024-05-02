@@ -1,12 +1,10 @@
 import FileCard, { FileInterface } from "@/components/thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
-import { AppData, AudioFile } from "@/types";
+import { AppData} from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
-import { shareFile } from "@/utils";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 
-const isClient = typeof window !== "undefined";
 
 export default function Images() {
   const [data, setData] = useState(null);
@@ -53,7 +51,6 @@ export default function Images() {
               filePath={file.filePath}
               isHidden={file.isHidden}
               isFolder={file.isFolder}
-              action={() => shareFile(file.filePath)}
             />
           ))}
         </div>

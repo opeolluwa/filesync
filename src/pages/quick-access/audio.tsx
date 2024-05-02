@@ -6,17 +6,7 @@ import { useEffect, useState } from "react";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 
 export default function Music() {
-  // display a module to play music
-  function playMusic(filePath: string) {
-    const assetUrl = convertFileSrc(filePath);
-    const audio = document.getElementById("testNode") as HTMLAudioElement;
-    const source = document.createElement("source");
-    source.type = "audio/mp3";
-    source.src = assetUrl;
-    audio?.appendChild(source);
-    audio?.load();
-    console.log("playing ", filePath);
-  }
+
 
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
@@ -30,8 +20,6 @@ export default function Music() {
        setLoading(false);
      });
   }, []);
-  // TODO(@opeolluwa): use Tauri Js API to render musicData
-  // TODO(@opeolluwa) add modal to play audio file, audio and document using web APIs
   // typecast the response into AppData type
   const musicData = data as unknown as AppData<Array<FileInterface>>;
   if (isLoading) {
@@ -63,9 +51,7 @@ export default function Music() {
               filePath={file.filePath}
               isHidden={file.isHidden}
               isFolder={file.isFolder}
-              action={() => {
-                console.log("play audio file");
-              }}
+          
             />
           ))}
         </div>

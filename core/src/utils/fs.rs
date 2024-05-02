@@ -1,5 +1,5 @@
-use std::process::Command;
-use sysinfo::{DiskExt, System, SystemExt};
+
+use sysinfo::{DiskExt, SystemExt};
 // pub mod storage_information;
 /// a function to compute file size
 /// accept files size in byte and parse it to human readable KB, MB, TB, GB e.t.c

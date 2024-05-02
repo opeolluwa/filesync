@@ -2,7 +2,7 @@
 /// once this is done pass the network conf
 use crate::{
     utils::CommandData,
-    wifi::{hotspot, network_scanner, WifiHotspotConfig},
+    wifi::{network_scanner, WifiHotspotConfig},
 };
 
 #[tauri::command]

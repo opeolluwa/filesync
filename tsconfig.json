@@ -16,6 +16,7 @@
     "incremental": true,
     "paths": {
       "@/*": ["./src/*"],
+      "@public/*": ["./public/*"],
       "@binding/*": ["../core/bindings/*"]
     }
   },

@@ -3,6 +3,7 @@
 
 extern crate uptime_lib;
 
+use crate::api::fs_api::get_transfer_history;
 /**
  * the application is structured thus
  * src
@@ -11,15 +12,14 @@ extern crate uptime_lib;
  * __fs
  * ...
  */
-
-
-use  crate::api::fs_api::read_dir;
-use  crate::api::fs_api::get_transfer_history;
+use crate::api::fs_api::read_dir;
 // Import individual items from crate::api::settings
 use crate::api::settings::{get_settings, update_settings};
 
 // Import individual items from crate::api::utils
-use crate::api::utils::{generate_qr_code, get_ip_address, get_system_information};
+use crate::api::utils::{
+    generate_qr_code, get_ip_address, get_system_information, is_connected_to_wifi,
+};
 
 // Import individual items from crate::api::wifi
 use crate::api::wifi::{create_wifi_hotspot, kill_wifi_hotspot, scan_wifi};
@@ -45,8 +45,8 @@ lazy_static! {
  *
  * Herein the server port made globally available, this allow for ease of sharing same with file upload directory
  */
-    pub static ref SERVER_PORT: u16 =
-        portpicker::pick_unused_port().expect("failed to get an unused port");
+    pub static ref SERVER_PORT: u16 = 18005;
+        // portpicker::pick_unused_port().expect("failed to get an unused port");
     pub static ref UPLOAD_DIRECTORY: std::string::String = String::from("filesync");
 
     /* create a database in the home dir and / save files to $HOME/filesync/.dat */
@@ -86,7 +86,6 @@ fn main() -> Result<(), tauri::Error> {
         ..Default::default()
     };
 
-    scan_wifi();
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(http_server::core_server());
     // run the UI code and the IPC (internal Procedure Call functions)
@@ -100,9 +99,12 @@ fn main() -> Result<(), tauri::Error> {
             get_system_information,
             get_transfer_history,
             get_settings,
+            is_connected_to_wifi,
             update_settings,
             read_dir,
             scan_wifi // download_file, TODO: implement file transfering between peers
         ])
         .run(tauri::generate_context!())
+
+    // Ok(())
 }

@@ -2,6 +2,7 @@
 #[allow(dead_code)]
 use crate::database::{Settings, TransferHistory};
 
+#[derive(Default)]
 pub struct State {
     pub settings: Settings,
     pub transfer_history: Vec<TransferHistory>,
@@ -19,11 +20,4 @@ impl State {
     }
 }
 
-impl Default for State {
-    fn default() -> Self {
-        Self {
-            settings: Settings::default(),
-            transfer_history: Vec::new(),
-        }
-    }
-}
+
