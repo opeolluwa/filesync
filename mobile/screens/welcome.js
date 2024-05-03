@@ -11,13 +11,13 @@ export default function App() {
         height: "100%",
       }}
     >
-      <Header/>
+      <Header />
       <View
         style={{
           height: "20%",
           width: "100%",
           backgroundColor: theme.app[50],
-          padding:20
+          padding: 20,
         }}
       >
         <View
@@ -27,12 +27,9 @@ export default function App() {
             flexDirection: "row",
             justifyContent: "space-between",
           }}
-        >
-       
-        </View>
+        ></View>
       </View>
       <StatusBar style="auto" />
     </View>
   );
 }
-
