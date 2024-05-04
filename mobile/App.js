@@ -1,11 +1,20 @@
 import { StatusBar } from "expo-status-bar";
-import { Button, Pressable, ScrollView, StyleSheet, Text, View, FlatList } from "react-native";
+import {
+  Button,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+} from "react-native";
 import "./global.css";
 import theme from "./theme.json";
 import MaterialIcons from "@expo/vector-icons/MaterialIcons";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useFonts } from "expo-font";
 import * as Progress from "react-native-progress";
+import MenuIcon from "./assets/icons/menu.svg";
 
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
