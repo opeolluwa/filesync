@@ -1,3 +1,5 @@
+"use client"
+
 import FileCard, { FileInterface } from "@/components/thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
 import { AppData} from "@/types";

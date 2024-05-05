@@ -7,6 +7,7 @@ import {
   Text,
   View,
   FlatList,
+  Image,
 } from "react-native";
 import "./global.css";
 import theme from "./theme.json";
@@ -21,22 +22,13 @@ export default function App() {
     "open-sans": require("./assets/fonts/OpenSans_Condensed-Regular.ttf"),
   });
 
-  // const onLayoutRootView = useCallback(async () => {
-  //   if (fontsLoaded || fontError) {
-  //     await SplashScreen.hideAsync();
-  //   }
-  // }, [fontsLoaded, fontError]);
-
-  // if (!fontsLoaded && !fontError) {
-  //   return null;
-  // }
-
   return (
     <View
       style={{
         height: "100%",
         paddingHorizontal: 25,
         fontfamily: "open-sans",
+        backgroundColor:theme.app[50]
       }}
     >
       <View
@@ -44,6 +36,7 @@ export default function App() {
           height: "10%",
           paddingTop: 50,
           width: "100%",
+          display: "none",
         }}
       >
         <View style={styles.flexContainerRow}>
@@ -75,24 +68,26 @@ export default function App() {
       </Text>
 
       <View
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
         style={{
           ...styles.flexContainerRow,
           flexWrap: "nowrap",
           overflow: "scroll",
           marginTop: 25,
+          marginVertical: 2,
           justifyContent: "space-between",
+          gap: 15,
         }}
       >
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
+        <View
           style={{
             ...styles.card,
             backgroundColor: theme.app.DEFAULT,
             width: "43%",
             height: 120,
           }}
-        ></ScrollView>
+        ></View>
 
         <View
           style={{
@@ -126,8 +121,7 @@ export default function App() {
           borderColor: theme.gray[300],
           borderRadius: 18,
           borderWidth: 1,
-          paddingVertical: 25,
-          paddingHorizontal: 20,
+          ...styles.container,
           height: 100,
           ...styles.flexContainerRow,
         }}
@@ -171,21 +165,34 @@ export default function App() {
           See all
         </Text>
       </View>
-      <View style={styles.container}>
+      <View style={{ ...styles.container, paddingTop: 1, marginTop: 0 }}>
         <FlatList
           data={[
-            { key: "Devin" },
-            { key: "Dan" },
-            { key: "Dominic" },
-            { key: "Jackson" },
-            { key: "James" },
             { key: "Joel" },
             { key: "John" },
             { key: "Jillian" },
-            { key: "Jimmy" },
             { key: "Julie" },
           ]}
-          renderItem={({ item }) => <Text style={styles.item}>{item.key}</Text>}
+          renderItem={({ item }) => (
+            <View
+              style={{
+                ...styles.flexContainerRow,
+                columnGap: 5,
+                justifyContent: "flex-start",
+              }}
+            >
+              <View
+                style={{
+                  ...styles.card,
+                  borderRadius: 5,
+                  width: 40,
+                  height: 40,
+                  backgroundColor: theme.app.DEFAULT,
+                }}
+              />
+              <Text style={styles.item}>{item.key}</Text>
+            </View>
+          )}
         />
       </View>
 
@@ -230,5 +237,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingBottom: 5,
     color: theme.white,
+  },
+  container: {
+    paddingVertical: 25,
+    paddingHorizontal: 20,
   },
 });

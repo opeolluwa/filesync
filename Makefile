@@ -11,3 +11,11 @@ dev:
 # build the binary for the current OS
 build:
 	yarn tauri build
+
+## run the android in expo
+run-mobile: 
+	cd mobile && yarn start
+
+# run the android in emulator 
+android:
+	cd mobile && yarn android
