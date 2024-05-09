@@ -6,7 +6,7 @@ install-deps:
 	yarn install
 	cd core && cargo build
 # run the dev server 
-dev: 
+desktop: 
 	yarn tauri dev
 # build the binary for the current OS
 build:
@@ -19,3 +19,4 @@ run-mobile:
 # run the android in emulator 
 android:
 	cd mobile && yarn android
+

@@ -17,10 +17,57 @@ import { useFonts } from "expo-font";
 import * as Progress from "react-native-progress";
 import MenuIcon from "./assets/icons/menu.svg";
 
+import { useEffect, useState } from "react";
+import Server from "@dr.pogodin/react-native-static-server";
+
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
     "open-sans": require("./assets/fonts/OpenSans_Condensed-Regular.ttf"),
   });
+
+
+
+
+
+
+
+
+
+
+
+  const [origin, setOrigin] = useState("");
+
+  useEffect(() => {
+    let server = new Server({
+      // See further in the docs how to statically bundle assets into the App,
+      // alernatively assets to serve might be created or downloaded during
+      // the app's runtime.
+      fileDir: "/path/to/static/assets/on/target/device",
+    });
+    (async () => {
+      // You can do additional async preparations here; e.g. on Android
+      // it is a good place to extract bundled assets into an accessible
+      // location.
+
+      // Note, on unmount this hook resets "server" variable to "undefined",
+      // thus if "undefined" the hook has unmounted while we were doing
+      // async operations above, and we don't need to launch
+      // the server anymore.
+      if (server) setOrigin(await server.start());
+    })();
+
+    return () => {
+      setOrigin("");
+
+      // No harm to trigger .stop() even if server has not been launched yet.
+      server.stop();
+
+      server = undefined;
+    };
+  }, []);
+
+
+
 
   return (
     <View
@@ -28,7 +75,7 @@ export default function App() {
         height: "100%",
         paddingHorizontal: 25,
         fontfamily: "open-sans",
-        backgroundColor:theme.app[50]
+        backgroundColor:"#f2f2f2"
       }}
     >
       <View
@@ -194,7 +241,11 @@ export default function App() {
             </View>
           )}
         />
+
+
+        <Text>the server is running on {server}</Text>
       </View>
+
 
       <StatusBar style="auto" />
     </View>

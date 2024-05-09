@@ -1218,6 +1218,18 @@
     "@babel/helper-validator-identifier" "^7.24.5"
     to-fast-properties "^2.0.0"
 
+"@dr.pogodin/js-utils@^0.0.9":
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/@dr.pogodin/js-utils/-/js-utils-0.0.9.tgz#1d53722855e99d0816405b743de7f6bc3151f402"
+  integrity sha512-cePlC3u2T0Yn+Bms1xhvCISnrFvfjMRRr1Qgr7OqOXgd3RTg0wEg0oSlBATfrwInKca+InzYfsoeXyHplN0XaA==
+
+"@dr.pogodin/react-native-static-server@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@dr.pogodin/react-native-static-server/-/react-native-static-server-0.15.0.tgz#3bad2c02af24164583f5cf03e74620de8ac6570e"
+  integrity sha512-UreuG1KB3Ly8bSfPgOzcgf/qns8A0I7Yi4RUliG4g0N/XkRfwasrDkeB+NRRNXArZ4Uz1W3TopeW3cyNZR5u+Q==
+  dependencies:
+    "@dr.pogodin/js-utils" "^0.0.9"
+
 "@eva-design/dss@^2.2.0":
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/@eva-design/dss/-/dss-2.2.0.tgz#1eb765e480b3b140386a3a105374435c0c927616"
