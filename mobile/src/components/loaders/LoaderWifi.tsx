@@ -2,7 +2,7 @@ function Loader() {
   return (
     <>
       <span className="loader block my-10"></span>
-      <style jsx>{`
+      <style>{`
         .loader,
         .loader:before {
           display: inline-block;

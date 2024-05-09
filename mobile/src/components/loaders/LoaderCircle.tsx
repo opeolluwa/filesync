@@ -3,7 +3,7 @@ function Loader() {
     <>
       <span className="loader block my-10"></span>
       
-      <style jsx>{`
+      <style>{`
         .loader {
           width: 64px;
           height: 64px;

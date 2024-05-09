@@ -214,6 +214,11 @@
     "@babel/helper-validator-identifier" "^7.24.5"
     to-fast-properties "^2.0.0"
 
+"@capacitor/android@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-6.0.0.tgz#eb24c64a5c6821fbbb8db48eedf50eca18876318"
+  integrity sha512-NwL87VO9F1WY/EgvJZN9pIhjejq688k2fRW6XWNLVe3cgGE6nUb9J34KI68fhx3139cf2LVGPUYs+mwZC8esiQ==
+
 "@capacitor/cli@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-6.0.0.tgz#78def1dcf8a0addd10039edf32ed15b5a0f0b1aa"
@@ -244,6 +249,11 @@
   integrity sha512-NvxIQsJcMiIV+Le1DilR2GGyQQbDInfXK1UywGROQ5mycdFlW5XoAPZ+MKnFGB123RoEgE3uhDGgwTXUmSlX9A==
   dependencies:
     tslib "^2.1.0"
+
+"@capacitor/ios@^6.0.0":
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/@capacitor/ios/-/ios-6.0.0.tgz#b04ce2967d732c73ebf29ec38b4b585255930e43"
+  integrity sha512-7mAs3gjWiE5DPM4AGPduqFSDGXCPwwqQRMzbohVway7/cTWnHomHV8mIojMZE4GILeWO2fILbyu3C8q9pHg2vg==
 
 "@esbuild/aix-ppc64@0.20.2":
   version "0.20.2"
