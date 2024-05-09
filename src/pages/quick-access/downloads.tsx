@@ -1,3 +1,5 @@
+"use client"
+
 import FileCard, { FileInterface } from "@/components/thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
 import { AppData} from "@/types";
@@ -13,7 +15,7 @@ export default function Document() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("read_dir", { path: "desktop" }).then((res) => {
+    invoke("read_dir", { path: "deownloads" }).then((res) => {
       console.log(JSON.stringify(res));
       setData(res as any);
       setLoading(false);
@@ -36,9 +38,9 @@ export default function Document() {
 
   return (
     <QuickAccessLayout
-      pageTitle={"Desktop"}
+      pageTitle={"Downloads"}
       includeSearchBar={true}
-      searchBarText="search desktop"
+      searchBarText="search downloads"
     >
       <div>
         <div className="flex flex-wrap  flex-grow gap-4 justify-start mt-12">

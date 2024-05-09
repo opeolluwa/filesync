@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import FileCard from "@/components/thumbnail";
 import { AppData } from "@/types";
-import { invoke } from "@tauri-apps/api";
+import { invoke } from "@tauri-apps/api/tauri";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 import QuickAccessLayout from "@/components/layout/PageLayout";
 import {File} from "../../core/bindings/File"
