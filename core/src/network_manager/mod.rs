@@ -4,9 +4,10 @@ use crate::utils::system_info::SystemInformation;
 use nanoid::nanoid;
 use serde::{Deserialize, Serialize};
 
-pub mod hotspot;
+///TODO: use conditional import 
+// pub mod hotspot;
 pub mod ip_manager;
-pub mod network_scanner;
+// pub mod network_scanner;
 /// the network interface type contains the
 /// - gateway ex 192.168.0.0.1
 /// - username ex sillicone
