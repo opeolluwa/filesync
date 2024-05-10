@@ -3,37 +3,19 @@
 
 extern crate uptime_lib;
 
-use crate::api::fs_api::get_transfer_history;
-/**
- * the application is structured thus
- * src
- * __api
- * __server
- * __fs
- * ...
- */
-use crate::api::fs_api::read_dir;
-// Import individual items from crate::api::settings
-use crate::api::settings::{get_settings, update_settings};
-
-// Import individual items from crate::api::utils
-use crate::api::utils::{
+use crate::ipc::fs_api::get_transfer_history;
+use crate::ipc::fs_api::read_dir;
+use crate::ipc::settings::{get_settings, update_settings};
+use crate::ipc::utils::{
     generate_qr_code, get_ip_address, get_system_information, is_connected_to_wifi,
 };
-
-//TODO: Import individual items from crate::api::wifi
-// use crate::api::wifi::{create_wifi_hotspot, kill_wifi_hotspot};
-
-// Import lazy_static crate
 use lazy_static::lazy_static;
-
-// Import http_server from server module
 use server::http_server;
 
-mod api;
 mod app_state;
 mod database;
-mod fs;
+mod file_manager;
+mod ipc;
 mod server;
 mod utils;
 
@@ -93,9 +75,6 @@ fn main() -> Result<(), tauri::Error> {
     tauri::Builder::default()
         .manage(state)
         .invoke_handler(tauri::generate_handler![
-            //TODO: Rebind to conditional network modules
-            // create_wifi_hotspot,
-            // kill_wifi_hotspot,
             generate_qr_code,
             get_ip_address,
             get_system_information,
@@ -104,9 +83,6 @@ fn main() -> Result<(), tauri::Error> {
             is_connected_to_wifi,
             update_settings,
             read_dir,
-            // scan_wifi // download_file, TODO: implement file transfering between peers
         ])
         .run(tauri::generate_context!())
-
-    // Ok(())
 }
