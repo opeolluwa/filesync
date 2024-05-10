@@ -4,6 +4,7 @@ interface SettingsInterface {
   text: string;
   action?: () => void;
   withStyle?: string;
+  alternateIcon:any,
 }
 export { SettingsTab };
 export type { SettingsInterface };
