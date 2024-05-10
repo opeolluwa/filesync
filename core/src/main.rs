@@ -3,23 +3,22 @@
 
 extern crate uptime_lib;
 
-use crate::ipc::fs_api::get_transfer_history;
-use crate::ipc::fs_api::read_dir;
-use crate::ipc::settings::{get_settings, update_settings};
-use crate::ipc::utils::{
+use crate::ipc_manager::fs_api::get_transfer_history;
+use crate::ipc_manager::fs_api::read_dir;
+use crate::ipc_manager::settings::{get_application_data, get_settings, update_settings};
+use crate::ipc_manager::utils::{
     generate_qr_code, get_ip_address, get_system_information, is_connected_to_wifi,
 };
 use lazy_static::lazy_static;
 use server::http_server;
 
-mod app_state;
 mod database;
 mod file_manager;
-mod ipc;
-mod server;
-mod utils;
-
+mod ipc_manager;
 mod network_manager;
+mod server;
+mod state_manager;
+mod utils;
 
 lazy_static! {
     /**
@@ -65,12 +64,13 @@ lazy_static! {
  * thus the app was moved to run in separate thread
  */
 fn main() -> Result<(), tauri::Error> {
-    let state = app_state::State {
+    let state = state_manager::State {
         ..Default::default()
     };
 
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(http_server::core_server());
+
     // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
         .manage(state)
@@ -83,6 +83,7 @@ fn main() -> Result<(), tauri::Error> {
             is_connected_to_wifi,
             update_settings,
             read_dir,
+            get_application_data,
         ])
         .run(tauri::generate_context!())
 }

@@ -2,7 +2,7 @@ use std::path::PathBuf;
 use std::net::Ipv4Addr;
 
 use crate::{
-    fs::file::{get_files_in_directory, File},
+    file_manager::file::{get_files_in_directory, File},
     utils::{ApiResponse, CommandData},
 };
 use dirs;
@@ -11,7 +11,6 @@ use serde_json::{json, Value};
 use ts_rs::TS;
 
 use crate::database::{self, TransferHistory, TransferHistoryBuilder};
-// use crate::fs::search::search_files;
 use crate::network_manager::ip_manager;
 use tokio::io::AsyncReadExt;
 
@@ -73,6 +72,9 @@ impl Dir {
         }
     }
 }
+
+
+
 /// read directory
 #[tauri::command]
 pub async fn read_dir(path: &str) -> ApiResponse<Vec<File>, ()> {
@@ -93,20 +95,6 @@ pub async fn read_dir(path: &str) -> ApiResponse<Vec<File>, ()> {
     Ok(CommandData::ok("Successfully fetch the data", entries))
 }
 
-// #[tauri::command]
-// pub fn search_home_dir(pattern: &str) -> Result<CommandData<Vec<File>>, CommandData<()>> {
-//     let home_dir = dirs::home_dir();
-//     let Some(home_dir) = home_dir else {
-//         return Err(CommandData::err("error getting the home dir", ()));
-//     };
-
-//     let entries = search_files(pattern, &home_dir);
-
-//     Ok(CommandData::ok(
-//         "searched all files in home directory",
-//         entries,
-//     ))
-// }
 
 // send file from this server to another
 // accept path to file as argument
@@ -114,7 +102,7 @@ pub async fn read_dir(path: &str) -> ApiResponse<Vec<File>, ()> {
 // use streams to upload
 // the server id is the port on which the peer node run eg -> 23345
 #[tauri::command(async)]
-pub async fn share_file_with_peer(
+pub async fn _share_file_with_peer(
     file_path: String,
     server_id: u16,
 ) -> Result<CommandData<Value>, CommandData<()>> {
@@ -209,7 +197,7 @@ pub async fn _save_file_transfer(
 
 // save file transfer history
 #[tauri::command(async)]
-pub async fn persist_transfer_history(
+pub async fn _persist_transfer_history(
     file: TransferHistoryBuilder,
 ) -> Result<CommandData<TransferHistory>, CommandData<()>> {
     // save the file data in the database
