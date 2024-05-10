@@ -6,7 +6,7 @@ use axum::{
 };
 
 use super::routes::{
-    accept_file_upload, download_file, file_upload_form_new, get_file, health_check, ping_server,
+    accept_file_upload, download_file, file_upload_form, get_file, health_check, ping_server,
     system_information,
 };
 
@@ -16,7 +16,7 @@ pub fn app() -> Router {
         .route("/", get(ping_server))
         .route(
             "/upload",
-            post(accept_file_upload).get(file_upload_form_new),
+            post(accept_file_upload).get(file_upload_form),
         )
         .route("/health", post(accept_file_upload).get(health_check))
         .route("/api/sys-info", get(system_information))
