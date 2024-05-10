@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SettingsInterface } from ".";
 
 export default function SettingsTab({
@@ -5,16 +6,24 @@ export default function SettingsTab({
   text,
   action,
   withStyle,
+  alternateIcon
 }: SettingsInterface) {
+  const [currentIcon, setIcon] = useState(icon);
+
+  
   return (
     <div
       onClick={action}
+      onBlur={() => setIcon(icon)}
+      onMouseEnter={() => setIcon(alternateIcon)}
+      // onClick={() => setIcon(alternateIcon)}
+      onMouseLeave={() => setIcon(icon)}
       className={
-        "flex items-center gap-4 ease-in-out  hover:text-app capitalie py-4 px-1 lg:pl-2 first:mt-4 last:border-none last:mb-4 text-gray-500 cursor-pointer dark:border-b dark:border-1 dark:border-dark-800 " +
+        "flex items-center gap-4 ease-in-out py-4 first:mt-4 last:border-none last:mb-4 text-gray-500 cursor-pointer  pl-4  hover:text-app  hover:bg-app-50  rounded-xl" + " "+
         withStyle
       }
     >
-      {icon} {text}
+      {currentIcon} {text}
     </div>
   );
 }

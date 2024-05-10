@@ -17,7 +17,8 @@
     "paths": {
       "@/*": ["./src/*"],
       "@public/*": ["./public/*"],
-      "@binding/*": ["../core/bindings/*"]
+      "@binding/*": ["../core/bindings/*"],
+      "@mobile":["./mobile/*"],
     }
   },
   "include": [
@@ -27,5 +28,5 @@
     "src/components/DropZone.jsx",
     "../core/bindings/**/*.ts"
   ],
-  "exclude": ["node_modules", "browser"]
+  "exclude": ["node_modules", "browser", "mobile"]
 }

@@ -22,9 +22,7 @@ export default function HistoryPage() {
   }, []);
 
   // typecast the response into AppData type
-  const fetchedData = data as unknown as CommandData<
-    Array<TransferHistory>
-  >;
+  const fetchedData = data as unknown as CommandData<Array<TransferHistory>>;
   if (isLoading) {
     return (
       <>
@@ -40,8 +38,7 @@ export default function HistoryPage() {
   return (
     <>
       <PageLayout pageTitle={"Transfer History"} includeSearchBar={false}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. At obcaecati non voluptate rem exercitationem provident perferendis omnis nesciunt, aut voluptas vero similique in, aspernatur asperiores error nostrum, harum et neque!
-        {/* <div className="flex flex-wrap  flex-grow gap-10 justify-start my-1 first:my-1 last:mb-8">
+        <div className="justify-start my-1 first:my-1 last:mb-8">
           {fetchedData?.data?.map((history, index) => (
             <FileHistory
               key={index}
@@ -53,7 +50,7 @@ export default function HistoryPage() {
               recipient={history.recipient}
             />
           ))}
-        </div> */}
+        </div>
       </PageLayout>
     </>
   );

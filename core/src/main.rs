@@ -3,40 +3,22 @@
 
 extern crate uptime_lib;
 
-use crate::api::fs_api::get_transfer_history;
-/**
- * the application is structured thus
- * src
- * __api
- * __server
- * __fs
- * ...
- */
-use crate::api::fs_api::read_dir;
-// Import individual items from crate::api::settings
-use crate::api::settings::{get_settings, update_settings};
-
-// Import individual items from crate::api::utils
-use crate::api::utils::{
+use crate::ipc_manager::fs_api::get_transfer_history;
+use crate::ipc_manager::fs_api::read_dir;
+use crate::ipc_manager::settings::{get_application_data, get_settings, update_settings};
+use crate::ipc_manager::utils::{
     generate_qr_code, get_ip_address, get_system_information, is_connected_to_wifi,
 };
-
-// Import individual items from crate::api::wifi
-use crate::api::wifi::{create_wifi_hotspot, kill_wifi_hotspot, scan_wifi};
-
-// Import lazy_static crate
 use lazy_static::lazy_static;
-
-// Import http_server from server module
 use server::http_server;
 
-mod api;
-mod app_state;
 mod database;
-mod fs;
+mod file_manager;
+mod ipc_manager;
+mod network_manager;
 mod server;
+mod state_manager;
 mod utils;
-mod wifi;
 
 lazy_static! {
     /**
@@ -82,18 +64,17 @@ lazy_static! {
  * thus the app was moved to run in separate thread
  */
 fn main() -> Result<(), tauri::Error> {
-    let state = app_state::State {
+    let state = state_manager::State {
         ..Default::default()
     };
 
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(http_server::core_server());
+
     // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
         .manage(state)
         .invoke_handler(tauri::generate_handler![
-            create_wifi_hotspot,
-            kill_wifi_hotspot,
             generate_qr_code,
             get_ip_address,
             get_system_information,
@@ -102,9 +83,7 @@ fn main() -> Result<(), tauri::Error> {
             is_connected_to_wifi,
             update_settings,
             read_dir,
-            scan_wifi // download_file, TODO: implement file transfering between peers
+            get_application_data,
         ])
         .run(tauri::generate_context!())
-
-    // Ok(())
 }

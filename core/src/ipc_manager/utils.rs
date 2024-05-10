@@ -3,7 +3,7 @@ use local_ip_address::local_ip;
 
 use crate::{
     utils::{system_info::SystemInformation, CommandData},
-    wifi::ip_manager,
+    network_manager::ip_manager,
     SERVER_PORT,
 };
 
