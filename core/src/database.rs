@@ -8,6 +8,7 @@ use sqlx::{
 };
 use ts_rs::TS;
 use uuid::Uuid;
+
 pub struct Database;
 #[allow(unused)]
 
@@ -31,7 +32,7 @@ impl Database {
         /* create the settings table,  the table will contain user preference and settings */
         //TODO:  add device name , device_name VARCHAR
         let settings_table =
-            "CREATE TABLE IF NOT EXISTS settings ( id INTEGER PRIMARY KEY DEFAULT 1, language VARCHAR, theme VARCHAR)";
+            "CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY DEFAULT 1, language VARCHAR, theme VARCHAR)";
 
         let db = SqlitePool::connect(&DB_URL).await.unwrap();
         let _ = sqlx::query(file_history_table).execute(&db).await.unwrap();

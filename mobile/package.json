@@ -1,35 +1,42 @@
 {
-  "name": "filesync-mobile",
-  "version": "1.0.0",
-  "main": "node_modules/expo/AppEntry.js",
+  "name": "mobile",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "cap": "capacitor",
+    "android": "yarn cap run android"
   },
   "dependencies": {
-    "@dr.pogodin/react-native-static-server": "^0.15.0",
-    "@eva-design/eva": "^2.2.0",
-    "@react-navigation/bottom-tabs": "^6.5.20",
+    "@capacitor/android": "^6.0.0",
+    "@capacitor/cli": "^6.0.0",
+    "@capacitor/core": "^6.0.0",
+    "@capacitor/ios": "^6.0.0",
+    "@heroicons/react": "^2.1.3",
     "@tailwindcss/forms": "^0.5.7",
-    "@ui-kitten/components": "^5.3.1",
-    "expo": "~50.0.17",
-    "expo-camera": "~14.1.3",
-    "expo-font": "~11.10.3",
-    "expo-status-bar": "~1.11.1",
-    "nativewind": "^2.0.11",
-    "react": "18.2.0",
-    "react-native": "0.73.6",
-    "react-native-progress": "^5.0.1",
-    "react-native-svg": "14.1.0"
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "remixicon": "^4.2.0",
+    "styled-jsx": "^5.1.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@types/styled-jsx": "^3.4.4",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
     "postcss": "^8.4.38",
-    "react-native-svg-transformer": "^1.3.0",
-    "tailwindcss": "^3.4.3"
-  },
-  "private": true
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.2.2",
+    "vite": "^5.2.0"
+  }
 }
