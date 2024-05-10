@@ -21,8 +21,8 @@ use crate::api::utils::{
     generate_qr_code, get_ip_address, get_system_information, is_connected_to_wifi,
 };
 
-// Import individual items from crate::api::wifi
-use crate::api::wifi::{create_wifi_hotspot, kill_wifi_hotspot, scan_wifi};
+//TODO: Import individual items from crate::api::wifi
+// use crate::api::wifi::{create_wifi_hotspot, kill_wifi_hotspot};
 
 // Import lazy_static crate
 use lazy_static::lazy_static;
@@ -36,7 +36,8 @@ mod database;
 mod fs;
 mod server;
 mod utils;
-mod wifi;
+
+mod network_manager;
 
 lazy_static! {
     /**
@@ -92,8 +93,9 @@ fn main() -> Result<(), tauri::Error> {
     tauri::Builder::default()
         .manage(state)
         .invoke_handler(tauri::generate_handler![
-            create_wifi_hotspot,
-            kill_wifi_hotspot,
+            //TODO: Rebind to conditional network modules
+            // create_wifi_hotspot,
+            // kill_wifi_hotspot,
             generate_qr_code,
             get_ip_address,
             get_system_information,
@@ -102,7 +104,7 @@ fn main() -> Result<(), tauri::Error> {
             is_connected_to_wifi,
             update_settings,
             read_dir,
-            scan_wifi // download_file, TODO: implement file transfering between peers
+            // scan_wifi // download_file, TODO: implement file transfering between peers
         ])
         .run(tauri::generate_context!())
 

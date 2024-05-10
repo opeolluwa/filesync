@@ -12,7 +12,7 @@ use ts_rs::TS;
 
 use crate::database::{self, TransferHistory, TransferHistoryBuilder};
 // use crate::fs::search::search_files;
-use crate::wifi::ip_manager;
+use crate::network_manager::ip_manager;
 use tokio::io::AsyncReadExt;
 
 /// the dir enum, reads, $HOME, $PICTURES, $VIDEOS, $DOCUMENTS, $DOWNLOADS, and // Other

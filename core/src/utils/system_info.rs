@@ -11,7 +11,7 @@ use sys_info;
 use sysinfo::{DiskExt, System, SystemExt};
 use ts_rs::TS;
 
-use crate::wifi::ip_manager;
+use crate::network_manager::ip_manager;
 use crate::SERVER_PORT;
 
 use super::fs::compute_file_size;
