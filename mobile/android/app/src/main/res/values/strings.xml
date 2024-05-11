@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">filesync</string>
-    <string name="title_activity_main">filesync</string>
-    <string name="package_name">com.filsync.app</string>
-    <string name="custom_url_scheme">com.filsync.app</string>
-</resources>

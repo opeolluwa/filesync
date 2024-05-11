@@ -2,7 +2,7 @@
 
 _⚠️ the application is still a work in progress, hence, Some features are missing. Please see the [issues](https://github.com/opeolluwa/send-file/issues) page to contribute_
 
-![screenshot](./filesync.png)
+![screenshot](./screenshots/filesync.png)
 
 ## Table of Contents
 
@@ -16,7 +16,7 @@ _⚠️ the application is still a work in progress, hence, Some features are mi
 
 ## Description
 
-FIleSync is an wifi file-sharing application designed for Windows, Mac, and Linux operating systems. It allows users to transfer files seamlessly between PCs over WiFi without an internet connection.
+FIleSync is a wifi file-sharing application designed for Windows, Mac, and Linux operating systems. It allows users to transfer files seamlessly between PCs over WiFi without an internet connection.
 
 ## Getting Started
 
@@ -51,6 +51,7 @@ WiShare is built primarily on the following technologies
 - [Typescript](https://typescript-lang.org) - A strongly-typed programming language that builds on JavaScript
 
 - [TailwindCSS](https://tailwindcss.com) - A utility-first CSS framework
+- [Capacitor](https://capacitorjs.com/) - Build cross-platform mobile application apps 
 
 ## Features
 
@@ -59,7 +60,7 @@ WiShare is built primarily on the following technologies
 - [x] build an executable for the Linux Operating system
 - [x] build an executable for Window
 - [ ] create a wifi hotspot
-- [ ] support mobile devices
+- [x] support mobile devices
 - [ ] support dark mode
 - [ ] add walkthrough after installation
 

@@ -1,22 +1,34 @@
 install-toolchain:
-	npm install -g yarn 
-	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
-#install the system depencies 
+	sh ./scripts/install-toolchain
+
+
+#install the application dependencies 
 install-deps:
-	yarn install
-	cd core && cargo build
+	@echo "Installing dependencies"
+	@cd desktop && yarn install
+	@cd mobile && yarn install
+
+
 # run the dev server 
-desktop: 
-	yarn tauri dev
+run-desktop: 
+	cd desktop && yarn tauri dev
+
+
 # build the binary for the current OS
 build:
 	yarn tauri build
 
 ## run the android in expo
 run-mobile: 
-	cd mobile && yarn start
+	cd mobile && yarn dev --host
+
 
 # run the android in emulator 
 android:
 	cd mobile && yarn android
 
+
+# run all apps
+start:
+	make run-mobile 
+	make run-desktop
