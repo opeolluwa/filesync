@@ -1,12 +1,6 @@
 import { IonContent, IonPage } from "@ionic/react";
-import Card from "../components/Card";
-import Heading from "../components/Heading";
-import View from "../components/View";
-import Text from "../components/Text";
-import { File } from "../components/thumbnail/file";
+import { File } from "@/filesync/types/File";
 import Thumbnail from "../components/thumbnail";
-import Button from "../components/Button";
-import SearchBar from "../components/Search";
 import ExploreContainer from "../components/ExploreContainer";
 
 // ranon files with name, size, date and type which is either send or receive
@@ -71,8 +65,8 @@ const files: File[] = [
 const Home: React.FC = () => {
   return (
     <IonPage className="page">
-      <IonContent fullscreen class="bg-accent">         
-        <ExploreContainer name={"Home Page"}/>
+      <IonContent fullscreen class="bg-accent">
+        <ExploreContainer name={"Home Page"} />
       </IonContent>
     </IonPage>
   );

@@ -1,11 +1,21 @@
 import { IonContent, IonPage } from "@ionic/react";
-import Heading from "../components/Heading";
-import Text from "../components/Text";
-import Card from "../components/Card";
-import View from "../components/View";
-import Button from "../components/Button";
-import ExploreContainer from "../components/ExploreContainer";
+import { Barcode, BarcodeScanner } from "@capacitor-mlkit/barcode-scanning";
+import { useEffect, useState } from "react";
+import { Button, View, Text, Heading }  from "../../../components";
+
+
 const History: React.FC = () => {
+  const [cameraPermission, setCameraPermission] = useState<boolean>(false);
+
+  useEffect(() => {
+    const exec = () => {
+      BarcodeScanner.requestPermissions().then((res) => {
+        const { camera } = res;
+        setCameraPermission(camera === "granted" || camera === "limited");
+      });
+    };
+    exec();
+  }, []);
   return (
     <IonPage className="page">
       <IonContent fullscreen class="bg-accent">

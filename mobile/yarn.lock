@@ -975,6 +975,11 @@
     "@babel/helper-validator-identifier" "^7.24.5"
     to-fast-properties "^2.0.0"
 
+"@capacitor-mlkit/barcode-scanning@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@capacitor-mlkit/barcode-scanning/-/barcode-scanning-6.1.0.tgz#cd5c6b51a96dedb30a87f10b12c04cf04ad7f9ed"
+  integrity sha512-jQWPv5AOprmomgDx2IMmOq1iV2J3xpSIN7oUL9nJzPB0iNhWLm0u5NP+MckRPvTVmyFCsDhZjXeAycRPW92suA==
+
 "@capacitor/android@^6.0.0":
   version "6.0.0"
   resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-6.0.0.tgz#eb24c64a5c6821fbbb8db48eedf50eca18876318"
