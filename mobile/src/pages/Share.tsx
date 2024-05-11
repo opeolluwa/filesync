@@ -1,13 +1,12 @@
-import { IonContent, IonPage } from "@ionic/react";
-import Thumbnail from "../components/thumbnail";
-import { File } from "@filesync/types/File";
-import { Card, Heading, View } from "@filesync/components";
+import { Heading, Text, View } from "@filesync/components";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
-import { useContext } from "react";
+import { IonContent, IonPage } from "@ionic/react";
 import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
+import { useContext } from "react";
 import { BASE_URL, SystemInformationContext } from "../store/global";
-
+import { IonFab, IonFabButton, IonIcon } from "@ionic/react";
+import { add, paperPlane } from "ionicons/icons";
 
 export enum FileTransferStatus {
   DOWNLOADING = "downloading",
@@ -20,7 +19,7 @@ export enum FileTransferStatus {
 
 const Share: React.FC = () => {
   const { Dragger } = Upload;
-//   const { onUpdate } = useContext(FileContext);
+  //   const { onUpdate } = useContext(FileContext);
   const { serverBaseUrl } = useContext(SystemInformationContext);
   const serverAddress = BASE_URL + "/upload";
 
@@ -55,7 +54,9 @@ const Share: React.FC = () => {
         // console.log(JSON.stringify(data));
       } else if (status === FileTransferStatus.ERROR) {
         message.error(
-          `${info.file.name} file upload failed. due to ${JSON.stringify(info.file.error)}`
+          `${info.file.name} file upload failed. due to ${JSON.stringify(
+            info.file.error
+          )}`
         );
       }
     },
@@ -68,26 +69,24 @@ const Share: React.FC = () => {
     <>
       <IonPage id="main-content" className="bg-accent">
         <IonContent className="ion-padding">
-          <Dragger className="h-[300px]   block" {...props}>
-            <CloudArrowUpIcon className="text-app-300  text-center small w-20 mx-auto" />
-            <p className="text-gray-400 leading-2">
-              Drop files here to share or click to browse
-            </p>
-          </Dragger>
+          <View className="h-full w-full flex flex-col justify-center items-center">
+            <Heading className="text-center text-2xl">Share Files</Heading>
+            <Text className="text-gray-400 leading-5">
+              Share files with other devices
+            </Text>
+            <Dragger className="h-[300px]   block mt-2" {...props}>
+              <CloudArrowUpIcon className="text-app-300  text-center small w-20 mx-auto" />
+              <p className="text-gray-400 leading-2">
+                Drop files here to share or click to browse
+              </p>
+            </Dragger>
+          </View>
 
-
-
-          <Card className="flex gap-4 mt-6 hidden">
-            <Card className="w-1/2 rounded-lg bg-app h-[50px] text-white flex gap-2 items-center justify-start">
-              <i className="ri-send-plane-line text-2xl text-white bg-app p-2 rounded-full"></i>
-              <Heading context="Send" className="text-white" />
-            </Card>
-
-            <Card className="w-1/2 rounded-lg bg-app h-[50px] text-white flex gap-2 items-center justify-start">
-              <i className="ri-download-cloud-line text-2xl text-white bg-app p-2 rounded-full"></i>
-              <Heading context="Receive" className="text-white" />
-            </Card>
-          </Card>
+          <IonFab vertical="bottom" horizontal="end" className="mr-8 mb-4">
+            <IonFabButton>
+              <IonIcon icon={paperPlane}></IonIcon>
+            </IonFabButton>
+          </IonFab>
         </IonContent>
       </IonPage>
     </>
