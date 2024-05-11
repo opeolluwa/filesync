@@ -43,7 +43,7 @@ const Home: React.FC = () => {
           // Close the barcode scanner
           setCameraOpen(false);
           // go to the share page
-          history.push("/share?ip=" + result.barcode.rawValue);
+          history.push("/share?ip=" + ipAddress);
         }
       }
     );

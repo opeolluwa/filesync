@@ -27,6 +27,7 @@
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
     "@yudiel/react-qr-scanner": "^2.0.0-beta.3",
+    "antd": "^5.17.0",
     "instascan-umd": "^1.0.1",
     "ionicons": "^7.0.0",
     "react": "^18.3.1",

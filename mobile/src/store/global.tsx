@@ -1,6 +1,8 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { SystemInformation as CoreSysInfo } from "@filesync/types/SystemInformation";
 import { CapacitorHttp, HttpResponse } from "@capacitor/core";
+  export const BASE_URL = "http://192.168.0.170:18005";
+
 
 export interface SystemInformation extends CoreSysInfo {
   usedDisk: string;
@@ -27,7 +29,6 @@ export default function SystemInfoStore({ children }: { children: ReactNode }) {
     {} as SystemInformation
   );
 
-  const BASE_URL = "http://192.168.0.170:18005/api/sys-info";
   // request options =
   const options = {
     url: BASE_URL,
