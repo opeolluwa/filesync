@@ -3,7 +3,7 @@ import Heading from "./src/Heading";
 import Text from "./src/Text";
 import View from "./src/View";
 import Card from "./src/Card";
-
+import SearchBar from "./src/Search";
 /**
  * https://stackoverflow.com/questions/67696920/vite-rollup-failed-to-resolve-build-error
  * resolve the import in target components tust
@@ -39,4 +39,4 @@ import Card from "./src/Card";
 *}
 */
 
-export { Button, Heading, Text, View, Card };
+export { Button, Heading, Text, View, Card, SearchBar };
