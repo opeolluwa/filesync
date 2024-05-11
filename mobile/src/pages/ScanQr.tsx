@@ -18,9 +18,6 @@ const History: React.FC = () => {
     // Stop the barcode scanner
     await BarcodeScanner.stopScan();
   };
-  // useEffect(() => {
-  //   requestCameraPermission();
-  // }, []);
 
   const scanQrCode = async () => {
     // The camera is visible behind the WebView, so that you can customize the UI in the WebView.
@@ -35,7 +32,12 @@ const History: React.FC = () => {
       async (result) => {
         if (result.barcode) {
           setIpAddress(result.barcode.rawValue);
-          closeBarcodeScanner();
+          // Remove all listeners
+          await BarcodeScanner.removeAllListeners();
+          // Stop the barcode scanner
+          await BarcodeScanner.stopScan();
+          // Close the barcode scanner
+          setCameraOpen(false);
         }
       }
     );
@@ -45,9 +47,9 @@ const History: React.FC = () => {
   };
 
   const requestCameraPermission = () => {
-    BarcodeScanner.requestPermissions().then( async (res) => {
-       const { camera } = await BarcodeScanner.requestPermissions();
-       return camera;
+    BarcodeScanner.requestPermissions().then(async (res) => {
+      const { camera } = await BarcodeScanner.requestPermissions();
+      return camera;
     });
   };
 
@@ -67,7 +69,7 @@ const History: React.FC = () => {
             </Text>
           </View>
           <View>
-            {cameraPermission}
+      
             <Button
               className="bg-app-600 text-white w-full"
               onclick={scanQrCode}
