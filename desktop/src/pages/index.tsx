@@ -75,29 +75,32 @@ export default function Main() {
   const [isLoading, setLoading] = useState(false);
   const { data: isConnectedToWifi } = useContext(WifiStatusContext);
 
-//close the application
+  //close the application
   async function close() {
     const yes = await ask(
       "Current file transfer may be lost. Do you still want to proceed?",
       { title: "Close", type: "warning" }
     );
     if (yes) {
-      await exit(1).then(()=>{
-        console.log("exited")
-      }).catch(error => {
-        console.log(error.message);
-      });
+      await exit(1)
+        .then(() => {
+          console.log("exited");
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
     }
   }
 
-  // refresh the application 
+  // refresh the application
   async function refresh() {
-    await relaunch().then(()=>{
-      console.log("refreshed")
-    }).catch(error => {
-      console.log(error.message);
-
-    });
+    await relaunch()
+      .then(() => {
+        console.log("refreshed");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   }
 
   useEffect(() => {
@@ -140,10 +143,16 @@ export default function Main() {
             WiFi network
           </p>
           <div className="flex gap-5">
-            <button className=" bg-app text-white px-4 py-1 rounded w-24 " onClick={refresh}>
+            <button
+              className=" bg-app text-white px-4 py-1 rounded w-24 "
+              onClick={refresh}
+            >
               Refresh
             </button>
-            <button className=" px-4 py-1 border-2 text-gray-400 border-gray-400 rounded w-24" onClick={close}>
+            <button
+              className=" px-4 py-1 border-2 text-gray-400 border-gray-400 rounded w-24"
+              onClick={close}
+            >
               Exit
             </button>
           </div>

@@ -60,10 +60,7 @@ export default function ShareFiles() {
   return (
     <>
       <PageLayout pageTitle={"Shared files"} includeSearchBar={false}>
-        <Dragger
-          className="lg:h-[500px] h-[400px]   block"
-          {...props}
-        >
+        <Dragger className="lg:h-[500px] h-[400px]   block" {...props}>
           <CloudArrowUpIcon className="text-app-300  text-center small w-20 mx-auto" />
           <p className="text-gray-400 leading-2">
             Drop files here to share or click to browse

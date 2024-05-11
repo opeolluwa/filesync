@@ -8,8 +8,7 @@ import { AppData } from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 import QuickAccessLayout from "@/components/layout/PageLayout";
-import {File} from "../../core/bindings/File"
-
+import { File } from "../../core/bindings/File";
 
 export default function PreviewMediaPage() {
   const [data, setData] = useState(null);
@@ -21,9 +20,7 @@ export default function PreviewMediaPage() {
   const isFolder = searchParams.get("isFolder");
   const fileType = searchParams.get("fileType");
 
- 
-
-  const openInWebView = (filePath: string|null) => {
+  const openInWebView = (filePath: string | null) => {
     console.log({ filePath });
   };
 
@@ -82,5 +79,5 @@ export default function PreviewMediaPage() {
         </div>
       </QuickAccessLayout>
     );
-  } 
+  }
 }

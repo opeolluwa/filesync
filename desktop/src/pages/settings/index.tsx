@@ -18,9 +18,8 @@ import {
   LanguageIcon as LanguageIconSolid,
   MoonIcon as MoonIconSolid,
   SwatchIcon as SwatchIconSolid,
-  UserCircleIcon  as UserCircleIconSolid,
+  UserCircleIcon as UserCircleIconSolid,
 } from "@heroicons/react/24/solid";
-
 
 import { SettingsInterface, SettingsTab } from "@/components/settings";
 import Heading from "@/components/Heading";
@@ -115,8 +114,7 @@ export default function HelpPage() {
               withStyle="lowercase"
             />
           </div>
-        </div> 
-     
+        </div>
       </PageLayout>
     </>
   );

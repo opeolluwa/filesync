@@ -7,6 +7,7 @@ install-deps:
 	@echo "Installing dependencies"
 	@cd desktop && yarn install
 	@cd mobile && yarn install
+	@cd components && yarn install
 
 
 # run the dev server 

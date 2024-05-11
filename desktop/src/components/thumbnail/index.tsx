@@ -23,7 +23,7 @@ export default function FileCard({
 
   // if it is a folder open in folder renderer
   // otherwise open in file renderer
-  let path:string;
+  let path: string;
   if (isFolder) {
     path = `/render?filePath=${filePath}&fileType=${fileFormat}&isFolder=${isFolder}`;
   } else {
@@ -44,7 +44,7 @@ export default function FileCard({
       >
         <>
           <div className="h-[600px] ">
-            <PreviewMedia fileType={fileFormat} filePath={filePath}/>
+            <PreviewMedia fileType={fileFormat} filePath={filePath} />
           </div>
         </>
       </Modal>
@@ -73,7 +73,5 @@ export default function FileCard({
     </>
   );
 }
-
-
 
 export interface FileInterface extends File {}
