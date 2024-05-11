@@ -4,7 +4,7 @@ import {
   LensFacing,
 } from "@capacitor-mlkit/barcode-scanning";
 
-const startScan = async () => {
+export const startScan = async () => {
   // The camera is visible behind the WebView, so that you can customize the UI in the WebView.
   // However, this means that you have to hide all elements that should not be visible.
   // You can find an example in our demo repository.
@@ -17,10 +17,17 @@ const startScan = async () => {
     async (result) => {
       console.log(result.barcode);
     }
-  );
+  ).catch((error) => {
+    alert(error);
+  });
 
+  checkPermissions().then((res) => {
+    alert(res);
+  }
+  ); 
   // Start the barcode scanner
   await BarcodeScanner.startScan();
+
 };
 
 const stopScan = async () => {

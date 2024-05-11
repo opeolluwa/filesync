@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     namespace "io.ionic.starter"
+    buildFeatures {
+       dataBinding true
+    }
+    dataBinding {
+        enabled = true
+    }
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "io.ionic.starter"

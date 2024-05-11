@@ -9,3 +9,19 @@
     @apply font-sans;
     /* @apply bg-accent; */
 }
+
+
+
+/**
+  * Barcode Scanning
+  * -------------------------------------------
+  */
+body.barcode-scanning-active {
+    visibility: hidden;
+    --background: transparent;
+    --ion-background-color: transparent;
+}
+
+.barcode-scanning-modal {
+    visibility: visible;
+}
