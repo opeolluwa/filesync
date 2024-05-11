@@ -1,8 +1,8 @@
 import { IonContent, IonPage } from "@ionic/react";
 import { Barcode, BarcodeScanner } from "@capacitor-mlkit/barcode-scanning";
 import { useEffect, useState } from "react";
-import { Button, View, Text, Heading }  from "../../../components";
-
+import { Button, View, Text, Heading } from "../../../components";
+import { scanQrCode } from "./scan-qr";
 
 const History: React.FC = () => {
   const [cameraPermission, setCameraPermission] = useState<boolean>(false);
@@ -31,7 +31,10 @@ const History: React.FC = () => {
             </Text>
           </View>
           <View>
-            <Button className="bg-app text-white w-full">
+            <Button
+              className="bg-app text-white w-full"
+              onclick={async () =>  scanQrCode}
+            >
               Open Camera <i className="ri-camera-fill"></i>
             </Button>
           </View>

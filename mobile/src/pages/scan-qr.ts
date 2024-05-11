@@ -54,36 +54,36 @@ const scanSingleBarcode = async () => {
   });
 };
 
-const scan = async () => {
+export const scan = async () => {
   const { barcodes } = await BarcodeScanner.scan({
     formats: [BarcodeFormat.QrCode],
   });
   return barcodes;
 };
 
-const isSupported = async () => {
+export const isSupported = async () => {
   const { supported } = await BarcodeScanner.isSupported();
   return supported;
 };
 
-const enableTorch = async () => {
+export const enableTorch = async () => {
   await BarcodeScanner.enableTorch();
 };
 
-const disableTorch = async () => {
+export const disableTorch = async () => {
   await BarcodeScanner.disableTorch();
 };
 
-const toggleTorch = async () => {
+export const toggleTorch = async () => {
   await BarcodeScanner.toggleTorch();
 };
 
-const isTorchEnabled = async () => {
+export const isTorchEnabled = async () => {
   const { enabled } = await BarcodeScanner.isTorchEnabled();
   return enabled;
 };
 
-const isTorchAvailable = async () => {
+export const isTorchAvailable = async () => {
   const { available } = await BarcodeScanner.isTorchAvailable();
   return available;
 };
@@ -121,12 +121,18 @@ const installGoogleBarcodeScannerModule = async () => {
   await BarcodeScanner.installGoogleBarcodeScannerModule();
 };
 
-const checkPermissions = async () => {
+export const checkPermissions = async () => {
   const { camera } = await BarcodeScanner.checkPermissions();
   return camera;
 };
 
-const requestPermissions = async () => {
+export const requestPermissions = async () => {
   const { camera } = await BarcodeScanner.requestPermissions();
   return camera;
+};
+
+export const scanQrCode = async () => {
+  const cameraPermission = await requestPermissions();
+  alert(cameraPermission)
+  await scan()
 };
