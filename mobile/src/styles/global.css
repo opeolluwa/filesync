@@ -11,17 +11,6 @@
 }
 
 
-
-/**
-  * Barcode Scanning
-  * -------------------------------------------
-  */
-body.barcode-scanning-active {
-    visibility: hidden;
-    --background: transparent;
-    --ion-background-color: transparent;
-}
-
-.barcode-scanning-modal {
-    visibility: visible;
-}
+/* body {
+    @apply bg-gray-600;
+} */

@@ -7,7 +7,7 @@ interface Props {
 
 export default function Button({ children, className, onclick }: Props) {
   return (
-    <button className={"rounded px-4 py-3 " + className} onClick={onclick}>
+    <button className={"rounded px-4 py-3  " + className} onClick={onclick}>
       {children}
     </button>
   );

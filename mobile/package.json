@@ -11,7 +11,7 @@
     "test.unit": "vitest",
     "cap": "capacitor",
     "lint": "eslint",
-    "sync":"yarn build && yarn cap sync"
+    "sync": "yarn build && yarn cap sync"
   },
   "dependencies": {
     "@capacitor-mlkit/barcode-scanning": "^6.1.0",

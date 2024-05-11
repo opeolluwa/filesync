@@ -1,12 +1,16 @@
 import { IonContent, IonPage } from "@ionic/react";
 import { Barcode, BarcodeScanner } from "@capacitor-mlkit/barcode-scanning";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button, View, Text, Heading } from "../../../components";
+import { SystemInformationContext } from "../store/global";
+import { useHistory } from "react-router-dom";
 
 const History: React.FC = () => {
   const [cameraPermission, setCameraPermission] = useState<boolean>(false);
   const [cameraIsOpen, setCameraOpen] = useState<boolean>(false);
   const [ipAddress, setIpAddress] = useState<string>("");
+  const history = useHistory();
+
 
   const closeBarcodeScanner = async () => {
     setCameraOpen(false);
@@ -38,6 +42,8 @@ const History: React.FC = () => {
           await BarcodeScanner.stopScan();
           // Close the barcode scanner
           setCameraOpen(false);
+          // go to the share page
+          history.push("/home");
         }
       }
     );
@@ -69,7 +75,6 @@ const History: React.FC = () => {
             </Text>
           </View>
           <View>
-      
             <Button
               className="bg-app-600 text-white w-full"
               onclick={scanQrCode}
@@ -77,8 +82,6 @@ const History: React.FC = () => {
               Open Camera <i className="ri-camera-fill"></i>
             </Button>
           </View>
-          <View>the ipaddress is {ipAddress}</View>
-          <View className="barcode-scanner-active"></View>
         </View>
       </IonContent>
     </IonPage>
