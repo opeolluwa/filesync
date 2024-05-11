@@ -16,12 +16,10 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "paths": {
-      "@/filesync/types/*": ["../desktop/core/bindings/*"],
-      "@/filesync/components/*": ["./../components/src/*"]
+      "@filesync/types/*": ["../desktop/core/bindings/*"],
+      "@filesync/components": ["../components"]
     }
   },
   "include": ["src", "../components/*", "../core/*"],
-  "references": [
-    { "path": "./tsconfig.node.json" }
-  ]
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

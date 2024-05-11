@@ -1,8 +1,8 @@
 import { IonContent, IonPage } from "@ionic/react";
 import Thumbnail from "../components/thumbnail";
-import { File } from "@/filesync/types/File";
-// import { Card, Heading, View } from "@/filesync/components";
-import { Card, Heading, View } from "../../../components";
+import { File } from "@filesync/types/File";
+import { Card, Heading, View } from "@filesync/components";
+
 
 // ranon files with name, size, date and type which is either send or receive
 const files: File[] = [

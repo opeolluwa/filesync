@@ -1,5 +1,5 @@
 import { IonContent, IonPage } from "@ionic/react";
-import { File } from "@/filesync/types/File";
+import { File } from "@filesync/types/File";
 import Thumbnail from "../components/thumbnail";
 import ExploreContainer from "../components/ExploreContainer";
 
