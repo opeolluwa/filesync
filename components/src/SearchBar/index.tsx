@@ -30,7 +30,7 @@ export default function SearchBar({ onSearch, placeholder }: Props) {
         search files
       </label>
       <input
-        className="px-4 py-4 rounded-md block w-full border-gray-400 dark:border-transparent bg-app-50  hover:border-none  border-none shadow-md"
+        className="px-4 py-4 rounded-md block w-full border-gray-400 dark:border-transparent bg-[#fafbfd] hover:border-none  border-none shadow-md"
         type="text"
         placeholder={placeholder || "search"}
         value={city}

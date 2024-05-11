@@ -14,8 +14,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "paths": {
+      "@filesync/types/*": ["../desktop/core/bindings/*"],
+      "@filesync/components": ["../components"]
+    }
   },
-  "include": ["src"],
+  "include": ["src", "../components/*", "../core/*"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

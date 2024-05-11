@@ -1,3 +1,4 @@
+import React from "react";
 interface CardProps {
   style?: React.CSSProperties;
   children?: React.ReactNode;

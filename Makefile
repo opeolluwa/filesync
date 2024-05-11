@@ -21,7 +21,7 @@ build:
 
 ## run the android in expo
 run-mobile: 
-	cd mobile && yarn dev --host
+	@cd mobile && yarn dev --host
 
 
 # run the android in emulator 

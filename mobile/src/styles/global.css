@@ -9,3 +9,8 @@
     @apply font-sans;
     /* @apply bg-accent; */
 }
+
+
+/* body {
+    @apply bg-gray-600;
+} */

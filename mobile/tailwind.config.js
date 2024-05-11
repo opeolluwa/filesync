@@ -4,7 +4,11 @@ const colors = require("tailwindcss/colors");
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+    "../components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     colors: {
       transparent: "transparent",
@@ -18,7 +22,7 @@ module.exports = {
       dark: colors.neutral,
       red: colors.red,
       // accent: "rgba(226,233,252,255)",
-      accent:"#f5f5f5",
+      accent: "#f5f5f5",
       app: {
         DEFAULT: "#3074F5",
         50: "#DFEAFD",

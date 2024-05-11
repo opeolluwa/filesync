@@ -61,53 +61,55 @@ import "./styles/global.css";
 
 import "remixicon/fonts/remixicon.css";
 import TransferHistory from "./pages/TransferHistory";
+import Share from "./pages/Share";
+import SystemInfoStore from "./store/global";
 
 setupIonicReact();
 
 const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonTabs>
-        <IonRouterOutlet>
-          <Route exact path="/home">
-            <Home />
-          </Route>
-          <Route exact path="/scan-qr">
-            <History />
-          </Route>
-          <Route path="/settings">
-            <Settings />
-          </Route>
-          <Route path="/transfer-history">
-            <TransferHistory />
-          </Route>
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
-        </IonRouterOutlet>
-        <IonTabBar slot="bottom">
-          <IonTabButton tab="Home" href="/home">
-            <IonIcon aria-hidden="true" icon={home} />
-            <IonLabel>Home</IonLabel>
-          </IonTabButton>
-          <IonTabButton tab="History" href="/scan-qr">
-            <IonIcon aria-hidden="true" icon={scan} />
-            <IonLabel>Scan QR</IonLabel>
-          </IonTabButton>
+  <SystemInfoStore>
+    <IonApp>
+      <IonReactRouter>
+        <IonTabs>
+          <IonRouterOutlet>
+            <Route exact path="/home">
+              <Home />
+            </Route>
+            <Route exact path="/scan-qr">
+              <History />
+            </Route>
+            <Route path="/settings">
+              <Settings />
+            </Route>
+            <Route path="/share">
+              <Share />
+            </Route>
+            <Route path="/transfer-history">
+              <TransferHistory />
+            </Route>
+            <Route exact path="/">
+              <Redirect to="/home" />
+            </Route>
+          </IonRouterOutlet>
+          <IonTabBar slot="bottom" className="hidden">
+            <IonTabButton tab="Home" href="/home">
+              <IonIcon aria-hidden="true" icon={home} />
+              <IonLabel>Home</IonLabel>
+            </IonTabButton>
+            <IonTabButton tab="History" href="/scan-qr">
+              <IonIcon aria-hidden="true" icon={scan} />
+              <IonLabel>Scan QR</IonLabel>
+            </IonTabButton>
 
-          <IonTabButton tab="Settings" href="/transfer-history">
-            <IonIcon aria-hidden="true" icon={time} />
-            <IonLabel>History</IonLabel>
-          </IonTabButton>
-
-          {/* <IonTabButton tab="Settings" href="/settings">
-            <IonIcon aria-hidden="true" icon={settings} />
-            <IonLabel>Settings</IonLabel>
-          </IonTabButton> */}
-        </IonTabBar>
-      </IonTabs>
-    </IonReactRouter>
-  </IonApp>
+            <IonTabButton tab="Settings" href="/transfer-history">
+              <IonIcon aria-hidden="true" icon={time} />
+              <IonLabel>History</IonLabel>
+            </IonTabButton>
+          </IonTabBar>
+        </IonTabs>
+      </IonReactRouter>
+    </IonApp>
+  </SystemInfoStore>
 );
 
 export default App;

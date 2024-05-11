@@ -1,7 +1,7 @@
 // provide file and folder icon
 import { getFileIcon } from "./media-icon-maker";
 import folderIcon from "@/assets/common/folder-icon.png";
-import { IonImg } from "@ionic/react";
+
 
 export interface ThumbnailIconInterface {
   fileFormat: string;
