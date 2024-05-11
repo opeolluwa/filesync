@@ -1,16 +1,17 @@
 // render the folder icon
-import archiveIcon from "./assets/common/archived.png";
-import audioIcon from "./assets/common/audio.png";
-import csvIcon from "./assets/common/csv.png";
-import defaultIcon from "./assets/common/default.png";
-import documentIcon from "./assets/common/document.png";
-import imageIcon from "./assets/common/image.png";
-import pdfIcon from "./assets/common/pdf.png";
-import presentationIcon from "./assets/common/presentation.png";
-import svgIcon from "./assets/common/svg.png";
-import textIcon from "./assets/common/text.png";
-import videoIcon from "./assets/common/video.png";
+import archiveIcon from "./assets/archived.png";
+import audioIcon from "./assets/audio.png";
+import csvIcon from "./assets/csv.png";
+import defaultIcon from "./assets/default.png";
+import documentIcon from "./assets/document.png";
+import imageIcon from "./assets/image.png";
+import pdfIcon from "./assets/pdf.png";
+import presentationIcon from "./assets/presentation.png";
+import svgIcon from "./assets/svg.png";
+import textIcon from "./assets/text.png";
+import videoIcon from "./assets/video.png";
 import { FileType } from "./file-type";
+
 
 export function getFileIcon(fileExtension: string) {
   const imageExtensions = [
