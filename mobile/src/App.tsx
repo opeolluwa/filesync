@@ -1,4 +1,3 @@
-import { Redirect, Route } from "react-router-dom";
 import {
   IonApp,
   IonIcon,
@@ -11,20 +10,11 @@ import {
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
 import {
-  home,
-  settings,
-  time,
-  homeOutline,
-  settingsOutline,
-  timeOutline,
-  radio,
-  personCircle,
-  scan,
+  home
 } from "ionicons/icons";
+import { Redirect, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
-import History from "./pages/ScanQr";
-import Settings from "./pages/Settings";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -35,12 +25,12 @@ import "@ionic/react/css/structure.css";
 import "@ionic/react/css/typography.css";
 
 /* Optional CSS utils that can be commented out */
-import "@ionic/react/css/padding.css";
+import "@ionic/react/css/display.css";
+import "@ionic/react/css/flex-utils.css";
 import "@ionic/react/css/float-elements.css";
+import "@ionic/react/css/padding.css";
 import "@ionic/react/css/text-alignment.css";
 import "@ionic/react/css/text-transformation.css";
-import "@ionic/react/css/flex-utils.css";
-import "@ionic/react/css/display.css";
 
 /**
  * Ionic Dark Mode
@@ -60,7 +50,6 @@ import "./theme/variables.css";
 import "./styles/global.css";
 
 import "remixicon/fonts/remixicon.css";
-import TransferHistory from "./pages/TransferHistory";
 import Share from "./pages/Share";
 import SystemInfoStore from "./store/global";
 
@@ -75,17 +64,12 @@ const App: React.FC = () => (
             <Route exact path="/home">
               <Home />
             </Route>
-            <Route exact path="/scan-qr">
-              <History />
-            </Route>
-            <Route path="/settings">
-              <Settings />
-            </Route>
+           
+           
             <Route path="/share">
               <Share />
             </Route>
             <Route path="/transfer-history">
-              <TransferHistory />
             </Route>
             <Route exact path="/">
               <Redirect to="/home" />
@@ -95,15 +79,6 @@ const App: React.FC = () => (
             <IonTabButton tab="Home" href="/home">
               <IonIcon aria-hidden="true" icon={home} />
               <IonLabel>Home</IonLabel>
-            </IonTabButton>
-            <IonTabButton tab="History" href="/scan-qr">
-              <IonIcon aria-hidden="true" icon={scan} />
-              <IonLabel>Scan QR</IonLabel>
-            </IonTabButton>
-
-            <IonTabButton tab="Settings" href="/transfer-history">
-              <IonIcon aria-hidden="true" icon={time} />
-              <IonLabel>History</IonLabel>
             </IonTabButton>
           </IonTabBar>
         </IonTabs>
