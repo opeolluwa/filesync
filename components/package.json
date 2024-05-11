@@ -1,0 +1,22 @@
+{
+  "name": "filesync-components",
+  "version": "1.0.0",
+  "description": "FileSync Share UI components",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "mobil3",
+    "desktop",
+    "wifi",
+    "react",
+    "tailwind",
+    "wifidirect"
+  ],
+  "author": "adeoye adefemi <adefemiadeoye@yahoo.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "react": "^18.3.1"
+  }
+}

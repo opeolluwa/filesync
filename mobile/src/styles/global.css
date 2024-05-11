@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+.page {
+    @apply py-6 px-8;
+    @apply font-sans;
+    /* @apply bg-accent; */
+}

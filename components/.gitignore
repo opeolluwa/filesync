@@ -128,12 +128,3 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-
-filesync 
-
-
-*/node_modules
-**/node_modules
-
-*/target 
-
