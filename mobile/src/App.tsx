@@ -9,9 +9,7 @@ import {
   setupIonicReact,
 } from "@ionic/react";
 import { IonReactRouter } from "@ionic/react-router";
-import {
-  home
-} from "ionicons/icons";
+import { home } from "ionicons/icons";
 import { Redirect, Route } from "react-router-dom";
 
 import Home from "./pages/Home";
@@ -51,12 +49,11 @@ import "./styles/global.css";
 
 import "remixicon/fonts/remixicon.css";
 import Share from "./pages/Share";
-import SystemInfoStore from "./store/global";
+import SystemInfoStore from "./store/app";
 
 setupIonicReact();
 
 const App: React.FC = () => (
-  <SystemInfoStore>
     <IonApp>
       <IonReactRouter>
         <IonTabs>
@@ -64,13 +61,11 @@ const App: React.FC = () => (
             <Route exact path="/home">
               <Home />
             </Route>
-           
-           
+
             <Route path="/share">
               <Share />
             </Route>
-            <Route path="/transfer-history">
-            </Route>
+            <Route path="/transfer-history"></Route>
             <Route exact path="/">
               <Redirect to="/home" />
             </Route>
@@ -84,7 +79,6 @@ const App: React.FC = () => (
         </IonTabs>
       </IonReactRouter>
     </IonApp>
-  </SystemInfoStore>
 );
 
 export default App;

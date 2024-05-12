@@ -1,34 +1,63 @@
+import { BarcodeScanner } from "@capacitor-mlkit/barcode-scanning";
 import { IonContent, IonPage } from "@ionic/react";
-import { Barcode, BarcodeScanner } from "@capacitor-mlkit/barcode-scanning";
 import { useContext, useEffect, useState } from "react";
-import { Button, View, Text, Heading } from "../../../components";
-import { SystemInformationContext } from "../store/global";
 import { useHistory } from "react-router-dom";
+import { Button, Heading, Text, View } from "../../../components";
+import { BASE_URL, SystemInformation, SystemInformationContext } from "../store/app";
+import { CapacitorHttp, HttpResponse } from "@capacitor/core";
 
 const Home: React.FC = () => {
   const [cameraPermission, setCameraPermission] = useState<boolean>(false);
   const [cameraIsOpen, setCameraOpen] = useState<boolean>(false);
   const [ipAddress, setIpAddress] = useState<string>("");
   const history = useHistory();
+  const { serverBaseUrl, systemName, port, availableDisk } = useContext(
+    SystemInformationContext
+  );
+
+   let [systemInformation, setSystemInformation] = useState(
+     {} as SystemInformation
+   );
+
+   // request options =
+   const options = {
+     url: BASE_URL + "/api/sys-info",
+     headers: { "X-Fake-Header": "Fake-Value" }, //TODO: impl client without header
+   };
+
+  
+
+   const getDataFromAPI = async () => {
+    const response = await CapacitorHttp.get(options);
+    return response.data
+   }
+
+  useEffect(() => {
+    async function loadData() {
+      const loadedData = await getDataFromAPI();
+      console.log("hhhhhhhhhhhhhhhhwhjkasfbajkfb,alkbfd iljkdfa")
+      setCameraPermission(true)
+      console.log(JSON.stringify(loadData), {
+        cameraPermission,
+        serverBaseUrl,
+        systemName,
+        port,
+        availableDisk,
+      });
+      setSystemInformation(loadedData);
+    }
+
+    loadData();
+  }, []);
 
 
-  const closeBarcodeScanner = async () => {
-    setCameraOpen(false);
-    // Make all elements in the WebView visible again
-    document.querySelector("body")?.classList.remove("barcode-scanner-active");
-    // Remove all listeners
-    await BarcodeScanner.removeAllListeners();
 
-    // Stop the barcode scanner
-    await BarcodeScanner.stopScan();
-  };
 
   const scanQrCode = async () => {
     // The camera is visible behind the WebView, so that you can customize the UI in the WebView.
     // However, this means that you have to hide all elements that should not be visible.
     // You can find an example in our demo repository.
     // In this case we set a class `barcode-scanner-active`, which then contains certain CSS rules for our app.
-    // document.querySelector("body")?.classList.add("barcode-scanner-active");
     setCameraOpen(true);
     // Add the `barcodeScanned` listener
     const listener = await BarcodeScanner.addListener(
@@ -73,6 +102,7 @@ const Home: React.FC = () => {
             <Text className="text-gray-400 leading-5 mb-8">
               Scan the QR code to connect to the peer device
             </Text>
+           
           </View>
           <View>
             <Button

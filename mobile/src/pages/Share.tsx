@@ -3,8 +3,8 @@ import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { IonContent, IonPage } from "@ionic/react";
 import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
-import { useContext } from "react";
-import { BASE_URL, SystemInformationContext } from "../store/global";
+import { useContext, useState } from "react";
+import { BASE_URL, SystemInformationContext } from "../store/app";
 import { IonFab, IonFabButton, IonIcon } from "@ionic/react";
 import { add, paperPlane } from "ionicons/icons";
 
@@ -18,6 +18,22 @@ export enum FileTransferStatus {
 }
 
 const Share: React.FC = () => {
+
+
+  const getDataFromAPI = () => {
+    
+  }
+  const [data, setData] = useState({});
+
+  // useEffect(() => {
+  //   async function loadData() {
+  //     const loadedData = await getDataFromAPI();
+  //     setData(loadedData);
+  //   }
+
+  //   loadData();
+  // }, []);
+
   const { Dragger } = Upload;
   //   const { onUpdate } = useContext(FileContext);
   const { serverBaseUrl } = useContext(SystemInformationContext);
@@ -81,6 +97,12 @@ const Share: React.FC = () => {
               </p>
             </Dragger>
           </View>
+
+          <Text className="text-white">
+            the system name is {systemInformation.systemName} the server url is{" "}
+            {systemInformation.serverBaseUrl}{" "}
+            {JSON.stringify(systemInformation)}
+          </Text>
 
           <IonFab vertical="bottom" horizontal="end" className="mr-8 mb-4">
             <IonFabButton>
