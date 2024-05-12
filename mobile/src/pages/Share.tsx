@@ -3,10 +3,12 @@ import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { IonContent, IonPage } from "@ionic/react";
 import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
-import { useContext } from "react";
-import { BASE_URL, SystemInformationContext } from "../store/global";
+import { useContext, useEffect, useState } from "react";
+import { BASE_URL } from "../store/app";
 import { IonFab, IonFabButton, IonIcon } from "@ionic/react";
 import { add, paperPlane } from "ionicons/icons";
+import { CapacitorHttp } from "@capacitor/core";
+import { SystemInformation } from "@filesync/types/SystemInformation";
 
 export enum FileTransferStatus {
   DOWNLOADING = "downloading",
@@ -18,9 +20,32 @@ export enum FileTransferStatus {
 }
 
 const Share: React.FC = () => {
+  let [systemInformation, setSystemInformation] = useState(
+    {} as SystemInformation
+  );
+
+  // request options =
+  const options = {
+    url: BASE_URL + "/api/sys-info",
+    headers: { "X-Fake-Header": "Fake-Value" }, //TODO: impl client without header
+  };
+
+  const getDataFromAPI = async () => {
+    const response = await CapacitorHttp.get(options);
+    return response.data;
+  };
+
+  useEffect(() => {
+    async function loadData() {
+      const loadedData = await getDataFromAPI();
+      setSystemInformation(loadedData);
+    }
+
+    loadData();
+  }, []);
+
   const { Dragger } = Upload;
   //   const { onUpdate } = useContext(FileContext);
-  const { serverBaseUrl } = useContext(SystemInformationContext);
   const serverAddress = BASE_URL + "/upload";
 
   const props: UploadProps = {
@@ -40,18 +65,7 @@ const Share: React.FC = () => {
         const fileSize = String(info.file.size);
         const transactionType = "sent";
 
-        // add file to transfer history
-        // const transferHistory: TransferHistoryBuilder = {
-        //   fileName,
-        //   fileSize,
-        //   transactionType,
-        //   recipient: "",
-        // };
 
-        // const data = await invoke("persist_transfer_history", {
-        //   file: transferHistory,
-        // });
-        // console.log(JSON.stringify(data));
       } else if (status === FileTransferStatus.ERROR) {
         message.error(
           `${info.file.name} file upload failed. due to ${JSON.stringify(
@@ -81,6 +95,23 @@ const Share: React.FC = () => {
               </p>
             </Dragger>
           </View>
+          <View>hey there, the detail is {window.location.href}</View>
+
+          <iframe
+            className="w-full h-[500px]"
+            src={BASE_URL + "/upload"}
+          ></iframe>
+
+          <iframe
+            className="w-full h-[500px]"
+            src='https://www.google.com'
+          ></iframe>
+
+          <Text className="text-white">
+            the system name is {systemInformation.systemName} the server url is{" "}
+            {systemInformation.serverBaseUrl}{" "}
+            {JSON.stringify(systemInformation)}
+          </Text>
 
           <IonFab vertical="bottom" horizontal="end" className="mr-8 mb-4">
             <IonFabButton>
