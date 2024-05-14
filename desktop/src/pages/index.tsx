@@ -96,12 +96,12 @@ export default function Main() {
   // refresh the application
   async function refresh() {
     await relaunch()
-      .then(() => {
-        console.log("refreshed");
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+      // .then(() => {
+      //   console.log("refreshed");
+      // })
+      // .catch((error) => {
+      //   console.log(error.message);
+      // });
   }
 
   useEffect(() => {
@@ -146,7 +146,7 @@ export default function Main() {
           <div className="flex gap-5">
             <button
               className=" bg-app text-white px-4 py-1 rounded w-24 "
-              onClick={refresh}
+              onClick={relaunch}
             >
               Refresh
             </button>
