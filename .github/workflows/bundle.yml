@@ -4,6 +4,12 @@ on:
     branches:
       - release
 
+
+defaults:
+  run:
+    working-directory: desktop
+
+
 jobs:
   publish-tauri:
     permissions:
