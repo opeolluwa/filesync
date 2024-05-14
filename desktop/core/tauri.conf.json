@@ -8,7 +8,7 @@
   },
   "package": {
     "productName": "filesync",
-    "version": "0.7.3"
+    "version": "0.7.5"
   },
   "tauri": {
     "allowlist": {
@@ -75,7 +75,7 @@
     "windows": [
       {
         "fullscreen": false,
-        "resizable": false,
+        "resizable": true,
         "title": "FileSync",
         "width": 1000,
         "height": 800,
