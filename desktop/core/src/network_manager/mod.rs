@@ -4,7 +4,7 @@ use crate::utils::system_info::SystemInformation;
 use nanoid::nanoid;
 use serde::{Deserialize, Serialize};
 
-///TODO: use conditional import 
+///TODO: use conditional import
 // pub mod hotspot;
 pub mod ip_manager;
 // pub mod network_scanner;

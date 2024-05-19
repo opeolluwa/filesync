@@ -64,8 +64,6 @@ pub async fn system_information() -> (StatusCode, Json<CommandData<SystemInforma
     )
 }
 
-
-
 // return an html page to receive file upload
 pub async fn file_upload_form_new() -> Html<&'static str> {
     Html(
@@ -286,7 +284,6 @@ pub async fn file_upload_form_new() -> Html<&'static str> {
     )
 }
 
-
 /// return an html page to receive file upload
 pub async fn file_upload_form() -> Html<&'static str> {
     Html(
@@ -458,8 +455,7 @@ pub async fn handle_404() -> impl IntoResponse {
     )
 }
 
-
-/// health check handler 
+/// health check handler
 pub async fn health_check() -> impl IntoResponse {
     (
         StatusCode::OK,
@@ -472,10 +468,8 @@ pub async fn health_check() -> impl IntoResponse {
 
 /// ping the server
 pub async fn ping_server() -> impl IntoResponse {
-   "FileSync Server 1.0.0"
+    "FileSync Server 1.0.0"
 }
-
-
 
 /// for a given file path, return the file the the used as a downloadable one
 pub async fn get_file(Query(QueryParams { file_path }): Query<QueryParams>) -> impl IntoResponse {
@@ -489,7 +483,7 @@ pub async fn get_file(Query(QueryParams { file_path }): Query<QueryParams>) -> i
     // convert the `Stream` into an `axum::body::HttpBody`
     let body = StreamBody::new(stream);
 
-    let headers =[
+    let headers = [
         (header::CONTENT_TYPE, "text/toml; charset=utf-8"),
         (
             header::CONTENT_DISPOSITION,

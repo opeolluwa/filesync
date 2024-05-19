@@ -2,6 +2,7 @@
 import {
   ClockIcon,
   Cog8ToothIcon,
+  FolderArrowDownIcon,
   HomeIcon,
   InformationCircleIcon,
   QrCodeIcon,
@@ -11,7 +12,8 @@ import {
   ClockIcon as SolidClockIcon,
   Cog8ToothIcon as SolidCog8ToothIcon, HomeIcon as SolidHomeIcon,
   InformationCircleIcon as SolidInformationIcon,
-  ShareIcon as SolidShareIcon  // QrCodeIcon as SolidQrCodeIcon,
+  ShareIcon as SolidShareIcon,  // QrCodeIcon as SolidQrCodeIcon,
+  FolderArrowDownIcon as SolidFolderArrowDownIcon
 } from "@heroicons/react/24/solid";
 import NavigationTab, { Route } from "./NavItem";
 import { useContext } from "react";
@@ -52,7 +54,12 @@ export default function Navigation() {
       name: "Transfer History",
       alternateIcon: <SolidClockIcon className="w-6 h-6" />,
     },
-
+    {
+      path: "/received",
+      icon: <FolderArrowDownIcon className="w-6 h-6" />,
+      name: "Received files",
+      alternateIcon: <SolidFolderArrowDownIcon className="w-6 h-6" />,
+    },
     {
       path: "/settings",
       icon: <Cog8ToothIcon className="w-6 h-6" />,

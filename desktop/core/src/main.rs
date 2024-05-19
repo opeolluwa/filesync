@@ -31,6 +31,17 @@ lazy_static! {
         // portpicker::pick_unused_port().expect("failed to get an unused port");
     pub static ref UPLOAD_DIRECTORY: std::string::String = String::from("filesync");
 
+
+            //create wi-share directory in the downloads path dir and / save files to $DOWNLOADS/wi-share
+     pub static ref UPLOAD_PATH  : std::string::String = {
+           let os_default_downloads_dir = dirs::download_dir().unwrap();
+      format!(
+            "{downloads_dir}/{upload_dir}",
+            downloads_dir = os_default_downloads_dir.display(),
+            upload_dir = UPLOAD_DIRECTORY.as_str()
+        )
+     };
+
     /* create a database in the home dir and / save files to $HOME/filesync/.dat */
      pub static ref DB_URL: std::string::String = {
         let os_default_downloads_dir = dirs::download_dir().unwrap();

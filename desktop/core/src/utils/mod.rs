@@ -1,11 +1,10 @@
 use rand::Rng;
 use serde::{Deserialize, Serialize};
+use sha2::{Digest, Sha256};
 use std::fmt::{self};
 use std::fs::File;
 use std::path::{Path, PathBuf};
 use ts_rs::TS;
-use sha2::{Sha256, Digest};
-
 
 pub mod fs;
 pub mod shell;
@@ -20,9 +19,7 @@ pub struct CommandData<T> {
     pub status: bool,
 }
 
-
-pub type ApiResponse<D, E> =  Result<CommandData<D>, CommandData<E>>;
-
+pub type ApiResponse<D, E> = Result<CommandData<D>, CommandData<E>>;
 
 impl<T: fmt::Display + fmt::Debug> fmt::Display for CommandData<T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
@@ -86,8 +83,6 @@ pub fn _verify_file_openable(file: &PathBuf) -> Result<(), String> {
     Ok(())
 }
 
-
-
 pub fn generate_password() -> String {
     let mut rng = rand::thread_rng();
     let chars: Vec<char> = "23456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
@@ -102,14 +97,12 @@ pub fn generate_password() -> String {
     String::from_iter(password)
 }
 
-
 pub fn hash_file(filename: &Path) -> Result<Vec<u8>, Box<dyn std::error::Error>> {
     let mut file = std::fs::File::open(filename)?;
     let mut hasher = Sha256::new();
     std::io::copy(&mut file, &mut hasher)?;
     Ok(hasher.finalize().to_vec())
 }
-
 
 pub fn expand_dir(dir: PathBuf) -> (Vec<String>, Vec<PathBuf>) {
     let mut files_found = vec![];

@@ -1,6 +1,6 @@
-use std::path::PathBuf;
 use std::net::Ipv4Addr;
-
+use std::path::PathBuf;
+use crate::UPLOAD_PATH;
 use crate::{
     file_manager::file::{get_files_in_directory, File},
     utils::{ApiResponse, CommandData},
@@ -19,6 +19,7 @@ use tokio::io::AsyncReadExt;
 #[derive(Debug, Clone, Serialize, Deserialize, TS)]
 #[ts(export)]
 pub(crate) enum Dir {
+    /// the device home directory
     Home,
     Pictures,
     Videos,
@@ -26,6 +27,8 @@ pub(crate) enum Dir {
     Downloads,
     Audio,
     Desktop,
+    /// the location the files received are saved
+    FileSync,
     Other(String),
 }
 
@@ -40,6 +43,7 @@ impl Dir {
             Dir::Downloads => dirs::download_dir().unwrap().to_str().unwrap().to_string(),
             Dir::Audio => dirs::audio_dir().unwrap().to_str().unwrap().to_string(),
             Dir::Desktop => dirs::desktop_dir().unwrap().to_str().unwrap().to_string(),
+            Dir::FileSync => UPLOAD_PATH.to_string(),
             Dir::Other(path) => path.to_string(),
         }
     }
@@ -54,6 +58,7 @@ impl Dir {
             Dir::Downloads => dirs::download_dir().unwrap(),
             Dir::Audio => dirs::audio_dir().unwrap(),
             Dir::Desktop => dirs::desktop_dir().unwrap(),
+            Dir::FileSync => PathBuf::from(UPLOAD_PATH.to_string()),
             Dir::Other(path) => PathBuf::from(path),
         }
     }
@@ -68,16 +73,16 @@ impl Dir {
             "downloads" => Dir::Downloads,
             "audio" => Dir::Audio,
             "desktop" => Dir::Desktop,
+            "filesync" => Dir::FileSync,
             _ => Dir::Other(path.to_string()),
         }
     }
 }
 
-
-
 /// read directory
 #[tauri::command]
 pub async fn read_dir(path: &str) -> ApiResponse<Vec<File>, ()> {
+    println!("reading from {path}");
     let path = Dir::from_string(path).to_path();
     let files = get_files_in_directory(&path).await;
     if files.is_err() {
@@ -94,7 +99,6 @@ pub async fn read_dir(path: &str) -> ApiResponse<Vec<File>, ()> {
 
     Ok(CommandData::ok("Successfully fetch the data", entries))
 }
-
 
 // send file from this server to another
 // accept path to file as argument

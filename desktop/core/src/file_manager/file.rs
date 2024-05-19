@@ -58,7 +58,7 @@ impl File {
         let is_folder = path.is_dir();
 
         if is_folder {
-             file_size = fs_extra::dir::get_size(path).unwrap_or(0) as u128;
+            file_size = fs_extra::dir::get_size(path).unwrap_or(0) as u128;
         }
         let is_hidden = path
             .file_name()
@@ -77,7 +77,6 @@ impl File {
         }
     }
 }
-
 
 /// get all the files in a directory
 /// returns a vector of the file path
