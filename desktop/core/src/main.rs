@@ -2,16 +2,14 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 extern crate uptime_lib;
-
-use crate::ipc_manager::fs_api::get_transfer_history;
-use crate::ipc_manager::fs_api::read_dir;
+use crate::file_manager::read_dir;
 use crate::ipc_manager::settings::{get_application_data, get_settings, update_settings};
 use crate::ipc_manager::utils::{
     generate_qr_code, get_ip_address, get_system_information, is_connected_to_wifi,
 };
 use lazy_static::lazy_static;
 use server::http_server;
-
+use crate::file_manager::get_transfer_history;
 mod database;
 mod file_manager;
 mod ipc_manager;
@@ -30,6 +28,17 @@ lazy_static! {
     pub static ref SERVER_PORT: u16 = 18005;
         // portpicker::pick_unused_port().expect("failed to get an unused port");
     pub static ref UPLOAD_DIRECTORY: std::string::String = String::from("filesync");
+
+
+            //create wi-share directory in the downloads path dir and / save files to $DOWNLOADS/wi-share
+     pub static ref UPLOAD_PATH  : std::string::String = {
+           let os_default_downloads_dir = dirs::download_dir().unwrap();
+      format!(
+            "{downloads_dir}/{upload_dir}",
+            downloads_dir = os_default_downloads_dir.display(),
+            upload_dir = UPLOAD_DIRECTORY.as_str()
+        )
+     };
 
     /* create a database in the home dir and / save files to $HOME/filesync/.dat */
      pub static ref DB_URL: std::string::String = {

@@ -7,7 +7,6 @@ use local_ip_address::local_ip;
 extern crate pnet_datalink;
 extern crate std;
 
-
 /// Returns IP address of the host, excluding localhost, or None if none found.
 pub fn autodetect_ip_address() -> Result<String, ()> {
     #[cfg(target_os = "linux")]

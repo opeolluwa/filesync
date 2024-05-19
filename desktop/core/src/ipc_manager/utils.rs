@@ -1,9 +1,9 @@
-use std::net::Ipv4Addr;
 use local_ip_address::local_ip;
+use std::net::Ipv4Addr;
 
 use crate::{
-    utils::{system_info::SystemInformation, CommandData},
     network_manager::ip_manager,
+    utils::{system_info::SystemInformation, CommandData},
     SERVER_PORT,
 };
 
@@ -34,8 +34,6 @@ pub fn get_ip_address() -> String {
 pub fn get_system_information() -> CommandData<SystemInformation> {
     CommandData::ok("connected system information ", SystemInformation::new())
 }
-
-
 
 #[tauri::command]
 pub fn is_connected_to_wifi() -> CommandData<bool> {

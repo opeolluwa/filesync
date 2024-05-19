@@ -14,10 +14,7 @@ use super::routes::{
 pub fn app() -> Router {
     Router::new()
         .route("/", get(ping_server))
-        .route(
-            "/upload",
-            post(accept_file_upload).get(file_upload_form),
-        )
+        .route("/upload", post(accept_file_upload).get(file_upload_form))
         .route("/health", post(accept_file_upload).get(health_check))
         .route("/api/sys-info", get(system_information))
         .route("/api/download", get(download_file))
