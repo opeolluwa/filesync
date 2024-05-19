@@ -1,4 +1,3 @@
-use crate::utils::fs::compute_file_size;
 use filesize::PathExt;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
@@ -7,6 +6,44 @@ use ts_rs::TS;
 use walkdir::DirEntry;
 extern crate dirs;
 use path_absolutize::*;
+
+
+
+
+/// a function to compute file size
+/// accept files size in byte and parse it to human readable KB, MB, TB, GB e.t.
+pub fn compute_file_size(size: u128) -> String {
+    if size > (1024 * 1024 * 1024 * 1024) {
+        format!("{:.2} TB", size / (1024 * 1024 * 1024 * 1024))
+    } else if size > (1024 * 1024 * 1024) {
+        format!("{:.2} GB", size / (1024 * 1024 * 1024))
+    } else if size > (1024 * 1024) {
+        format!("{:.2} MB", size / (1024 * 1024))
+    } else if size > 1024 {
+        format!("{:.2} KB", size / (1024))
+    } else {
+        format!("{:.2} B", size)
+    }
+}
+
+
+
+#[derive(serde::Serialize, Debug)]
+pub struct DriveInformation {
+    name: String,
+    mount_point: String,
+    total_space: u64,
+    available_space: u64,
+    is_removable: bool,
+    disk_type: String,
+    file_system: String,
+}
+
+#[derive(serde::Serialize)]
+pub struct Drives {
+    array_of_drives: Vec<DriveInformation>,
+}
+
 
 // the file structure
 #[derive(Debug, Default, Serialize, Deserialize, TS)]
@@ -21,6 +58,7 @@ pub struct File {
     pub is_folder: bool,
 }
 
+#[allow(unused)]
 impl File {
     // convert a DirEntry to a File
     pub fn from(entry: DirEntry) -> Self {

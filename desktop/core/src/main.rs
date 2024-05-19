@@ -2,16 +2,14 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 extern crate uptime_lib;
-
-use crate::ipc_manager::fs_api::get_transfer_history;
-use crate::ipc_manager::fs_api::read_dir;
+use crate::file_manager::read_dir;
 use crate::ipc_manager::settings::{get_application_data, get_settings, update_settings};
 use crate::ipc_manager::utils::{
     generate_qr_code, get_ip_address, get_system_information, is_connected_to_wifi,
 };
 use lazy_static::lazy_static;
 use server::http_server;
-
+use crate::file_manager::get_transfer_history;
 mod database;
 mod file_manager;
 mod ipc_manager;

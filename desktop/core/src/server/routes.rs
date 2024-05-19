@@ -65,6 +65,7 @@ pub async fn system_information() -> (StatusCode, Json<CommandData<SystemInforma
 }
 
 // return an html page to receive file upload
+#[allow(unused)]
 pub async fn file_upload_form_new() -> Html<&'static str> {
     Html(
         r#"

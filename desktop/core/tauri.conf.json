@@ -8,13 +8,17 @@
   },
   "package": {
     "productName": "filesync",
-    "version": "0.7.5"
+    "version": "0.7.6"
   },
   "tauri": {
     "allowlist": {
       "all": false,
       "window": {
         "all": true
+      },
+      "clipboard": {
+      
+        "writeText": true
       },
       "app": {
         "all": true,

@@ -10,11 +10,11 @@ use std::collections::HashSet;
 use sys_info;
 use sysinfo::{DiskExt, System, SystemExt};
 use ts_rs::TS;
-
+ use crate::file_manager::file::compute_file_size;
 use crate::network_manager::ip_manager;
 use crate::SERVER_PORT;
 
-use super::fs::compute_file_size;
+
 
 #[derive(Debug, Deserialize, Serialize, Clone, TS)]
 #[ts(export)]

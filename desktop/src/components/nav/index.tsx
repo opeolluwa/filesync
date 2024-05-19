@@ -38,7 +38,7 @@ export default function Navigation() {
     },
     {
       icon: <QrCodeIcon className="w-6 h-6" />,
-      name: "QR Connection",
+      name: "Connect Device",
       alternateIcon: <QrCodeIcon className="w-6 h-6" />,
       path: "/connection",
     },
@@ -48,17 +48,18 @@ export default function Navigation() {
       name: "Share files",
       alternateIcon: <SolidShareIcon className="w-6 h-6" />,
     },
-    {
-      path: "/history",
-      icon: <ClockIcon className="w-6 h-6" />,
-      name: "Transfer History",
-      alternateIcon: <SolidClockIcon className="w-6 h-6" />,
-    },
+
     {
       path: "/received",
       icon: <FolderArrowDownIcon className="w-6 h-6" />,
       name: "Received files",
       alternateIcon: <SolidFolderArrowDownIcon className="w-6 h-6" />,
+    },
+    {
+      path: "/history",
+      icon: <ClockIcon className="w-6 h-6" />,
+      name: "Transfer History",
+      alternateIcon: <SolidClockIcon className="w-6 h-6" />,
     },
     {
       path: "/settings",

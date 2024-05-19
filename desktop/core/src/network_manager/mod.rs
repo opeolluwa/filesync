@@ -1,3 +1,5 @@
+#[allow(unused)]
+
 use std::fmt;
 
 use crate::utils::system_info::SystemInformation;
@@ -36,7 +38,10 @@ pub enum NetworkAccessStatus {
     Error,
 }
 
+#[allow(unused)]
+
 impl WifiHotspotConfig {
+    
     pub fn new(gateway: &str) -> Self {
         let SystemInformation {
             system_name: ssid, ..
