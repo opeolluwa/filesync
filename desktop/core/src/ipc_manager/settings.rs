@@ -1,4 +1,4 @@
-use crate::{database::Settings, utils::CommandData, state_manager::State};
+use crate::{database::Settings, state_manager::State, utils::CommandData};
 
 /** this module is responsible for handling the user settings  and application informatin */
 

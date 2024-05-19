@@ -1,3 +1,4 @@
+#[allow(unused)]
 pub fn execute_shell_command(command: &str) -> std::io::Result<String> {
     let mut cmd = std::process::Command::new("sh")
         .arg("-c")

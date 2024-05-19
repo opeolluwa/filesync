@@ -1,12 +1,11 @@
-"use client"
+"use client";
 
 import FileCard, { FileInterface } from "@/components/thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
-import { AppData} from "@/types";
+import { AppData } from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
-
 
 export default function Document() {
   const [data, setData] = useState(null);
@@ -15,7 +14,7 @@ export default function Document() {
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-    invoke("read_dir", { path: "downloads" }).then((res) => {
+    invoke("read_dir", { path: "filesync" }).then((res) => {
       console.log(JSON.stringify(res));
       setData(res as any);
       setLoading(false);

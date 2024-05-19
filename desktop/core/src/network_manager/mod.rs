@@ -1,10 +1,12 @@
+#[allow(unused)]
+
 use std::fmt;
 
 use crate::utils::system_info::SystemInformation;
 use nanoid::nanoid;
 use serde::{Deserialize, Serialize};
 
-///TODO: use conditional import 
+///TODO: use conditional import
 // pub mod hotspot;
 pub mod ip_manager;
 // pub mod network_scanner;
@@ -36,7 +38,10 @@ pub enum NetworkAccessStatus {
     Error,
 }
 
+#[allow(unused)]
+
 impl WifiHotspotConfig {
+    
     pub fn new(gateway: &str) -> Self {
         let SystemInformation {
             system_name: ssid, ..
