@@ -5,6 +5,7 @@ import View from "@/components/View";
 import PageLayout from "@/components/layout/PageLayout";
 import { Text } from "@filesync/components";
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/outline";
+import Link from "next/link";
 
 export default function ConnectionPage() {
   return (
@@ -18,20 +19,20 @@ export default function ConnectionPage() {
             <Text>some lorem text blablabla</Text>
 
             <View className="flex justify-between items-center mt-8">
-              <a
+              <Link
                 href="/connection/hotspot"
                 className="flex flex-col items-center "
               >
                 <ArrowUpIcon className=" bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  p-4 rounded-xl shadow hover:shadow-none cursor-pointer"></ArrowUpIcon>
                 <Text className="mt-2">Send File</Text>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="/connection/peer"
                 className="flex flex-col items-center "
               >
                 <ArrowDownIcon className="bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200 p-4 rounded-xl shadow hover:shadow-none cursor-pointer w-[70px] h-[70px]"></ArrowDownIcon>
                 <Text className="mt-2">Recieve File</Text>
-              </a>
+              </Link>
             </View>
           </View>
         </View>
