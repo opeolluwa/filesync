@@ -13,10 +13,8 @@ export default function ConnectionPage() {
       <PageLayout pageTitle={"Connect Device"} includeSearchBar={false}>
         <View className=" text-center flex flex-col justify-center items-center h-[500px]">
           <View>
-            <Heading className=" text-gray-700  text-2xl">
-              What would you like to do?
-            </Heading>
-            <Text>some lorem text blablabla</Text>
+            <Heading className=" text-gray-700  text-2xl">Select Operational Mode</Heading>
+            <Text>What would you like to do?</Text>
 
             <View className="flex justify-between items-center mt-8">
               <Link

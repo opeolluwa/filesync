@@ -47,7 +47,8 @@ export default function NavigationTab({
       <Link
         href={path}
         className={
-          router.pathname == path.trim()
+          router.pathname == path.trim() ||
+          `/${router.pathname.slice(1).split("/")[0]}` == path.trim()
             ? "flex items-left justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out  text-app  bg-app-50  py-3 px-1 lg:pl-2 first:mt-4 cursor-pointer"
             : "flex items-left justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out  hover:text-app py-3 px-1 lg:pl-2 first:mt-4  text-gray-500 cursor-pointer"
         }
