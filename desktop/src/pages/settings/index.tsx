@@ -21,12 +21,11 @@ import {
   UserCircleIcon as UserCircleIconSolid,
 } from "@heroicons/react/24/solid";
 
-import { SettingsInterface, SettingsTab } from "@/components/settings";
 import Heading from "@/components/Heading";
+import { SettingsInterface, SettingsTab } from "@/components/settings";
 import { SystemInformation } from "@/store/sys-info";
 import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
-import { State } from "../../../core/bindings/State";
 /**
  * @function helpPage -  A page responsible for guiding users on various actions
  * @returns tsx
@@ -70,7 +69,7 @@ export default function HelpPage() {
       >
         <div>
           <Heading context="Personalization" className="mt-12 mb-2" />
-          <div className=" bg-white flex justify-between py-2 rounded-lg px-4 flex-col lg:px-4 lg:pl-6  capitalize">
+          <div className=" bg-card flex justify-between py-2 rounded-lg px-4 flex-col lg:px-4 lg:pl-6  capitalize">
             {settings.map((control, index) => (
               <SettingsTab
                 key={index}
@@ -83,7 +82,7 @@ export default function HelpPage() {
           </div>
 
           <Heading context="System Information" className="mt-12 mb-2" />
-          <div className=" flex justify-between  bg-white py-2 rounded-lg px-4 flex-col lg:px-4 lg:pl-6 capitalize  mb-12 overflow-y-scroll">
+          <div className=" flex justify-between  bg-card py-2 rounded-lg px-4 flex-col lg:px-4 lg:pl-6 capitalize  mb-12 overflow-y-scroll">
             <SettingsTab
               icon={<UserCircleIcon className="w-6 h-6" />}
               alternateIcon={<UserCircleIconSolid className="w-6 h-6" />}

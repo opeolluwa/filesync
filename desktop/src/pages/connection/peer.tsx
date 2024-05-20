@@ -4,7 +4,7 @@ import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import PageLayout from "@/components/layout/PageLayout";
-import { LinuxOutlined } from "@ant-design/icons";
+import { AndroidFilled, LinuxOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { Tooltip } from "antd";
 export default function ConnectionPage() {
@@ -33,8 +33,10 @@ export default function ConnectionPage() {
             <Tooltip title="Android">
               <Link
                 href="/connection/mobile"
-                className="ri-android-fill  bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  box-border p-8 rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
-              ></Link>
+                className="  bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  box-border p-8 rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
+              >
+                <AndroidFilled/>
+              </Link>
             </Tooltip>
             <Tooltip title="macOS">
               <Link
