@@ -7,9 +7,6 @@ use walkdir::DirEntry;
 extern crate dirs;
 use path_absolutize::*;
 
-
-
-
 /// a function to compute file size
 /// accept files size in byte and parse it to human readable KB, MB, TB, GB e.t.
 pub fn compute_file_size(size: u128) -> String {
@@ -26,8 +23,6 @@ pub fn compute_file_size(size: u128) -> String {
     }
 }
 
-
-
 #[derive(serde::Serialize, Debug)]
 pub struct DriveInformation {
     name: String,
@@ -43,7 +38,6 @@ pub struct DriveInformation {
 pub struct Drives {
     array_of_drives: Vec<DriveInformation>,
 }
-
 
 // the file structure
 #[derive(Debug, Default, Serialize, Deserialize, TS)]

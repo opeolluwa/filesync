@@ -25,7 +25,7 @@ import { WifiStatusContext } from "@/store/wifi-status";
 
 export default function Navigation() {
   const { data: isConnectedToWifi } = useContext(WifiStatusContext);
-  const { availableDisk, usedDisk, systemName } = useContext(
+  const { availableDisk, usedDisk, systemName,  } = useContext(
     SystemInformationContext
   );
 

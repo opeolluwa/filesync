@@ -27,7 +27,7 @@ export const MemoryInformation = ({
     >
       <div className="flex justify-between mb-2 px-4">
         <span className=" font-medium text-blue-700 text-sm">
-          {usedMemory} of {totalMemory}
+         {totalMemory} free space
         </span>
       </div>
       <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
