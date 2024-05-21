@@ -1,19 +1,22 @@
-use axum::response::Html;
-use axum::{BoxError, Json};
-// get documents, audio, video, e.t.c and render the in the browser
+use axum::response::sse::Event;
+use axum::response::{Html, Sse};
+use axum::{headers, BoxError, Json, TypedHeader};
 use axum::{extract::Query, http::StatusCode, response::IntoResponse};
-use futures::{Stream, TryStreamExt};
+use futures::stream::{self, Stream, TryStreamExt};
 use hyper::header;
 use serde::{Deserialize, Serialize};
 use tokio::fs::File;
 use tokio::io::{self, BufWriter};
 use tokio_util::io::{ReaderStream, StreamReader};
+use tokio_stream::StreamExt as _;
 
 use axum::body::{Bytes, StreamBody};
 use axum::extract::Multipart;
 use serde_json::json;
 use serde_json::Value;
+use std::convert::Infallible;
 use std::fs;
+use std::time::Duration;
 
 use crate::utils::{system_info::SystemInformation, CommandData};
 use crate::UPLOAD_DIRECTORY;
@@ -543,4 +546,24 @@ mod basic_endpoints {
         assert_eq!(response.status(), StatusCode::NOT_FOUND);
         // println!(" the not-found-endpoint response is {response:?}");
     }
+}
+
+
+
+/// use Server sent event to notify client 
+pub async fn notify_peer(
+    TypedHeader(user_agent): TypedHeader<headers::UserAgent>,
+) -> Sse<impl Stream<Item = Result<Event, Infallible>>> {
+    println!("`{}` connected", user_agent.as_str());
+
+    // A `Stream` that repeats an event every second
+    let stream = stream::repeat_with(|| Event::default().data("hi!"))
+        .map(Ok)
+        .throttle(Duration::from_secs(1));
+
+    Sse::new(stream).keep_alive(
+        axum::response::sse::KeepAlive::new()
+            .interval(Duration::from_secs(1))
+            .text("keep-alive-text"),
+    )
 }

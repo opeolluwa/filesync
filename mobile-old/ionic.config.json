@@ -1,0 +1,8 @@
+{
+  "name": "filesync",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react",
+  "id": "30545a1b"
+}
