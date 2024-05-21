@@ -1,4 +1,3 @@
-use rand::Rng;
 use serde::{Deserialize, Serialize};
 use std::fmt::{self};
 use std::fs::File;
@@ -80,23 +79,3 @@ pub fn _verify_file_openable(file: &PathBuf) -> Result<(), String> {
     }
     Ok(())
 }
-
-
-/// generate password fro wifi hotspot
-pub fn _generate_password() -> String {
-    let mut rng = rand::thread_rng();
-    let chars: Vec<char> = "0123456789abcdefghijkmnopqrstuvwxyzABCDEFGHJKLMNPQRSTUVWXYZ"
-        .chars()
-        .collect();
-    const PASSWORD_LENGTH: usize = 8;
-    let mut password: Vec<char> = vec!['\0'; PASSWORD_LENGTH];
-    for i in 0..PASSWORD_LENGTH {
-        let current_char_index = rng.gen_range(0..chars.len());
-        password[i] = chars[current_char_index];
-    }
-    String::from_iter(password)
-}
-
-
-
-
