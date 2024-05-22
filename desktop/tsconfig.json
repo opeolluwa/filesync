@@ -19,7 +19,7 @@
       "@/*": ["./src/*"],
       "@public/*": ["./public/*"],
       "@filesync/types/*": ["../desktop/core/bindings/*"],
-      "@filesync/components": ["../components"]
+  
     }
   },
   "include": [
