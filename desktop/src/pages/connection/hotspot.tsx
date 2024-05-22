@@ -1,14 +1,11 @@
 "use client";
 
 import Heading from "@/components/Heading";
-import View from "@/components/View";
 import PageLayout from "@/components/layout/PageLayout";
-import { Text } from "@filesync/components";
+import Text from "@/components/Text";
+import View from "@/components/View";
 import {
-  ArrowDownIcon,
-  ArrowUpIcon,
-  RadioIcon,
-  WifiIcon,
+  WifiIcon
 } from "@heroicons/react/24/outline";
 
 export default function ConnectionPage() {

@@ -10,22 +10,21 @@ import {
 } from "@heroicons/react/24/outline";
 import {
   ClockIcon as SolidClockIcon,
-  Cog8ToothIcon as SolidCog8ToothIcon, HomeIcon as SolidHomeIcon,
+  Cog8ToothIcon as SolidCog8ToothIcon,
+  HomeIcon as SolidHomeIcon,
   InformationCircleIcon as SolidInformationIcon,
-  ShareIcon as SolidShareIcon,  // QrCodeIcon as SolidQrCodeIcon,
-  FolderArrowDownIcon as SolidFolderArrowDownIcon
+  ShareIcon as SolidShareIcon, // QrCodeIcon as SolidQrCodeIcon,
+  FolderArrowDownIcon as SolidFolderArrowDownIcon,
 } from "@heroicons/react/24/solid";
 import NavigationTab, { Route } from "./NavItem";
 import { useContext } from "react";
-import {
-  SystemInformationContext
-} from "@/store/sys-info";
+import { SystemInformationContext } from "@/store/sys-info";
 import { MemoryInformation } from "../MemoryInformation";
 import { WifiStatusContext } from "@/store/wifi-status";
 
 export default function Navigation() {
   const { data: isConnectedToWifi } = useContext(WifiStatusContext);
-  const { availableDisk, usedDisk, systemName,  } = useContext(
+  const { availableDisk, usedDisk, systemName } = useContext(
     SystemInformationContext
   );
 
@@ -94,16 +93,12 @@ export default function Navigation() {
               action={route.action}
               alternateIcon={route.alternateIcon}
               path={route.path}
-              disabled={Boolean(isConnectedToWifi)=== false}
+              disabled={Boolean(isConnectedToWifi) === false}
             />
           ))}
         </div>
 
-        <MemoryInformation
-          systemName={systemName}
-          usedMemory={usedDisk}
-          totalMemory={availableDisk}
-        />
+        <MemoryInformation usedDisk={usedDisk} availableDisk={availableDisk} />
       </nav>
     </>
   );
