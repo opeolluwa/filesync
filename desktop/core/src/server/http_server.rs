@@ -13,8 +13,6 @@ use axum::extract::DefaultBodyLimit;
 use crate::database::Database;
 use crate::server::router;
 
-use crate::server::routes::handle_404;
-use crate::server::routes::notify_peer;
 use crate::SERVER_PORT;
 
 /**
@@ -59,25 +57,17 @@ pub async fn core_server() {
 
     println!(" the server port is http://{}", ip_address);
 
-
-        let assets_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("assets");
+    let assets_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("assets");
 
     let static_files_service = ServeDir::new(assets_dir).append_index_html_on_directories(true);
 
-
     // build our application with the required routes
     let app = router::app()
-      .fallback_service(static_files_service)
+        .fallback_service(static_files_service)
         .layer(file_limit)
         .layer(cors_layer)
-        .layer(tower_http::trace::TraceLayer::new_for_http())
-        ;
+        .layer(tower_http::trace::TraceLayer::new_for_http());
 
-        // build our application with a route
-    // let app = axum::Router::new()
-    //     .fallback_service(static_files_service)
-    //     .route("/sse", axum::routing::get(notify_peer))
-    //     .layer(tower_http::trace::TraceLayer::new_for_http());
     // run the server
     axum::Server::bind(&ip_address)
         .serve(app.into_make_service())

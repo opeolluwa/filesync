@@ -79,7 +79,7 @@
     "windows": [
       {
         "fullscreen": false,
-        "resizable": true,
+        "resizable": false,
         "title": "FileSync",
         "width": 1000,
         "height": 800,
