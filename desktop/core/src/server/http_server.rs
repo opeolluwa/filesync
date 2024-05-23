@@ -1,10 +1,8 @@
-use std::path::PathBuf;
 
 use reqwest::Method;
 
 use tower_http::cors::Any;
 use tower_http::cors::CorsLayer;
-use tower_http::services::ServeDir;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 
@@ -55,15 +53,11 @@ pub async fn core_server() {
         .parse::<std::net::SocketAddr>()
         .expect("invalid socket address");
 
-    println!(" the server port is http://{}", ip_address);
+    tracing::debug!(" the server port is http://{}", ip_address);
 
-    let assets_dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("assets");
 
-    let static_files_service = ServeDir::new(assets_dir).append_index_html_on_directories(true);
 
-    // build our application with the required routes
     let app = router::app()
-        .fallback_service(static_files_service)
         .layer(file_limit)
         .layer(cors_layer)
         .layer(tower_http::trace::TraceLayer::new_for_http());
