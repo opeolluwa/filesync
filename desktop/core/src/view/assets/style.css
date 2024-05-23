@@ -9,10 +9,10 @@ label[for="file"] {
     padding: 10px 10px;
 } */
 
-progress, .progress-parent {
+progress{
     display: none;
 }
 
-progress.visible, .progress-parent.visible {
+progress.visible {
     display: block;
 }

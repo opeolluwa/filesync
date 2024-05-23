@@ -1,10 +1,9 @@
+
 addEventListener("DOMContentLoaded", () => {
-  const fileInput = document.getElementById("file");
+  const fileInput = document.getElementById("dropzone");
   const progressBar = document.querySelector("progress");
-  const progressBarParent = document.querySelector(".progress-parent");
   const log = document.querySelector("output");
   // const abortButton = document.getElementById("abort");
-
   fileInput.addEventListener("change", () => {
     const xhr = new XMLHttpRequest();
     xhr.timeout = 2000; // 2 seconds
@@ -17,7 +16,6 @@ addEventListener("DOMContentLoaded", () => {
     //   },
     //   { once: true }
     // );
-
     // When the upload starts, we display the progress bar
     xhr.upload.addEventListener("loadstart", (event) => {
       progressBar.classList.add("visible");
