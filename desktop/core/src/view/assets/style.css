@@ -1,26 +1,18 @@
 
-body {
-    background-color: lightblue;
-}
-
-main {
-    margin: 50px auto;
-    text-align: center;
-}
 
 #file {
     display: none;
 }
-
+/* 
 label[for="file"] {
     background-color: lightgrey;
     padding: 10px 10px;
-}
+} */
 
-progress {
+progress, .progress-parent {
     display: none;
 }
 
-progress.visible {
-    display: inline;
+progress.visible, .progress-parent.visible {
+    display: block;
 }

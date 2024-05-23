@@ -1,21 +1,22 @@
 addEventListener("DOMContentLoaded", () => {
   const fileInput = document.getElementById("file");
   const progressBar = document.querySelector("progress");
+  const progressBarParent = document.querySelector(".progress-parent");
   const log = document.querySelector("output");
-  const abortButton = document.getElementById("abort");
+  // const abortButton = document.getElementById("abort");
 
   fileInput.addEventListener("change", () => {
     const xhr = new XMLHttpRequest();
     xhr.timeout = 2000; // 2 seconds
 
     // Link abort button
-    abortButton.addEventListener(
-      "click",
-      () => {
-        xhr.abort();
-      },
-      { once: true }
-    );
+    // abortButton.addEventListener(
+    //   "click",
+    //   () => {
+    //     xhr.abort();
+    //   },
+    //   { once: true }
+    // );
 
     // When the upload starts, we display the progress bar
     xhr.upload.addEventListener("loadstart", (event) => {
@@ -23,7 +24,7 @@ addEventListener("DOMContentLoaded", () => {
       progressBar.value = 0;
       progressBar.max = event.total;
       log.textContent = "Uploading (0%)…";
-      abortButton.disabled = false;
+      // abortButton.disabled = false;
     });
 
     // Each time a progress event is received, we update the bar
@@ -41,7 +42,7 @@ addEventListener("DOMContentLoaded", () => {
       if (event.loaded !== 0) {
         log.textContent = "Upload finished.";
       }
-      abortButton.disabled = true;
+      // abortButton.disabled = true;
     });
 
     // In case of an error, an abort, or a timeout, we hide the progress bar
