@@ -1,22 +1,22 @@
-use axum::response::sse::Event;
-use axum::response::{Html, Sse};
-use axum::{headers, BoxError, Json, TypedHeader};
+use axum::body::{Bytes, StreamBody};
+use axum::extract::ws::{CloseFrame, Message, WebSocket};
+use axum::extract::{ConnectInfo, Multipart, WebSocketUpgrade};
+use axum::response::Html;
 use axum::{extract::Query, http::StatusCode, response::IntoResponse};
-use futures::stream::{self, Stream, TryStreamExt};
+use axum::{headers, BoxError, Json, TypedHeader};
+use futures::stream::{Stream, TryStreamExt};
+use futures::{sink::SinkExt, stream::StreamExt};
 use hyper::header;
 use serde::{Deserialize, Serialize};
+use serde_json::json;
+use serde_json::Value;
+use std::borrow::Cow;
+use std::fs;
+use std::net::SocketAddr;
+use std::ops::ControlFlow;
 use tokio::fs::File;
 use tokio::io::{self, BufWriter};
 use tokio_util::io::{ReaderStream, StreamReader};
-use tokio_stream::StreamExt as _;
-
-use axum::body::{Bytes, StreamBody};
-use axum::extract::Multipart;
-use serde_json::json;
-use serde_json::Value;
-use std::convert::Infallible;
-use std::fs;
-use std::time::Duration;
 
 use crate::utils::{system_info::SystemInformation, CommandData};
 use crate::UPLOAD_DIRECTORY;
@@ -67,229 +67,8 @@ pub async fn system_information() -> (StatusCode, Json<CommandData<SystemInforma
     )
 }
 
-// return an html page to receive file upload
-#[allow(unused)]
-pub async fn file_upload_form_new() -> Html<&'static str> {
-    Html(
-        r#"
-<!DOCTYPE html>
-<html lang='en'>
-  <head>
-    <meta charset='UTF-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <title>Document</title>
-    <style>
-      /* Import Google font — Poppins */
-      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        font-family: 'Poppins', sans-serif;
-      }
-      body {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 100vh;
-        background: #f2f2f2;
-        padding: 10px 20px;
-      }
-
-      ::selection {
-        color: #fff;
-        background: #6990f2;
-      }
-      .wrapper {
-        width: 430px;
-        background: #fff;
-        border-radius: 5px;
-        padding: 30px;
-        box-shadow: 7px 7px 12px rgba(0, 0, 0, 0.05);
-      }
-      .wrapper header {
-        color: #6990f2;
-        font-size: 27px;
-        font-weight: 600;
-        text-align: center;
-      }
-      .wrapper form {
-        height: 167px;
-        display: flex;
-        cursor: pointer;
-        margin: 30px 0;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
-        border-radius: 5px;
-        border: 2px dashed #6990f2;
-      }
-      form :where(i, p) {
-        color: #6990f2;
-      }
-      form i {
-        font-size: 50px;
-      }
-      form p {
-        margin-top: 15px;
-        font-size: 16px;
-      }
-
-      section .row {
-        margin-bottom: 10px;
-        background: #e9f0ff;
-        list-style: none;
-        padding: 15px 20px;
-        border-radius: 5px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
-      section .row i {
-        color: #6990f2;
-        font-size: 30px;
-      }
-      section .details span {
-        font-size: 14px;
-      }
-      .progress-area .row .content {
-        width: 100%;
-        margin-left: 15px;
-      }
-      .progress-area .details {
-        display: flex;
-        align-items: center;
-        margin-bottom: 7px;
-        justify-content: space-between;
-      }
-      .progress-area .content .progress-bar {
-        height: 6px;
-        width: 100%;
-        margin-bottom: 4px;
-        background: #fff;
-        border-radius: 30px;
-      }
-      .content .progress-bar .progress {
-        height: 100%;
-        width: 0%;
-        background: #6990f2;
-        border-radius: inherit;
-      }
-      .uploaded-area {
-        max-height: 232px;
-        overflow-y: scroll;
-      }
-      .uploaded-area.onprogress {
-        max-height: 150px;
-      }
-      .uploaded-area::-webkit-scrollbar {
-        width: 0px;
-      }
-      .uploaded-area .row .content {
-        display: flex;
-        align-items: center;
-      }
-      .uploaded-area .row .details {
-        display: flex;
-        margin-left: 15px;
-        flex-direction: column;
-      }
-      .uploaded-area .row .details .size {
-        color: #404040;
-        font-size: 11px;
-      }
-      .uploaded-area i.fa-check {
-        font-size: 16px;
-      }
-    </style>
-  </head>
-  <body>
-    <div class='wrapper'>
-      <header>File Uploader</header>
-      <form action='/upload'>
-        <input class='file-input' type='file' name='file' hidden />
-        <i class='fas fa-cloud-upload-alt'></i>
-        <p>Browse File to Upload</p>
-      </form>
-      <section class='progress-area'></section>
-      <section class='uploaded-area'></section>
-    </div>
-    <script>
-      const form = document.querySelector('form'),
-        fileInput = document.querySelector('.file-input'),
-        progressArea = document.querySelector('.progress-area'),
-        uploadedArea = document.querySelector('.uploaded-area');
-
-      form.addEventListener('click', () => {
-        fileInput.click();
-      });
-
-      fileInput.onchange = ({ target }) => {
-        let file = target.files[0];
-        if (file) {
-          let fileName = file.name;
-          if (fileName.length >= 12) {
-            let splitName = fileName.split('.');
-            fileName = splitName[0].substring(0, 13) + '… .' + splitName[1];
-          }
-          uploadFile(fileName);
-        }
-      };
-
-      function uploadFile(name) {
-        let xhr = new XMLHttpRequest();
-        xhr.open('POST', '/');
-        xhr.upload.addEventListener('progress', ({ loaded, total }) => {
-          let fileLoaded = Math.floor((loaded / total) * 100);
-          let fileTotal = Math.floor(total / 1000);
-          let fileSize;
-          fileTotal < 1024
-            ? (fileSize = fileTotal + ' KB')
-            : (fileSize = (loaded / (1024 * 1024)).toFixed(2) + ' MB');
-          let progressHTML = `<li class='row'>
-      <i class='fas fa-file-alt'></i>
-      <div class='content'>
-      <div class='details'>
-      <span class='name'>${name} • Uploading</span>
-      <span class='percent'>${fileLoaded}%</span>
-      </div>
-      <div class='progress-bar'>
-      <div class='progress' style='width: ${fileLoaded}%'></div>
-      </div>
-      </div>
-      </li>`;
-          uploadedArea.classList.add('onprogress');
-          progressArea.innerHTML = progressHTML;
-          if (loaded == total) {
-            progressArea.innerHTML = '';
-            let uploadedHTML = `<li class='row'>
-      <div class='content upload'>
-      <i class='fas fa-file-alt'></i>
-      <div class='details'>
-      <span class='name'>${name} • Uploaded</span>
-      <span class='size'>${fileSize}</span>
-      </div>
-      </div>
-      <i class='fas fa-check'></i>
-      </li>`;
-            uploadedArea.classList.remove('onprogress');
-            uploadedArea.insertAdjacentHTML('afterbegin', uploadedHTML);
-          }
-        });
-        let data = new FormData(form);
-        xhr.send(data);
-      }
-    </script>
-  </body>
-</html>
-
-  
-   "#,
-    )
-}
-
 /// return an html page to receive file upload
-pub async fn file_upload_form() -> Html<&'static str> {
+pub async fn _file_upload_form() -> Html<&'static str> {
     Html(
         r#"
         <!DOCTYPE html>
@@ -548,22 +327,186 @@ mod basic_endpoints {
     }
 }
 
+/// use Server sent event to notify client
+// pub async fn notify_peer(
+//     TypedHeader(user_agent): TypedHeader<headers::UserAgent>,
+// ) -> Sse<impl Stream<Item = Result<Event, Infallible>>> {
+//     println!("`{}` connected", user_agent.as_str());
 
+//     // A `Stream` that repeats an event every second
+//     let stream = stream::repeat_with(|| Event::default().data("hi!"))
+//         .map(Ok)
+//         .throttle(Duration::from_secs(1));
 
-/// use Server sent event to notify client 
-pub async fn notify_peer(
-    TypedHeader(user_agent): TypedHeader<headers::UserAgent>,
-) -> Sse<impl Stream<Item = Result<Event, Infallible>>> {
-    println!("`{}` connected", user_agent.as_str());
+//     Sse::new(stream).keep_alive(
+//         axum::response::sse::KeepAlive::new()
+//             .interval(Duration::from_secs(1))
+//             .text("keep-alive-text"),
+//     )
+// }
 
-    // A `Stream` that repeats an event every second
-    let stream = stream::repeat_with(|| Event::default().data("hi!"))
-        .map(Ok)
-        .throttle(Duration::from_secs(1));
+/// The handler for the HTTP request (this gets called when the HTTP GET lands at the start
+/// of websocket negotiation). After this completes, the actual switching from HTTP to
+/// websocket protocol will occur.
+/// This is the last point where we can extract TCP/IP metadata such as IP address of the client
+/// as well as things from HTTP headers such as user-agent of the browser etc.
+pub async fn ws_handler(
+    ws: WebSocketUpgrade,
+    user_agent: Option<TypedHeader<headers::UserAgent>>,
+    ConnectInfo(addr): ConnectInfo<SocketAddr>,
+) -> impl IntoResponse {
+    let user_agent = if let Some(TypedHeader(user_agent)) = user_agent {
+        user_agent.to_string()
+    } else {
+        String::from("Unknown browser")
+    };
+    println!("`{user_agent}` at {addr} connected.");
+    // finalize the upgrade process by returning upgrade callback.
+    // we can customize the callback by sending additional info such as address.
+    ws.on_upgrade(move |socket| handle_socket(socket, addr))
+}
 
-    Sse::new(stream).keep_alive(
-        axum::response::sse::KeepAlive::new()
-            .interval(Duration::from_secs(1))
-            .text("keep-alive-text"),
-    )
+/// Actual websocket statemachine (one will be spawned per connection)
+async fn handle_socket(mut socket: WebSocket, who: SocketAddr) {
+    //send a ping (unsupported by some browsers) just to kick things off and get a response
+    if socket.send(Message::Ping(vec![1, 2, 3])).await.is_ok() {
+        println!("Pinged {}...", who);
+    } else {
+        println!("Could not send ping {}!", who);
+        // no Error here since the only thing we can do is to close the connection.
+        // If we can not send messages, there is no way to salvage the statemachine anyway.
+        return;
+    }
+
+    // receive single message from a client (we can either receive or send with socket).
+    // this will likely be the Pong for our Ping or a hello message from client.
+    // waiting for message from a client will block this task, but will not block other client's
+    // connections.
+    if let Some(msg) = socket.recv().await {
+        if let Ok(msg) = msg {
+            if process_message(msg, who).is_break() {
+                return;
+            }
+        } else {
+            println!("client {who} abruptly disconnected");
+            return;
+        }
+    }
+
+    // Since each client gets individual statemachine, we can pause handling
+    // when necessary to wait for some external event (in this case illustrated by sleeping).
+    // Waiting for this client to finish getting its greetings does not prevent other clients from
+    // connecting to server and receiving their greetings.
+    for i in 1..5 {
+        if socket
+            .send(Message::Text(format!("Hi {i} times!")))
+            .await
+            .is_err()
+        {
+            println!("client {who} abruptly disconnected");
+            return;
+        }
+        tokio::time::sleep(std::time::Duration::from_millis(100)).await;
+    }
+
+    // By splitting socket we can send and receive at the same time. In this example we will send
+    // unsolicited messages to client based on some sort of server's internal event (i.e .timer).
+    let (mut sender, mut receiver) = socket.split();
+
+    // Spawn a task that will push several messages to the client (does not matter what client does)
+    let mut send_task = tokio::spawn(async move {
+        let n_msg = 20;
+        for i in 0..n_msg {
+            // In case of any websocket error, we exit.
+            if sender
+                .send(Message::Text(format!("Server message {i} ...")))
+                .await
+                .is_err()
+            {
+                return i;
+            }
+
+            tokio::time::sleep(std::time::Duration::from_millis(300)).await;
+        }
+
+        println!("Sending close to {who}...");
+        if let Err(e) = sender
+            .send(Message::Close(Some(CloseFrame {
+                code: axum::extract::ws::close_code::NORMAL,
+                reason: Cow::from("Goodbye"),
+            })))
+            .await
+        {
+            println!("Could not send Close due to {}, probably it is ok?", e);
+        }
+        n_msg
+    });
+
+    // This second task will receive messages from client and print them on server console
+    let mut recv_task = tokio::spawn(async move {
+        let mut cnt = 0;
+        while let Some(Ok(msg)) = receiver.next().await {
+            cnt += 1;
+            // print message and break if instructed to do so
+            if process_message(msg, who).is_break() {
+                break;
+            }
+        }
+        cnt
+    });
+
+    // If any one of the tasks exit, abort the other.
+    tokio::select! {
+        rv_a = (&mut send_task) => {
+            match rv_a {
+                Ok(a) => println!("{} messages sent to {}", a, who),
+                Err(a) => println!("Error sending messages {:?}", a)
+            }
+            recv_task.abort();
+        },
+        rv_b = (&mut recv_task) => {
+            match rv_b {
+                Ok(b) => println!("Received {} messages", b),
+                Err(b) => println!("Error receiving messages {:?}", b)
+            }
+            send_task.abort();
+        }
+    }
+
+    // returning from the handler closes the websocket connection
+    println!("Websocket context {} destroyed", who);
+}
+
+/// helper to print contents of messages to stdout. Has special treatment for Close.
+fn process_message(msg: Message, who: SocketAddr) -> ControlFlow<(), ()> {
+    match msg {
+        Message::Text(t) => {
+            println!(">>> {} sent str: {:?}", who, t);
+        }
+        Message::Binary(d) => {
+            println!(">>> {} sent {} bytes: {:?}", who, d.len(), d);
+        }
+        Message::Close(c) => {
+            if let Some(cf) = c {
+                println!(
+                    ">>> {} sent close with code {} and reason `{}`",
+                    who, cf.code, cf.reason
+                );
+            } else {
+                println!(">>> {} somehow sent close message without CloseFrame", who);
+            }
+            return ControlFlow::Break(());
+        }
+
+        Message::Pong(v) => {
+            println!(">>> {} sent pong with {:?}", who, v);
+        }
+        // You should never need to manually handle Message::Ping, as axum's websocket library
+        // will do so for you automagically by replying with Pong and copying the v according to
+        // spec. But if you need the contents of the pings you can see them here.
+        Message::Ping(v) => {
+            println!(">>> {} sent ping with {:?}", who, v);
+        }
+    }
+    ControlFlow::Continue(())
 }
