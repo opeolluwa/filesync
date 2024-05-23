@@ -20,7 +20,7 @@ mod server;
 mod state_manager;
 mod utils;
 
-pub const STATIC_ASSETS_DIRECTORY: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/views");
+// pub const STATIC_ASSETS_DIRECTORY: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/views");
 
 lazy_static! {
     /**
