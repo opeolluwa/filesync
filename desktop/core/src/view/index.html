@@ -6,17 +6,14 @@
     <meta name="viewport" content="width=device-width" />
     <title>XMLHttpRequestUpload test</title>
     <link rel="stylesheet" href="./assets/preset.css" />
+    <link rel="stylesheet" href="assets//flowbite.min.css" />
     <link rel="stylesheet" href="./assets/style.css">
-    <script src="./assets/tailwind.js"></script>
 </head>
 
 <body>
 
     <main class="container py-5 px-5 select-none">
-        <!-- component -->
-        <link rel="stylesheet" href="assets//flowbite.min.css" />
 
-        <!-- This is an example component -->
         <div class="max-w-2xl mx-auto">
 
             <div class="flex items-center justify-center w-full">
@@ -33,22 +30,15 @@
                                 upload</span> or drag and drop</p>
                         <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                     </div>
-                    <input id="dropzone" type="file" class="hidden"  multiple/>
+                    <input id="dropzone" type="file" class="hidden" multiple />
                 </label>
             </div>
         </div>
 
-        <p class="hidden">
-            <label for="file">File to upload</label><input type="file" id="file" />
-        </p>
-        <p>
-
-        
         <progress class="bg-gray-200 rounded-full h-2.5 w-full px-5"></progress>
-             <output></output>
+        <output class="text-xs"></output>
 
     </main>
-    <script src="./assets/flowbite.js"></script>
     <script src="./assets/app.js"></script>
 </body>
 

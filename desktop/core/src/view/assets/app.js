@@ -1,28 +1,19 @@
-
 addEventListener("DOMContentLoaded", () => {
   const fileInput = document.getElementById("dropzone");
   const progressBar = document.querySelector("progress");
   const log = document.querySelector("output");
+  const API_ENDPOINT = "http://192.168.0.170:18005/upload";
   // const abortButton = document.getElementById("abort");
   fileInput.addEventListener("change", () => {
     const xhr = new XMLHttpRequest();
     xhr.timeout = 2000; // 2 seconds
 
-    // Link abort button
-    // abortButton.addEventListener(
-    //   "click",
-    //   () => {
-    //     xhr.abort();
-    //   },
-    //   { once: true }
-    // );
     // When the upload starts, we display the progress bar
     xhr.upload.addEventListener("loadstart", (event) => {
       progressBar.classList.add("visible");
       progressBar.value = 0;
       progressBar.max = event.total;
       log.textContent = "Uploading (0%)…";
-      // abortButton.disabled = false;
     });
 
     // Each time a progress event is received, we update the bar
@@ -40,7 +31,6 @@ addEventListener("DOMContentLoaded", () => {
       if (event.loaded !== 0) {
         log.textContent = "Upload finished.";
       }
-      // abortButton.disabled = true;
     });
 
     // In case of an error, an abort, or a timeout, we hide the progress bar
@@ -53,13 +43,26 @@ addEventListener("DOMContentLoaded", () => {
     xhr.upload.addEventListener("abort", errorAction);
     xhr.upload.addEventListener("timeout", errorAction);
 
+    // //TODO:  for each file, create progress bar for the upload
+    // for (const entry of fileInput.fileData) {
+    //   // Build the payload
+    //   const fileData = new FormData();
+    //   fileData.append("file", fileInput.files[entry]);
+
+    //   // Theoretically, event listeners could be set after the open() call
+    //   // but browsers are buggy here
+    //   xhr.open("POST", API_ENDPOINT, true);
+
+    //   // Note that the event listener must be set before sending (as it is a preflighted request)
+    //   xhr.send(fileData);
+    // }
     // Build the payload
     const fileData = new FormData();
     fileData.append("file", fileInput.files[0]);
 
     // Theoretically, event listeners could be set after the open() call
     // but browsers are buggy here
-    xhr.open("POST", "http://192.168.0.170:18005/upload", true);
+    xhr.open("POST", API_ENDPOINT, true);
 
     // Note that the event listener must be set before sending (as it is a preflighted request)
     xhr.send(fileData);
