@@ -8,7 +8,7 @@ export default function Aside() {
   const { fileList } = useContext(FileContext);
 
   return (
-    <aside className="hidden lg:block lg:flex-col items-center lg:col-span-2 pt-10 px-8  h-full bg-[rgba(226,233,252,255)] dark:bg-dark-950">
+    <aside className="hidden lg:block lg:flex-col items-center lg:col-span-2 pt-10 px-8  h-full bg-[rgba(226,233,252,255)] dark:bg-dark-950 w-[200px]">
       <div className="items-end  hidden">
         <Battery50Icon className="w-6 h-6 text-gray-400" />
         <BellAlertIcon className="w-6 h-6 text-gray-400" />
