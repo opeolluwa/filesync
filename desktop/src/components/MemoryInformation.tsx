@@ -3,19 +3,18 @@ import { useContext } from "react";
 
 // use this to display the available memory
 export const MemoryInformation = ({
-  systemName,
-  usedMemory,
-  totalMemory,
+  usedDisk,
+  availableDisk,
 }: {
-  systemName: string;
-  usedMemory: string;
-  totalMemory: string;
+  usedDisk: string;
+  availableDisk: string;
 }) => {
   const { data: isConnectedToWifi } = useContext(WifiStatusContext);
 
-  const freeMemory =
-    Number(totalMemory?.split(" ")[0]) - Number(usedMemory?.split(" ")[0]);
-  const memBarWidth = "56%";
+  const usedMemory = Number(usedDisk?.split(" ")[0]);
+  const freeMemory = Number(availableDisk?.split(" ")[0]);
+  const totalMemory = usedMemory + freeMemory;
+  const memoryBarWidth = Math.round((freeMemory / totalMemory) * 100);
   return (
     <div
       style={{
@@ -27,7 +26,7 @@ export const MemoryInformation = ({
     >
       <div className="flex justify-between mb-2 px-4">
         <span className=" font-medium text-blue-700 text-sm">
-          {usedMemory} of {totalMemory}
+          {availableDisk} free space
         </span>
       </div>
       <div className="w-fill bg-gray-200 rounded-md mx-4 h-2">
@@ -37,7 +36,7 @@ export const MemoryInformation = ({
               ? "bg-app-400 h-2 rounded-full"
               : "bg-gray-400 h-2 rounded-full"
           }
-          style={{ width: memBarWidth }}
+          style={{ width: `${memoryBarWidth}%` }}
         ></div>
       </div>
     </div>

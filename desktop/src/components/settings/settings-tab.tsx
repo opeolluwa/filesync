@@ -19,7 +19,7 @@ export default function SettingsTab({
       // onClick={() => setIcon(alternateIcon)}
       onMouseLeave={() => setIcon(icon)}
       className={
-        "flex items-center gap-4 ease-in-out py-4 first:mt-4 last:border-none last:mb-4 text-gray-500 cursor-pointer  pl-4  hover:text-app  hover:bg-app-50  rounded-xl" + " "+
+        "flex items-center gap-4 ease-in-out py-4 first:mt-4 last:border-none last:mb-4 text-gray-500 cursor-pointer  pl-4  hover:text-app  hover:bg-app-50  rounded-lg" + " "+
         withStyle
       }
     >

@@ -137,3 +137,6 @@ filesync
 
 */target 
 
+
+target
+Cargo.lock

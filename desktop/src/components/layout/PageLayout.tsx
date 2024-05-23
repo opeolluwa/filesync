@@ -21,12 +21,12 @@ export default function QuickAccessLayout({
       {/** page title  and navigation icons  */}
       <div className="flex mb-10 font-medium dark:text-gray-300 justify-between items-center">
         <ChevronLeftIcon
-          className="text-gary-300 w-6 h-6 text-medium cursor-pointer mr-8"
+          className="text-gray-400 w-6 h-6 text-medium cursor-pointer mr-8"
           onClick={goToPrevPage}
         />
         <PageTitle styles="capitalize" title={pageTitle}></PageTitle>
         <ChevronRightIcon
-          className="text-gary-300 w-6 h-6 text-medium cursor-pointer mr-8"
+          className="text-gray-400 w-6 h-6 text-medium cursor-pointer mr-8"
           onClick={goToNextPage}
         />
       </div>

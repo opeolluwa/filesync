@@ -26,7 +26,7 @@ export function FileHistory({
   id,
 }: Props) {
   return (
-    <div className="flex my-8 flex-wrap bg-[#edeffb]  border-gray-900  p-3 shadow-gray-300 cursor-pointer rounded hover:shadow-sm hover:shadow-gray-400 transition-shadow ease-in-out">
+    <div className="flex my-8 flex-wrap bg-[#f9fbfe]  border-gray-900  p-3 shadow-gray-300 cursor-pointer rounded-lg hover:shadow-sm hover:shadow-gray-400 transition-shadow ease-in-out">
       <div className="pr-[10px] rounded-full">
         <Identicon string={id} size={50} padding={20} />
       </div>
