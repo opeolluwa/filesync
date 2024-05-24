@@ -1,0 +1,13 @@
+
+
+#file {
+    display: none;
+}
+
+progress{
+    display: none;
+}
+
+progress.visible, #file-upload-view.visible {
+    display: block;
+}
