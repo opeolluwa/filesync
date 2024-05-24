@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="./assets/css/flowbite.min.css" />
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+
+<body>
+
+    <section class="container  px-5 select-none flex flex-col items-center justify-center h-screen" id="qr-scan-view">
+
+        <div id="reader" class=" w-[400px] rounded-lg"></div>
+
+
+        <h1 class="text-3xl font-bold" id="qr-trigger-heading">Scan QR Code </h1>
+        <p class="leading-1 text-gray-400 mb-4 w-2/3 mt-1 text-center" id="qr-trigger-paragraph">Click the camera icon
+            above to scan QR code on
+            Peer device</p>
+        <button class="bg-[#3074F5] px-8 w-fit rounded-lg py-2 text-white flex gap-2 items-center justify-center"
+            id="qr-trigger">
+            Scan <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                stroke="currentColor" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M6.827 6.175A2.31 2.31 0 0 1 5.186 7.23c-.38.054-.757.112-1.134.175C2.999 7.58 2.25 8.507 2.25 9.574V18a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9.574c0-1.067-.75-1.994-1.802-2.169a47.865 47.865 0 0 0-1.134-.175 2.31 2.31 0 0 1-1.64-1.055l-.822-1.316a2.192 2.192 0 0 0-1.736-1.039 48.774 48.774 0 0 0-5.232 0 2.192 2.192 0 0 0-1.736 1.039l-.821 1.316Z" />
+                <path stroke-linecap="round" stroke-linejoin="round"
+                    d="M16.5 12.75a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0ZM18.75 10.5h.008v.008h-.008V10.5Z" />
+            </svg>
+        </button>
+    </section>
+
+
+
+    <section class="container py-5 px-5 select-none hidden" id="file-upload-view">
+
+        <div class="max-w-2xl mx-auto">
+
+            <div class="flex items-center justify-center w-full">
+                <label for="dropzone"
+                    class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800  hover:bg-gray-100  ">
+                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                        <svg class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                            </path>
+                        </svg>
+                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to
+                                upload</span> or drag and drop</p>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                    </div>
+                    <input id="dropzone" type="file" class="hidden" multiple />
+                </label>
+            </div>
+        </div>
+
+        <progress class="bg-gray-200 rounded-full h-2.5 w-full px-5 mt-4"></progress>
+        <output class="text-xs text-center"></output>
+
+    </section>
+    <script src="./assets/js/html5-qrcode.min.js"></script>
+    <script src="./assets/js/tailwind.js"></script>
+    <script src="./assets/js/app.js"></script>
+    <script>
+        addEventListener('DOMContentLoaded', () => {
+            document.querySelector("#qr-trigger").addEventListener('click', () => {
+                const html5QrCode = new Html5Qrcode(/* element id */ "reader");
+                // This method will trigger user permissions
+                Html5Qrcode.getCameras().then(devices => {
+                    /**
+                     * devices would be an array of objects of type:
+                     * { id: "id", label: "label" }
+                     */
+                    if (devices && devices.length) {
+                        var cameraId = devices[0].id;
+                        // .. use this to start scanning.
+                        document.querySelector("#qr-trigger").classList.add('hidden')
+                        document.querySelector("#qr-trigger-heading").classList.add('hidden')
+                        document.querySelector("#qr-trigger-paragraph").classList.add('hidden')
+                        html5QrCode.start(
+                            // cameraId,
+                            { facingMode: "environment" },
+                            {
+                                fps: 10,    // Optional, frame per seconds for qr code scanning
+                                qrbox: { width: 250, height: 250 }  // Optional, if you want bounded box UI
+                            },
+                            (decodedText, decodedResult) => {
+                                //TODO: redirect to the upload page 
+                                // hide the QR section and show the file upload section
+                                document.querySelector("#qr-scan-view").classList.add('hidden')
+                                document.querySelector("#reader").classList.add('hidden')
+                                document.querySelector("#file-upload-view").classList.add('visible')
+                                html5QrCode.stop().then((ignore) => {
+                                    // QR Code scanning is stopped.
+                                }).catch((err) => {
+                                    // Stop failed, handle it.
+                                });
+                            },
+                            (errorMessage) => {
+                                // parse error, ignore it.
+                                // window.alert(errorMessage)
+                            })
+                            .catch((err) => {
+                                // Start failed, handle it.
+                            });
+                    }
+                }).catch(err => {
+                    // handle err
+                });
+
+            })
+        })
+
+
+
+    </script>
+
+</body>
+
+</html>
