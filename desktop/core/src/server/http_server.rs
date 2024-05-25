@@ -2,6 +2,8 @@ use axum::http::Method;
 
 use tower_http::cors::Any;
 use tower_http::cors::CorsLayer;
+use tower_http::trace::DefaultMakeSpan;
+use tower_http::trace::TraceLayer;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 
@@ -52,16 +54,17 @@ pub async fn core_server() {
         .parse::<std::net::SocketAddr>()
         .expect("invalid socket address");
 
-
     let app = router::app()
         .layer(file_limit)
         .layer(cors_layer)
-        .layer(tower_http::trace::TraceLayer::new_for_http());
-
+        .layer(tower_http::trace::TraceLayer::new_for_http())
+        .layer(
+            TraceLayer::new_for_http()
+                .make_span_with(DefaultMakeSpan::default().include_headers(true)),
+        );
 
     // run it
     let listener = tokio::net::TcpListener::bind(&ip_address).await.unwrap();
-
 
     tracing::debug!(" the server port is http://{}", ip_address);
 
