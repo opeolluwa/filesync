@@ -38,7 +38,7 @@ export default function ConnectionPage() {
 
             <View className="flex items-center justify-center">
               <span className="text-2xl" onClick={copyToClipboard}>
-                {serverBaseUrl + "/upload"}
+                {serverBaseUrl}
               </span>
               <i className="ri-file-copy-line text-4xl ml-3 cursor-pointer hover:text-app"></i>
             </View>

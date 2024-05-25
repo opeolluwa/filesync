@@ -1,12 +1,14 @@
-use axum::body::{Bytes, StreamBody};
+use axum::body::{Body, Bytes};
 use axum::extract::ws::{CloseFrame, Message, WebSocket};
-use axum::extract::{ConnectInfo, Multipart, WebSocketUpgrade};
-use axum::response::Html;
-use axum::{extract::Query, http::StatusCode, response::IntoResponse};
-use axum::{headers, BoxError, Json, TypedHeader};
+use axum::extract::{connect_info::ConnectInfo, Multipart, Query, WebSocketUpgrade};
+use axum::http::StatusCode;
+use axum::response::IntoResponse;
+use axum::{BoxError, Json};
+use axum_extra::TypedHeader;
 use futures::stream::{Stream, TryStreamExt};
-use futures::{sink::SinkExt, stream::StreamExt};
-use hyper::header;
+
+use futures::{SinkExt, StreamExt};
+use http::header;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 use serde_json::Value;
@@ -14,9 +16,11 @@ use std::borrow::Cow;
 use std::fs;
 use std::net::SocketAddr;
 use std::ops::ControlFlow;
+use std::path::PathBuf;
+use tokio_util::io::{ReaderStream, StreamReader};
+
 use tokio::fs::File;
 use tokio::io::{self, BufWriter};
-use tokio_util::io::{ReaderStream, StreamReader};
 
 use crate::utils::{system_info::SystemInformation, CommandData};
 use crate::UPLOAD_DIRECTORY;
@@ -25,35 +29,6 @@ use crate::UPLOAD_DIRECTORY;
 /// destructure query parameter
 pub struct QueryParams {
     pub file_path: String,
-}
-/// accept file path amd return the file
-pub async fn download_file(Query(params): Query<QueryParams>) -> impl IntoResponse {
-    let QueryParams { file_path } = params;
-
-    let Some(file) = tokio::fs::File::open(file_path).await.ok() else {
-        return Err((
-            StatusCode::NOT_FOUND,
-            axum::response::Json(serde_json::json!({
-            "success":false,
-            "message":String::from("The requested file could not be found!"),
-            })),
-        ));
-    };
-    // TODO use mime guess
-    // convert the `AsyncRead` into a `Stream`
-    let stream = ReaderStream::new(file);
-    // convert the `Stream` into an `axum::body::HttpBody`
-    let body = StreamBody::new(stream);
-
-    let headers = [
-        (header::CONTENT_TYPE, "text/toml; charset=utf-8"),
-        (
-            header::CONTENT_DISPOSITION,
-            "attachment; filename=\"Cargo.toml\"",
-        ),
-    ];
-
-    Ok((headers, body))
 }
 
 /// return the system information
@@ -64,89 +39,6 @@ pub async fn system_information() -> (StatusCode, Json<CommandData<SystemInforma
             "connected system information ",
             SystemInformation::new(),
         )),
-    )
-}
-
-/// return an html page to receive file upload
-pub async fn _file_upload_form() -> Html<&'static str> {
-    Html(
-        r#"
-        <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>File Upload Form</title>
-    <style>
-      body {
-        font-family: "Arial", sans-serif;
-        background-color: #f5f5f5;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 100vh;
-      }
-
-      .container {
-        background-color: #ffffff;
-        border-radius: 8px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        overflow: hidden;
-        width: 400px;
-      }
-
-      .form-container {
-        padding: 20px;
-      }
-
-      label {
-        display: block;
-        margin-bottom: 8px;
-        color: #333;
-      }
-
-      input[type="file"] {
-        width: 100%;
-        padding: 10px;
-        margin-bottom: 16px;
-        box-sizing: border-box;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-      }
-
-      input[type="submit"] {
-        background-color: #4caf50;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        font-size: 16px;
-      }
-
-      input[type="submit"]:hover {
-        background-color: #45a049;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="container">
-      <div class="form-container">
-        <h2>File Upload Form</h2>
-        <form action="/upload" method="post" enctype="multipart/form-data">
-          <label for="file">Choose a file:</label>
-          <input type="file" id="file" name="file" multiple required />
-          <input type="submit" value="Upload" />
-        </form>
-      </div>
-    </div>
-  </body>
-</html>
-
-   "#,
     )
 }
 
@@ -249,108 +141,57 @@ pub async fn health_check() -> impl IntoResponse {
     )
 }
 
-/// ping the server
-pub async fn ping_server() -> impl IntoResponse {
-    "FileSync Server 1.0.0"
-}
-
 /// for a given file path, return the file the the used as a downloadable one
 pub async fn get_file(Query(QueryParams { file_path }): Query<QueryParams>) -> impl IntoResponse {
     // `File` implements `AsyncRead`
-    let file = match tokio::fs::File::open(file_path).await {
+    let file = match tokio::fs::File::open(file_path.clone()).await {
         Ok(file) => file,
-        Err(err) => return Err((StatusCode::NOT_FOUND, format!("File not found: {}", err))),
+        Err(_err) => return Err((StatusCode::NOT_FOUND, "File not found:".to_string())),
     };
+
     // convert the `AsyncRead` into a `Stream`
     let stream = ReaderStream::new(file);
     // convert the `Stream` into an `axum::body::HttpBody`
-    let body = StreamBody::new(stream);
+    let body = Body::from_stream(stream);
+
+    let content_type = match mime_guess::from_path(file_path.clone()).first_raw() {
+        Some(mime) => mime,
+        None => {
+            return Err((
+                StatusCode::BAD_REQUEST,
+                "MIME Type couldn't be determined".to_string(),
+            ))
+        }
+    };
+
+    let file_buf_path = PathBuf::from(file_path.clone());
+    let file_metadata = file_buf_path.file_name();
+
+    let filename = match file_metadata {
+        Some(name) => name.to_str(),
+        None => {
+            return Err((
+                StatusCode::BAD_REQUEST,
+                "File name couldn't be determined".to_string(),
+            ))
+        }
+    };
+
+    let content_disposition = format!("attachment; filename=\"{:?}\"", filename.unwrap());
 
     let headers = [
-        (header::CONTENT_TYPE, "text/toml; charset=utf-8"),
+        (header::CONTENT_TYPE, content_type),
         (
             header::CONTENT_DISPOSITION,
-            "attachment; filename=\"Cargo.toml\"",
+            content_disposition.as_str(), //    content_disposition
         ),
     ];
 
-    Ok((headers, body))
+    Ok((headers, body).into_response())
 }
 
-#[cfg(test)]
-mod basic_endpoints {
-    use crate::server::router;
-
-    use axum::{
-        body::Body,
-        http::{Request, StatusCode},
-    };
-    // use serde_json::{json, Value};
-    use tower::ServiceExt;
-    // test the server base url
-    // for example ->  http://loccalhost:4835
-    // the index route should return hello world
-    #[tokio::test]
-    async fn base_url() {
-        let app = router::app();
-
-        let response = app
-            .oneshot(Request::builder().uri("/").body(Body::empty()).unwrap())
-            .await
-            .unwrap();
-
-        // response status code should be 200
-        assert_eq!(response.status(), StatusCode::OK);
-    }
-
-    // 404 path
-    #[tokio::test]
-    async fn not_found_handler() {
-        let app = router::app();
-
-        // the 404 handle should return this json
-        // it will return a NOT_FOUND  status code
-        // the test will test for the validity of  this.
-        let response = app
-            .oneshot(
-                Request::builder()
-                    .uri("/not-found-error")
-                    .body(Body::empty())
-                    .unwrap(),
-            )
-            .await
-            .unwrap();
-
-        // assert  the the status code is 404
-        assert_eq!(response.status(), StatusCode::NOT_FOUND);
-        // println!(" the not-found-endpoint response is {response:?}");
-    }
-}
-
-/// use Server sent event to notify client
-// pub async fn notify_peer(
-//     TypedHeader(user_agent): TypedHeader<headers::UserAgent>,
-// ) -> Sse<impl Stream<Item = Result<Event, Infallible>>> {
-//     println!("`{}` connected", user_agent.as_str());
-
-//     // A `Stream` that repeats an event every second
-//     let stream = stream::repeat_with(|| Event::default().data("hi!"))
-//         .map(Ok)
-//         .throttle(Duration::from_secs(1));
-
-//     Sse::new(stream).keep_alive(
-//         axum::response::sse::KeepAlive::new()
-//             .interval(Duration::from_secs(1))
-//             .text("keep-alive-text"),
-//     )
-// }
-
-/// The handler for the HTTP request (this gets called when the HTTP GET lands at the start
-/// of websocket negotiation). After this completes, the actual switching from HTTP to
-/// websocket protocol will occur.
-/// This is the last point where we can extract TCP/IP metadata such as IP address of the client
-/// as well as things from HTTP headers such as user-agent of the browser etc.
-pub async fn ws_handler(
+/// send and recieve websocket connection from peer
+pub async fn notify_peer(
     ws: WebSocketUpgrade,
     user_agent: Option<TypedHeader<headers::UserAgent>>,
     ConnectInfo(addr): ConnectInfo<SocketAddr>,
@@ -370,9 +211,9 @@ pub async fn ws_handler(
 async fn handle_socket(mut socket: WebSocket, who: SocketAddr) {
     //send a ping (unsupported by some browsers) just to kick things off and get a response
     if socket.send(Message::Ping(vec![1, 2, 3])).await.is_ok() {
-        println!("Pinged {}...", who);
+        println!("Pinged {who}...");
     } else {
-        println!("Could not send ping {}!", who);
+        println!("Could not send ping {who}!");
         // no Error here since the only thing we can do is to close the connection.
         // If we can not send messages, there is no way to salvage the statemachine anyway.
         return;
@@ -437,7 +278,7 @@ async fn handle_socket(mut socket: WebSocket, who: SocketAddr) {
             })))
             .await
         {
-            println!("Could not send Close due to {}, probably it is ok?", e);
+            println!("Could not send Close due to {e}, probably it is ok?");
         }
         n_msg
     });
@@ -459,29 +300,29 @@ async fn handle_socket(mut socket: WebSocket, who: SocketAddr) {
     tokio::select! {
         rv_a = (&mut send_task) => {
             match rv_a {
-                Ok(a) => println!("{} messages sent to {}", a, who),
-                Err(a) => println!("Error sending messages {:?}", a)
+                Ok(a) => println!("{a} messages sent to {who}"),
+                Err(a) => println!("Error sending messages {a:?}")
             }
             recv_task.abort();
         },
         rv_b = (&mut recv_task) => {
             match rv_b {
-                Ok(b) => println!("Received {} messages", b),
-                Err(b) => println!("Error receiving messages {:?}", b)
+                Ok(b) => println!("Received {b} messages"),
+                Err(b) => println!("Error receiving messages {b:?}")
             }
             send_task.abort();
         }
     }
 
     // returning from the handler closes the websocket connection
-    println!("Websocket context {} destroyed", who);
+    println!("Websocket context {who} destroyed");
 }
 
 /// helper to print contents of messages to stdout. Has special treatment for Close.
 fn process_message(msg: Message, who: SocketAddr) -> ControlFlow<(), ()> {
     match msg {
         Message::Text(t) => {
-            println!(">>> {} sent str: {:?}", who, t);
+            println!(">>> {who} sent str: {t:?}");
         }
         Message::Binary(d) => {
             println!(">>> {} sent {} bytes: {:?}", who, d.len(), d);
@@ -493,20 +334,69 @@ fn process_message(msg: Message, who: SocketAddr) -> ControlFlow<(), ()> {
                     who, cf.code, cf.reason
                 );
             } else {
-                println!(">>> {} somehow sent close message without CloseFrame", who);
+                println!(">>> {who} somehow sent close message without CloseFrame");
             }
             return ControlFlow::Break(());
         }
 
         Message::Pong(v) => {
-            println!(">>> {} sent pong with {:?}", who, v);
+            println!(">>> {who} sent pong with {v:?}");
         }
         // You should never need to manually handle Message::Ping, as axum's websocket library
         // will do so for you automagically by replying with Pong and copying the v according to
         // spec. But if you need the contents of the pings you can see them here.
         Message::Ping(v) => {
-            println!(">>> {} sent ping with {:?}", who, v);
+            println!(">>> {who} sent ping with {v:?}");
         }
     }
     ControlFlow::Continue(())
+}
+#[cfg(test)]
+mod basic_endpoints {
+    use crate::server::router;
+
+    use axum::{
+        body::Body,
+        http::{Request, StatusCode},
+    };
+    // use serde_json::{json, Value};
+    use tower::ServiceExt;
+    // test the server base url
+    // for example ->  http://loccalhost:4835
+    // the index route should return hello world
+    #[tokio::test]
+    async fn base_url() {
+        let app = router::app();
+
+        let response = app
+            .oneshot(Request::builder().uri("/").body(Body::empty()).unwrap())
+            .await
+            .unwrap();
+
+        // response status code should be 200
+        assert_eq!(response.status(), StatusCode::OK);
+    }
+
+    // 404 path
+    #[tokio::test]
+    async fn not_found_handler() {
+        let app = router::app();
+
+        // the 404 handle should return this json
+        // it will return a NOT_FOUND  status code
+        // the test will test for the validity of  this.
+        let response = app
+            .oneshot(
+                Request::builder()
+                    .uri("/not-found-error")
+                    .body(Body::empty())
+                    .unwrap(),
+            )
+            .await
+            .unwrap();
+
+        // assert  the the status code is 404
+        assert_eq!(response.status(), StatusCode::NOT_FOUND);
+        // println!(" the not-found-endpoint response is {response:?}");
+    }
 }
