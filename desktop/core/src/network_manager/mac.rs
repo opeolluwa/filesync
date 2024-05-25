@@ -15,11 +15,11 @@ impl WifiHotspotConfigBuilder for  WifiHotspotConfig {
         todo!()
     }
     
-    fn stop() -> () {
+    fn stop() {
         todo!()
     }
     
-    fn refresh() -> () {
+    fn refresh() {
         todo!()
     }
 }

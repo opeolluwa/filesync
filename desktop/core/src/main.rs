@@ -8,8 +8,8 @@ use crate::ipc_manager::settings::{get_application_data, get_settings, update_se
 use crate::ipc_manager::utils::{
     generate_qr_code, get_ip_address, get_system_information, is_connected_to_wifi,
 };
-use include_dir::include_dir;
-use include_dir::Dir;
+
+
 use lazy_static::lazy_static;
 use server::http_server;
 mod database;

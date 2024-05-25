@@ -21,9 +21,9 @@ pub trait WifiHotspotConfigBuilder {
 /// scan for network, return an array of network names / ssid
 fn scan() -> Vec<String>;
 /// terminate the wifi hot spot 
-fn stop() -> ();
+fn stop();
 /// refresh  the network hotspot or wifi 
-fn refresh() -> ();
+fn refresh();
 }
 // pub mod network_scanner;
 /// the network interface type contains the

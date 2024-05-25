@@ -1,5 +1,4 @@
-
-use reqwest::Method;
+use axum::http::Method;
 
 use tower_http::cors::Any;
 use tower_http::cors::CorsLayer;
@@ -53,18 +52,18 @@ pub async fn core_server() {
         .parse::<std::net::SocketAddr>()
         .expect("invalid socket address");
 
-    tracing::debug!(" the server port is http://{}", ip_address);
-
-
 
     let app = router::app()
         .layer(file_limit)
         .layer(cors_layer)
         .layer(tower_http::trace::TraceLayer::new_for_http());
 
-    // run the server
-    axum::Server::bind(&ip_address)
-        .serve(app.into_make_service())
-        .await
-        .unwrap();
+
+    // run it
+    let listener = tokio::net::TcpListener::bind(&ip_address).await.unwrap();
+
+
+    tracing::debug!(" the server port is http://{}", ip_address);
+
+    axum::serve(listener, app).await.unwrap();
 }
