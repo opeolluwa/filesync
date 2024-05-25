@@ -1,8 +1,8 @@
 #[allow(unused)]
 use std::fmt;
 
-use serde::{Deserialize, Serialize};
 use crate::utils::CommandData;
+use serde::{Deserialize, Serialize};
 
 pub mod ip_manager;
 
@@ -11,19 +11,18 @@ pub mod ip_manager;
 #[cfg_attr(target_os = "windows", path = "windows.rs")]
 pub mod network;
 
-
 /// the Network config trait to be implemented independently fi=or windows, mac and linux
 pub trait WifiHotspotConfigBuilder {
-    /// create new hotspot 
- fn create() -> Self;
- /// connect to a wifi
- fn connect() -> CommandData<bool>;
-/// scan for network, return an array of network names / ssid
-fn scan() -> Vec<String>;
-/// terminate the wifi hot spot 
-fn stop();
-/// refresh  the network hotspot or wifi 
-fn refresh();
+    /// create new hotspot
+    fn create() -> Self;
+    /// connect to a wifi
+    fn connect() -> CommandData<bool>;
+    /// scan for network, return an array of network names / ssid
+    fn scan() -> Vec<String>;
+    /// terminate the wifi hot spot
+    fn stop();
+    /// refresh  the network hotspot or wifi
+    fn refresh();
 }
 // pub mod network_scanner;
 /// the network interface type contains the
