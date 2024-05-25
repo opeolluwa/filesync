@@ -18,11 +18,11 @@ pub fn app() -> Router {
         .into_router();
 
     Router::new()
-        // .route("/upload", post(accept_file_upload))
-        // .route("/health", post(accept_file_upload).get(health_check))
-        // .route("/api/sys-info", get(system_information))
-        // .route("/api/file", get(get_file))
-        .route("/notify", get(notify_peer))
-        // .merge(memory_router)
-        // .fallback(handle_404)
+        .route("/upload", post(accept_file_upload))
+        .route("/health", post(accept_file_upload).get(health_check))
+        .route("/api/sys-info", get(system_information))
+        .route("/api/file", get(get_file))
+        // .route("/notify", get(notify_peer))
+        .merge(memory_router)
+        .fallback(handle_404)
 }
