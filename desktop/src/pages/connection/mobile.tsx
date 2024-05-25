@@ -19,7 +19,7 @@ export default function ConnectionPage() {
           style={{ height: "600px" }}
         >
           <QRCode
-            value={serverBaseUrl ? serverBaseUrl+'/view' : " "}
+            value={serverBaseUrl ? serverBaseUrl : " "}
             size={200}
             fgColor="#101010"
           />

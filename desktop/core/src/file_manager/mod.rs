@@ -5,7 +5,7 @@ use crate::{
     file_manager::file::{get_files_in_directory, File},
     utils::{ApiResponse, CommandData},
 };
-use dirs;
+
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::net::Ipv4Addr;
