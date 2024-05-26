@@ -70,7 +70,7 @@ tokio-stream = "0.1"
 axum-extra = { version = "0.9.3", features = ["typed-header"] }
 include_dir = "0.7.3"
 futures-util = { version = "0.3", default-features = false, features = ["sink", "std"] }
-headers = "0.3"
+headers = "0.4"
 tokio-tungstenite = "0.18.0"
 memory-serve = "0.4.5"
 axum = { version = "0.7.5", features = ["ws", "multipart"] }

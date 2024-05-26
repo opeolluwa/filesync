@@ -6,7 +6,16 @@ const nextConfig = {
   // See https://nextjs.org/docs/messages/export-image-api for different workarounds.
   images: {
     unoptimized: true,
-  }
+  },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/connection",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 module.exports = nextConfig;
