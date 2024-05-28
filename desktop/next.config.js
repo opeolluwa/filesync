@@ -9,11 +9,7 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      {
-        source: "/",
-        destination: "/connection",
-        permanent: true,
-      },
+    
     ];
   },
 };

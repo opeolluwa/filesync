@@ -30,7 +30,7 @@ export default function Navigation() {
 
   const routes: Route[] = [
     {
-      path: "/",
+      path: "/home",
       icon: <HomeIcon className="w-6 h-6" />,
       name: "home",
       alternateIcon: <SolidHomeIcon className="w-6 h-6" />,
@@ -39,7 +39,7 @@ export default function Navigation() {
       icon: <QrCodeIcon className="w-6 h-6" />,
       name: "Connect Device",
       alternateIcon: <QrCodeIcon className="w-6 h-6" />,
-      path: "/connection",
+      path: "/",
     },
     {
       path: "/share",
