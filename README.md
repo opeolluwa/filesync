@@ -1,29 +1,19 @@
 # FIleSync: WiFi File Sharing Application
 
-_⚠️ the application is still a work in progress, hence, Some features are missing. Please see the [issues](https://github.com/opeolluwa/send-file/issues) page to contribute_
 
+FileSync is a file-sharing application, targeting Linux, Mac, Windows and Android platforms
 ![screenshot](./screenshots/filesync.png)
 
-## Table of Contents
 
-- [Description](#description)
-- [Getting Started](#getting-started)
-- [Tech Stack](#technology-stack)
-- [Features](#features)
-- [Acknowledgement](#acknowledgements)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Description
-
-FIleSync is a wifi file-sharing application designed for Windows, Mac, and Linux operating systems. It allows users to transfer files seamlessly between PCs over WiFi without an internet connection.
+## Installation 
+_⚠️ The application is still a work in progress; thus some features may missing. To proceed anyway,  see the [release page]()_
 
 ## Getting Started
 
 To run the application in development, you'll need the following dependencies:
 
 - [Node.js](https://nodejs.org) - A JavaScript Runtime environment
-- [Yarn](https://yarnpkg.com/) - A fast, secure and reliable package manager for Node.js
+- [Yarn or](https://yarnpkg.com/) - A fast, secure and reliable package manager for Node.js
 - [Rust v1.70 or greater](https://www.rust-lang.org/) - A language empowering everyone
   to build reliable and efficient software.
 
@@ -39,28 +29,14 @@ yarn tauri dev # run the application locally
 
 ```
 
-## Technology Stack
-
-WiShare is built primarily on the following technologies
-
-- [Tauri](https://tauri.app/) is a framework for building cross-platform desktop applications with front-end web technologies.
-- [React](https://react.dev/) - JavaScript library for building user interfaces
-- [Next.js](https://nextjs.org/) - React framework for the web
-- [Rust](rust-lang.org/) - A language empowering everyone
-  to build reliable and efficient software.
-- [Typescript](https://typescript-lang.org) - A strongly-typed programming language that builds on JavaScript
-
-- [TailwindCSS](https://tailwindcss.com) - A utility-first CSS framework
-- [Capacitor](https://capacitorjs.com/) - Build cross-platform mobile application apps 
-
-## Features
+## Roadmap
 
 - [x] Adaptive UI
 - [x] build an executable for the Mac operating system
 - [x] build an executable for the Linux Operating system
 - [x] build an executable for Window
-- [ ] create a wifi hotspot
 - [x] support mobile devices
+- [ ] create a wifi hotspot on Unix Operating Systems 
 - [ ] support dark mode
 - [ ] add walkthrough after installation
 
