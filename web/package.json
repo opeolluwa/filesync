@@ -1,0 +1,18 @@
+{
+  "name": "web",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.14.3",
+    "esbuild": "^0.21.5",
+    "esbuild-plugin-vue3": "^0.4.2",
+    "typescript": "^5.4.5"
+  }
+}
