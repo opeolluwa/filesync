@@ -1,3 +1,6 @@
+@import "../node_modules/awesome-notifications/dist/style.css";
+@import "../node_modules/remixicon/fonts/remixicon.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
