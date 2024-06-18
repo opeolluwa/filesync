@@ -1,6 +1,5 @@
 import * as esbuild from "esbuild";
 import shell from "shelljs";
-import { transform } from "lightningcss";
 
 await esbuild.build({
   entryPoints: ["src/main.ts"],

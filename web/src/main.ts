@@ -1,13 +1,17 @@
 import axios from "axios";
-import Notifier from "awesome-notifications";
+import "awesome-notifications";
+import AWN from "awesome-notifications";
+// Import as an ESM module
+import JSAlert from "js-alert";
 
 document.addEventListener("DOMContentLoaded", () => {
   const dropzone = document.getElementById("dropzone") as HTMLInputElement;
-  const progressBar = document.querySelector("progress");
+  const progressBar = document.querySelector("#progress") as HTMLElement;
   const log = document.querySelector("output") as HTMLElement;
 
   const API_BASE_URL = window.location.host;
-  const fileUploadEndpoint = `http://${API_BASE_URL}/upload`;
+  //   const fileUploadEndpoint = `http://${API_BASE_URL}/upload`;
+  const fileUploadEndpoint = "http://192.168.0.170:18005/upload";
   const websocketEndpoint = `ws://localhost:8080`;
 
   //   const websocketEndpoint = `ws://${API_BASE_URL}/api/notify`;
@@ -19,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("recieved new message from server", message);
   });
   websocketClient.addEventListener("close", () => {});
-
 
   // files
   http: dropzone.addEventListener("change", async () => {
@@ -34,8 +37,10 @@ document.addEventListener("DOMContentLoaded", () => {
           Authorization: "Gwm7JViOHa0jqjeREuTWcCtCDNc",
         },
         onUploadProgress(progressEvent) {
-          const { total, loaded } = progressEvent;
-          console.log({ total, loaded });
+          const { loaded, total } = progressEvent;
+          var percentCompleted = Math.round((loaded * 100) / Number(total));
+          progressBar.style.width =`${percentCompleted}%`
+          log.innerHTML = percentCompleted.toString();
         },
       }
     );
@@ -43,13 +48,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // notification
-  // Set global options
-  let globalOptions = {};
-  // Initialize instance of AWN
-  let notifier = new Notifier(globalOptions);
-
-  // Set custom options for next call if needed, it will override globals
-  let nextCallOptions = {};
-  // Call one of available functions
-  notifier.success("Your custom message", nextCallOptions);
+  let notifier = new AWN({});
+  // Show an alert with a title and custom dismiss button
 });
