@@ -2,17 +2,29 @@
   "name": "web",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/main.ts",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "node scripts/build",
+    "watch": "node scripts/watch",
+    "export": "node scripts/export"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "^20.14.3",
+    "@types/shelljs": "^0.8.15",
+    "chalk": "^5.3.0",
     "esbuild": "^0.21.5",
     "esbuild-plugin-vue3": "^0.4.2",
+    "shelljs": "^0.8.5",
+    "tailwindcss": "^3.4.4",
     "typescript": "^5.4.5"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "flowbite": "^2.3.0",
+    "remixicon": "^4.3.0"
   }
 }
