@@ -2,7 +2,8 @@ import axios from "axios";
 import "awesome-notifications";
 import AWN from "awesome-notifications";
 // Import as an ESM module
-import JSAlert from "js-alert";
+// import JSAlert from "js-alert";
+// import "./tailwind.js";
 
 document.addEventListener("DOMContentLoaded", () => {
   const dropzone = document.getElementById("dropzone") as HTMLInputElement;
@@ -10,8 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const log = document.querySelector("output") as HTMLElement;
 
   const API_BASE_URL = window.location.host;
-  //   const fileUploadEndpoint = `http://${API_BASE_URL}/upload`;
-  const fileUploadEndpoint = "http://192.168.0.170:18005/upload";
+    const fileUploadEndpoint = `http://${API_BASE_URL}/upload`;
+  // const fileUploadEndpoint = "http://192.168.0.170:18005/upload";
   const websocketEndpoint = `ws://localhost:8080`;
 
   //   const websocketEndpoint = `ws://${API_BASE_URL}/api/notify`;
