@@ -36,10 +36,11 @@ export default function ConnectionPage() {
               Provide the client id in the peer device
             </Text>
 
-            <View className="flex items-center justify-center">
-              <span className="text-5xl" onClick={copyToClipboard}>
-                #{port}
-              </span>
+            <View
+              className="flex items-center justify-center"
+              clickEvent={copyToClipboard}
+            >
+              <span className="text-5xl">#{port}</span>
               <i className="ri-file-copy-line text-4xl ml-3 cursor-pointer hover:text-app"></i>
             </View>
           </View>

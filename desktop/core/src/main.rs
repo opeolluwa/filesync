@@ -8,6 +8,7 @@ use crate::ipc_manager::settings::{get_application_data, get_settings, update_se
 use crate::ipc_manager::utils::{
     generate_qr_code, get_ip_address, get_system_information, is_connected_to_wifi,
 };
+use crate::network_manager::wifi_manager::{broadcast_wifi, connect_to_wifi, get_available_wifi};
 
 use lazy_static::lazy_static;
 use server::http_server;
@@ -99,6 +100,9 @@ fn main() -> Result<(), tauri::Error> {
             update_settings,
             read_dir,
             get_application_data,
+            broadcast_wifi,
+            connect_to_wifi,
+            get_available_wifi
         ])
         .run(tauri::generate_context!())
 }
