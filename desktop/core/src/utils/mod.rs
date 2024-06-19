@@ -43,6 +43,13 @@ impl<T> Default for CommandData<T> {
 }
 
 impl<T> CommandData<T> {
+    /// only retun the data
+    pub fn new(data: T) -> Self {
+        Self {
+            data: Some(data),
+            ..Default::default()
+        }
+    }
     /// if the response is ok
     /// returns a CommandData struct
     /// with the data, message, and status

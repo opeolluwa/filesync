@@ -12,10 +12,7 @@ export default function HomeScreen() {
         alignItems: "center",
       }}
     >
-      {/* <Image
-        source={require("../../assets/images/icons8-qrcode-64.png")}
-        style={{ marginVertical: 30 }}
-      /> */}
+  
       <Text style={{ fontSize: 28, fontWeight: "500", marginBottom: 10 }}>
         Scan QR
       </Text>

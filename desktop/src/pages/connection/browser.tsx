@@ -36,10 +36,11 @@ export default function ConnectionPage() {
               Visit this address in your browser
             </Text>
 
-            <View className="flex items-center justify-center">
-              <span className="text-2xl" onClick={copyToClipboard}>
-                {serverBaseUrl}
-              </span>
+            <View
+              className="flex items-center justify-center cursor-pointer"
+              clickEvent={copyToClipboard}
+            >
+              <span className="text-2xl">{serverBaseUrl}</span>
               <i className="ri-file-copy-line text-4xl ml-3 cursor-pointer hover:text-app"></i>
             </View>
           </View>

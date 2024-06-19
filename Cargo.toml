@@ -1,2 +1,2 @@
 [workspace]
-members = ["./desktop/core"]
+members = ["./desktop/core", "homepage"]
