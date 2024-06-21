@@ -13,7 +13,7 @@ use super::routes::{
 
 // the app is moved here to allow sharing across test modules
 pub fn app() -> Router {
-    let memory_router: axum::routing::Router<()> = MemoryServe::new(load_assets!("static"))
+    let static_files: axum::routing::Router<()> = MemoryServe::new(load_assets!("static"))
         .index_file(Some("/index.html"))
         .into_router();
 
@@ -23,6 +23,6 @@ pub fn app() -> Router {
         .route("/api/sys-info", get(system_information))
         .route("/api/file", get(get_file))
         .route("/notify", get(notify_peer))
-        .merge(memory_router)
+        .merge(static_files)
         .fallback(handle_404)
 }

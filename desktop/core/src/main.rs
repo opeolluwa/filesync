@@ -12,6 +12,7 @@ use crate::network_manager::wifi_manager::{broadcast_wifi, connect_to_wifi, get_
 
 use lazy_static::lazy_static;
 use server::http_server;
+mod context;
 mod database;
 mod file_manager;
 mod ipc_manager;

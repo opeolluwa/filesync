@@ -79,6 +79,7 @@ axum = { version = "0.7.5", features = ["ws", "multipart"] }
 http = "1.1.0"
 infer = "0.15.0"
 livewire = "0.1.0"
+axum-typed-websockets = "0.6.0"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

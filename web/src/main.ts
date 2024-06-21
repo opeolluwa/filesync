@@ -10,12 +10,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const progressBar = document.querySelector("#progress") as HTMLElement;
   const log = document.querySelector("output") as HTMLElement;
 
-  const API_BASE_URL = window.location.host;
+  // const API_BASE_URL = window.location.host;
+  const API_BASE_URL = "192.168.0.170:18005"; ;
+
     const fileUploadEndpoint = `http://${API_BASE_URL}/upload`;
   // const fileUploadEndpoint = "http://192.168.0.170:18005/upload";
-  const websocketEndpoint = `ws://localhost:8080`;
+  // const websocketEndpoint = `ws://localhost:8080`;
 
-  //   const websocketEndpoint = `ws://${API_BASE_URL}/api/notify`;
+    const websocketEndpoint = `ws://${API_BASE_URL}/notify`;
   const websocketClient = new WebSocket(websocketEndpoint);
   websocketClient.addEventListener("open", () => {
     websocketClient.send("Connetion Successfully established");
