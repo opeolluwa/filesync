@@ -97,7 +97,7 @@ export default function HelpPage() {
             <SettingsTab
               icon={<ChartPieIcon className="w-6 h-6" />}
               alternateIcon={<ChartPieIconSolid className="w-6 h-6" />}
-              text={`${systemInformation.availableDisk} of ${systemInformation.usedDisk} free`}
+              text={`${systemInformation.availableDisk} free space`}
             />
 
             <SettingsTab

@@ -163,7 +163,7 @@ export default function Main() {
   }
   return (
     <>
-      <section>
+      <section className="hidden">
         <SearchBar
           onSearch={function (): void {
             throw new Error("Function not implemented.");
