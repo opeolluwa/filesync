@@ -35,7 +35,7 @@ export default function ConnectionPage() {
                 href="/connection/mobile"
                 className="  bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  box-border p-8 rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
               >
-                <AndroidFilled/>
+                <AndroidFilled />
               </Link>
             </Tooltip>
             <Tooltip title="macOS">
@@ -47,13 +47,13 @@ export default function ConnectionPage() {
             <Tooltip title="Windows">
               <Link
                 href="/connection/desktop"
-                className="ri-windows-fill  bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  p-8 rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
+                className="ri-windows-fill bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  p-8 rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
               ></Link>
             </Tooltip>
             <Tooltip title="Browser">
               <Link
                 href="/connection/browser"
-                className="ri-global-line  bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  p-8 rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
+                className="ri-window-2-line  bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  p-8 rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
               ></Link>
             </Tooltip>
           </View>
