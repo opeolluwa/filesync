@@ -2,7 +2,7 @@
 
 import { SystemInformationContext } from "@/store/sys-info";
 import { useContext } from "react";
-import { FileViewer } from "./file-viewer";
+import MediaViewer from "../MediaViewer";
 /// give preview for differet file type
 
 const isClient = typeof window !== "undefined";
@@ -30,12 +30,13 @@ export default function PreviewMedia({ fileType, filePath }: Props) {
   const { serverBaseUrl } = useContext(SystemInformationContext);
 
   const fileUrl = isClient
-    ? `${serverBaseUrl}/api/file?file_path=${(filePath)}`
+    ? `${serverBaseUrl}/api/file?file_path=${filePath}`
     : "";
 
   return (
     <div className="w-full h-full">
-     {/* <FileViewer fileType={fileType} filePath={fileUrl} /> */}
+      <MediaViewer />
+      {/* <FileViewer fileType={fileType} filePath={fileUrl} /> */}
     </div>
   );
 }

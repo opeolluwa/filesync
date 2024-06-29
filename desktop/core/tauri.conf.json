@@ -1,7 +1,7 @@
 {
   "build": {
-    "beforeDevCommand": "yarn dev",
-    "beforeBuildCommand": "yarn build &&  yarn export ",
+    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "npm run build && npm run export ",
     "devPath": "http://localhost:1420",
     "distDir": "../out",
     "withGlobalTauri": true
