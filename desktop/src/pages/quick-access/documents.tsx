@@ -1,10 +1,9 @@
-import FileCard, { FileInterface } from "@/components/thumbnail";
+import FileCard, { FileInterface } from "@/components/Thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
-import { AppData} from "@/types";
+import { AppData } from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";
 import { useEffect, useState } from "react";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
-
 
 export default function Document() {
   const [data, setData] = useState(null);

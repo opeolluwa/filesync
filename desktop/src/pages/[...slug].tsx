@@ -3,7 +3,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import FileCard from "@/components/thumbnail";
+import FileCard from "@/components/Thumbnail";
 import { AppData } from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";
 import LoaderCircle from "@/components/loaders/LoaderCircle";

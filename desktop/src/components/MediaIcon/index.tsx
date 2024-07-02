@@ -1,6 +1,6 @@
 // provide file and folder icon
 import { StaticImageData } from "next/image";
-import { getFileIcon } from "./media-icon-maker";
+import { getFileIcon } from "../Thumbnail/media-icon-maker";
 import folderIcon from "@/assets/common/folder-icon.png";
 import Image from "next/image";
 

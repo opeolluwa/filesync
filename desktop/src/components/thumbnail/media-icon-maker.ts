@@ -1,5 +1,5 @@
 // render the folder icon
-import { FileType } from "./preview-media";
+import { FileType } from "../MediaViewer";
 import archiveIcon from "@/assets/common/archived.png";
 import audioIcon from "@/assets/common/audio.png";
 import csvIcon from "@/assets/common/csv.png";
