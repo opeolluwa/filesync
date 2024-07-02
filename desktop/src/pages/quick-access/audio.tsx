@@ -1,4 +1,4 @@
-import FileCard, { FileInterface } from "@/components/thumbnail";
+import FileCard, { FileInterface } from "@/components/Thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
 import { AppData } from "@/types";
 import { convertFileSrc, invoke } from "@tauri-apps/api/tauri";
@@ -6,19 +6,16 @@ import { useEffect, useState } from "react";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 
 export default function Music() {
-
-
   const [data, setData] = useState(null);
   const [isLoading, setLoading] = useState(false);
 
   // get the data from the application core
   useEffect(() => {
     setLoading(true);
-     invoke("read_dir", { path: "audio" }).then((res) => {
-      
-       setData(res as any);
-       setLoading(false);
-     });
+    invoke("read_dir", { path: "audio" }).then((res) => {
+      setData(res as any);
+      setLoading(false);
+    });
   }, []);
   // typecast the response into AppData type
   const musicData = data as unknown as AppData<Array<FileInterface>>;
@@ -51,7 +48,6 @@ export default function Music() {
               filePath={file.filePath}
               isHidden={file.isHidden}
               isFolder={file.isFolder}
-          
             />
           ))}
         </div>

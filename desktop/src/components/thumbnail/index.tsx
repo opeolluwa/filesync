@@ -4,10 +4,10 @@ import { computeFileSize } from "@/utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import { File } from "../../../core/bindings/File";
-import PreviewMedia from "./preview-media";
-import { getFileIcon } from "./media-icon-maker";
-import ThumbnailIcon from "./icon-renderer";
+import PreviewMedia from "../MediaViewer";
+import ThumbnailIcon from "../MediaIcon";
 import { Modal } from "antd";
+import { getFileIcon } from "./media-icon-maker";
 
 export default function FileCard({
   fileName,

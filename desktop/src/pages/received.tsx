@@ -1,6 +1,6 @@
 "use client";
 
-import FileCard, { FileInterface } from "@/components/thumbnail";
+import FileCard, { FileInterface } from "@/components/Thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
 import { AppData } from "@/types";
 import { invoke } from "@tauri-apps/api/tauri";
