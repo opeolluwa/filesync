@@ -36,7 +36,7 @@ export default function PreviewMedia({ fileType, filePath }: Props) {
     : "";
 
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <div className="w-full h-full flex justify-center items-center overflow-scroll">
       <MediaViewer fileUrl={fileUrl} fileName={""} fileExtension={fileType} />
     </div>
   );
