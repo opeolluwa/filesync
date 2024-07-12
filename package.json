@@ -14,7 +14,9 @@
     "dev:desktop": "node ./scripts/dev.desktop",
     "build:web": "node ./scripts/build.web",
     "build:desktop": "node ./scripts/build.desktop",
-    "install:toolchain": "node ./scripts/install.toolchain"
+    "install:toolchain": "node ./scripts/install.toolchain",
+    "install:deps":"node ./scripts/install.deps",
+    "setup":"npm run install:deps"
   },
   "repository": {
     "type": "git",
