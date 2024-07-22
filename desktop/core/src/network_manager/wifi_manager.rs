@@ -14,8 +14,7 @@ pub async fn get_available_wifi() -> CommandData<Vec<String>> {
     CommandData::new(networks)
 }
 
-
-/// boardcast - crate wifi hotstop
+/// boroadcast - crate wifi hotstop
 /// returns the network name
 #[tauri::command]
 pub async fn broadcast_wifi() -> CommandData<String> {
@@ -23,9 +22,8 @@ pub async fn broadcast_wifi() -> CommandData<String> {
     CommandData::new(ssid)
 }
 
-
 /// connect to wifi
 #[tauri::command]
-pub async fn connect_to_wifi(ssid: String) -> CommandData<bool> {
+pub async fn connect_to_wifi(_ssid: String) -> CommandData<bool> {
     CommandData::new(true)
 }

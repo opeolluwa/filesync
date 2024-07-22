@@ -4,7 +4,6 @@ import LoaderCircle from "@/components/loaders/LoaderCircle";
 import { CommandData } from "../../core/bindings/CommandData";
 import { TransferHistory } from "../../core/bindings/TransferHistory";
 import { invoke } from "@tauri-apps/api/tauri";
-import Image from "next/image";
 import { FileHistory } from "@/components/history/TransferHistory";
 
 export default function HistoryPage() {

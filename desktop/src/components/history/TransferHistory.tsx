@@ -4,7 +4,6 @@ import {
   ArrowDownCircleIcon,
   ArrowUpCircleIcon,
 } from "@heroicons/react/24/outline";
-import Identicon from "react-identicons";
 import { TransferHistory } from "../../../core/bindings/TransferHistory";
 
 // the required data to render the file card component
@@ -28,7 +27,7 @@ export function FileHistory({
   return (
     <div className="flex my-8 flex-wrap bg-[#f9fbfe]  border-gray-900  p-3 shadow-gray-300 cursor-pointer rounded-lg hover:shadow-sm hover:shadow-gray-400 transition-shadow ease-in-out">
       <div className="pr-[10px] rounded-full">
-        <Identicon string={id} size={50} padding={20} />
+ 
       </div>
       <div className="flex flex-col text-ellipsis">
         <h5

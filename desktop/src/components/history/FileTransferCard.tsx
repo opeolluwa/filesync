@@ -10,7 +10,7 @@ import {
   PlayCircleIcon,
 } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import { getFileIcon } from "../thumbnail/media-icon-maker";
+import { getFileIcon } from "../Thumbnail/media-icon-maker";
 
 // the required data to render the file card component
 // the data will be passed dynamically
@@ -41,25 +41,29 @@ export function FileTransferCard({
           >
             {fileName}
           </h5>
-          <div className="flex gap-3 mt[1.5px] text-gray-400  italic text-xs height={30} 
-                width={30} ">
+          <div
+            className="flex gap-3 mt[1.5px] text-gray-400  italic text-xs height={30} 
+                width={30} "
+          >
             <span>{computeFileSize(fileSize)}</span>{" "}
             <span>{` transfer ${status}`}</span>
           </div>
         </div>
 
         <div className="hidden lg:block">
-          {status == FileTransferStatus.COMPLETED
-            ? <CheckCircleIcon className="w-8 h-8 text-gray-400 " />
-            : status == FileTransferStatus.DOWNLOADING
-            ? <PauseCircleIcon className="w-8 h-8 text-gray-400 " />
-            : status == FileTransferStatus.ERROR
-            ? <ExclamationCircleIcon className="w-8 h-8 text-gray-400 " />
-            : status == FileTransferStatus.PAUSED
-            ? <PlayCircleIcon className="w-8 h-8 text-gray-400 " />
-            : status == FileTransferStatus.PENDING
-            ? <ArrowUpCircleIcon className="w-8 h-8 text-gray-400 " />
-            : <ArrowDownCircleIcon className="w-8 h-8 text-gray-400 " />}
+          {status == FileTransferStatus.COMPLETED ? (
+            <CheckCircleIcon className="w-8 h-8 text-gray-400 " />
+          ) : status == FileTransferStatus.DOWNLOADING ? (
+            <PauseCircleIcon className="w-8 h-8 text-gray-400 " />
+          ) : status == FileTransferStatus.ERROR ? (
+            <ExclamationCircleIcon className="w-8 h-8 text-gray-400 " />
+          ) : status == FileTransferStatus.PAUSED ? (
+            <PlayCircleIcon className="w-8 h-8 text-gray-400 " />
+          ) : status == FileTransferStatus.PENDING ? (
+            <ArrowUpCircleIcon className="w-8 h-8 text-gray-400 " />
+          ) : (
+            <ArrowDownCircleIcon className="w-8 h-8 text-gray-400 " />
+          )}
         </div>
       </div>
     </>
