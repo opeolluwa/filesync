@@ -1,6 +1,7 @@
-import { invoke } from "@tauri-apps/api/tauri";
+
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { CommandData } from "../../core/bindings/CommandData";
+import { invoke } from "@tauri-apps/api/tauri";
 
 type WifiStatusInterface = CommandData<boolean>;
 
