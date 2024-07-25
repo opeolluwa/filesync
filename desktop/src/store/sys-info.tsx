@@ -1,4 +1,4 @@
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { SystemInformation as CoreSysInfo } from "../../core/bindings/SystemInformation";
 

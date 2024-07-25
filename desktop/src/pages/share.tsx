@@ -6,7 +6,7 @@ import { FileContext, FileTransferStatus } from "@/store/context";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { SystemInformationContext } from "@/store/sys-info";
 import { TransferHistoryBuilder } from "../../core/bindings/TransferHistoryBuilder";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 
 /**
  * @function sharePage -  A page responsible for guiding users on various actions

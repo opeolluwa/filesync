@@ -5,7 +5,7 @@
  * @returns file size and extension e.g 3.5 MB
  */
 
-import { DialogFilter } from "@tauri-apps/api/dialog";
+import { DialogFilter } from "@tauri-apps/plugin-dialog";
 
 export function computeFileSize(size: number) {
   if (size > 1024 * 1024 * 1024 * 1024) {

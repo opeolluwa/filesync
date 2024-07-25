@@ -24,7 +24,7 @@ import {
 import Heading from "@/components/Heading";
 import { SettingsInterface, SettingsTab } from "@/components/settings";
 import { SystemInformation } from "@/store/sys-info";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
 /**
  * @function helpPage -  A page responsible for guiding users on various actions
