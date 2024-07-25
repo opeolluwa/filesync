@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 import { CommandData } from "../../core/bindings/CommandData";
 import { TransferHistory } from "../../core/bindings/TransferHistory";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 import { FileHistory } from "@/components/history/TransferHistory";
 
 export default function HistoryPage() {

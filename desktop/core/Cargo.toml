@@ -7,14 +7,24 @@ name = "filesync"
 repository = "https://github.com/opeolluwa/filesync"
 version = "0.6.0"
 
+[lib]
+name = "filesync_lib"
+path = "src/lib.rs"
 
+crate-type = ["staticlib", "cdylib",  "lib"]
 # [workspace]
 # resolver = "2"
+
+
+[[bin]]
+name = "app_lib_bin"
+path = "src/main.rs"
+
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [build-dependencies]
-tauri-build = { version = "1.3", features = [] }
+tauri-build = { version = "2.0.0-beta", features = [] }
 
 [dependencies]
 assert_fs = "1.0.13"
@@ -40,14 +50,7 @@ serde_json = "1.0"
 sqlx = { version = "0.6.2", features = ["sqlite", "runtime-tokio-native-tls"] }
 sys-info = "0.9.1"
 sysinfo = "0.29.2"
-tauri = { version = "1.3", features = [
-    "clipboard-write-text",
-    "window-all",
-    "app-all",
-    "dialog-all",
-    "fs-all",
-    "path-all",
-    "shell-open",
+tauri = { version = "2.0.0-beta", features = [
 ] }
 tokio = { version = "1.26.0", features = ["full"] }
 tokio-util = { version = "0.7", features = ["io"] }
@@ -80,6 +83,11 @@ http = "1.1.0"
 infer = "0.15.0"
 livewire = "0.1.0"
 axum-typed-websockets = "0.6.0"
+tauri-plugin-clipboard-manager = "2.1.0-beta.6"
+tauri-plugin-dialog = "2.0.0-beta.11"
+tauri-plugin-process = "2.0.0-beta.8"
+tauri-plugin-fs = "2.0.0-beta.11"
+tauri-plugin-shell = "2.0.0-beta.9"
 
 [features]
 # this feature is used for production builds or when `devPath` points to the filesystem

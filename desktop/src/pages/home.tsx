@@ -16,9 +16,9 @@ import {
   MusicalNoteIcon,
   PhotoIcon,
 } from "@heroicons/react/24/outline";
-import { ask } from "@tauri-apps/api/dialog";
-import { exit, relaunch } from "@tauri-apps/api/process";
-import { invoke } from "@tauri-apps/api/tauri";
+import { ask } from "@tauri-apps/plugin-dialog";
+import { exit, relaunch } from "@tauri-apps/plugin-process";
+import { invoke } from "@tauri-apps/api/core";
 import { Spin } from "antd";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";

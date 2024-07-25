@@ -1,7 +1,7 @@
 import FileCard, { FileInterface } from "@/components/Thumbnail";
 import QuickAccessLayout from "@/components/layout/PageLayout";
 import { AppData } from "@/types";
-import { invoke } from "@tauri-apps/api/tauri";
+import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 

@@ -213,9 +213,7 @@ async fn handle_socket(mut socket: WebSocket<ServerMessage, ClientMessage>) {
             }
         }
     }
-
 }
-
 
 #[cfg(test)]
 mod basic_endpoints {
