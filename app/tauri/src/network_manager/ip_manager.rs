@@ -7,26 +7,8 @@ use local_ip_address::local_ip;
 extern crate pnet_datalink;
 extern crate std;
 
-/// Returns IP address of the host, excluding localhost, or None if none found.
-pub fn autodetect_ip_address() -> Result<String, ()> {
-    #[cfg(target_os = "linux")]
-    {
-        autodetect_ip_address_linux()
-    }
-
-    #[cfg(target_os = "macos")]
-    {
-        autodetect_ip_address_macos()
-    }
-
-    #[cfg(target_os = "windows")]
-    {
-        autodetect_ip_address_windows()
-    }
-}
-
 #[cfg(target_os = "linux")]
-fn autodetect_ip_address_linux() -> Result<String, ()> {
+pub fn autodetect_ip_address() -> Result<String, ()> {
     pnet_datalink::interfaces()
         .into_iter()
         .filter(|iface| !iface.is_loopback() && iface.is_up())
@@ -37,7 +19,7 @@ fn autodetect_ip_address_linux() -> Result<String, ()> {
 }
 
 #[cfg(target_os = "macos")]
-fn autodetect_ip_address_macos() -> Result<String, ()> {
+pub fn autodetect_ip_address() -> Result<String, ()> {
     pnet_datalink::interfaces()
         .into_iter()
         .filter(|iface| !iface.is_loopback() && iface.is_up())
@@ -48,11 +30,18 @@ fn autodetect_ip_address_macos() -> Result<String, ()> {
 }
 
 #[cfg(target_os = "windows")]
-fn autodetect_ip_address_windows() -> Result<String, ()> {
+pub fn autodetect_ip_address() -> Result<String, ()> {
     match local_ip() {
         Ok(ip) => Ok(ip.to_string()),
         Err(_) => Err(()),
     }
+}
+
+//TODO: implfor android a
+#[cfg(target_os = "android")]
+pub fn autodetect_ip_address() -> Result<String, ()> {
+    let ip = "0.0.0.0.0";
+    Ok(ip.to_string())
 }
 
 #[cfg(test)]

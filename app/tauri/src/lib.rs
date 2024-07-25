@@ -6,8 +6,9 @@ use crate::file_manager::get_transfer_history;
 use crate::file_manager::read_dir;
 use crate::ipc_manager::settings::{get_application_data, get_settings, update_settings};
 use crate::ipc_manager::utils::{
-    generate_qr_code, get_ip_address, get_system_information, is_connected_to_wifi,
+    generate_qr_code,  get_system_information, is_connected_to_wifi,
 };
+use crate::ipc_manager::utils::get_ip_address;
 use crate::network_manager::wifi_manager::{broadcast_wifi, connect_to_wifi, get_available_wifi};
 
 use lazy_static::lazy_static;

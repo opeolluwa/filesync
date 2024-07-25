@@ -15,6 +15,8 @@ pub fn generate_qr_code(ssid: &str, password: &str) -> String {
 
 // give connection details of the application core server
 // get the ip address of the machine
+//TODO: support android
+#[cfg(not(target_os = "android"))]
 #[tauri::command]
 pub fn get_ip_address() -> String {
     let ip_address = ip_manager::autodetect_ip_address()

@@ -1,3 +1,5 @@
+// #[cfg(not(target_os="android"))]
+
 use std::{fmt, net::Ipv4Addr};
 
 use crate::file_manager::file::compute_file_size;
