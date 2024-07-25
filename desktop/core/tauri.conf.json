@@ -1,4 +1,7 @@
 {
+  "productName": "filesync",
+  "version": "0.7.10",
+  "identifier": "com.filesync.app",
   "build": {
     "beforeDevCommand": "npm run dev",
     "beforeBuildCommand": "npm run build && npm run export ",
@@ -17,12 +20,8 @@
     "targets": "all",
     "createUpdaterArtifacts": "v1Compatible"
   },
-  "productName": "filesync",
-  "version": "0.7.10",
-  "identifier": "com.filesync.app",
-  "plugins": {},
   "app": {
-    "withGlobalTauri": true,
+    "withGlobalTauri": false,
     "windows": [
       {
         "fullscreen": false,

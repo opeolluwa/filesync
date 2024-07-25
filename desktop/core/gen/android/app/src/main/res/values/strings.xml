@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">filesync</string>
+    <string name="main_activity_title">filesync</string>
+</resources>

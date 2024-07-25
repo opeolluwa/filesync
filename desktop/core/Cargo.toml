@@ -7,18 +7,18 @@ name = "filesync"
 repository = "https://github.com/opeolluwa/filesync"
 version = "0.6.0"
 
-[lib]
-name = "filesync_lib"
-path = "src/lib.rs"
+# [lib]
+# name = "filesync_lib"
+# path = "src/lib.rs"
 
-crate-type = ["staticlib", "cdylib",  "lib"]
-# [workspace]
-# resolver = "2"
+# crate-type = ["staticlib", "cdylib",  "lib"]
+# # [workspace]
+# # resolver = "2"
 
 
-[[bin]]
-name = "app_lib_bin"
-path = "src/main.rs"
+# [[bin]]
+# name = "app_lib_bin"
+# path = "src/main.rs"
 
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
