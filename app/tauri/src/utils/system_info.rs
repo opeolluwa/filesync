@@ -5,8 +5,8 @@ use std::{fmt, net::Ipv4Addr};
 use crate::file_manager::file::compute_file_size;
 use crate::network_manager::ip_manager;
 use crate::SERVER_PORT;
-use battery::units::time::*;
-use battery::Manager;
+// use battery::units::time::*;
+// use battery::Manager;
 use mockall::predicate::*;
 use mockall::*;
 use num_traits::cast::ToPrimitive;
@@ -49,9 +49,6 @@ pub struct SystemInformation {
     pub used_disk: String,
     /// the port on which the core server runs
     port: u128,
-    /// the battery remaining time
-    /// could be none if the battery is charging
-    pub remaining_time: Option<String>,
     /// the system ip address
     pub ip_address: Ipv4Addr,
     /// the server base URL constructed form the ip address and port
@@ -67,7 +64,6 @@ impl std::default::Default for SystemInformation {
             },
             available_disk: String::from(""),
             used_disk: String::from(""),
-            remaining_time: None,
             port: 0,
             ip_address: Ipv4Addr::from([0, 0, 0, 0]),
             server_base_url: String::from(""),
@@ -81,7 +77,10 @@ impl std::default::Default for SystemInformation {
 impl SystemInformation {
     pub fn new() -> Self {
         let system_info = DefaultSystemInfoGetter;
-        Self::new_with_sys_info_getter(system_info)
+        // Self::new_with_sys_info_getter(system_info)
+        Self{
+            ..Default::default()
+        }
     }
     pub fn new_with_sys_info_getter<T: GetSystemInformation>(system_info: T) -> Self {
         let port = *SERVER_PORT;
@@ -96,20 +95,20 @@ impl SystemInformation {
 
         // Get the used memory information
 
-        let remaining_time = match system_info.remaining_battery_time() {
-            Some(mut seconds) => {
-                let remaining_hours = seconds / 3600;
-                seconds %= 3600;
-                let remaining_minutes = seconds / 60;
-                seconds %= 60;
-                let remaining_seconds = seconds;
-                Some(format!(
-                    "{:02}:{:02}:{:02}",
-                    remaining_hours, remaining_minutes, remaining_seconds
-                ))
-            }
-            None => None,
-        };
+        // let remaining_time = match system_info.remaining_battery_time() {
+        //     Some(mut seconds) => {
+        //         let remaining_hours = seconds / 3600;
+        //         seconds %= 3600;
+        //         let remaining_minutes = seconds / 60;
+        //         seconds %= 60;
+        //         let remaining_seconds = seconds;
+        //         Some(format!(
+        //             "{:02}:{:02}:{:02}",
+        //             remaining_hours, remaining_minutes, remaining_seconds
+        //         ))
+        //     }
+        //     None => None,
+        // };
         let disk = match system_info.get_disk_info() {
             Ok(drives) => drives,
             Err(_) => Drives {
@@ -141,7 +140,7 @@ impl SystemInformation {
             port: port.into(),
             ip_address: ip_address.clone().unwrap(),
             server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-            remaining_time,
+
         }
     }
     #[allow(unused)]
@@ -165,50 +164,50 @@ pub trait GetSystemInformation {
     fn remaining_battery_time(&self) -> Option<u64>;
 }
 
-impl GetSystemInformation for DefaultSystemInfoGetter {
-    fn get_disk_info(&self) -> Result<Drives, String> {
-        let mut array_of_drives = Vec::new();
-        let mut system = System::new_all();
-        let mut hashset: HashSet<String> = HashSet::new();
-        system.refresh_all();
-        for disk in system.disks() {
-            if hashset.insert(disk.name().to_string_lossy().to_string()) {
-                array_of_drives.push(MyDisk {
-                    type_: match disk.kind() {
-                        sysinfo::DiskKind::HDD => "HDD".to_string(),
-                        sysinfo::DiskKind::SSD => "SSD".to_string(),
-                        _ => "Removable disk".to_string(),
-                    },
-                    device_name: disk.name().to_string_lossy().to_string(),
-                    file_system: disk.file_system().to_vec(),
-                    mount_point: disk.mount_point().to_string_lossy().to_string(),
-                    total_space: disk.total_space(),
-                    available_space: disk.available_space(),
-                    is_removable: disk.is_removable(),
-                });
-            }
-        }
-        Ok(Drives { array_of_drives })
-    }
+// impl GetSystemInformation for DefaultSystemInfoGetter {
+//     fn get_disk_info(&self) -> Result<Drives, String> {
+//         let mut array_of_drives = Vec::new();
+//         let mut system = System::new_all();
+//         let mut hashset: HashSet<String> = HashSet::new();
+//         system.refresh_all();
+//         for disk in system.disks() {
+//             if hashset.insert(disk.name().to_string_lossy().to_string()) {
+//                 array_of_drives.push(MyDisk {
+//                     type_: match disk.kind() {
+//                         sysinfo::DiskKind::HDD => "HDD".to_string(),
+//                         sysinfo::DiskKind::SSD => "SSD".to_string(),
+//                         _ => "Removable disk".to_string(),
+//                     },
+//                     device_name: disk.name().to_string_lossy().to_string(),
+//                     file_system: disk.file_system().to_vec(),
+//                     mount_point: disk.mount_point().to_string_lossy().to_string(),
+//                     total_space: disk.total_space(),
+//                     available_space: disk.available_space(),
+//                     is_removable: disk.is_removable(),
+//                 });
+//             }
+//         }
+//         Ok(Drives { array_of_drives })
+//     }
 
-    fn remaining_battery_time(&self) -> Option<u64> {
-        match Manager::new()
-            .expect("Failed to get battery manager")
-            .batteries()
-            .expect("Failed to get batteries")
-            .enumerate()
-            .next()
-            .unwrap()
-            .1
-        {
-            Ok(battery) => battery.time_to_empty()?.get::<second>().to_u64(),
-            Err(e) => {
-                println!("Failed to get the battery information.\n{:?}", e);
-                None
-            }
-        }
-    }
-}
+    // fn remaining_battery_time(&self) -> Option<u64> {
+    //     match Manager::new()
+    //         .expect("Failed to get battery manager")
+    //         .batteries()
+    //         .expect("Failed to get batteries")
+    //         .enumerate()
+    //         .next()
+    //         .unwrap()
+    //         .1
+    //     {
+    //         Ok(battery) => battery.time_to_empty()?.get::<second>().to_u64(),
+    //         Err(e) => {
+    //             println!("Failed to get the battery information.\n{:?}", e);
+    //             None
+    //         }
+    //     }
+    // }
+// }
 
 //impl display for system information type
 impl fmt::Display for SystemInformation {
@@ -220,7 +219,6 @@ impl fmt::Display for SystemInformation {
             available space: {},
             used space: {},
             port: {},
-            remaining_time: {}
             ip_address {:?}
             server_base_url {:?}
             ",
@@ -229,10 +227,6 @@ impl fmt::Display for SystemInformation {
             self.available_disk,
             self.used_disk,
             self.port,
-            match &self.remaining_time {
-                Some(time) => time,
-                None => "None",
-            },
             self.ip_address,
             self.server_base_url
         )
@@ -414,41 +408,9 @@ mod tests {
             compute_file_size(2048),
             compute_file_size(
                 result
-                    .get_available_disk("D:\\user\\send-file\\Download")
+                    .get_available_disk("D:\\user\\filesync\\Download")
                     .unwrap() as u128,
             ),
         )
-    }
-    #[test]
-    fn mock_remaining_battery_time_only_seconds() {
-        let mut mock = MockGetSystemInformation::new();
-        set_single_disk_info(&mut mock, 0, 0);
-        set_remaining_battery_time(&mut mock, Some(12));
-        let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some("00:00:12".to_string()), result.remaining_time);
-    }
-    #[test]
-    fn mock_remaining_battery_time_only_minutes() {
-        let mut mock = MockGetSystemInformation::new();
-        set_single_disk_info(&mut mock, 0, 0);
-        set_remaining_battery_time(&mut mock, Some(720));
-        let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some("00:12:00".to_string()), result.remaining_time);
-    }
-    #[test]
-    fn mock_remaining_battery_time_only_hours() {
-        let mut mock = MockGetSystemInformation::new();
-        set_single_disk_info(&mut mock, 0, 0);
-        set_remaining_battery_time(&mut mock, Some(12 * 60 * 60));
-        let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some("12:00:00".to_string()), result.remaining_time);
-    }
-    #[test]
-    fn mock_remaining_battery_time() {
-        let mut mock = MockGetSystemInformation::new();
-        set_single_disk_info(&mut mock, 0, 0);
-        set_remaining_battery_time(&mut mock, Some(12 * 60 * 60 + 12 * 60 + 12));
-        let result = get_system_info(mock);
-        remaining_battery_time_should_be(Some("12:12:12".to_string()), result.remaining_time);
     }
 }
