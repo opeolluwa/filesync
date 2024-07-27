@@ -20,7 +20,6 @@ export default function Layout({ children }: Props) {
       <main className="col-span-9 lg:col-span-9  pt-10 px-10 bg-[rgba(241,246,251,255)]  overflow-y-scroll">
         {children}
       </main>
-      {/* <Aside /> */}
     </div>
   );
 }
