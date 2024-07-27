@@ -15,8 +15,8 @@ pub fn generate_qr_code(ssid: &str, password: &str) -> String {
 
 // give connection details of the application core server
 // get the ip address of the machine
-//TODO: support android
-#[cfg(not(target_os = "android"))]
+// for desktop 
+// #[cfg(not(target_os = "android"))]
 #[tauri::command]
 pub fn get_ip_address() -> String {
     let ip_address = ip_manager::autodetect_ip_address()
@@ -27,6 +27,16 @@ pub fn get_ip_address() -> String {
     format!("{ip_address}:{port:?}", port = *SERVER_PORT)
 }
 
+// #[cfg(target_os = "android")]
+// #[tauri::command]
+// pub fn get_ip_address() -> String {
+//     let ip_address = ip_manager::autodetect_ip_address()
+//         .ok()
+//         .unwrap_or(String::from("0.0.0.0")) // use error catching in the frontend to validate only non"0.0.0.0. ip address
+//         .parse::<Ipv4Addr>()
+//         .unwrap();
+//     format!("{ip_address}:{port:?}", port = *SERVER_PORT)
+// }
 /// get the system information
 /// tis include
 /// - the uptime

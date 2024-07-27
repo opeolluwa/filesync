@@ -5,7 +5,6 @@ use crate::{
     file_manager::file::{get_files_in_directory, File},
     utils::{ApiResponse, CommandData},
 };
-
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::net::Ipv4Addr;
@@ -108,6 +107,7 @@ pub async fn read_dir(path: &str) -> ApiResponse<Vec<File>, ()> {
 // use streams to upload
 // the server id is the port on which the peer node run eg -> 23345
 #[tauri::command(async)]
+#[cfg(not(target_os="android"))]
 pub async fn _share_file_with_peer(
     file_path: String,
     server_id: u16,
@@ -153,8 +153,19 @@ pub async fn _share_file_with_peer(
     // todo!()
 }
 
+
+#[tauri::command(async)]
+#[cfg(target_os="android")]
+pub async fn _share_file_with_peer(
+    file_path: String,
+    server_id: u16,
+) -> Result<CommandData<Value>, CommandData<()>> {
+   unimplemented!(" support for mobile coming soon")
+}
+
 // save file transfer to the database
 //TODO: test this
+#[cfg(not(target_os="android"))]
 #[tauri::command(async)]
 pub async fn _save_file_transfer(
     file_path: String,
@@ -199,6 +210,17 @@ pub async fn _save_file_transfer(
         }),
     ))
     // todo!()
+}
+
+
+//TODO: support mobile 
+#[cfg(target_os="android")]
+#[tauri::command(async)]
+pub async fn _save_file_transfer(
+    file_path: String,
+    server_id: u16,
+) -> Result<CommandData<Value>, CommandData<()>> {
+    unimplemented!("mobile support coming soon")
 }
 
 // save file transfer history
