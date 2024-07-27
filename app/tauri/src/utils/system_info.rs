@@ -1,4 +1,3 @@
-// #[cfg(not(target_os="android"))]
 
 use std::{fmt, net::Ipv4Addr};
 
@@ -12,6 +11,7 @@ use mockall::*;
 use num_traits::cast::ToPrimitive;
 use serde::{Deserialize, Serialize};
 use std::collections::HashSet;
+#[cfg(not(target_os = "android"))]
 use sys_info;
 use sysinfo::{DiskExt, System, SystemExt};
 use ts_rs::TS;
@@ -73,12 +73,12 @@ impl std::default::Default for SystemInformation {
 
 /// system information construct
 /// accepts the system name name and returns an instance of the struct with the remaining values constructed internally
-
+#[cfg(not(target_os="android"))]
 impl SystemInformation {
     pub fn new() -> Self {
         let system_info = DefaultSystemInfoGetter;
         // Self::new_with_sys_info_getter(system_info)
-        Self{
+        Self {
             ..Default::default()
         }
     }
@@ -93,22 +93,6 @@ impl SystemInformation {
             Err(_) => Ok(Ipv4Addr::from([0, 0, 0, 0])),
         };
 
-        // Get the used memory information
-
-        // let remaining_time = match system_info.remaining_battery_time() {
-        //     Some(mut seconds) => {
-        //         let remaining_hours = seconds / 3600;
-        //         seconds %= 3600;
-        //         let remaining_minutes = seconds / 60;
-        //         seconds %= 60;
-        //         let remaining_seconds = seconds;
-        //         Some(format!(
-        //             "{:02}:{:02}:{:02}",
-        //             remaining_hours, remaining_minutes, remaining_seconds
-        //         ))
-        //     }
-        //     None => None,
-        // };
         let disk = match system_info.get_disk_info() {
             Ok(drives) => drives,
             Err(_) => Drives {
@@ -140,7 +124,6 @@ impl SystemInformation {
             port: port.into(),
             ip_address: ip_address.clone().unwrap(),
             server_base_url: format!("http://{}:{}", ip_address.unwrap(), port),
-
         }
     }
     #[allow(unused)]
@@ -154,6 +137,25 @@ impl SystemInformation {
             Some(disk) => Ok(disk.available_space),
             None => Err(format!("There is no disk named {}", folder_name)),
         }
+    }
+}
+
+
+
+// mobile API 
+#[cfg(target_os="android")]
+impl SystemInformation {
+    pub fn new() -> Self {
+       unimplemented!("android currently unsupported")
+    }
+    pub fn new_with_sys_info_getter<T: GetSystemInformation>(system_info: T)->  Self{
+          unimplemented!("android currently unsupported")
+    }
+
+    
+
+    fn get_available_disk(&self, folder_name: &str) -> Result<u64, String> {
+        unimplemented!("android currently unsupported")
     }
 }
 
@@ -190,23 +192,23 @@ pub trait GetSystemInformation {
 //         Ok(Drives { array_of_drives })
 //     }
 
-    // fn remaining_battery_time(&self) -> Option<u64> {
-    //     match Manager::new()
-    //         .expect("Failed to get battery manager")
-    //         .batteries()
-    //         .expect("Failed to get batteries")
-    //         .enumerate()
-    //         .next()
-    //         .unwrap()
-    //         .1
-    //     {
-    //         Ok(battery) => battery.time_to_empty()?.get::<second>().to_u64(),
-    //         Err(e) => {
-    //             println!("Failed to get the battery information.\n{:?}", e);
-    //             None
-    //         }
-    //     }
-    // }
+// fn remaining_battery_time(&self) -> Option<u64> {
+//     match Manager::new()
+//         .expect("Failed to get battery manager")
+//         .batteries()
+//         .expect("Failed to get batteries")
+//         .enumerate()
+//         .next()
+//         .unwrap()
+//         .1
+//     {
+//         Ok(battery) => battery.time_to_empty()?.get::<second>().to_u64(),
+//         Err(e) => {
+//             println!("Failed to get the battery information.\n{:?}", e);
+//             None
+//         }
+//     }
+// }
 // }
 
 //impl display for system information type
