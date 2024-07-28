@@ -3,25 +3,28 @@
 .PHONY: dev build export start tauri lint android desktop
 
 dev:
-	npm run dev --prefix app
+	npm run dev 
 
 build:
-	npm run build --prefix app
+	npm run build 
 
 export:
-	npm run export --prefix app
+	npm run export 
 
 start:
-	npm run start --prefix app
+	npm run start 
 
 tauri:
-	npm run tauri --prefix app
+	npm run tauri 
 
 lint:
-	npm run lint --prefix app
+	npm run lint 
 
 android:
-	source ~/.bash_profile && npm run android --prefix app
+	source ~/.bash_profile && npm run android 
 
 desktop:
-	npm run desktop --prefix app
+	npm run desktop 
+
+
+# Makefile
