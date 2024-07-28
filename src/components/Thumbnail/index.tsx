@@ -3,7 +3,7 @@
 import { computeFileSize } from "@/utils";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { File } from "../../../core/bindings/File";
+import { File } from "tauri/bindings/File";
 import PreviewMedia from "../MediaViewer";
 import ThumbnailIcon from "../MediaIcon";
 import { Modal } from "antd";

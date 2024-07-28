@@ -5,8 +5,9 @@ import { message, Upload } from "antd";
 import { FileContext, FileTransferStatus } from "@/store/context";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
 import { SystemInformationContext } from "@/store/sys-info";
-import { TransferHistoryBuilder } from "../../core/bindings/TransferHistoryBuilder";
+
 import { invoke } from "@tauri-apps/api/core";
+import { TransferHistoryBuilder } from "tauri/bindings/TransferHistoryBuilder";
 
 /**
  * @function sharePage -  A page responsible for guiding users on various actions

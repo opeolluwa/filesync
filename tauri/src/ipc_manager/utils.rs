@@ -1,11 +1,7 @@
 use local_ip_address::local_ip;
 use std::net::Ipv4Addr;
 
-use crate::{
-    network_manager::ip_manager,
-    utils::{system_info::SystemInformation},
-    SERVER_PORT,
-};
+use crate::{network_manager::ip_manager, utils::system_info::SystemInformation, SERVER_PORT};
 
 use pkg::CommandData;
 
@@ -17,7 +13,7 @@ pub fn generate_qr_code(ssid: &str, password: &str) -> String {
 
 // give connection details of the application core server
 // get the ip address of the machine
-// for desktop 
+// for desktop
 // #[cfg(not(target_os = "android"))]
 #[tauri::command]
 pub fn get_ip_address() -> String {

@@ -26,5 +26,7 @@ android:
 desktop:
 	npm run desktop 
 
+build-apps:
+	npm run tauri build 
 
 # Makefile

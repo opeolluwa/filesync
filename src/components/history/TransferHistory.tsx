@@ -4,7 +4,8 @@ import {
   ArrowDownCircleIcon,
   ArrowUpCircleIcon,
 } from "@heroicons/react/24/outline";
-import { TransferHistory } from "../../../core/bindings/TransferHistory";
+import { TransferHistory } from "tauri/bindings/TransferHistory";
+
 
 // the required data to render the file card component
 // the data will be passed dynamically
@@ -26,9 +27,7 @@ export function FileHistory({
 }: Props) {
   return (
     <div className="flex my-8 flex-wrap bg-[#f9fbfe]  border-gray-900  p-3 shadow-gray-300 cursor-pointer rounded-lg hover:shadow-sm hover:shadow-gray-400 transition-shadow ease-in-out">
-      <div className="pr-[10px] rounded-full">
- 
-      </div>
+      <div className="pr-[10px] rounded-full"></div>
       <div className="flex flex-col text-ellipsis">
         <h5
           className="font-medium text-gray-500 truncate overflow-clip text-ellipsis"

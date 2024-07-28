@@ -22,9 +22,10 @@ import { invoke } from "@tauri-apps/api/core";
 import { Spin } from "antd";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import { CommandData } from "../../core/bindings/CommandData";
-import { TransferHistory } from "../../core/bindings/TransferHistory";
+
 import Heading from "@/components/Heading";
+import { CommandData } from "tauri/pkg/bindings/CommandData";
+import { TransferHistory } from "tauri/bindings/TransferHistory";
 
 interface QuickAccessTab {
   name: string;
@@ -80,7 +81,7 @@ export default function Main() {
   async function close() {
     const yes = await ask(
       "Current file transfer may be lost. Do you still want to proceed?",
-      { title: "Close", type: "warning" }
+      { title: "Close", kind: "warning" }
     );
     if (yes) {
       await exit(1)

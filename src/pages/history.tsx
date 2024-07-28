@@ -1,10 +1,10 @@
 import PageLayout from "@/components/layout/PageLayout";
 import { useEffect, useState } from "react";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
-import { CommandData } from "../../core/bindings/CommandData";
-import { TransferHistory } from "../../core/bindings/TransferHistory";
 import { invoke } from "@tauri-apps/api/core";
 import { FileHistory } from "@/components/history/TransferHistory";
+import { TransferHistory } from "tauri/bindings/TransferHistory";
+import { CommandData } from "tauri/pkg/bindings/CommandData";
 
 export default function HistoryPage() {
   // get the file transfer history data from the application backend

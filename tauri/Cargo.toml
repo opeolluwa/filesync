@@ -17,7 +17,7 @@ tauri-build = { version = "2.0.0-beta.19", features = [] }
 
 
 [workspace]
-members = ["device_manager", "network_manager", "pkg"]
+members = ["device_manager", "network_manager", "pkg", "server"]
 
 [workspace.dependencies]
 tauri = { version = "2.0.0-beta", features = [] }

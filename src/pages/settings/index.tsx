@@ -2,7 +2,6 @@ import PageLayout from "@/components/layout/PageLayout";
 import { AndroidFilled } from "@ant-design/icons";
 import {
   ChartPieIcon,
-  ClockIcon,
   CpuChipIcon,
   LanguageIcon,
   MoonIcon,
@@ -100,11 +99,6 @@ export default function HelpPage() {
               text={`${systemInformation.availableDisk} free space`}
             />
 
-            <SettingsTab
-              icon={<ClockIcon className="w-6 h-6" />}
-              alternateIcon={<ClockIconSolid className="w-6 h-6" />}
-              text={String(systemInformation?.remainingTime)}
-            />
 
             <SettingsTab
               icon={<CpuChipIcon className="w-6 h-6" />}

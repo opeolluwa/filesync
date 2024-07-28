@@ -1,6 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { SystemInformation as CoreSysInfo } from "../../core/bindings/SystemInformation";
+import { SystemInformation as CoreSysInfo } from "tauri/bindings/SystemInformation";
 
 export interface SystemInformation extends CoreSysInfo {
   usedDisk: string;
@@ -45,7 +45,7 @@ export default function SystemInfoStore({ children }: { children: ReactNode }) {
         availableDisk: systemInformation.availableDisk,
         usedDisk: systemInformation.usedDisk,
         disk: systemInformation.disk,
-        remainingTime: systemInformation.remainingTime,
+     
       }}
     >
       {children}

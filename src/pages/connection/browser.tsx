@@ -15,7 +15,7 @@ export default function ConnectionPage() {
   const copyToClipboard = async () => {
     writeText(serverBaseUrl.toString())
       .then(async () => {
-        message("Text Copied", { title: "Tauri", type: "info" });
+        message("Text Copied", { title: "Tauri", kind: "info" });
       })
       .then(() => {
         console.log("here goes nothing");
