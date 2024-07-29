@@ -5,11 +5,10 @@ use axum::{
     Router,
 };
 
-use memory_serve::{load_assets, MemoryServe};
-
 use super::routes::{
     accept_file_upload, get_file, handle_404, health_check, notify_peer, system_information,
 };
+use memory_serve::{load_assets, MemoryServe};
 
 // the app is moved here to allow sharing across test modules
 pub fn app() -> Router {
