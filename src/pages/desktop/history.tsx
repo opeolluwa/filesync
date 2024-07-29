@@ -4,7 +4,7 @@ import LoaderCircle from "@/components/loaders/LoaderCircle";
 import { invoke } from "@tauri-apps/api/core";
 import { FileHistory } from "@/components/history/TransferHistory";
 import { TransferHistory } from "tauri/bindings/TransferHistory";
-import { CommandData } from "tauri/pkg/bindings/CommandData";
+import { CommandData } from "tauri/bindings/CommandData";
 
 export default function HistoryPage() {
   // get the file transfer history data from the application backend
