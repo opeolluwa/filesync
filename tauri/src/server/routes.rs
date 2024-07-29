@@ -15,10 +15,10 @@ use std::fs;
 use std::path::PathBuf;
 use tokio_util::io::{ReaderStream, StreamReader};
 
-use crate::context::websockets::{SocketMessage as ClientMessage, SocketMessage as ServerMessage};
+use crate::websockets::{SocketMessage as ClientMessage, SocketMessage as ServerMessage};
 
+use crate::pkg::CommandData;
 use crate::utils::system_info::SystemInformation;
-use pkg::CommandData;
 
 use crate::UPLOAD_DIRECTORY;
 use tokio::fs::File;

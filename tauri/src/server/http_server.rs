@@ -45,7 +45,7 @@ pub async fn core_server() {
 
     //  run the https server on localhost then feed off the connection using the wifi gateway, the same way Vite/Vue CLI would do the core server
     // this is currently achieved by binding the server to the device default ip address
-    let my_local_ip = crate::network_manager::ip_manager::autodetect_ip_address()
+    let my_local_ip = crate::commands::network::autodetect_ip_address()
         .expect("No Ip address detected")
         .parse::<std::net::Ipv4Addr>()
         .unwrap();

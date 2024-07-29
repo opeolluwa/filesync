@@ -1,6 +1,6 @@
+use serde::{Deserialize, Serialize};
 use std::fmt::{self};
 use ts_rs::TS;
-use serde::{Deserialize, Serialize};
 
 /// data structure of response to return from Tauri Core
 #[derive(Debug, Serialize, Deserialize, TS)]

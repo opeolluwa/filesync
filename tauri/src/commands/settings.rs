@@ -1,5 +1,5 @@
-use crate::{database::Settings, state_manager::State};
-use  pkg::CommandData;
+use crate::pkg::CommandData;
+use crate::{database::Settings, state::State};
 /** this module is responsible for handling the user settings  and application informatin */
 
 #[tauri::command(async)]

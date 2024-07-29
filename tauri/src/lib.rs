@@ -2,44 +2,27 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 extern crate uptime_lib;
-use crate::file_manager::get_transfer_history;
-use crate::file_manager::read_dir;
-use crate::ipc_manager::settings::{get_application_data, get_settings, update_settings};
-use crate::ipc_manager::utils::{
-    generate_qr_code,  get_system_information, is_connected_to_wifi,
-};
-use crate::ipc_manager::utils::get_ip_address;
-use crate::network_manager::wifi_manager::{broadcast_wifi, connect_to_wifi, get_available_wifi};
 
 use lazy_static::lazy_static;
 use server::http_server;
-mod context;
+
+mod commands;
 mod database;
-mod file_manager;
-mod ipc_manager;
-mod network_manager;
+mod websockets;
+
 mod server;
-mod state_manager;
+mod state;
 mod utils;
 
-// pub const STATIC_ASSETS_DIRECTORY: Dir<'static> = include_dir!("$CARGO_MANIFEST_DIR/views");
+mod pkg;
 
 lazy_static! {
-    /**
- * the lazy static crate allow the lazy evaluation of constants thus, one can bypass the impossible dynamic bindings of constants
- *
- *
- * Herein the server port made globally available, this allow for ease of sharing same with file upload directory
- */
+
     pub static ref SERVER_PORT: u16 = 18005;
-        // portpicker::pick_unused_port().expect("failed to get an unused port");
     pub static ref UPLOAD_DIRECTORY: std::string::String = String::from("filesync");
 
 
-    // the static files directory
-
-
-            //create wi-share directory in the downloads path dir and / save files to $DOWNLOADS/wi-share
+    //create wi-share directory in the downloads path dir and / save files to $DOWNLOADS/filesync
      pub static ref UPLOAD_PATH  : std::string::String = {
            let os_default_downloads_dir = dirs::download_dir().unwrap();
       format!(
@@ -83,7 +66,7 @@ lazy_static! {
  */
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    let state = state_manager::State {
+    let state = state::State {
         ..Default::default()
     };
 
@@ -94,18 +77,22 @@ pub fn run() {
     tauri::Builder::default()
         .manage(state)
         .invoke_handler(tauri::generate_handler![
-            generate_qr_code,
-            get_ip_address,
-            get_system_information,
-            get_transfer_history,
-            get_settings,
-            is_connected_to_wifi,
-            update_settings,
-            read_dir,
-            get_application_data,
-            broadcast_wifi,
-            connect_to_wifi,
-            get_available_wifi
+            commands::files::get_transfer_history,
+            commands::files::persist_transfer_history,
+            commands::files::read_dir,
+            commands::files::save_file_transfer,
+            commands::files::share_file_with_peer,
+            commands::network::broadcast_wifi,
+            commands::network::connect_to_wifi,
+            commands::network::get_available_wifi,
+            commands::settings::get_application_data,
+            commands::settings::get_settings,
+            commands::settings::update_settings,
+            commands::utils::generate_qr_code,
+            commands::utils::get_ip_address,
+            commands::utils::get_system_information,
+            commands::utils::is_connected_to_wifi,
         ])
-        .run(tauri::generate_context!()).expect("error while running tauri application");
+        .run(tauri::generate_context!())
+        .expect("error while running tauri application");
 }
