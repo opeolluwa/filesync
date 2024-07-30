@@ -24,8 +24,9 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 
 import Heading from "@/components/Heading";
-import { CommandData } from "tauri/pkg/bindings/CommandData";
+
 import { TransferHistory } from "tauri/bindings/TransferHistory";
+import { CommandData } from "tauri/bindings/CommandData";
 
 interface QuickAccessTab {
   name: string;
