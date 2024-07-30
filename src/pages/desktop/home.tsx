@@ -16,6 +16,17 @@ import {
   MusicalNoteIcon,
   PhotoIcon,
 } from "@heroicons/react/24/outline";
+
+import {
+  ArchiveBoxIcon as SolidArchiveBoxIcon,
+  CloudArrowDownIcon as SolidCloudArrowDownIcon,
+  DocumentDuplicateIcon as SolidDocumentDuplicateIcon,
+  FilmIcon as SolidFilmIcon,
+  MusicalNoteIcon as SolidMusicalNoteIcon,
+  PhotoIcon as SolidPhotoIcon,
+} from "@heroicons/react/24/solid";
+
+
 import { ask } from "@tauri-apps/plugin-dialog";
 import { exit, relaunch } from "@tauri-apps/plugin-process";
 import { invoke } from "@tauri-apps/api/core";
@@ -28,7 +39,7 @@ import Heading from "@/components/Heading";
 import { TransferHistory } from "tauri/bindings/TransferHistory";
 import { CommandData } from "tauri/bindings/CommandData";
 
-interface QuickAccessTab {
+export interface QuickAccessTab {
   name: string;
   icon: any;
 }
