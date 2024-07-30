@@ -12,8 +12,8 @@
     "start": "next start",
     "tauri": "tauri",
     "lint": "next lint",
-    "android":"npm run tauri android dev",
-    "desktop":"npm run tauri dev"
+    "android": "npm run tauri android dev",
+    "desktop": "npm run tauri dev"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.7",
@@ -24,6 +24,7 @@
     "@tauri-apps/plugin-clipboard-manager": "^2.1.0-beta.5",
     "@tauri-apps/plugin-dialog": "^2.0.0-beta.7",
     "@tauri-apps/plugin-fs": "^2.0.0-beta.7",
+    "@tauri-apps/plugin-os": "^2.0.0-beta.7",
     "@tauri-apps/plugin-process": "^2.0.0-beta.7",
     "@tauri-apps/plugin-shell": "^2.0.0-beta.8",
     "antd": "^5.6.2",

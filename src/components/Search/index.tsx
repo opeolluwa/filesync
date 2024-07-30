@@ -8,9 +8,10 @@ import { useState } from "react";
 interface Props {
   onSearch: (city: string) => void;
   placeholder: string;
+  className?: string
 }
 
-export default function SearchBar({ onSearch, placeholder }: Props) {
+export default function SearchBar({ onSearch, placeholder , className}: Props) {
   const [city, setCity] = useState("");
 
   function handleSubmit(e: { preventDefault: () => void }) {
@@ -24,6 +25,7 @@ export default function SearchBar({ onSearch, placeholder }: Props) {
       style={{
         position: "relative",
       }}
+      className={className}
     >
       <label htmlFor="search box" className="sr-only">
         {" "}

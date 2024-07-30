@@ -56,7 +56,7 @@ lazy_static! {
  * ```rust
  * http::core_server::run().await  // run the http serer
  *
- * tauri::Builder::default().plugin(tauri_plugin_shell::init()).plugin(tauri_plugin_fs::init()).plugin(tauri_plugin_dialog::init()).plugin(tauri_plugin_clipboard_manager::init()).run().await // run the ui process
+ * tauri::Builder::default().plugin(tauri_plugin_os::init()).plugin(tauri_plugin_shell::init()).plugin(tauri_plugin_fs::init()).plugin(tauri_plugin_dialog::init()).plugin(tauri_plugin_clipboard_manager::init()).run().await // run the ui process
  *
  * ```
  *

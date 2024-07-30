@@ -1,57 +1,79 @@
-import React from "react";
-import { Tabs } from "antd";
-import type { TabsProps } from "antd";
-import Button from "@/components/Button";
-import { FloatButton } from "antd";
+"use client";
 
-const onChange = (key: string) => {
-  console.log(key);
-};
-
-const items: TabsProps["items"] = [
-  {
-    key: "History",
-    label: "History",
-    children: "Content of Tab Pane 1",
-  },
-  {
-    key: "Download",
-    label: "Download",
-    children: "Content of Tab Pane 2",
-  },
-  {
-    key: "Photo",
-    label: "Photo",
-    children: "Photo",
-  },
-  {
-    key: "Music",
-    label: "Music",
-    children: "Music",
-  },
-  {
-    key: "Video",
-    label: "Video",
-    children: "Video",
-  },
-];
-
+import Card from "@/components/Card";
+import Heading from "@/components/Heading";
+import SearchBar from "@/components/Search";
+import picturesIcon from "@/assets/extra/pictures.png";
+import documentIcon from "@/assets/extra/google-docs.png";
+import audioIcon from "@/assets/extra/audio.png";
+import videoIcon from "@/assets/extra/video.png";
+import MobileAppLayout from "@/components/layout/MobileAppLayout";
+import SmallText from "@/components/SmallText";
+import Image from "next/image";
 export function MobileApp() {
   return (
-    <>
-      <header className="px-4">
-        <nav>heheh</nav>
-      </header>
+    <MobileAppLayout>
+      <header className=""></header>
 
-      <main className="px-4">
-        <Tabs
-          defaultActiveKey="1"
-          items={items}
-          onChange={onChange}
-          className=" p-0 m-0 "
+      <main className="">
+        <SearchBar
+          onSearch={function (city: string): void {
+            throw new Error("Function not implemented.");
+          }}
+          placeholder={"Search files"}
+          className="mt-8"
         />
+
+        <div className="my-12 grid grid-cols-2 grid-rows-2 gap-4">
+          <Card className="bg-white px-4 py-6 rounded-xl shadow-md shadow-gray-200 cursor-pointer">
+            <Image
+              src={audioIcon}
+              height={144}
+              width={144}
+              alt="file card icon"
+              className="w-[50px]  mb-3 "
+            />
+            <Heading className="mt-4 mb-1">Audio</Heading>
+            <SmallText>563 files - 2.45 GB</SmallText>
+          </Card>
+
+          <Card className="bg-white px-4 py-6 rounded-xl shadow-md shadow-gray-200 cursor-pointer">
+            <Image
+              src={videoIcon}
+              height={144}
+              width={144}
+              alt="file card icon"
+              className="w-[50px]  mb-3 "
+            />
+            <Heading className="mt-4 mb-1">Video</Heading>
+            <SmallText>563 files - 2.45 GB</SmallText>
+          </Card>
+
+          <Card className="bg-white px-4 py-6 rounded-xl shadow-md shadow-gray-200 cursor-pointer">
+            <Image
+              src={picturesIcon}
+              height={144}
+              width={144}
+              alt="file card icon"
+              className="w-[50px]  mb-3 "
+            />
+            <Heading className="mt-4 mb-1">Pictures </Heading>
+            <SmallText>563 files - 2.45 GB</SmallText>
+          </Card>
+
+          <Card className="bg-white px-4 py-6 rounded-xl shadow-md shadow-gray-200 cursor-pointer">
+            <Image
+              src={documentIcon}
+              height={144}
+              width={144}
+              alt="file card icon"
+              className="w-[50px]  mb-3 "
+            />
+            <Heading className="mt-4 mb-1">Documents</Heading>
+            <SmallText>563 files - 2.45 GB</SmallText>
+          </Card>
+        </div>
       </main>
-      <FloatButton className="bg-app-400 text-white" onClick={() => console.log("onClick")} />
-    </>
+    </MobileAppLayout>
   );
 }
