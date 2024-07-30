@@ -3,6 +3,8 @@ import { Tabs } from "antd";
 import type { TabsProps } from "antd";
 import Button from "@/components/Button";
 import { FloatButton } from "antd";
+import { Bars3BottomRightIcon } from "@heroicons/react/24/outline";
+import { ShareIcon } from "@heroicons/react/24/solid";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -39,8 +41,11 @@ const items: TabsProps["items"] = [
 export function MobileApp() {
   return (
     <>
-      <header className="px-4">
-        <nav>heheh</nav>
+      <header className="px-4 py-8">
+        <nav className="flex items-center justify-between">
+          <a href="">dd</a>
+          <Bars3BottomRightIcon className="w-6 h-6" />
+        </nav>
       </header>
 
       <main className="px-4">
@@ -48,10 +53,16 @@ export function MobileApp() {
           defaultActiveKey="1"
           items={items}
           onChange={onChange}
-          className=" p-0 m-0 "
+          className=" p-0 m-0  bg-red "
         />
       </main>
-      <FloatButton className="bg-app-400 text-white" onClick={() => console.log("onClick")} />
+      <FloatButton
+        shape="square"
+        type="primary"
+        icon={<ShareIcon className="w-6 h-6" />}
+        className="bg-app-400 text-white p-3"
+        onClick={() => console.log("onClick")}
+      />
     </>
   );
 }
