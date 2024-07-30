@@ -1,6 +1,8 @@
 import React from "react";
 import { Tabs } from "antd";
 import type { TabsProps } from "antd";
+import Button from "@/components/Button";
+import { FloatButton } from "antd";
 
 const onChange = (key: string) => {
   console.log(key);
@@ -8,22 +10,48 @@ const onChange = (key: string) => {
 
 const items: TabsProps["items"] = [
   {
-    key: "1",
-    label: "Tab 1",
+    key: "History",
+    label: "History",
     children: "Content of Tab Pane 1",
   },
   {
-    key: "2",
-    label: "Tab 2",
+    key: "Download",
+    label: "Download",
     children: "Content of Tab Pane 2",
   },
   {
-    key: "3",
-    label: "Tab 3",
-    children: "Content of Tab Pane 3",
+    key: "Photo",
+    label: "Photo",
+    children: "Photo",
+  },
+  {
+    key: "Music",
+    label: "Music",
+    children: "Music",
+  },
+  {
+    key: "Video",
+    label: "Video",
+    children: "Video",
   },
 ];
 
-export const MobileApp: React.FC = () => (
-  <Tabs defaultActiveKey="1" items={items} onChange={onChange} />
-);
+export function MobileApp() {
+  return (
+    <>
+      <header className="px-4">
+        <nav>heheh</nav>
+      </header>
+
+      <main className="px-4">
+        <Tabs
+          defaultActiveKey="1"
+          items={items}
+          onChange={onChange}
+          className=" p-0 m-0 "
+        />
+      </main>
+      <FloatButton className="bg-app-400 text-white" onClick={() => console.log("onClick")} />
+    </>
+  );
+}
