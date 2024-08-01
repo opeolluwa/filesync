@@ -17,27 +17,19 @@ import {
   PhotoIcon,
 } from "@heroicons/react/24/outline";
 
-import {
-  ArchiveBoxIcon as SolidArchiveBoxIcon,
-  CloudArrowDownIcon as SolidCloudArrowDownIcon,
-  DocumentDuplicateIcon as SolidDocumentDuplicateIcon,
-  FilmIcon as SolidFilmIcon,
-  MusicalNoteIcon as SolidMusicalNoteIcon,
-  PhotoIcon as SolidPhotoIcon,
-} from "@heroicons/react/24/solid";
 
 
+import { invoke } from "@tauri-apps/api/core";
 import { ask } from "@tauri-apps/plugin-dialog";
 import { exit, relaunch } from "@tauri-apps/plugin-process";
-import { invoke } from "@tauri-apps/api/core";
 import { Spin } from "antd";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 
 import Heading from "@/components/Heading";
 
-import { TransferHistory } from "tauri/bindings/TransferHistory";
 import { CommandData } from "tauri/bindings/CommandData";
+import { TransferHistory } from "tauri/bindings/TransferHistory";
 
 export interface QuickAccessTab {
   name: string;
@@ -187,7 +179,7 @@ export default function Main() {
 
       <section className="my-12">
         <PageTitle styles="mb-12" title={"Quick Access"} />
-        <ul className="grid grid-flow-col col-4 gap-24 items-center justify-start mt-4 px-6">
+        <ul className="grid grid-flow-col col-4 gap-24 items-center justify-start mt-4 px-6 ">
           {quickAccessTabs.map((tab, index) => (
             <li
               key={index}

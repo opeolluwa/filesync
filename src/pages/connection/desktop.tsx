@@ -10,10 +10,10 @@ import { writeText } from "@tauri-apps/plugin-clipboard-manager";
 import { message } from "@tauri-apps/plugin-dialog";
 
 export default function ConnectionPage() {
-  const { serverBaseUrl } = useContext(SystemInformationContext);
+  const { port } = useContext(SystemInformationContext);
 
   const copyToClipboard = async () => {
-    writeText(serverBaseUrl.toString())
+    writeText(port.toString())
       .then(async () => {
         message("Text Copied", { title: "Tauri", kind: "info" });
       })
@@ -29,18 +29,18 @@ export default function ConnectionPage() {
           style={{ height: "500px" }}
         >
           <View>
-            <Heading className="mt-8 text-3xl text-gray-700">
+            <Heading className="mt-8  text-gray-700">
               Connect Device
             </Heading>
             <Text className="mb-8 leading-5">
-              Visit this address in your browser
+              Provide the client id in the peer device
             </Text>
 
             <View
-              className="flex items-center justify-center cursor-pointer"
+              className="flex items-center justify-center"
               clickEvent={copyToClipboard}
             >
-              <span className="text-2xl">{serverBaseUrl}</span>
+              <span className="text-5xl">#{port}</span>
               <i className="ri-file-copy-line text-4xl ml-3 cursor-pointer hover:text-app"></i>
             </View>
           </View>

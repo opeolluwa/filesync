@@ -15,6 +15,11 @@
     "image:default",
     "menu:default",
     "tray:default",
-    "os:default"
+    "os:default",
+    "os:default",
+    "os:allow-arch",
+    "os:allow-hostname",
+    "os:allow-os-type",
+    "os:allow-locale"
   ]
 }

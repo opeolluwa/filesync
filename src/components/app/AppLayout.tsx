@@ -8,7 +8,7 @@ interface Props {
 export default function Layout({ children }: Props) {
   return (
     <div
-      className="sm:grid grid-cols-12 mb-0 pb-0"
+      className="sm:grid grid-cols-12 mb-0 pb-0 w-[100vw]"
       id="layout"
       style={{
         height: "100vh",
@@ -17,7 +17,7 @@ export default function Layout({ children }: Props) {
       }}
     >
       <Nav />
-      <main className="col-span-9 lg:col-span-9 sm:pt-10 sm:px-10 bg-[rgba(241,246,251,255)]  overflow-y-scroll">
+      <main className="col-span-9 lg:col-span-9 pt-10 px-10 bg-[rgba(241,246,251,255)]  overflow-y-scroll">
         {children}
       </main>
     </div>

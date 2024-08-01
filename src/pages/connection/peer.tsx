@@ -13,7 +13,7 @@ export default function ConnectionPage() {
       <PageLayout pageTitle={"Connect Device"} includeSearchBar={false}>
         <View className=" text-center flex flex-col justify-center items-center h-[500px]">
           <View>
-            <Heading className=" text-gray-700 text-2xl">
+            <Heading className=" text-gray-700">
               Select Peer&apos;s Platform
             </Heading>
             <Text className="mb-8 mt-1  leading-1">
@@ -21,7 +21,7 @@ export default function ConnectionPage() {
             </Text>
           </View>
 
-          <View className="flex items-center gap-6 justify-center text-4xl font-thin">
+          <View className="flex flex-wrap text-gray-400 items-center gap-6 justify-center text-4xl font-thin">
             <Tooltip title="Linux">
               <Link
                 href="/connection/desktop"

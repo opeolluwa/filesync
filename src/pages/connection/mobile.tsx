@@ -20,12 +20,13 @@ export default function ConnectionPage() {
         >
           <QRCode
             value={serverBaseUrl ? serverBaseUrl : " "}
-            size={200}
-            fgColor="#101010"
+            size={160}
+            fgColor="#3f3f3f"
+            className="border-2 border-gray-200 rounded-lg px-6"
           />
 
           <View>
-            <Heading className="mt-8 text-3xl text-gray-700">
+            <Heading className="mt-8   text-gray-700">
               Connect Device
             </Heading>
             <Text className="mb-8 leading-5">
