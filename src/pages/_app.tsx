@@ -5,15 +5,18 @@ import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import WifiStatus from "@/store/wifi-status";
 import "remixicon/fonts/remixicon.css";
+import Platform from "@/store/platform";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <SystemInfoStore>
       <FileStore>
         <WifiStatus>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <Platform>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </Platform>
         </WifiStatus>
       </FileStore>
     </SystemInfoStore>

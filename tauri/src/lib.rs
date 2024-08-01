@@ -76,7 +76,7 @@ pub fn run() {
     // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
         .manage(state)
-        .plugin(tauri_plugin_system_info::init())
+        // .plugin(tauri_plugin_system_info::init())
         .invoke_handler(tauri::generate_handler![
             commands::files::get_transfer_history,
             commands::files::persist_transfer_history,
