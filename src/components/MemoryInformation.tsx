@@ -1,6 +1,7 @@
 import { WifiStatusContext } from "@/store/wifi-status";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
+import { memoryInfo, MemoryInfo } from "tauri-plugin-system-info-api";
 // use this to display the available memory
 export const MemoryInformation = ({
   usedDisk,
@@ -9,7 +10,13 @@ export const MemoryInformation = ({
   usedDisk: string;
   availableDisk: string;
 }) => {
+  const [systemMemory, setsystemMemory] = useState("");
   const { data: isConnectedToWifi } = useContext(WifiStatusContext);
+  useEffect(() => {
+
+
+  }, []);
+
 
   const usedMemory = Number(usedDisk?.split(" ")[0]);
   const freeMemory = Number(availableDisk?.split(" ")[0]);

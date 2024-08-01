@@ -2,6 +2,8 @@ import { invoke } from "@tauri-apps/api/core";
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { SystemInformation as CoreSysInfo } from "tauri/bindings/SystemInformation";
 
+
+
 export interface SystemInformation extends CoreSysInfo {
   usedDisk: string;
 
@@ -26,9 +28,11 @@ export default function SystemInfoStore({ children }: { children: ReactNode }) {
     {} as SystemInformation
   );
 
+
   useEffect(() => {
     // fetch sys information from app core
     invoke("get_system_information").then((sysInfo) => {
+      
       setSystemInformation((sysInfo as any).data);
     });
   }, []);

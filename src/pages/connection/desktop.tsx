@@ -29,7 +29,7 @@ export default function ConnectionPage() {
           style={{ height: "500px" }}
         >
           <View>
-            <Heading className="mt-8 text-3xl text-gray-700">
+            <Heading className="mt-8  text-gray-700">
               Connect Device
             </Heading>
             <Text className="mb-8 leading-5">
