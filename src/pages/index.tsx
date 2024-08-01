@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { DesktopApp } from "./desktop";
-import { MobileApp } from "./mobile";
+import DesktopApp  from "./desktop";
+import  MobileApp  from "./mobile";
 import { platform } from "@tauri-apps/plugin-os";
 
 enum DeviceType {
@@ -19,7 +19,7 @@ export default function FileSync() {
   //   setDeviceType(DeviceType.Desktop)
   // }, []);
 
-  if (true) {
+  if (false) {
     return <MobileApp />;
   } else {
     return <DesktopApp />;

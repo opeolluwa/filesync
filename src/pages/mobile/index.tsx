@@ -10,7 +10,7 @@ import videoIcon from "@/assets/extra/video.png";
 import MobileAppLayout from "@/components/layout/MobileAppLayout";
 import SmallText from "@/components/SmallText";
 import Image from "next/image";
-export function MobileApp() {
+export default function MobileApp() {
   return (
     <MobileAppLayout>
       <header className=""></header>
