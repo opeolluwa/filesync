@@ -24,7 +24,7 @@ export default function ConnectionPage() {
           <View className="flex items-center gap-6 justify-center text-4xl font-thin">
             <Tooltip title="Linux">
               <Link
-                href="/desktop/connection/desktop"
+                href="/connection/desktop"
                 className="  bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  p-8 box-border rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
               >
                 <LinuxOutlined />
@@ -32,7 +32,7 @@ export default function ConnectionPage() {
             </Tooltip>
             <Tooltip title="Android">
               <Link
-                href="/desktop/connection/mobile"
+                href="/connection/mobile"
                 className="  bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  box-border p-8 rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
               >
                 <AndroidFilled />
@@ -40,19 +40,19 @@ export default function ConnectionPage() {
             </Tooltip>
             <Tooltip title="macOS">
               <Link
-                href="/desktop/connection/desktop"
+                href="/connection/desktop"
                 className="ri-apple-fill  bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  p-8 rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
               ></Link>
             </Tooltip>
             <Tooltip title="Windows">
               <Link
-                href="/desktop/connection/desktop"
+                href="/connection/desktop"
                 className="ri-windows-fill bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  p-8 rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
               ></Link>
             </Tooltip>
             <Tooltip title="Browser">
               <Link
-                href="/desktop/connection/browser"
+                href="/connection/browser"
                 className="ri-window-2-line  bg-gray-200 hover:bg-app-50 hover:text-app transition-all duration-200  p-8 rounded-full shadow hover:shadow-none cursor-pointer w-[70px] h-[70px] flex justify-center items-center"
               ></Link>
             </Tooltip>
