@@ -1,12 +1,10 @@
 use axum::body::{Body, Bytes};
-// use axum::extract::ws::{Message, WebSocket};
 use axum::extract::{Multipart, Query};
 use axum::http::StatusCode;
 use axum::response::IntoResponse;
 use axum::{BoxError, Json};
 use futures::stream::{Stream, TryStreamExt};
 
-use axum_typed_websockets::{Message, WebSocket, WebSocketUpgrade};
 use http::header;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
@@ -15,12 +13,6 @@ use std::fs;
 use std::path::PathBuf;
 use tokio_util::io::{ReaderStream, StreamReader};
 
-use crate::websockets::{SocketMessage as ClientMessage, SocketMessage as ServerMessage};
-
-use crate::pkg::CommandData;
-use crate::utils::system_info::SystemInformation;
-
-use crate::UPLOAD_DIRECTORY;
 use tokio::fs::File;
 use tokio::io::{self, BufWriter};
 #[derive(Debug, Serialize, Deserialize)]
@@ -28,16 +20,7 @@ pub struct QueryParams {
     pub file_path: String,
 }
 
-/// return the system information
-pub async fn system_information() -> (StatusCode, Json<CommandData<SystemInformation>>) {
-    (
-        StatusCode::OK,
-        axum::Json(CommandData::ok(
-            "connected system information ",
-            SystemInformation::new(),
-        )),
-    )
-}
+
 
 // Handler that accepts a multipart form upload and streams each field to a file.
 pub async fn accept_file_upload(
@@ -83,7 +66,7 @@ where
         let upload_path = format!(
             "{downloads_dir}/{upload_dir}",
             downloads_dir = os_default_downloads_dir.display(),
-            upload_dir = UPLOAD_DIRECTORY.as_str()
+            upload_dir = "filesync" //TODO: change this 
         );
         // create the uploads path if not exist
         let _ = fs::create_dir_all(&upload_path);
@@ -187,33 +170,6 @@ pub async fn get_file(Query(QueryParams { file_path }): Query<QueryParams>) -> i
     Ok((headers, body).into_response())
 }
 
-/// send and recieve websocket connection from peer
-pub async fn notify_peer(ws: WebSocketUpgrade<ServerMessage, ClientMessage>) -> impl IntoResponse {
-    ws.on_upgrade(handle_socket)
-}
-
-async fn handle_socket(mut socket: WebSocket<ServerMessage, ClientMessage>) {
-    socket
-        .send(Message::Item(ServerMessage::new(
-            "test message from server",
-        )))
-        .await
-        .ok();
-
-    if let Some(msg) = socket.recv().await {
-        match msg {
-            // Ok(Message::Item(client_message)) => {
-            //     println!("new message from client: {:?}", client_message);
-            // }
-            Ok(client_message) => {
-                println!("new message from client: {:?}", client_message);
-            }
-            Err(err) => {
-                eprintln!("got error: {}", err);
-            }
-        }
-    }
-}
 
 #[cfg(test)]
 mod basic_endpoints {
@@ -223,7 +179,6 @@ mod basic_endpoints {
         body::Body,
         http::{Request, StatusCode},
     };
-    // use serde_json::{json, Value};
     use tower::ServiceExt;
     // test the server base url
     // for example ->  http://loccalhost:4835
@@ -261,6 +216,5 @@ mod basic_endpoints {
 
         // assert  the the status code is 404
         assert_eq!(response.status(), StatusCode::NOT_FOUND);
-        // println!(" the not-found-endpoint response is {response:?}");
     }
 }

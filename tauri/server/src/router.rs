@@ -6,7 +6,7 @@ use axum::{
 };
 
 use super::routes::{
-    accept_file_upload, get_file, handle_404, health_check, notify_peer, system_information,
+    accept_file_upload, get_file, handle_404, health_check, /*notify_peer, system_information,*/
 };
 use memory_serve::{load_assets, MemoryServe};
 
@@ -19,9 +19,9 @@ pub fn app() -> Router {
     Router::new()
         .route("/upload", post(accept_file_upload))
         .route("/health", post(accept_file_upload).get(health_check))
-        .route("/api/sys-info", get(system_information))
+        // .route("/api/sys-info", get(system_information))
         .route("/api/file", get(get_file))
-        .route("/notify", get(notify_peer))
+        // .route("/notify", get(notify_peer))
         .merge(static_files)
         .fallback(handle_404)
 }
