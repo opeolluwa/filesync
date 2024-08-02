@@ -8,9 +8,7 @@ use lazy_static::lazy_static;
 
 mod commands;
 mod database;
-mod websockets;
 
-mod server;
 mod state;
 mod utils;
 
