@@ -1,5 +1,9 @@
+use std::net::Ipv4Addr;
+
 use axum::http::Method;
 
+use serde::Deserialize;
+use serde::Serialize;
 use tower_http::cors::Any;
 use tower_http::cors::CorsLayer;
 use tower_http::trace::DefaultMakeSpan;
@@ -16,11 +20,32 @@ mod routes;
  * the application core responsible for handling file upload to client
  *  machine and file download to the host machine
  */
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 /// the sever can be created with multiple instances
-pub struct HttpServer;
+pub struct HttpServer {
+    /// port
+    port: u64,
+    /// ip_address,
+    ip_address: Ipv4Addr,
+}
+
+impl Default for HttpServer {
+    fn default() -> Self {
+        Self {
+            port: 18005,
+            ip_address: Ipv4Addr::new(127, 0, 0, 1),
+        }
+    }
+}
+
 impl HttpServer {
-    pub async fn run(port: u64, ip_address: (u64, u64, u64, u64)) {
+    // TODO: add logic for Ip address and the port 
+    pub fn new() -> Self {
+        Self {
+            ..Default::default()
+        }
+    }
+    pub async fn run(&self) {
         tracing_subscriber::registry()
             .with(tracing_subscriber::EnvFilter::new(
                 std::env::var("RUST_LOG")
@@ -44,13 +69,8 @@ impl HttpServer {
 
         //  run the https server on localhost then feed off the connection using the wifi gateway, the same way Vite/Vue CLI would do the core server
         // this is currently achieved by binding the server to the device default ip address
-        let my_local_ip = format!(
-            "{}.{}.{}.{}",
-            ip_address.0, ip_address.1, ip_address.2, ip_address.3
-        )
-        .parse::<std::net::Ipv4Addr>()
-        .expect("Invalid IP Address V4 suspected");
-        let ip_address = format!("{:?}:{:?}", my_local_ip, port);
+
+        let ip_address = format!("{:?}:{:?}", &self.ip_address, &self.port);
         let ip_address = ip_address
             .parse::<std::net::SocketAddr>()
             .expect("invalid socket address");

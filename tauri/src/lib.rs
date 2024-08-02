@@ -4,7 +4,7 @@
 extern crate uptime_lib;
 
 use lazy_static::lazy_static;
-use server::http_server;
+
 
 mod commands;
 mod database;
@@ -71,7 +71,7 @@ pub fn run() {
     };
 
     // run core the server in a separate thread from tauri
-    tauri::async_runtime::spawn(http_server::core_server());
+    // tauri::async_runtime::spawn(&::server::HttpServer::new().run());
 
     // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
