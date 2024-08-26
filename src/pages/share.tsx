@@ -1,3 +1,5 @@
+"use client";
+
 import PageLayout from "@/components/layout/PageLayout";
 import { useContext } from "react";
 import type { UploadProps } from "antd";
