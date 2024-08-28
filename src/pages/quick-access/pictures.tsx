@@ -1,5 +1,5 @@
 import FileCard, { FileInterface } from "@/components/Thumbnail";
-import QuickAccessLayout from "@/components/layout/PageLayout";
+import QuickAccessLayout from "@/components/layout/DesktopViewLayout";
 import { AppData } from "@/types";
 import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";

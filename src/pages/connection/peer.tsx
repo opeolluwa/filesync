@@ -3,7 +3,7 @@
 import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import PageLayout from "@/components/layout/PageLayout";
+import PageLayout from "@/components/layout/DesktopViewLayout";
 import { AndroidFilled, LinuxOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { Tooltip } from "antd";

@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import PageLayout from "@/components/layout/PageLayout";
+import PageLayout from "@/components/layout/DesktopViewLayout";
 import Platform, {
   DevicePlatformContext,
   DevicePlatformInterface,
@@ -23,21 +23,20 @@ export default function ConnectionPage() {
           <View className=" text-center flex flex-col justify-center items-center h-[500px]">
             <View>
               <Heading className=" text-gray-700 text-2xl">
-                Scan QR code 
+                Scan QR code
               </Heading>
               <Text className="mb-5 mt-1  leading-1">
                 Scan QR code on peer&apos;s debvice to continue
               </Text>
             </View>
             <Button className="bg-app text-white flex items-center gap-2">
-              Open Camera <CameraIcon className="w-6 h-6"/>
+              Open Camera <CameraIcon className="w-6 h-6" />
             </Button>
           </View>
         </PageLayout>
       </>
     );
-  }
-  else {
+  } else {
     return (
       <>
         <PageLayout pageTitle={"Connect Device"} includeSearchBar={false}>
@@ -75,9 +74,5 @@ export default function ConnectionPage() {
 }
 
 export function DesktopClient() {
-  return (
-    <>
-     
-    </>
-  );
+  return <></>;
 }
