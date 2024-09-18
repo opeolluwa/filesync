@@ -15,7 +15,6 @@ use axum::extract::DefaultBodyLimit;
 
 use crate::router;
 
-
 /**
  * @function core_server
  * the application core responsible for handling file upload to client
@@ -25,9 +24,7 @@ use crate::router;
 ///TODO:  run the sever can be created with multiple instances
 pub struct HttpServer;
 
-
 impl HttpServer {
-
     pub async fn run() {
         tracing_subscriber::registry()
             .with(tracing_subscriber::EnvFilter::new(

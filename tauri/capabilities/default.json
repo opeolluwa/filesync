@@ -20,6 +20,7 @@
     "os:allow-arch",
     "os:allow-hostname",
     "os:allow-os-type",
-    "os:allow-locale"
+    "os:allow-locale",
+    "barcode-scanner:default"
   ]
 }

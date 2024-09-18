@@ -20,8 +20,6 @@ pub struct QueryParams {
     pub file_path: String,
 }
 
-
-
 // Handler that accepts a multipart form upload and streams each field to a file.
 pub async fn accept_file_upload(
     mut multipart: Multipart,
@@ -66,7 +64,7 @@ where
         let upload_path = format!(
             "{downloads_dir}/{upload_dir}",
             downloads_dir = os_default_downloads_dir.display(),
-            upload_dir = "filesync" //TODO: change this 
+            upload_dir = "filesync" //TODO: change this
         );
         // create the uploads path if not exist
         let _ = fs::create_dir_all(&upload_path);
@@ -169,7 +167,6 @@ pub async fn get_file(Query(QueryParams { file_path }): Query<QueryParams>) -> i
 
     Ok((headers, body).into_response())
 }
-
 
 #[cfg(test)]
 mod basic_endpoints {

@@ -1,6 +1,5 @@
 import {
   BarsArrowDownIcon,
-  BarsArrowUpIcon,
   ClockIcon,
   Cog6ToothIcon,
   HomeIcon,
@@ -9,6 +8,7 @@ import { QrCodeIcon } from "@heroicons/react/24/solid";
 import Button from "../Button";
 import SmallText from "../SmallText";
 import View from "../View";
+import { scan, Format } from "@tauri-apps/plugin-barcode-scanner";
 
 interface Props {
   children: React.ReactNode;
@@ -24,7 +24,10 @@ export default function MobileAppLayout({ children }: Props) {
             alt="test-image"
             className="w-[28px] bg-gray-50 rounded"
           />
-          <QrCodeIcon className="w-8 h-8 text-gray-400"></QrCodeIcon>
+          <QrCodeIcon
+            className="w-8 h-8 text-gray-400"
+            onClick={() => scan({ windowed: true, formats: [Format.QRCode] })}
+          ></QrCodeIcon>
         </View>
       </header>
       <div className="px-4 pt-3">{children}</div>

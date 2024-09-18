@@ -6,7 +6,8 @@ use axum::{
 };
 
 use super::routes::{
-    accept_file_upload, get_file, handle_404, health_check, /*notify_peer, system_information,*/
+    accept_file_upload, get_file, handle_404,
+    health_check, /*notify_peer, system_information,*/
 };
 use memory_serve::{load_assets, MemoryServe};
 
