@@ -1,7 +1,6 @@
 //! Manages files and directory
-//! 
-//! 
-
+//!
+//!
 
 extern crate dirs;
 
@@ -11,7 +10,6 @@ use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::{Path, PathBuf};
 use ts_rs::TS;
-
 
 /// the dir enum, reads, $HOME, $PICTURES, $VIDEOS, $DOCUMENTS, $DOWNLOADS, and // Other
 /// the other is a unit struct that contains a path of the directory to be red
@@ -57,7 +55,7 @@ impl Dir {
             Dir::Downloads => dirs::download_dir().unwrap(),
             Dir::Audio => dirs::audio_dir().unwrap(),
             Dir::Desktop => dirs::desktop_dir().unwrap(),
-            Dir::FileSync => PathBuf::from("filesync".to_string()),//TODO USE A CONSTANT
+            Dir::FileSync => PathBuf::from("filesync".to_string()), //TODO USE A CONSTANT
             Dir::Other(path) => PathBuf::from(path),
         }
     }

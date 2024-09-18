@@ -21,6 +21,7 @@
     "@heroicons/react": "^2.0.16",
     "@opeolluwa/filewindow": "^0.0.3",
     "@tauri-apps/api": ">=2.0.0-beta.0",
+    "@tauri-apps/plugin-barcode-scanner": "^2.0.0-rc",
     "@tauri-apps/plugin-clipboard-manager": "^2.1.0-beta.5",
     "@tauri-apps/plugin-dialog": "^2.0.0-beta.7",
     "@tauri-apps/plugin-fs": "^2.0.0-beta.7",
@@ -40,8 +41,7 @@
     "react-router-dom": "^6.9.0",
     "remixicon": "^4.3.0",
     "tauri-plugin-sqlite-api": "github:lzdyes/tauri-plugin-sqlite#v0.1.1",
-    "tauri-plugin-store-api": "https://github.com/tauri-apps/tauri-plugin-store#v1",
-    "tauri-plugin-system-info-api": "^2.0.2"
+    "tauri-plugin-store-api": "https://github.com/tauri-apps/tauri-plugin-store#v1"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",

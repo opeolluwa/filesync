@@ -1,6 +1,5 @@
 use std::collections::HashMap;
 
-
 use chrono::Local;
 use serde::{Deserialize, Serialize};
 use sqlx::{
@@ -20,7 +19,10 @@ impl Database {
     this will create a new sqlite database in the OS $Downloads/filesync/.filesync directory
      */
     pub async fn init() {
-        if !Sqlite::database_exists(&CONFIG.db_url).await.unwrap_or(false) {
+        if !Sqlite::database_exists(&CONFIG.db_url)
+            .await
+            .unwrap_or(false)
+        {
             match Sqlite::create_database(&CONFIG.db_url).await {
                 Ok(_) => println!("Database initialized"),
                 Err(_error) => eprintln!("error creating utility store"),

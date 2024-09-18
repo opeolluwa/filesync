@@ -1,7 +1,6 @@
 import { WifiStatusContext } from "@/store/wifi-status";
 import { useContext, useEffect, useState } from "react";
 
-import { memoryInfo, MemoryInfo } from "tauri-plugin-system-info-api";
 // use this to display the available memory
 export const MemoryInformation = ({
   usedDisk,

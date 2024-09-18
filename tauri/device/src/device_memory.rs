@@ -18,7 +18,7 @@ pub struct DeviceMemory {
 
 #[derive(Debug, Serialize, Deserialize, TS)]
 #[ts(export)]
-#[serde(rename_all="camelCase")]
+#[serde(rename_all = "camelCase")]
 pub struct ReadableDeviceMemory {
     pub total_memory: String,
     pub free_memory: String,
@@ -49,7 +49,6 @@ impl DeviceMemory {
         ReadableDeviceMemory {
             total_memory: convert_to_readable(self.total_memory as u128),
             free_memory: convert_to_readable(self.free_memory as u128),
-          
         }
     }
 }

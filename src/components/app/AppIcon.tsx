@@ -1,5 +1,4 @@
-import React from 'react'
-import Heading from '../Heading';
+"use client"
 import View from '../View';
 
 interface Props {

@@ -74,14 +74,20 @@ export const desktopRoutes: Route[] = [
   },
 ];
 
+// export const MobileRoutes = [
+//   { name: "History", path: "/history" },
+//   { name: "Home", path: "/home" },
+//   { name: "Video", path: "/video" },
+//   { name: "Audio", path: "/audio" },
+//   { name: "Pictures", path: "/audio" },
+//   { name: "Zipped", path: "/zip" },
+//   { name: "Big Files", path: "/big-files" },
+//   { name: "Storage", path: "/related" },
+// ];
 
 export const MobileRoutes = [
-  { name: "History", path: "/history" },
-  { name: "Home", path: "/home" },
-  { name: "Video", path: "/video" },
-  { name: "Audio", path: "/audio" },
-  { name: "Pictures", path: "/audio" },
-  { name: "Zipped", path: "/zip" },
-  { name: "Big Files", path: "/big-files" },
-  { name: "Storage", path: "/related" },
+  { name: "Home", path: "/history" },
+  { name: "Share", path: "/home" },
+  { name: "History", path: "/video" },
+  { name: "profile", path: "/audio" },
 ];

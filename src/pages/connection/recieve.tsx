@@ -5,17 +5,16 @@ import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import PageLayout from "@/components/layout/DesktopViewLayout";
-import Platform, {
-  DevicePlatformContext,
-  DevicePlatformInterface,
-} from "@/store/platform";
+import { DeviceInformationContext } from "@/store/device";
+
 import { CameraIcon } from "@heroicons/react/24/solid";
 import { useContext } from "react";
 export default function ConnectionPage() {
-  const platform = useContext(DevicePlatformContext);
+    const { osType } = useContext(DeviceInformationContext);
+    const isMobile = osType === "Android";
+
   if (
-    platform.device === DevicePlatformInterface.ANDROID ||
-    platform.device === DevicePlatformInterface.IOS
+   isMobile
   ) {
     return (
       <>
@@ -26,7 +25,7 @@ export default function ConnectionPage() {
                 Scan QR code
               </Heading>
               <Text className="mb-5 mt-1  leading-1">
-                Scan QR code on peer&apos;s debvice to continue
+                Scan QR code on peer&apos;s device to continue
               </Text>
             </View>
             <Button className="bg-app text-white flex items-center gap-2">

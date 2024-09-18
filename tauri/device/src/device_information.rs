@@ -11,7 +11,7 @@ use crate::device_memory::{DeviceMemory, ReadableDeviceMemory};
 
 #[derive(Debug, Serialize, Deserialize, TS)]
 #[ts(export)]
-#[serde(rename_all="camelCase")]
+#[serde(rename_all = "camelCase")]
 pub struct Device {
     pub os_type: String,
     pub memory: ReadableDeviceMemory,
@@ -38,4 +38,3 @@ impl Device {
         }
     }
 }
-

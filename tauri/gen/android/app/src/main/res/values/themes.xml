@@ -2,5 +2,6 @@
     <!-- Base application theme. -->
     <style name="Theme.filesync" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
+        
     </style>
 </resources>

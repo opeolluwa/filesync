@@ -34,5 +34,6 @@
     "targets": "all",
     "createUpdaterArtifacts": "v1Compatible"
   },
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json"
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "plugins": {}
 }
