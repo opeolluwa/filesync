@@ -1,3 +1,4 @@
+"use client"
 import { useContext, useState } from "react";
 import DesktopAppLayout from "../layout/DesktopAppLayout";
 import MobileAppLayout from "../layout/MobileAppLayout";
@@ -12,8 +13,8 @@ export default function Layout({ children }: Props) {
   const isMobile = osType === "Android";
 
   if (isMobile) {
-    return <MobileAppLayout children={children} />;
+    return <MobileAppLayout>{children}</MobileAppLayout>;
   }
 
-  return <DesktopAppLayout children={children} />;
+  return <DesktopAppLayout > {children}</DesktopAppLayout>;
 }

@@ -17,13 +17,9 @@ interface Props {
 export default function MobileAppLayout({ children }: Props) {
   return (
     <div className="relative min-h-screen overflow-y-scroll">
-      <header className=" min-h-12 pt-6 px-4 ">
-        <View className="flex items-center justify-between">
-          <img
-            src="/img/avatar.png"
-            alt="test-image"
-            className="w-[28px] bg-gray-50 rounded"
-          />
+      <header className=" min-h-12 pt-6 px-4  hidden">
+        <View className="flex items-center justify-end">
+     
           <QrCodeIcon
             className="w-8 h-8 text-gray-400"
             onClick={() => scan({ windowed: true, formats: [Format.QRCode] })}
