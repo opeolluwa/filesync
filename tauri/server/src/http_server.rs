@@ -22,25 +22,12 @@ use crate::router;
  *  machine and file download to the host machine
  */
 #[derive(Debug, Serialize, Deserialize)]
-/// the sever can be created with multiple instances
+///TODO:  run the sever can be created with multiple instances
 pub struct HttpServer;
 
-// impl Default for HttpServer {
-//     fn default() -> Self {
-//         Self {
-//             port: 18005,
-//             ip_address: Ipv4Addr::UNSPECIFIED,
-//         }
-//     }
-// }
 
 impl HttpServer {
-    // TODO: add logic for Ip address and the port 
-    // pub fn new() -> Self {
-    //     Self {
-    //         ..Default::default()
-    //     }
-    // }
+
     pub async fn run() {
         tracing_subscriber::registry()
             .with(tracing_subscriber::EnvFilter::new(
