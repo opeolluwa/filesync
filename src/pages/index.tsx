@@ -1,11 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import MobileApp from "./home/MobileApp";
 import DesktopApp from "./home/DesktopApp";
+import { DeviceInformationContext } from "@/store/device";
 
 export default function Home() {
-  const [isMobile, setIsMobile] = useState(true);
+  const { osType } = useContext(DeviceInformationContext);
+  const isMobile = osType === "Android";
 
   if (isMobile) {
     return <MobileApp />;

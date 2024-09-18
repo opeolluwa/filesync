@@ -27,11 +27,11 @@ export default function DesktopAppEntryPoint() {
                 <Text className="mt-2">Send File</Text>
               </Link>
               <Link
-                href="/connection/recieve"
+                href="/connection/receive"
                 className="flex flex-col items-center "
               >
                 <ArrowDownIcon className="bg-gray-200 text-gray-400 hover:bg-app-50 hover:text-app transition-all duration-200 p-4 rounded-xl shadow hover:shadow-none cursor-pointer w-[70px] h-[70px]"></ArrowDownIcon>
-                <Text className="mt-2">Recieve File</Text>
+                <Text className="mt-2">Receive File</Text>
               </Link>
             </View>
           </View>

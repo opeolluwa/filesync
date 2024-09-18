@@ -173,7 +173,7 @@ pub async fn get_file(Query(QueryParams { file_path }): Query<QueryParams>) -> i
 
 #[cfg(test)]
 mod basic_endpoints {
-    use crate::server::router;
+    use crate::router;
 
     use axum::{
         body::Body,

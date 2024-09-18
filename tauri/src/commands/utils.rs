@@ -1,7 +1,8 @@
 use local_ip_address::local_ip;
 use std::net::Ipv4Addr;
 
-use crate::{utils::system_info::SystemInformation, SERVER_PORT};
+use crate::config::CONFIG;
+use crate::utils::system_info::SystemInformation;
 
 use crate::pkg::CommandData;
 
@@ -19,10 +20,8 @@ pub fn generate_qr_code(ssid: &str, password: &str) -> String {
 pub fn get_ip_address() -> String {
     let ip_address = crate::commands::network::autodetect_ip_address()
         .ok()
-        .unwrap_or(String::from("0.0.0.0")) // use error catching in the frontend to validate only non"0.0.0.0. ip address
-        .parse::<Ipv4Addr>()
-        .unwrap();
-    format!("{ip_address}:{port:?}", port = *SERVER_PORT)
+        .unwrap_or(Ipv4Addr::UNSPECIFIED.to_string());
+    format!("{ip_address}:{port:?}", port = CONFIG.server_port)
 }
 
 #[tauri::command]
