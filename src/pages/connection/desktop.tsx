@@ -3,7 +3,7 @@
 import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import PageLayout from "@/components/layout/PageLayout";
+import PageLayout from "@/components/layout/DesktopViewLayout";
 import { SystemInformationContext } from "@/store/sys-info";
 import { useContext } from "react";
 import { writeText } from "@tauri-apps/plugin-clipboard-manager";
@@ -29,9 +29,7 @@ export default function ConnectionPage() {
           style={{ height: "500px" }}
         >
           <View>
-            <Heading className="mt-8  text-gray-700">
-              Connect Device
-            </Heading>
+            <Heading className="mt-8  text-gray-700">Connect Device</Heading>
             <Text className="mb-8 leading-5">
               Provide the client id in the peer device
             </Text>

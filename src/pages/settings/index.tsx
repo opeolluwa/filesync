@@ -1,4 +1,4 @@
-import PageLayout from "@/components/layout/PageLayout";
+import PageLayout from "@/components/layout/DesktopViewLayout";
 import { AndroidFilled } from "@ant-design/icons";
 import {
   ChartPieIcon,
@@ -98,7 +98,6 @@ export default function HelpPage() {
               alternateIcon={<ChartPieIconSolid className="w-6 h-6" />}
               text={`${systemInformation.availableDisk} free space`}
             />
-
 
             <SettingsTab
               icon={<CpuChipIcon className="w-6 h-6" />}

@@ -1,12 +1,10 @@
 "use client";
 
 import Heading from "@/components/Heading";
-import PageLayout from "@/components/layout/PageLayout";
+import PageLayout from "@/components/layout/DesktopViewLayout";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import {
-  WifiIcon
-} from "@heroicons/react/24/outline";
+import { WifiIcon } from "@heroicons/react/24/outline";
 
 export default function ConnectionPage() {
   return (
@@ -19,9 +17,7 @@ export default function ConnectionPage() {
               Network Configuration
             </Heading>
             <Text> Connect to the network on peer device</Text>
-            <View className="flex flex-col justify-between items-center mt-8">
-          
-            </View>
+            <View className="flex flex-col justify-between items-center mt-8"></View>
           </View>
         </View>
       </PageLayout>

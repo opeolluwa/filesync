@@ -1,6 +1,6 @@
 use std::collections::HashMap;
 
-use crate::DB_URL;
+
 use chrono::Local;
 use serde::{Deserialize, Serialize};
 use sqlx::{
@@ -8,6 +8,8 @@ use sqlx::{
 };
 use ts_rs::TS;
 use uuid::Uuid;
+
+use crate::config::CONFIG;
 
 pub struct Database;
 #[allow(unused)]
@@ -18,8 +20,8 @@ impl Database {
     this will create a new sqlite database in the OS $Downloads/filesync/.filesync directory
      */
     pub async fn init() {
-        if !Sqlite::database_exists(&DB_URL).await.unwrap_or(false) {
-            match Sqlite::create_database(&DB_URL).await {
+        if !Sqlite::database_exists(&CONFIG.db_url).await.unwrap_or(false) {
+            match Sqlite::create_database(&CONFIG.db_url).await {
                 Ok(_) => println!("Database initialized"),
                 Err(_error) => eprintln!("error creating utility store"),
             }
@@ -34,14 +36,14 @@ impl Database {
         let settings_table =
             "CREATE TABLE IF NOT EXISTS settings (id INTEGER PRIMARY KEY DEFAULT 1, language VARCHAR, theme VARCHAR)";
 
-        let db = SqlitePool::connect(&DB_URL).await.unwrap();
+        let db = SqlitePool::connect(&CONFIG.db_url).await.unwrap();
         let _ = sqlx::query(file_history_table).execute(&db).await.unwrap();
         let _ = sqlx::query(settings_table).execute(&db).await.unwrap();
     }
 
     // return connection to the database;
     pub async fn conn() -> Pool<Sqlite> {
-        SqlitePool::connect(&DB_URL).await.unwrap()
+        SqlitePool::connect(&CONFIG.db_url).await.unwrap()
     }
 
     // get the tables in the database

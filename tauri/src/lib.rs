@@ -2,47 +2,19 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 extern crate uptime_lib;
+use server::http_server::HttpServer;
 
-use lazy_static::lazy_static;
+
 
 
 mod commands;
 mod database;
 
+mod config;
 mod state;
 mod utils;
 
 mod pkg;
-
-lazy_static! {
-
-    pub static ref SERVER_PORT: u16 = 18005;
-    pub static ref UPLOAD_DIRECTORY: std::string::String = String::from("filesync");
-
-
-    //create wi-share directory in the downloads path dir and / save files to $DOWNLOADS/filesync
-     pub static ref UPLOAD_PATH  : std::string::String = {
-           let os_default_downloads_dir = dirs::download_dir().unwrap();
-      format!(
-            "{downloads_dir}/{upload_dir}",
-            downloads_dir = os_default_downloads_dir.display(),
-            upload_dir = UPLOAD_DIRECTORY.as_str()
-        )
-     };
-
-    /* create a database in the home dir and / save files to $HOME/filesync/.dat */
-     pub static ref DB_URL: std::string::String = {
-        let os_default_downloads_dir = dirs::download_dir().unwrap();
-        let db_path = format!(
-            "{downloads_dir}/{db_path}",
-            downloads_dir = os_default_downloads_dir.display(),
-            db_path = ".dat"
-        );
-        // create the path if not exist path if not exist
-        let _ = std::fs::create_dir_all(&db_path);
-    format!("sqlite://{db_path}/filesync.db")
-    };
-}
 
 /**
  * the application runs two major thing, a file sever and the tauri runtime responsible for rendering the UI and general UI interactions
@@ -69,12 +41,11 @@ pub fn run() {
     };
 
     // run core the server in a separate thread from tauri
-    // tauri::async_runtime::spawn(&::server::HttpServer::new().run());
+    tauri::async_runtime::spawn(HttpServer::run());
 
     // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
         .manage(state)
-        // .plugin(tauri_plugin_system_info::init())
         .invoke_handler(tauri::generate_handler![
             commands::files::get_transfer_history,
             commands::files::persist_transfer_history,
@@ -91,6 +62,7 @@ pub fn run() {
             commands::utils::get_ip_address,
             commands::utils::get_system_information,
             commands::utils::is_connected_to_wifi,
+            commands::device::get_device_information
         ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
