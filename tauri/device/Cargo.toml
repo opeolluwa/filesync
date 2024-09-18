@@ -5,9 +5,9 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+filesystem = { path = "../filesystem" }
 os_info = "3.8.2"
-serde = { version = "1.0.210", features = ["derive"] }
+serde = { workspace = true }
+serde_json = { workspace = true }
 sysinfo = "0.31.4"
-filesystem = {path = "../filesystem"}
-json-value = "0.3.3"
-serde_json = "1.0.128"
+ts-rs = { workspace = true }

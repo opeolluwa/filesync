@@ -7,21 +7,29 @@ use std::fmt::Display;
 use filesystem::directory::compute_file_size as convert_to_readable;
 use serde::{Deserialize, Serialize};
 
-use serde_json::Value;
 use sysinfo::System;
+use ts_rs::TS;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct DeviceMemory {
-    pub total_mem: u64,
-    pub free_mem: u64,
+    pub total_memory: u64,
+    pub free_memory: u64,
 }
 
-impl Display for DeviceMemory {
+#[derive(Debug, Serialize, Deserialize, TS)]
+#[ts(export)]
+#[serde(rename_all="camelCase")]
+pub struct ReadableDeviceMemory {
+    pub total_memory: String,
+    pub free_memory: String,
+}
+
+impl Display for ReadableDeviceMemory {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
             "total_memory:{}\nfree_memory:{}",
-            self.total_mem, self.free_mem
+            self.total_memory, self.free_memory
         )
     }
 }
@@ -31,21 +39,20 @@ impl DeviceMemory {
         let system = System::new_all();
 
         Self {
-            total_mem: system.total_memory(),
-            free_mem: system.free_swap(),
+            total_memory: system.total_memory(),
+            free_memory: system.free_swap(),
         }
     }
 
-    /// convert to human readable format 
-    pub fn to_readable(&self) -> Value {
-        serde_json::json!({
-             "total_mem": convert_to_readable(self.total_mem as u128),
-            "free_mem": convert_to_readable(self.free_mem as u128),
-        })
+    /// convert to human readable format
+    pub fn to_readable(&self) -> ReadableDeviceMemory {
+        ReadableDeviceMemory {
+            total_memory: convert_to_readable(self.total_memory as u128),
+            free_memory: convert_to_readable(self.free_memory as u128),
+          
+        }
     }
 }
-
-
 
 impl Default for DeviceMemory {
     fn default() -> Self {

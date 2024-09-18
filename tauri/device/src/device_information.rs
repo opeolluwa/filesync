@@ -5,14 +5,16 @@
 use std::fmt::Display;
 
 use serde::{Deserialize, Serialize};
-use serde_json::Value;
+use ts_rs::TS;
 
-use crate::device_memory::DeviceMemory;
+use crate::device_memory::{DeviceMemory, ReadableDeviceMemory};
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, TS)]
+#[ts(export)]
+#[serde(rename_all="camelCase")]
 pub struct Device {
     pub os_type: String,
-    pub memory: Value,
+    pub memory: ReadableDeviceMemory,
 }
 
 impl Display for Device {

@@ -36,7 +36,7 @@ export default function MobileAppLayout({ children }: Props) {
 
         <Button className="text-gray-400 hover:text-app-400 transition-all  rounded-lg p-4 cursor-pointer flex  flex-col items-center justify-center">
           <BarsArrowDownIcon className="w-6 h-6 mb-1" />
-          <SmallText>Recieve</SmallText>
+          <SmallText>Receive</SmallText>
         </Button>
 
         <Button className="text-gray-400 hover:text-app-400 transition-all  rounded-lg p-4 cursor-pointer flex  flex-col items-center justify-center">
