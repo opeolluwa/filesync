@@ -2,6 +2,7 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
 extern crate uptime_lib;
+use server::http_server::HttpServer;
 
 
 
@@ -40,7 +41,7 @@ pub fn run() {
     };
 
     // run core the server in a separate thread from tauri
-    // tauri::async_runtime::spawn(&::server::HttpServer::new().run());
+    tauri::async_runtime::spawn(HttpServer::run());
 
     // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
