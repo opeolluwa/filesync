@@ -1,3 +1,4 @@
 {
-  "cSpell.words": ["filesync", "tauri"]
+  "cSpell.words": ["filesync", "tauri"],
+  "java.configuration.updateBuildConfiguration": "interactive"
 }
