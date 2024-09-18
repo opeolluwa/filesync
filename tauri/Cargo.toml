@@ -13,7 +13,7 @@ name = "app_lib"
 crate-type = ["staticlib", "cdylib", "lib"]
 
 [build-dependencies]
-tauri-build = { version = "2.0.0-beta.19", features = [] }
+tauri-build = { version = "2.0.0-beta", features = [] }
 
 [workspace]
 members = [".", "device", "filesystem"]
