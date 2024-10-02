@@ -3,7 +3,7 @@
 import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import PageLayout from "@/components/layout/DesktopViewLayout";
+import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
 import { SystemInformationContext } from "@/store/sys-info";
 import { useContext } from "react";
 import { writeText } from "@tauri-apps/plugin-clipboard-manager";

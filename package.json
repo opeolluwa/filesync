@@ -1,8 +1,8 @@
 {
-  "name": "file-sync",
+  "name": "filesync",
   "description": "offline file sharing application Windows, Mac and Linux operating systems",
   "private": false,
-  "author": "adeoye adefemi adefemiadeoye@yahoo.com",
+  "author": "Adeoye Adefemi <adefemiadeoye@yahoo.com>",
   "license": "MIT",
   "version": "0.4.0",
   "scripts": {
@@ -45,7 +45,7 @@
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",
-    "@tauri-apps/cli": "^2.0.0-beta.22",
+    "@tauri-apps/cli": "^2.0.0-rc.18",
     "@types/node": "^18.7.10",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",

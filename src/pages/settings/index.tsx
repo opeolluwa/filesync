@@ -1,4 +1,4 @@
-import PageLayout from "@/components/layout/DesktopViewLayout";
+import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
 import { AndroidFilled } from "@ant-design/icons";
 import {
   ChartPieIcon,

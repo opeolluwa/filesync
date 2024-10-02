@@ -1,6 +1,7 @@
 "use client";
 import Card from "@/components/Card";
 import Heading from "@/components/Heading";
+import MobileViewLayout from "@/components/layout/mobile/MobileViewLayout";
 import SearchBar from "@/components/Search";
 import SmallText from "@/components/SmallText";
 import View from "@/components/View";
@@ -13,9 +14,9 @@ import { Progress } from "antd";
 
 export default function MobileAppEntryPoint() {
   return (
-    <View className="">
+    <MobileViewLayout includeFooter={true} includeHeader={true}>
       <SearchBar
-        className="bg-gray-50 my-4"
+        className="bg-gray-50 my-4 mb-12"
         onSearch={function (city: string): void {
           throw new Error("Function not implemented.");
         }}
@@ -52,6 +53,6 @@ export default function MobileAppEntryPoint() {
           <SmallText>Web link</SmallText>
         </Card>
       </View>
-    </View>
+    </MobileViewLayout>
   );
 }

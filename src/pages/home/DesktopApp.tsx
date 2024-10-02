@@ -2,10 +2,11 @@
 
 import Heading from "@/components/Heading";
 import View from "@/components/View";
-import PageLayout from "@/components/layout/DesktopViewLayout";
+import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
 import Text from "@/components/Text";
 import { ArrowDownIcon, ArrowUpIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import React from "react";
 
 export default function DesktopAppEntryPoint() {
   return (

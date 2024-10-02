@@ -4,18 +4,17 @@ import Button from "@/components/Button";
 import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import View from "@/components/View";
-import PageLayout from "@/components/layout/DesktopViewLayout";
+import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
 import { DeviceInformationContext } from "@/store/device";
 
 import { CameraIcon } from "@heroicons/react/24/solid";
+import React from "react";
 import { useContext } from "react";
 export default function ConnectionPage() {
-    const { osType } = useContext(DeviceInformationContext);
-    const isMobile = osType === "Android";
+  const { osType } = useContext(DeviceInformationContext);
+  const isMobile = osType === "Android";
 
-  if (
-   isMobile
-  ) {
+  if (isMobile) {
     return (
       <>
         <PageLayout pageTitle={"Connect Device"} includeSearchBar={false}>

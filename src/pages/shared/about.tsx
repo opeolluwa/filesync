@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PageLayout from "@/components/layout/DesktopViewLayout";
+import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
 import Text from "@/components/Text";
 import { getName, getVersion } from "@tauri-apps/api/app";
 import { useEffect, useState } from "react";
