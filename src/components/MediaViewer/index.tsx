@@ -2,8 +2,7 @@
 
 /// give preview for different file type
 
-
-import { SystemInformationContext } from "@/store/sys-info";
+import { SystemInformationContext } from "@/store/system_information";
 import { useContext } from "react";
 import { FileWindow as MediaViewer } from "@opeolluwa/filewindow";
 
@@ -35,6 +34,7 @@ export default function PreviewMedia({ fileType, filePath }: Props) {
     ? `${serverBaseUrl}/api/file?file_path=${filePath}`
     : "";
 
+  console.log(fileUrl, " hehehe");
   return (
     <div className="w-full h-full flex justify-center items-center overflow-scroll">
       <MediaViewer fileUrl={fileUrl} fileName={""} fileExtension={fileType} />

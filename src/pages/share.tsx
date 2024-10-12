@@ -6,7 +6,7 @@ import type { UploadProps } from "antd";
 import { message, Upload } from "antd";
 import { FileContext, FileTransferStatus } from "@/store/context";
 import { CloudArrowUpIcon } from "@heroicons/react/24/outline";
-import { SystemInformationContext } from "@/store/sys-info";
+import { SystemInformationContext } from "@/store/system_information";
 
 import { invoke } from "@tauri-apps/api/core";
 import { TransferHistoryBuilder } from "tauri/bindings/TransferHistoryBuilder";
