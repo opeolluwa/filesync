@@ -1,4 +1,4 @@
-import PageLayout from "@/components/layout/DesktopViewLayout";
+import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
 import { useEffect, useState } from "react";
 import LoaderCircle from "@/components/loaders/LoaderCircle";
 import { invoke } from "@tauri-apps/api/core";

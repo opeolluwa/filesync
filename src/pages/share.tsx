@@ -1,6 +1,6 @@
 "use client";
 
-import PageLayout from "@/components/layout/DesktopViewLayout";
+import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
 import { useContext } from "react";
 import type { UploadProps } from "antd";
 import { message, Upload } from "antd";

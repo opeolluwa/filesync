@@ -1,7 +1,8 @@
 import { goToPrevPage, goToNextPage } from "@/utils";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
-import SearchBar from "../Search";
-import PageTitle from "../PageTitle";
+import SearchBar from "../../Search";
+import PageTitle from "../../PageTitle";
+import React from "react";
 
 interface Props {
   children: React.ReactNode;

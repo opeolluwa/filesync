@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { MemoryInformation } from "../MemoryInformation";
 import NavigationTab from "./NavItem";
 import { desktopRoutes } from "./routes";
+import React from "react";
 
 export default function Navigation() {
   const { data: isConnectedToWifi } = useContext(WifiStatusContext);

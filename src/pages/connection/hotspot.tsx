@@ -1,7 +1,7 @@
 "use client";
 
 import Heading from "@/components/Heading";
-import PageLayout from "@/components/layout/DesktopViewLayout";
+import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import { WifiIcon } from "@heroicons/react/24/outline";

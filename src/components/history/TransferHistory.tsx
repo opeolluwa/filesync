@@ -17,7 +17,7 @@ enum FileTransferType {
 
 interface Props extends TransferHistory {}
 // the component
-export function FileHistory({
+export function FileTransferHistory({
   fileName,
   fileSize,
   transactionType,
@@ -26,7 +26,7 @@ export function FileHistory({
   id,
 }: Props) {
   return (
-    <div className="flex my-8 flex-wrap bg-[#f9fbfe]  border-gray-900  p-3 shadow-gray-300 cursor-pointer rounded-lg hover:shadow-sm hover:shadow-gray-400 transition-shadow ease-in-out">
+    <div className="flex my-4  sm:my-6 md:my-8 flex-wrap bg-[#f9fbfe]  border-gray-900  md:p-3 sm:p-3 p-2 shadow-gray-300 cursor-pointer rounded-lg hover:shadow-sm hover:shadow-gray-400 transition-shadow ease-in-out">
       <div className="pr-[10px] rounded-full"></div>
       <div className="flex flex-col text-ellipsis">
         <h5
