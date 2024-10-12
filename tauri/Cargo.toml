@@ -52,7 +52,7 @@ serde_json = "1.0"
 server = { path = "./server" }
 sha2 = "0.10.8"
 sqlx = { version = "0.7", features = ["sqlite", "runtime-tokio", "tls-rustls"] }
-tauri = { version = "2.0.0-beta", features = [] }
+tauri = { version = "2.0.0-beta", features = ["protocol-asset"] }
 tauri-plugin-clipboard-manager = "2.0.0"
 tauri-plugin-dialog = "2.0.0-beta.11"
 tauri-plugin-fs = "2.0.0"
@@ -69,6 +69,7 @@ uptime_lib = "0.2.2"
 uuid = { version = "1.4.1", features = ["v4", "fast-rng", "macro-diagnostics"] }
 walkdir = "2.3.3"
 tauri-plugin-barcode-scanner = "2"
+tauri-plugin-system-info = "2.0.7"
 
 [target.'cfg(not(target_os = "android"))'.dependencies]
 livewire = "0.1.0"

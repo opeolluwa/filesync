@@ -3,6 +3,7 @@
 
 extern crate uptime_lib;
 use server::http_server::HttpServer;
+use tauri::Emitter;
 
 mod commands;
 mod database;
@@ -43,8 +44,12 @@ pub fn run() {
 
     // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
+        .plugin(tauri_plugin_single_instance::init(|app, _argv, _cwd| {
+            app.emit("single-instance", ()).unwrap();
+        }))
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_os::init())
+        .plugin(tauri_plugin_system_info::init())
         .manage(state)
         .invoke_handler(tauri::generate_handler![
             commands::files::get_transfer_history,

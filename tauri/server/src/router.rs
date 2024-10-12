@@ -20,7 +20,6 @@ pub fn app() -> Router {
     Router::new()
         .route("/upload", post(accept_file_upload))
         .route("/health", post(accept_file_upload).get(health_check))
-        // .route("/api/sys-info", get(system_information))
         .route("/api/file", get(get_file))
         // .route("/notify", get(notify_peer))
         .merge(static_files)

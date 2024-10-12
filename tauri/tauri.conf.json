@@ -1,6 +1,6 @@
 {
   "productName": "filesync",
-  "version": "0.7.11",
+  "version": "0.7.12",
   "identifier": "com.filesync.app",
   "build": {
     "beforeDevCommand": "npm run dev",
@@ -19,7 +19,13 @@
       }
     ],
     "security": {
-      "csp": null
+      "assetProtocol": {
+        "enable": true,
+        "scope": []
+      },
+      "csp": {
+        "assets": "http://asset.localhost"
+      }
     }
   },
   "bundle": {

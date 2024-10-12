@@ -193,7 +193,7 @@ mod basic_endpoints {
         assert_eq!(response.status(), StatusCode::OK);
     }
 
-    // 404 path
+    // 404 path--
     #[tokio::test]
     async fn not_found_handler() {
         let app = router::app();
