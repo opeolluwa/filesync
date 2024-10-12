@@ -23,7 +23,7 @@ mod pkg;
  * ```rust
  * http::core_server::run().await  // run the http serer
  *
- * tauri::Builder::default().plugin(tauri_plugin_barcode_scanner::init()).plugin(tauri_plugin_os::init()).plugin(tauri_plugin_shell::init()).plugin(tauri_plugin_fs::init()).plugin(tauri_plugin_dialog::init()).plugin(tauri_plugin_clipboard_manager::init()).run().await // run the ui process
+ * tauri::Builder::default().plugin(tauri_plugin_single_instance::init()).plugin(tauri_plugin_barcode_scanner::init()).plugin(tauri_plugin_os::init()).plugin(tauri_plugin_shell::init()).plugin(tauri_plugin_fs::init()).plugin(tauri_plugin_dialog::init()).plugin(tauri_plugin_clipboard_manager::init()).run().await // run the ui process
  *
  * ```
  *
@@ -39,9 +39,12 @@ pub fn run() {
 
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(HttpServer::run());
+    //    .plugin(tauri_plugin_barcode_scanner::init())≈
 
     // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
+        .plugin(tauri_plugin_fs::init())
+        .plugin(tauri_plugin_os::init())
         .manage(state)
         .invoke_handler(tauri::generate_handler![
             commands::files::get_transfer_history,

@@ -1,9 +1,10 @@
-import React from 'react'
-import HistoryPage from '../history'
+import React from "react";
+import HistoryPage from "../history";
+import MobileViewLayout from "@/components/layout/mobile/MobileViewLayout";
 export default function history() {
   return (
-    <div>
-        <HistoryPage/>
-    </div>
-  )
+    <MobileViewLayout>
+      <HistoryPage />
+    </MobileViewLayout>
+  );
 }

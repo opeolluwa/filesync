@@ -1,13 +1,12 @@
 "use client";
 import {
-  Bars3Icon,
-  ClockIcon,
-  Cog6ToothIcon,
-  FolderIcon,
-  HomeIcon,
+    Bars3Icon,
+    ClockIcon,
+    Cog6ToothIcon,
+    FolderIcon,
+    HomeIcon,
 } from "@heroicons/react/24/outline";
 import { QrCodeIcon } from "@heroicons/react/24/solid";
-import { Format, scan } from "@tauri-apps/plugin-barcode-scanner";
 import Link from "next/link";
 import Button from "../../Button";
 import SmallText from "../../SmallText";
@@ -31,7 +30,7 @@ export default function MobileViewLayout({
           <Link href={"/mobile/scan"}>
             <QrCodeIcon
               className="w-6 h-6"
-              onClick={() => scan({ windowed: true, formats: [Format.QRCode] })}
+             
             ></QrCodeIcon>
           </Link>
         </header>
@@ -64,13 +63,7 @@ export default function MobileViewLayout({
             <SmallText>History</SmallText>
           </Button>
 
-          {/* <Button className="text-gray-200 hover:text-white  transition-all  rounded-lg p-4 cursor-pointer flex  flex-col items-center justify-center">
-          <QrCodeIcon
-            className="w-6 h-6 mb-1"
-            onClick={() => scan({ windowed: true, formats: [Format.QRCode] })}
-          ></QrCodeIcon>
-          <SmallText>Scan</SmallText>
-        </Button> */}
+
           <Button
             href="/mobile/settings/"
             className="text-gray-200 hover:text-white   transition-all  rounded-lg p-4 cursor-pointer flex flex-col items-center justify-center"
