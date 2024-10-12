@@ -1,5 +1,5 @@
 "is client";
-import { SystemInformationContext } from "@/store/sys-info";
+import { SystemInformationContext } from "@/store/system_information";
 import { WifiStatusContext } from "@/store/wifi-status";
 import { useContext } from "react";
 import { MemoryInformation } from "../MemoryInformation";
@@ -37,7 +37,7 @@ export default function Navigation() {
           ))}
         </div>
 
-        <MemoryInformation usedDisk={usedDisk} availableDisk={availableDisk} />
+        <MemoryInformation />
       </nav>
     </>
   );

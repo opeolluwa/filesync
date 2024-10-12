@@ -1,6 +1,6 @@
 import Layout from "@/components/app/AppLayout";
 import FileStore from "@/store/context";
-import SystemInfoStore from "@/store/sys-info";
+import SystemInfoStore from "@/store/system_information";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import WifiStatus from "@/store/wifi-status";
@@ -12,11 +12,11 @@ export default function App({ Component, pageProps }: AppProps) {
     <SystemInfoStore>
       <FileStore>
         <WifiStatus>
-            <DeviceInformationStore>
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
-            </DeviceInformationStore>
+          <DeviceInformationStore>
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
+          </DeviceInformationStore>
         </WifiStatus>
       </FileStore>
     </SystemInfoStore>

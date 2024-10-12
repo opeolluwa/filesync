@@ -4,7 +4,7 @@ import Heading from "@/components/Heading";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
-import { SystemInformationContext } from "@/store/sys-info";
+import { SystemInformationContext } from "@/store/system_information";
 import { useContext } from "react";
 import { writeText } from "@tauri-apps/plugin-clipboard-manager";
 import { message } from "@tauri-apps/plugin-dialog";
