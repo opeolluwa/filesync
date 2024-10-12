@@ -1,4 +1,4 @@
-import PageLayout from "@/components/layout/PageLayout";
+import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
 import { AndroidFilled } from "@ant-design/icons";
 import {
   ChartPieIcon,
@@ -6,25 +6,28 @@ import {
   LanguageIcon,
   MoonIcon,
   SwatchIcon,
-  UserCircleIcon,
+  UserIcon,
 } from "@heroicons/react/24/outline";
 
 // import the solid icons as alternative
 import {
   ChartPieIcon as ChartPieIconSolid,
-  ClockIcon as ClockIconSolid,
   CpuChipIcon as CpuChipIconSolid,
   LanguageIcon as LanguageIconSolid,
   MoonIcon as MoonIconSolid,
   SwatchIcon as SwatchIconSolid,
-  UserCircleIcon as UserCircleIconSolid,
+  UserIcon as UserCircleIconSolid,
 } from "@heroicons/react/24/solid";
 
+import Card from "@/components/Card";
 import Heading from "@/components/Heading";
 import { SettingsInterface, SettingsTab } from "@/components/settings";
-import { SystemInformation } from "@/store/sys-info";
+import { SystemInformation } from "@/store/system_information";
 import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
+import React from "react";
+import { hostname, locale } from "@tauri-apps/plugin-os";
+
 /**
  * @function helpPage -  A page responsible for guiding users on various actions
  * @returns tsx
@@ -35,11 +38,28 @@ export default function HelpPage() {
     {} as SystemInformation
   );
 
+  let [deviceHostname, setDeviceHostname] = useState("");
+  let [deviceLanguage, setDeviceLanguage] = useState("");
+
   useEffect(() => {
-    // fetch sys information from app core
-    invoke("get_system_information").then((sysInfo) => {
-      setSystemInformation((sysInfo as any).data);
-    });
+    const fetchData = async () => {
+      try {
+        const hostnameData = await hostname();
+        setDeviceHostname(hostnameData as string);
+
+        const sysInfo = await invoke("get_system_information");
+        setSystemInformation((sysInfo as any).data);
+
+        const language = await locale();
+        if (language) {
+          setDeviceLanguage(language);
+        }
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    };
+
+    fetchData();
   }, []);
 
   const settings: SettingsInterface[] = [
@@ -61,13 +81,9 @@ export default function HelpPage() {
   ];
   return (
     <>
-      <PageLayout
-        pageTitle={"Settings"}
-        includeSearchBar={false}
-        // placeholder="search settings"
-      >
-        <div>
-          <Heading context="Personalization" className="mt-12 mb-2" />
+      <PageLayout pageTitle={"Settings"} includeSearchBar={false}>
+        <Card className="mb-6">
+          <Heading context="Personalization" className=" mb-3 font-bold" />
           <div className=" bg-card flex justify-between py-2 rounded-lg px-4 flex-col lg:px-4 lg:pl-6  capitalize">
             {settings.map((control, index) => (
               <SettingsTab
@@ -79,18 +95,20 @@ export default function HelpPage() {
               />
             ))}
           </div>
+        </Card>
 
-          <Heading context="System Information" className="mt-12 mb-2" />
+        <Card>
+          <Heading context="System Information" className=" mb-3 font-bold" />
           <div className=" flex justify-between  bg-card py-2 rounded-lg px-4 flex-col lg:px-4 lg:pl-6 capitalize  mb-12 overflow-y-scroll">
             <SettingsTab
-              icon={<UserCircleIcon className="w-6 h-6" />}
+              icon={<UserIcon className="w-6 h-6" />}
               alternateIcon={<UserCircleIconSolid className="w-6 h-6" />}
-              text={systemInformation.systemName}
+              text={deviceHostname}
             />
             <SettingsTab
-              icon={<AndroidFilled className="w-6 h-6" />}
-              alternateIcon={<AndroidFilled className="w-6 h-6" />}
-              text={String(systemInformation.port)}
+              icon={<LanguageIcon className="w-6 h-6" />}
+              alternateIcon={<LanguageIconSolid className="w-6 h-6" />}
+              text={deviceLanguage}
             />
 
             <SettingsTab
@@ -99,7 +117,6 @@ export default function HelpPage() {
               text={`${systemInformation.availableDisk} free space`}
             />
 
-
             <SettingsTab
               icon={<CpuChipIcon className="w-6 h-6" />}
               alternateIcon={<CpuChipIconSolid className="w-6 h-6" />}
@@ -107,7 +124,7 @@ export default function HelpPage() {
               withStyle="lowercase"
             />
           </div>
-        </div>
+        </Card>
       </PageLayout>
     </>
   );

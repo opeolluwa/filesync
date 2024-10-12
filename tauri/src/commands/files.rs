@@ -1,8 +1,8 @@
 extern crate dirs;
 
+use crate::config::CONFIG;
 use crate::database::{self, TransferHistory, TransferHistoryBuilder};
 use crate::pkg::{ApiResponse, CommandData};
-use crate::UPLOAD_PATH;
 use filesize::PathExt;
 use path_absolutize::*;
 use serde::{Deserialize, Serialize};
@@ -216,7 +216,7 @@ impl Dir {
             Dir::Downloads => dirs::download_dir().unwrap().to_str().unwrap().to_string(),
             Dir::Audio => dirs::audio_dir().unwrap().to_str().unwrap().to_string(),
             Dir::Desktop => dirs::desktop_dir().unwrap().to_str().unwrap().to_string(),
-            Dir::FileSync => UPLOAD_PATH.to_string(),
+            Dir::FileSync => CONFIG.upload_path.clone(),
             Dir::Other(path) => path.to_string(),
         }
     }
@@ -231,7 +231,7 @@ impl Dir {
             Dir::Downloads => dirs::download_dir().unwrap(),
             Dir::Audio => dirs::audio_dir().unwrap(),
             Dir::Desktop => dirs::desktop_dir().unwrap(),
-            Dir::FileSync => PathBuf::from(UPLOAD_PATH.to_string()),
+            Dir::FileSync => PathBuf::from(CONFIG.upload_path.clone()),
             Dir::Other(path) => PathBuf::from(path),
         }
     }

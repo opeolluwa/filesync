@@ -1,5 +1,5 @@
 import Image from "next/image";
-import PageLayout from "@/components/layout/PageLayout";
+import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
 import Text from "@/components/Text";
 import { getName, getVersion } from "@tauri-apps/api/app";
 import { useEffect, useState } from "react";
@@ -9,9 +9,8 @@ export default function HelpPage() {
   const [appVersion, setAppVersion] = useState("");
 
   useEffect(() => {
-     getVersion().then((version) => setAppVersion(version));
-     getName().then((name) => setAppName(name));
-     
+    getVersion().then((version) => setAppVersion(version));
+    getName().then((name) => setAppName(name));
   }, []);
 
   return (
@@ -28,7 +27,7 @@ export default function HelpPage() {
             />
 
             <div className="flex flex-col rounded-lg items-center my-4 p-4">
-              <Text  context={`${appName} v${appVersion}`} />
+              <Text context={`${appName} v${appVersion}`} />
               <a
                 href="https://github.com/opeolluwa/filesync"
                 className="small text-gray text-dark"
@@ -36,8 +35,11 @@ export default function HelpPage() {
                 https://github.com/opeolluwa/filesync
               </a>{" "}
               {""}
-              <a href="https://twitter.com/_opeolluwa" className="text-gray-400 block mt-1 ">
-                 Adeoye Adefemi 
+              <a
+                href="https://twitter.com/_opeolluwa"
+                className="text-gray-400 block mt-1 "
+              >
+                Adeoye Adefemi
               </a>
             </div>
           </div>

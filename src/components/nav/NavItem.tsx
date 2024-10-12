@@ -1,15 +1,8 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { useRouter } from "next/router";
-export interface Route {
-  icon: any; // the route icon
-  name: string; // the route name
-  alternateIcon: any; // the icon to show on hover or active state
-  action?: () => any; // action that will be executed when the route is clicked
-  path: string; // the path string
-  isActive?: any;
-  disabled?: boolean;
-}
+import { Route } from "./routes";
+
 
 export default function NavigationTab({
   icon,

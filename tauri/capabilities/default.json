@@ -2,24 +2,14 @@
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
   "description": "enables the default permissions",
-  "windows": [
-    "main"
-  ],
+  "windows": ["main"],
   "permissions": [
-    "path:default",
-    "event:default",
-    "window:default",
-    "webview:default",
-    "app:default",
-    "resources:default",
-    "image:default",
-    "menu:default",
-    "tray:default",
-    "os:default",
-    "os:default",
     "os:allow-arch",
     "os:allow-hostname",
     "os:allow-os-type",
-    "os:allow-locale"
+    "os:allow-locale",
+    "core:app:allow-name",
+    "core:app:allow-version",
+    "system-info:allow-all"
   ]
 }
