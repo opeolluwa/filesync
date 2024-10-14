@@ -1,6 +1,7 @@
 use device::device_information::Device;
 
-use crate::pkg::CommandData;
+use crate::CommandData;
+
 
 #[tauri::command]
 pub fn get_device_information() -> CommandData<Device> {

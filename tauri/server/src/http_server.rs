@@ -11,6 +11,8 @@ use tower_http::trace::TraceLayer;
 use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
 use tracing_subscriber::util::SubscriberInitExt;
 
+use local_ip_address::local_ip;
+
 use axum::extract::DefaultBodyLimit;
 
 use crate::router;
@@ -50,11 +52,13 @@ impl HttpServer {
         //  run the https server on localhost then feed off the connection using the wifi gateway, the same way Vite/Vue CLI would do the core server
         // this is currently achieved by binding the server to the device default ip address
 
-        let ip_address = format!("{:?}:{:?}", Ipv4Addr::UNSPECIFIED, 18005);
+        let my_local_ip = local_ip().unwrap();
+        let ip_address = format!("{:?}:{:?}", my_local_ip, 18005);
         let ip_address = ip_address
             .parse::<std::net::SocketAddr>()
             .expect("invalid socket address");
 
+        println!("my local ip is {}", ip_address);
         let app = router::app()
             .layer(file_limit)
             .layer(cors_layer)

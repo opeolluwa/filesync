@@ -5,6 +5,8 @@
 import { SystemInformationContext } from "@/store/system_information";
 import { useContext } from "react";
 import { FileWindow as MediaViewer } from "@opeolluwa/filewindow";
+import { useRef } from "react";
+import View from "../View";
 
 const isClient = typeof window !== "undefined";
 
@@ -29,15 +31,15 @@ interface Props {
 
 export default function PreviewMedia({ fileType, filePath }: Props) {
   const { serverBaseUrl } = useContext(SystemInformationContext);
+  const fileViewer = useRef(null);
 
-  const fileUrl = isClient
-    ? `${serverBaseUrl}/api/file?file_path=${filePath}`
-    : "";
+  const fileUrl =
+    `${serverBaseUrl}/api/file?file_path=${filePath.trim()}` || "";
 
   console.log(fileUrl, " hehehe");
   return (
-    <div className="w-full h-full flex justify-center items-center overflow-scroll">
+    <View className="w-full h-full flex justify-center items-center overflow-scroll">
       <MediaViewer fileUrl={fileUrl} fileName={""} fileExtension={fileType} />
-    </div>
+    </View>
   );
 }

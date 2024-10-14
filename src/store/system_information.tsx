@@ -58,7 +58,6 @@ fetchData()
   useEffect(() => {
     // fetch sys information from app core
     invoke("get_system_information").then((sysInfo) => {
-      
       setSystemInformation((sysInfo as any).data);
     });
   }, []);
