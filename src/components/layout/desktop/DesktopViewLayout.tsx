@@ -43,10 +43,9 @@ export default function PageLayout({
         />
       )}
 
-      {includePageTitle && (
-        <div className="dark:text-gray-400 ">{children}</div>
-      )}
-      <div className="dark:text-gray-400 mt-10">{children}</div>
+      <div className={"text-gray-400 " + (includePageTitle ? "mt-10" : "")}>
+        {children}
+      </div>
     </>
   );
 }
