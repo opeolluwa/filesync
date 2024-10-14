@@ -4,7 +4,7 @@ import PageTitle from "@/components/PageTitle";
 import SearchBar from "@/components/Search";
 import Text from "@/components/Text";
 
-import LoaderCircle from "@/components/loaders/LoaderCircle";
+import LoaderCircle from "@/components/Loaders/LoaderCircle";
 import { WifiStatusContext } from "@/store/wifi-status";
 import { computeFileSize } from "@/utils";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -16,8 +16,6 @@ import {
   MusicalNoteIcon,
   PhotoIcon,
 } from "@heroicons/react/24/outline";
-
-
 
 import { invoke } from "@tauri-apps/api/core";
 import { ask } from "@tauri-apps/plugin-dialog";
@@ -100,13 +98,13 @@ export default function Main() {
 
   // refresh the application
   async function refresh() {
-    await relaunch()
-      // .then(() => {
-      //   console.log("refreshed");
-      // })
-      // .catch((error) => {
-      //   console.log(error.message);
-      // });
+    await relaunch();
+    // .then(() => {
+    //   console.log("refreshed");
+    // })
+    // .catch((error) => {
+    //   console.log(error.message);
+    // });
   }
 
   useEffect(() => {
@@ -183,15 +181,11 @@ export default function Main() {
           {quickAccessTabs.map((tab, index) => (
             <li
               key={index}
-              className="flex flex-col items-center justify-evenly w-6 h-6"
+              className="flex flex-col items-center justify-evenly w-6 h-12"
             >
               <Link
                 href={"quick-access/" + tab.name.toLowerCase()}
-                className="rounded-[12px] px-3 hover:bg-[#3074f5]"
-                style={{
-                  // backgroundColor: "#3074f5",
-                  backgroundColor: "#578EF7",
-                }}
+                className="rounded-lg flex px-3 hover:bg-[#3074f5] bg-app-400"
               >
                 <div className="hover:brightness-25 sepia-0">{tab.icon}</div>
               </Link>

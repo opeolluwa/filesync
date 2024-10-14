@@ -9,6 +9,7 @@ interface Props {
   pageTitle: string;
   includeSearchBar: boolean;
   searchBarText?: string;
+  includePageTitle?: boolean;
 }
 
 export default function PageLayout({
@@ -16,23 +17,23 @@ export default function PageLayout({
   pageTitle,
   includeSearchBar = false,
   searchBarText = "search",
+  includePageTitle = true,
 }: Props) {
   return (
     <>
-      {/** page title  and navigation icons  */}
-      <div className="hidden sm:flex mb-10 font-medium dark:text-gray-300 justify-between items-center">
-        <ChevronLeftIcon
-          className="text-gray-400 w-6 h-6 text-medium cursor-pointer mr-8"
-          onClick={goToPrevPage}
-        />
-        <PageTitle styles="capitalize" title={pageTitle}></PageTitle>
-        <ChevronRightIcon
-          className="text-gray-400 w-6 h-6 text-medium cursor-pointer mr-8"
-          onClick={goToNextPage}
-        />
-      </div>
-
-      {/** search bar  */}
+      {includePageTitle && (
+        <div className="hidden sm:flex mb-10 font-medium dark:text-gray-300 justify-between items-center">
+          <ChevronLeftIcon
+            className="text-gray-400 w-6 h-6 text-medium cursor-pointer mr-8"
+            onClick={goToPrevPage}
+          />
+          <PageTitle styles="capitalize" title={pageTitle}></PageTitle>
+          <ChevronRightIcon
+            className="text-gray-400 w-6 h-6 text-medium cursor-pointer mr-8"
+            onClick={goToNextPage}
+          />
+        </div>
+      )}
       {includeSearchBar && (
         <SearchBar
           onSearch={function (city: string): void {
@@ -42,9 +43,7 @@ export default function PageLayout({
         />
       )}
 
-      {/** the view/children nodes  */}
-      <div className="dark:text-gray-400 mt-10">
-        {/**inject child element  */}
+      <div className={"text-gray-400 " + (includePageTitle ? "mt-10" : "")}>
         {children}
       </div>
     </>

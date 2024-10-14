@@ -24,7 +24,7 @@ export default function AboutPage() {
     fetchData();
   }, []);
   return (
-    <PageLayout pageTitle={"Help"} includeSearchBar={false}>
+    <PageLayout pageTitle={"About"} includeSearchBar={false}>
       <div className="p-4 rounded-lg dark:dark-900">
         <div className="block mb-4 ">
           <Image

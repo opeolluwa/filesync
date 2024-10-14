@@ -21,7 +21,7 @@ import {
 
 import Card from "@/components/Card";
 import Heading from "@/components/Heading";
-import { SettingsInterface, SettingsTab } from "@/components/settings";
+import { SettingsInterface, SettingsTab } from "@/components/Settings";
 import { SystemInformation } from "@/store/system_information";
 import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
