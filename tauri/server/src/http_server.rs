@@ -1,3 +1,4 @@
+use std::net::IpAddr;
 use std::net::Ipv4Addr;
 
 use axum::http::Method;
@@ -52,7 +53,7 @@ impl HttpServer {
         //  run the https server on localhost then feed off the connection using the wifi gateway, the same way Vite/Vue CLI would do the core server
         // this is currently achieved by binding the server to the device default ip address
 
-        let my_local_ip = local_ip().unwrap();
+        let my_local_ip = local_ip().unwrap_or(IpAddr::from(Ipv4Addr::UNSPECIFIED));
         let ip_address = format!("{:?}:{:?}", my_local_ip, 18005);
         let ip_address = ip_address
             .parse::<std::net::SocketAddr>()
