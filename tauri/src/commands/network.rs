@@ -4,7 +4,7 @@ use local_ip_address::local_ip;
 #[cfg(not(target_os = "android"))]
 use livewire::{WifiHotspotConfig, WifiHotspotConfigBuilder};
 
-use crate::pkg::CommandData;
+use crate::CommandData;
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */

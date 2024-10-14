@@ -58,7 +58,7 @@ impl HttpServer {
             .parse::<std::net::SocketAddr>()
             .expect("invalid socket address");
 
-            println!("my local ip is {}", ip_address);
+        println!("my local ip is {}", ip_address);
         let app = router::app()
             .layer(file_limit)
             .layer(cors_layer)
