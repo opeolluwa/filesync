@@ -38,7 +38,7 @@ http = "1.1.0"
 hyper = { version = "0.14.27", features = ["full"] }
 infer = "0.15.0"
 lazy_static = "1.4.0"
-local-ip-address = "0.5.3"
+local-ip-address = "0.6.3"
 memory-serve = "0.4.5"
 mockall = "0.11.4"
 num-traits = "0.2.15"

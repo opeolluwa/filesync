@@ -42,6 +42,7 @@ pub fn run() {
     tauri::async_runtime::spawn(HttpServer::run());
     //    .plugin(tauri_plugin_barcode_scanner::init())≈
 
+    
     // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
         .plugin(tauri_plugin_single_instance::init(|app, _argv, _cwd| {
