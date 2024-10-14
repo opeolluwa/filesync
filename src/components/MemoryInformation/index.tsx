@@ -1,4 +1,4 @@
-import { WifiStatusContext } from "@/store/wifi-status";
+import { WifiStatusContext } from "@/store/network";
 import { computeFileSize } from "@/utils";
 import { useContext, useEffect, useState } from "react";
 import { allSysInfo, memoryInfo } from "tauri-plugin-system-info-api";

@@ -1,6 +1,6 @@
 "is client";
 import { SystemInformationContext } from "@/store/system_information";
-import { WifiStatusContext } from "@/store/wifi-status";
+import { WifiStatusContext } from "@/store/network";
 import { useContext } from "react";
 import { MemoryInformation } from "../MemoryInformation";
 import NavigationTab from "./NavItem";

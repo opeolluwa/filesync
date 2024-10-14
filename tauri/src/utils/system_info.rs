@@ -1,4 +1,4 @@
-use std::{fmt, net::IpAddr};
+use std::{fmt, net::{IpAddr, Ipv4Addr}};
 
 use local_ip_address::local_ip;
 use mockall::predicate::*;
@@ -47,7 +47,7 @@ pub struct SystemInformation {
 
 impl std::default::Default for SystemInformation {
     fn default() -> Self {
-        let my_local_ip = local_ip().unwrap();
+       let my_local_ip = local_ip().unwrap_or(IpAddr::from(Ipv4Addr::UNSPECIFIED));
         let my_application_port = 18005;
         Self {
             system_name: String::from(""),

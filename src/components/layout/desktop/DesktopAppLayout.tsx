@@ -1,5 +1,7 @@
-import React from "react";
+"use client";
+import React, { useContext } from "react";
 import Nav from "../../app/AppNavigation";
+import { WifiStatusContext } from "@/store/network";
 
 interface Props {
   children: React.ReactNode;

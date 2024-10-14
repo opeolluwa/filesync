@@ -3,7 +3,7 @@ import FileStore from "@/store/context";
 import SystemInfoStore from "@/store/system_information";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import WifiStatus from "@/store/wifi-status";
+import WifiStatus from "@/store/network";
 import "remixicon/fonts/remixicon.css";
 import DeviceInformationStore from "@/store/device";
 
