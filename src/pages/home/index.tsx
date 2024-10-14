@@ -4,7 +4,7 @@ import PageTitle from "@/components/PageTitle";
 import SearchBar from "@/components/Search";
 import Text from "@/components/Text";
 
-import LoaderCircle from "@/components/loaders/LoaderCircle";
+import LoaderCircle from "@/components/Loaders/LoaderCircle";
 import { WifiStatusContext } from "@/store/wifi-status";
 import { computeFileSize } from "@/utils";
 import { LoadingOutlined } from "@ant-design/icons";

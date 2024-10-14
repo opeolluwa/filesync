@@ -3,7 +3,7 @@ import QuickAccessLayout from "@/components/layout/desktop/DesktopViewLayout";
 import { AppData } from "@/types";
 import { convertFileSrc, invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
-import LoaderCircle from "@/components/loaders/LoaderCircle";
+import LoaderCircle from "@/components/Loaders/LoaderCircle";
 
 export default function Music() {
   const [data, setData] = useState(null);
