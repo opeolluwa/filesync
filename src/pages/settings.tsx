@@ -1,5 +1,4 @@
 import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
-import { AndroidFilled } from "@ant-design/icons";
 import {
   ChartPieIcon,
   CpuChipIcon,
@@ -24,9 +23,8 @@ import Heading from "@/components/Heading";
 import { SettingsInterface, SettingsTab } from "@/components/Settings";
 import { SystemInformation } from "@/store/system_information";
 import { invoke } from "@tauri-apps/api/core";
-import { useEffect, useState } from "react";
-import React from "react";
 import { hostname, locale } from "@tauri-apps/plugin-os";
+import { useEffect, useState } from "react";
 
 /**
  * @function helpPage -  A page responsible for guiding users on various actions
