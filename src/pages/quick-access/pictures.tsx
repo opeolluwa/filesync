@@ -3,7 +3,7 @@ import QuickAccessLayout from "@/components/layout/desktop/DesktopViewLayout";
 import { AppData } from "@/types";
 import { invoke } from "@tauri-apps/api/core";
 import { useEffect, useState } from "react";
-import LoaderCircle from "@/components/Loaders/LoaderCircle";
+import LoaderCircle from "@/components/Progress/LoaderCircle";
 
 export default function Images() {
   const [data, setData] = useState(null);

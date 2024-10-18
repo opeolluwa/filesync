@@ -3,7 +3,7 @@
 import Button from "@/components/Button";
 import Card from "@/components/Card";
 import Heading from "@/components/Heading";
-import Loader from "@/components/Loaders/LoaderWifi";
+import Loader from "@/components/Progress/LoaderWifi";
 import Text from "@/components/Text";
 import View from "@/components/View";
 import { DeviceInformationContext } from "@/store/device";

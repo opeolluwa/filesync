@@ -4,7 +4,7 @@ import PageTitle from "@/components/PageTitle";
 import SearchBar from "@/components/Search";
 import Text from "@/components/Text";
 
-import LoaderCircle from "@/components/Loaders/LoaderCircle";
+import LoaderCircle from "@/components/Progress/LoaderCircle";
 import { WifiStatusContext } from "@/store/network";
 import { computeFileSize } from "@/utils";
 import { LoadingOutlined } from "@ant-design/icons";
@@ -74,8 +74,6 @@ export default function Main() {
   const [isLoading, setLoading] = useState(false);
   const { data: isConnectedToWifi } = useContext(WifiStatusContext);
 
-  
-
   // typecast the response into AppData type
   const transferHistory = data as unknown as CommandData<
     Array<TransferHistory>
@@ -107,14 +105,10 @@ export default function Main() {
             WiFi network
           </p>
           <div className="flex gap-5">
-            <button
-              className=" bg-app text-white px-4 py-1 rounded w-24 "
-            >
+            <button className=" bg-app text-white px-4 py-1 rounded w-24 ">
               Refresh
             </button>
-            <button
-              className=" px-4 py-1 border-2 text-gray-400 border-gray-400 rounded w-24"
-            >
+            <button className=" px-4 py-1 border-2 text-gray-400 border-gray-400 rounded w-24">
               Exit
             </button>
           </div>

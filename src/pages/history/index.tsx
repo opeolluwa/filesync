@@ -1,5 +1,5 @@
 import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
-import LoaderCircle from "@/components/Loaders/LoaderCircle";
+import LoaderCircle from "@/components/Progress/LoaderCircle";
 import type { TabsProps } from "antd";
 import { Tabs } from "antd";
 import React, { useState } from "react";
@@ -12,8 +12,6 @@ const items: TabsProps["items"] = [
   { key: "1", label: "Sent files", children: "sent files" },
   { key: "2", label: "Received files", children: "received files" },
 ];
-
-
 
 export default function HistoryPage() {
   // get the file transfer history data from the application backend
