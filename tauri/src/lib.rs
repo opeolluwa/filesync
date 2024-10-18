@@ -8,10 +8,8 @@ use tauri_plugin_sql::{Migration, MigrationKind};
 
 mod commands;
 
-
 mod config;
 mod utils;
-
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
@@ -30,13 +28,13 @@ pub fn run() {
     }
     ];
 
-
-
     // run core the server in a separate thread from tauri
     tauri::async_runtime::spawn(HttpServer::run());
 
     // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
+        .plugin(tauri_plugin_updater::Builder::new().build())
+        .plugin(tauri_plugin_sql::Builder::new().build())
         .plugin(tauri_plugin_single_instance::init(|app, _argv, _cwd| {
             app.emit("single-instance", ()).unwrap();
         }))
@@ -64,7 +62,6 @@ pub fn run() {
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }
-
 
 use serde::{Deserialize, Serialize};
 use std::fmt::{self};

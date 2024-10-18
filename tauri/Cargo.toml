@@ -51,7 +51,7 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 server = { path = "./server" }
 sha2 = "0.10.8"
-# sqlx = { version = "0.7", features = ["sqlite", "runtime-tokio", "tls-rustls"] }
+
 tauri = { version = "2.0.0-beta", features = ["protocol-asset"] }
 tauri-plugin-clipboard-manager = "2.0.0"
 tauri-plugin-dialog = "2.0.0-beta.11"
@@ -70,7 +70,7 @@ uuid = { version = "1.4.1", features = ["v4", "fast-rng", "macro-diagnostics"] }
 walkdir = "2.3.3"
 tauri-plugin-barcode-scanner = "2"
 tauri-plugin-system-info = "2.0.7"
-tauri-plugin-sql = { version = "2", features = ["sqlite"] }
+tauri-plugin-sql = { version = "2.0.0-rc", features = ["sqlite"] }
 
 [target.'cfg(not(target_os = "android"))'.dependencies]
 livewire = "0.1.0"
@@ -79,6 +79,7 @@ reqwest = "0.11.16"
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-single-instance = "2"
+tauri-plugin-updater = "2.0.0-rc"
 
 [target.'cfg(any(target_os = "android", target_os = "ios"))'.dependencies]
 tauri-plugin-barcode-scanner = "2"
