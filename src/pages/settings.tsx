@@ -20,7 +20,7 @@ import {
 
 import Card from "@/components/Card";
 import Heading from "@/components/Heading";
-import { SettingsInterface, SettingsTab } from "@/components/AppSettings";
+import { SettingsInterface, SettingsTab } from "@/components/Settings";
 import { SystemInformation } from "@/store/system_information";
 import { invoke } from "@tauri-apps/api/core";
 import { hostname, locale } from "@tauri-apps/plugin-os";
