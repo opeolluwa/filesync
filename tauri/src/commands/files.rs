@@ -1,8 +1,8 @@
 extern crate dirs;
 
 use crate::config::CONFIG;
-use crate::database::{self, TransferHistory, TransferHistoryBuilder};
-use crate::pkg::{ApiResponse, CommandData};
+// use crate::database::{self, TransferHistory, TransferHistoryBuilder};
+use crate::{ApiResponse, CommandData};
 use filesize::PathExt;
 use path_absolutize::*;
 use serde::{Deserialize, Serialize};
@@ -153,38 +153,6 @@ pub async fn save_file_transfer(
     server_id: u16,
 ) -> Result<CommandData<Value>, CommandData<()>> {
     unimplemented!("mobile support coming soon")
-}
-
-// save file transfer history
-#[tauri::command(async)]
-pub async fn persist_transfer_history(
-    file: TransferHistoryBuilder,
-) -> Result<CommandData<TransferHistory>, CommandData<()>> {
-    // save the file data in the database
-    let status = database::TransferHistory::new(file).save().await;
-    if status.is_err() {
-        return Err(CommandData::err("error saving file transfer history", ()));
-    }
-
-    Ok(CommandData::ok(
-        "file transfer history successfully saved",
-        status.unwrap(),
-    ))
-}
-
-// get the file transfer history
-#[tauri::command(async)]
-pub async fn get_transfer_history() -> Result<CommandData<Vec<TransferHistory>>, CommandData<()>> {
-    // save the file data in the database
-    let data = database::TransferHistory::fetch().await;
-    if data.is_err() {
-        return Err(CommandData::err("error fetching file transfer history", ()));
-    }
-
-    Ok(CommandData::ok(
-        "file transfer history successfully fetched",
-        data.unwrap(),
-    ))
 }
 
 /// the dir enum, reads, $HOME, $PICTURES, $VIDEOS, $DOCUMENTS, $DOWNLOADS, and // Other

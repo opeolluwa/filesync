@@ -5,7 +5,7 @@ import SearchBar from "@/components/Search";
 import Text from "@/components/Text";
 
 import LoaderCircle from "@/components/Loaders/LoaderCircle";
-import { WifiStatusContext } from "@/store/wifi-status";
+import { WifiStatusContext } from "@/store/network";
 import { computeFileSize } from "@/utils";
 import { LoadingOutlined } from "@ant-design/icons";
 import {
@@ -16,16 +16,11 @@ import {
   MusicalNoteIcon,
   PhotoIcon,
 } from "@heroicons/react/24/outline";
-
-import { invoke } from "@tauri-apps/api/core";
 import { ask } from "@tauri-apps/plugin-dialog";
-import { exit, relaunch } from "@tauri-apps/plugin-process";
 import { Spin } from "antd";
 import Link from "next/link";
-import { useContext, useEffect, useState } from "react";
-
+import { useContext, useState } from "react";
 import Heading from "@/components/Heading";
-
 import { CommandData } from "tauri/bindings/CommandData";
 import { TransferHistory } from "tauri/bindings/TransferHistory";
 
@@ -79,42 +74,7 @@ export default function Main() {
   const [isLoading, setLoading] = useState(false);
   const { data: isConnectedToWifi } = useContext(WifiStatusContext);
 
-  //close the application
-  async function close() {
-    const yes = await ask(
-      "Current file transfer may be lost. Do you still want to proceed?",
-      { title: "Close", kind: "warning" }
-    );
-    if (yes) {
-      await exit(1)
-        .then(() => {
-          console.log("exited");
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }
-  }
-
-  // refresh the application
-  async function refresh() {
-    await relaunch();
-    // .then(() => {
-    //   console.log("refreshed");
-    // })
-    // .catch((error) => {
-    //   console.log(error.message);
-    // });
-  }
-
-  useEffect(() => {
-    setLoading(true);
-    invoke("get_transfer_history").then((res) => {
-      setData(res as any);
-    });
-    // when the data has ben fetched, stop the loading process
-    setLoading(false);
-  }, []);
+  
 
   // typecast the response into AppData type
   const transferHistory = data as unknown as CommandData<
@@ -149,13 +109,11 @@ export default function Main() {
           <div className="flex gap-5">
             <button
               className=" bg-app text-white px-4 py-1 rounded w-24 "
-              onClick={relaunch}
             >
               Refresh
             </button>
             <button
               className=" px-4 py-1 border-2 text-gray-400 border-gray-400 rounded w-24"
-              onClick={close}
             >
               Exit
             </button>

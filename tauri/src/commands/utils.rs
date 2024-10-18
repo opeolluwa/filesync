@@ -4,7 +4,7 @@ use std::net::Ipv4Addr;
 use crate::config::CONFIG;
 use crate::utils::system_info::SystemInformation;
 
-use crate::pkg::CommandData;
+use crate::CommandData;
 
 // TODO: generate the qr code and return data URI
 #[tauri::command]

@@ -1,5 +1,9 @@
-use std::{fmt, net::Ipv4Addr};
+use std::{
+    fmt,
+    net::{IpAddr, Ipv4Addr},
+};
 
+use local_ip_address::local_ip;
 use mockall::predicate::*;
 use serde::{Deserialize, Serialize};
 
@@ -39,13 +43,15 @@ pub struct SystemInformation {
     /// the port on which the core server runs
     port: u128,
     /// the system ip address
-    pub ip_address: Ipv4Addr,
+    pub ip_address: IpAddr,
     /// the server base URL constructed form the ip address and port
     pub server_base_url: String,
 }
 
 impl std::default::Default for SystemInformation {
     fn default() -> Self {
+        let my_local_ip = local_ip().unwrap_or(IpAddr::from(Ipv4Addr::UNSPECIFIED));
+        let my_application_port = 18005;
         Self {
             system_name: String::from(""),
             disk: Drives {
@@ -53,9 +59,9 @@ impl std::default::Default for SystemInformation {
             },
             available_disk: String::from(""),
             used_disk: String::from(""),
-            port: 0,
-            ip_address: Ipv4Addr::from([0, 0, 0, 0]),
-            server_base_url: String::from(""),
+            port: my_application_port,
+            ip_address: my_local_ip,
+            server_base_url: format!("{}/{}", my_local_ip, my_application_port),
         }
     }
 }

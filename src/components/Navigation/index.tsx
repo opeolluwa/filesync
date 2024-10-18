@@ -1,6 +1,6 @@
 "is client";
 import { SystemInformationContext } from "@/store/system_information";
-import { WifiStatusContext } from "@/store/wifi-status";
+import { WifiStatusContext } from "@/store/network";
 import { useContext } from "react";
 import { MemoryInformation } from "../MemoryInformation";
 import NavigationTab from "./NavItem";
@@ -9,10 +9,6 @@ import React from "react";
 
 export default function Navigation() {
   const { data: isConnectedToWifi } = useContext(WifiStatusContext);
-  const { availableDisk, usedDisk, systemName } = useContext(
-    SystemInformationContext
-  );
-
   return (
     <>
       <nav
@@ -37,7 +33,7 @@ export default function Navigation() {
           ))}
         </div>
 
-        <MemoryInformation />
+        {/* <MemoryInformation /> */}
       </nav>
     </>
   );
