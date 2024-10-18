@@ -1,18 +1,6 @@
 import { invoke } from "@tauri-apps/api/core";
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { SystemInformation as CoreSysInfo } from "tauri/bindings/SystemInformation";
-import {
-  allSysInfo,
-  memoryInfo,
-  staticInfo,
-  cpuInfo,
-  AllSystemInfo,
-  StaticInfo,
-  MemoryInfo,
-  CpuInfo,
-  batteries,
-  Batteries,
-} from "tauri-plugin-system-info-api";
 
 
 
@@ -41,19 +29,7 @@ export default function SystemInfoStore({ children }: { children: ReactNode }) {
   );
 
 
-  useEffect(()=>{
-const fetchData= async ()=> {
-  console.log(await allSysInfo());
 
-
-  
-  console.log(await memoryInfo());
-  // console.log(StaticInfo.parse(await staticInfo()));
-  // console.log(CpuInfo.parse(await cpuInfo()));
-  // console.log(Batteries.parse(await batteries()));
-}
-fetchData()
-  },[])
 
   useEffect(() => {
     // fetch sys information from app core

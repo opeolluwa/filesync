@@ -142,3 +142,5 @@ target
 Cargo.lock
 
 .zcrash
+
+.envrc

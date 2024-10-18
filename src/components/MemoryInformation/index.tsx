@@ -1,7 +1,7 @@
 import { WifiStatusContext } from "@/store/network";
 import { computeFileSize } from "@/utils";
 import { useContext, useEffect, useState } from "react";
-import { allSysInfo, memoryInfo } from "tauri-plugin-system-info-api";
+// import { memoryInfo } from "tauri-plugin-system-info-api";
 
 // use this to display the available memory
 export const MemoryInformation = () => {
@@ -12,16 +12,17 @@ export const MemoryInformation = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await memoryInfo();
-      setTotalMemory(data.total_memory);
-      setUsedMemory(data.used_memory);
+      // const data = await memoryInfo();
+      // setTotalMemory(data.total_memory);
+      // setUsedMemory(data.used_memory);
     };
     fetchData();
   }, []);
 
-  const freeMemory = totalMemory - usedMemory;
-  const memoryBarWidth = Math.round((usedMemory / totalMemory) * 100);
-  const availableDisk = computeFileSize(freeMemory);
+  // const freeMemory = totalMemory - usedMemory;
+  // const memoryBarWidth = Math.round((usedMemory / totalMemory) * 100);
+  // const availableDisk = computeFileSize(freeMemory);
+  const availableDisk = 5197825081
   return (
     <div
       style={{
@@ -43,7 +44,7 @@ export const MemoryInformation = () => {
               ? "bg-app-400 h-2 rounded-full"
               : "bg-gray-400 h-2 rounded-full"
           }
-          style={{ width: `${memoryBarWidth}%` }}
+          // style={{ width: `${memoryBarWidth}%` }}
         ></div>
       </div>
     </div>
