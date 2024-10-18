@@ -13,6 +13,8 @@ const items: TabsProps["items"] = [
   { key: "2", label: "Received files", children: "received files" },
 ];
 
+
+
 export default function HistoryPage() {
   // get the file transfer history data from the application backend
   const [data, setData] = useState(null);
