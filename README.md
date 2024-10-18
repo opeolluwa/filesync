@@ -1,70 +1,53 @@
 # FIleSync: WiFi File Sharing Application
 
-_⚠️ the application is still a work in progress, hence, Some features are missing. Please see the [issues](https://github.com/opeolluwa/send-file/issues) page to contribute_
-
+FileSync is a file-sharing application, targeting Linux, Mac, Windows and Android platforms
 ![screenshot](./screenshots/filesync.png)
 
-## Table of Contents
+## Disclaimer
 
-- [Description](#description)
-- [Getting Started](#getting-started)
-- [Tech Stack](#technology-stack)
-- [Features](#features)
-- [Acknowledgement](#acknowledgements)
-- [Contributing](#contributing)
-- [License](#license)
-
-## Description
-
-FIleSync is a wifi file-sharing application designed for Windows, Mac, and Linux operating systems. It allows users to transfer files seamlessly between PCs over WiFi without an internet connection.
+_⚠️ The application is still a work in progress and was recently migrated to use [Tauri v2(beta)](https://v2.tauri.app/) thus some features may be inconsistent. To proceed anyway, see the [release page](https://github.com/opeolluwa/filesync/releases)_
 
 ## Getting Started
 
-To run the application in development, you'll need the following dependencies:
+### General Requirement
+
+To compile the application or modify it locally, you need the following dependencies:
 
 - [Node.js](https://nodejs.org) - A JavaScript Runtime environment
-- [Yarn](https://yarnpkg.com/) - A fast, secure and reliable package manager for Node.js
-- [Rust v1.70 or greater](https://www.rust-lang.org/) - A language empowering everyone
-  to build reliable and efficient software.
-
-In addition, this project uses Tauri v1.3, see [prerequisite](https://tauri.app/v1/guides/getting-started/prerequisites/) for your operating system.
+- [npm](https://npmjs.com) - A JavaScript package manager.
+- [Rust v1.70 or greater](https://www.rust-lang.org/)
+- [Android Studio](https://developer.android.com/studio?gad_source=1&gclid=CjwKCAjwnqK1BhBvEiwAi7o0XxODlu3Mk1cb2BoP1HV7g32vB5N37BVL5ab6OJ-3UAfpfkWmBM2nlRoCBfoQAvD_BwE&gclsrc=aw.ds) To build and debug the Android application to build reliable and efficient software.
 
 Once you have the dependencies installed, clone the project and install the required packages:
 
+
+### Workspace Requirements 
+
+The project may require some system requirements based on your platform see the necessary 
+[prerequisite](https://v2.tauri.app/start/prerequisites/) for your operating system.
+
+
 ```sh
 git clone https://github.com/opeolluwa/filesync.git
-cd filesync # navigate to the cloned directory
-yarn install # install the dependencies
-yarn tauri dev # run the application locally
-
+cd filesync 
+npm run install
 ```
 
-## Technology Stack
 
-WiShare is built primarily on the following technologies
 
-- [Tauri](https://tauri.app/) is a framework for building cross-platform desktop applications with front-end web technologies.
-- [React](https://react.dev/) - JavaScript library for building user interfaces
-- [Next.js](https://nextjs.org/) - React framework for the web
-- [Rust](rust-lang.org/) - A language empowering everyone
-  to build reliable and efficient software.
-- [Typescript](https://typescript-lang.org) - A strongly-typed programming language that builds on JavaScript
+## Roadmap
 
-- [TailwindCSS](https://tailwindcss.com) - A utility-first CSS framework
-- [Capacitor](https://capacitorjs.com/) - Build cross-platform mobile application apps 
+- [ ] Adaptive UI `WIP`
+- [ ] Build an executable for the Mac operating system `WIP`
+- [ ] Build an executable for the Linux Operating system `WIP`
+- [ ] Build an executable for Window `WIP`
+- [ ] Support mobile devices `WIP`
+- [ ] Create a wifi hotspot on Unix Operating Systems
+- [ ] Support dark mode
+- [ ] Add walkthrough after installation
 
-## Features
 
-- [x] Adaptive UI
-- [x] build an executable for the Mac operating system
-- [x] build an executable for the Linux Operating system
-- [x] build an executable for Window
-- [ ] create a wifi hotspot
-- [x] support mobile devices
-- [ ] support dark mode
-- [ ] add walkthrough after installation
-
-## Acknowledgements
+## Acknowledgments
 
 - [Linux Wifi Hotspot](https://awesomeopensource.com/project/elangosundar/awesome-README-templateshttps://github.com/lakinduakash/linux-wifi-hotspot)
 - [File Streaming](https://github.com/tokio-rs/axum/tree/main/examples/stream-to-file)

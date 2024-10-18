@@ -1,0 +1,13 @@
+[package]
+name = "device"
+description = "return the device type, os, and capabilities"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+filesystem = { path = "../filesystem" }
+os_info = "3.8.2"
+serde = { workspace = true }
+serde_json = { workspace = true }
+sysinfo = "0.31.4"
+ts-rs = { workspace = true }
