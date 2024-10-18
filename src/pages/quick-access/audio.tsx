@@ -1,4 +1,4 @@
-import LoaderCircle from "@/components/Loaders/LoaderCircle";
+import LoaderCircle from "@/components/Progress/LoaderCircle";
 import FileCard, { FileInterface } from "@/components/Thumbnail";
 import QuickAccessLayout from "@/components/layout/desktop/DesktopViewLayout";
 import { AppData } from "@/types";
