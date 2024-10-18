@@ -38,7 +38,7 @@ export default function Document() {
 
   return (
     <QuickAccessLayout
-      pageTitle={"Recieved Files"}
+      pageTitle={"Received Files"}
       includeSearchBar={true}
       searchBarText="search downloads"
     >

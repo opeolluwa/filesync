@@ -1,13 +1,11 @@
 import MobileViewLayout from "@/components/layout/mobile/MobileViewLayout";
 import View from "@/components/View";
-import React from "react";
 import {
-  scan,
   Format,
   checkPermissions,
   requestPermissions,
+  scan,
 } from "@tauri-apps/plugin-barcode-scanner";
-import Button from "@/components/Button";
 export default function ScanPage() {
   return (
     <MobileViewLayout>

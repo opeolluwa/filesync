@@ -1,6 +1,6 @@
 {
   "productName": "filesync",
-  "version": "0.7.12",
+  "version": "0.7.13",
   "identifier": "com.filesync.app",
   "build": {
     "beforeDevCommand": "npm run dev",

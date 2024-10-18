@@ -3,7 +3,6 @@ import Card from "@/components/Card";
 import Heading from "@/components/Heading";
 import { FileTransferHistory } from "@/components/history/TransferHistory";
 import MobileViewLayout from "@/components/layout/mobile/MobileViewLayout";
-import SearchBar from "@/components/Search";
 import SmallText from "@/components/SmallText";
 import View from "@/components/View";
 import {

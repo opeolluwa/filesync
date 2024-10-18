@@ -18,8 +18,9 @@ export default function NavigationTab({
 
   const activeClass =
     "flex items-left justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out  text-app  bg-app-50  py-3 px-1 lg:pl-2 first:mt-4 cursor-pointer";
+
   const previewClass =
-    "flex items-left justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out  hover:text-app py-3 px-1 lg:pl-2 first:mt-4  text-gray-500 cursor-pointer";
+    "flex items-left justify-start lg:items-start lg:my-6 my-4 rounded  ease-in-out  hover:text-app py-3 px-1 lg:pl-2 first:mt-4  text-gray-500 cursor-pointer"; 
 
   if (disabled) {
     return (
@@ -46,9 +47,7 @@ export default function NavigationTab({
       <Link
         href={path}
         className={
-          router.pathname == path.trim() ||
-          router.asPath.split("/")[1].trim() === "/connection" ||
-          `/${router.pathname.slice(1).split("/")[0]}` == path.trim()
+          router.pathname == path.trim() 
             ? activeClass
             : previewClass
         }

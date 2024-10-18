@@ -74,16 +74,6 @@ export const desktopRoutes: Route[] = [
   },
 ];
 
-// export const MobileRoutes = [
-//   { name: "History", path: "/history" },
-//   { name: "Home", path: "/home" },
-//   { name: "Video", path: "/video" },
-//   { name: "Audio", path: "/audio" },
-//   { name: "Pictures", path: "/audio" },
-//   { name: "Zipped", path: "/zip" },
-//   { name: "Big Files", path: "/big-files" },
-//   { name: "Storage", path: "/related" },
-// ];
 
 export const MobileRoutes = [
   { name: "Home", path: "/history" },
