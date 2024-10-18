@@ -1,7 +1,6 @@
 "use client";
-import React, { useContext } from "react";
-import Nav from "../../app/AppNavigation";
-import { WifiStatusContext } from "@/store/network";
+import React from "react";
+import Navigation from "../../app/AppNavigation";
 
 interface Props {
   children: React.ReactNode;
@@ -17,7 +16,7 @@ export default function DesktopAppLayout({ children }: Props) {
         marginBottom: 0,
       }}
     >
-      <Nav />
+      <Navigation />
       <main className="col-span-9 lg:col-span-9 pt-10 px-10 bg-[rgba(241,246,251,255)]  overflow-y-scroll">
         {children}
       </main>

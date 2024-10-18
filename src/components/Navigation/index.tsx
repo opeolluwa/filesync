@@ -9,10 +9,6 @@ import React from "react";
 
 export default function Navigation() {
   const { data: isConnectedToWifi } = useContext(WifiStatusContext);
-  const { availableDisk, usedDisk, systemName } = useContext(
-    SystemInformationContext
-  );
-
   return (
     <>
       <nav
@@ -37,7 +33,7 @@ export default function Navigation() {
           ))}
         </div>
 
-        <MemoryInformation />
+        {/* <MemoryInformation /> */}
       </nav>
     </>
   );
