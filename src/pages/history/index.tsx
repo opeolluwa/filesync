@@ -1,5 +1,5 @@
 import PageLayout from "@/components/layout/desktop/DesktopViewLayout";
-import LoaderCircle from "@/components/Progress/LoaderCircle";
+import LoaderCircle from "@/components/Loaders/LoaderCircle";
 import type { TabsProps } from "antd";
 import { Tabs } from "antd";
 import React, { useState } from "react";
