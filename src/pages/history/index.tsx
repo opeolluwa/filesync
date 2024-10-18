@@ -14,7 +14,6 @@ const items: TabsProps["items"] = [
 ];
 
 
-
 export default function HistoryPage() {
   // get the file transfer history data from the application backend
   const [data, setData] = useState(null);
