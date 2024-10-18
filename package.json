@@ -20,6 +20,7 @@
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^2.0.16",
     "@opeolluwa/filewindow": "^0.0.3",
+    "@tailwindcss/forms": "^0.5.3",
     "@tauri-apps/api": ">=2.0.0-beta.0",
     "@tauri-apps/plugin-barcode-scanner": "^2.0.0",
     "@tauri-apps/plugin-clipboard-manager": "^2.1.0-beta.5",
@@ -38,12 +39,10 @@
     "react-dom": "^18.2.0",
     "react-qr-code": "^2.0.11",
     "react-router-dom": "^6.9.0",
-    "remixicon": "^4.3.0",
-        "@tailwindcss/forms": "^0.5.3"
+    "remixicon": "^4.3.0"
   },
   "devDependencies": {
-
-    "@tauri-apps/cli": "^2.0.0-rc.18",
+    "@tauri-apps/cli": "^2.0.3",
     "@types/node": "^18.7.10",
     "@types/react": "^18.0.15",
     "@types/react-dom": "^18.0.6",
