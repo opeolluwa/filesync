@@ -40,7 +40,6 @@ infer = "0.15.0"
 lazy_static = "1.4.0"
 local-ip-address = "0.6.3"
 memory-serve = "0.4.5"
-mockall = "0.11.4"
 num-traits = "0.2.15"
 path-absolutize = "3.1.1"
 pnet_datalink = "0.33.0"
@@ -51,31 +50,27 @@ serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0"
 server = { path = "./server" }
 sha2 = "0.10.8"
-
 tauri = { version = "2.0.0-beta", features = ["protocol-asset"] }
+tauri-plugin-barcode-scanner = "2"
 tauri-plugin-clipboard-manager = "2.0.0"
 tauri-plugin-dialog = "2.0.0-beta.11"
 tauri-plugin-fs = "2.0.0"
 tauri-plugin-os = "2"
 tauri-plugin-process = "2.0.0"
 tauri-plugin-shell = "2.0.0"
+tauri-plugin-sql = { version = "2.0.0-rc", features = ["sqlite"] }
 tokio = { version = "1.26.0", features = ["full"] }
 tokio-stream = "0.1"
 tokio-tungstenite = "0.18.0"
 tokio-util = { version = "0.7", features = ["io"] }
 tracing = "0.1.37"
 ts-rs = "7.0.0"
-uptime_lib = "0.2.2"
 uuid = { version = "1.4.1", features = ["v4", "fast-rng", "macro-diagnostics"] }
 walkdir = "2.3.3"
-tauri-plugin-barcode-scanner = "2"
-tauri-plugin-system-info = "2.0.7"
-tauri-plugin-sql = { version = "2.0.0-rc", features = ["sqlite"] }
 
 [target.'cfg(not(target_os = "android"))'.dependencies]
 livewire = "0.1.0"
 reqwest = "0.11.16"
-
 
 [target.'cfg(not(any(target_os = "android", target_os = "ios")))'.dependencies]
 tauri-plugin-single-instance = "2"

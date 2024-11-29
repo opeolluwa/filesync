@@ -34,7 +34,7 @@ watch target:
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
     if [ $target = "android" ]; then
-        npm run tauri android dev --release
+        npm run tauri android dev 
     elif [ $target = "ios" ]; then 
         npm run tauri ios dev 
     else
