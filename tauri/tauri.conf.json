@@ -12,7 +12,7 @@
     "windows": [
       {
         "fullscreen": false,
-        "resizable": true,
+        "resizable": false,
         "title": "FileSync",
         "width": 1000,
         "height": 800
@@ -51,7 +51,6 @@
       },
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDkxRDI4MDg0MDQ5OUI5M0UKUldRK3Vaa0VoSURTa1VqeEMxa3lzTjZoNjNnaEZHSmdFREx4SFQ1ZnB0ZEN2NDdpa3lkdDQ1dzkK",
       "endpoints": [
-
         "https://github.com/opeolluwa/filesync/releases/latest/download/latest.json"
       ]
     }

@@ -52,11 +52,11 @@ export default function FileCard({
         onClick={() => {
           isFolder ? router.push(path) : setOpenModal(true);
         }}
-        className="flex w-full hover:shadow hover:rounded-lg rouned bg-[#f9fbfe] flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10 "
+        className="flex w-full  hover:rounded-lg rounded  flex-wrap items-center gap-2  cursor-pointer px-4 py-2 last:mb-10 "
       >
         <ThumbnailIcon isFolder={isFolder} fileFormat={fileFormat} />
         <div className="flex flex-col justify-between mt-3">
-          <h6 className=" dark:text-gray-500 small overflow-clip  w-[240px] lg:w-[400px]  truncate select-none">
+          <h6 className=" dark:text-gray-500 small overflow-clip w-[600px]  truncate select-none">
             {fileName}
           </h6>
 

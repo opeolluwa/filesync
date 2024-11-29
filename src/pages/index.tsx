@@ -19,7 +19,7 @@ export default function Home() {
 
   if (!isConnectedToWifi) {
     return (
-      <Card className="text-red-500  h-[75%]  w-full my-auto flex justify-center items-center flex-col -mt-30">
+      <Card className="text-gray-600  h-[75%]  w-full my-auto flex justify-center items-center flex-col -mt-30">
         <Loader />
         <Heading>No network connected</Heading>
         <Text className="text-center leading-3 mt-2">

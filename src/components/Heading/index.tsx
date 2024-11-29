@@ -6,7 +6,7 @@ interface Props {
 }
 export default function Heading({ children, className, context }: Props) {
   return (
-    <h2 className={"font-bold " + className}>
+    <h2 className={"font-bold  text-3xl leading-loose" + className}>
       {context || children}
     </h2>
   );

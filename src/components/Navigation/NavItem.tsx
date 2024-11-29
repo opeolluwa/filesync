@@ -44,17 +44,19 @@ export default function NavigationTab({
   return (
     <div onClick={action}>
       <Link
-        href={path}
-        className={router.pathname == path.trim() ? activeClass : previewClass}
+        href={"/desktop" + path}
+        className={
+          router.pathname == "/desktop" + path ? activeClass : previewClass
+        }
         onBlur={() => setIcon(icon)}
         onMouseEnter={() => setIcon(alternateIcon)}
         onClick={() => setIcon(alternateIcon)}
         onMouseLeave={() => setIcon(icon)}
       >
         <span className="cursor-pointer">
-          <span className="sr-only">{router.asPath.split("/")[1]} </span>
+          <span className="sr-only">{router.asPath.split("/desktop")[1]} </span>
           <div className="gap-2 justify-left mx-4  flex capitalize">
-            {router.pathname == path.trim() ? alternateIcon : currentIcon}
+            {router.pathname == "/desktop" + path ? alternateIcon : currentIcon}
             <span className={drawerIsOpen ? "block" : "hidden"}>{name}</span>
           </div>
         </span>

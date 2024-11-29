@@ -1,10 +1,9 @@
 "use client";
-import React, { useContext, useState } from "react";
-import Navigation from "../../app/AppNavigation";
 import NavigationTab from "@/components/Navigation/NavItem";
 import { desktopRoutes } from "@/components/Navigation/routes";
 import { WifiStatusContext } from "@/store/network";
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
+import React, { useContext, useState } from "react";
 
 interface Props {
   children: React.ReactNode;
