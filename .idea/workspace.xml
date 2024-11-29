@@ -4,29 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33934298-5833-4da1-b37e-0e2bec43d847" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/core/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/core/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/core/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/core/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/core/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/core/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/core/src/network_manager/linux.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/core/src/network_manager/mac.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/core/src/network_manager/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/core/src/network_manager/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/core/src/network_manager/windows.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/core/src/utils/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/core/src/utils/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/core/static/assets/js/websockets.js" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/core/static/assets/js/websockets.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/core/static/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/core/static/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/src/components/View/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/src/components/View/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/src/pages/connection/browser.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/src/pages/connection/browser.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/src/pages/connection/desktop.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/src/pages/connection/desktop.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/homepage/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/homepage/src/app.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/homepage/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/homepage/src/main.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/homepage/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/homepage/tailwind.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/app/(tabs)/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/app/(tabs)/_layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/app/(tabs)/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/app/(tabs)/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/app/_layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/app/_layout.tsx" afterDir="false" />
-    </list>
+    <list default="true" id="33934298-5833-4da1-b37e-0e2bec43d847" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -60,16 +38,18 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.rust.reset.selective.auto.import": "true",
     "code.cleanup.on.save": "true",
-    "git-widget-placeholder": "dev",
+    "git-widget-placeholder": "release",
     "last_opened_file_path": "/Users/USER/Desktop/devs/filesync",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
     "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
+    "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
     "org.rust.first.attach.projects": "true",
     "rearrange.code.on.save": "true",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.file-colors"
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.file-colors",
+    "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RustProjectSettings">
@@ -85,6 +65,7 @@
       <updated>1715329945427</updated>
       <workItem from="1715329946498" duration="108000" />
       <workItem from="1718140653914" duration="1197000" />
+      <workItem from="1730559594322" duration="63000" />
     </task>
     <servers />
   </component>
