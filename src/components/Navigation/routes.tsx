@@ -5,15 +5,15 @@ import {
   FolderArrowDownIcon,
   HomeIcon,
   InformationCircleIcon,
-  QrCodeIcon,
   ShareIcon,
+  ArrowsRightLeftIcon,
 } from "@heroicons/react/24/outline";
 import {
   ClockIcon as SolidClockIcon,
   Cog8ToothIcon as SolidCog8ToothIcon,
   HomeIcon as SolidHomeIcon,
   InformationCircleIcon as SolidInformationIcon,
-  ShareIcon as SolidShareIcon, // QrCodeIcon as SolidQrCodeIcon,
+  ShareIcon as SolidShareIcon, // ArrowsRightLeftIcon as SolidArrowsRightLeftIcon,
   FolderArrowDownIcon as SolidFolderArrowDownIcon,
 } from "@heroicons/react/24/solid";
 import React from "react";
@@ -26,7 +26,7 @@ export interface Route {
   path: string; // the path string
   isActive?: any;
   disabled?: boolean;
-  drawerIsOpen?: boolean
+  drawerIsOpen?: boolean;
 }
 
 export const desktopRoutes: Route[] = [
@@ -37,10 +37,16 @@ export const desktopRoutes: Route[] = [
     alternateIcon: <SolidHomeIcon className="w-6 h-6" />,
   },
   {
-    icon: <QrCodeIcon className="w-6 h-6" />,
+    icon: <ArrowsRightLeftIcon className="w-6 h-6" />,
     name: "Connect Device",
-    alternateIcon: <QrCodeIcon className="w-6 h-6" />,
+    alternateIcon: <ArrowsRightLeftIcon className="w-6 h-6" />,
     path: "/",
+  },
+  {
+    path: "/history",
+    icon: <ClockIcon className="w-6 h-6" />,
+    name: "Transfer History",
+    alternateIcon: <SolidClockIcon className="w-6 h-6" />,
   },
   {
     path: "/share",
@@ -55,12 +61,7 @@ export const desktopRoutes: Route[] = [
     name: "Received files",
     alternateIcon: <SolidFolderArrowDownIcon className="w-6 h-6" />,
   },
-  {
-    path: "/history",
-    icon: <ClockIcon className="w-6 h-6" />,
-    name: "Transfer History",
-    alternateIcon: <SolidClockIcon className="w-6 h-6" />,
-  },
+
   {
     path: "/settings",
     icon: <Cog8ToothIcon className="w-6 h-6" />,
@@ -74,7 +75,6 @@ export const desktopRoutes: Route[] = [
     name: "About",
   },
 ];
-
 
 export const MobileRoutes = [
   { name: "Home", path: "/history" },
