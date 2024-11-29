@@ -1,20 +1,18 @@
 "use client";
 
-import { OsType } from "@tauri-apps/plugin-os";
-import { type } from "os";
+import { OsType, type } from "@tauri-apps/plugin-os";
 import { useEffect, useState } from "react";
 import DesktopAppEntry from "./desktop";
 import MobileAppEntry from "./mobile";
 
 export default function AppEntry() {
-  const [osType, setOsType] = useState<OsType>("" as OsType);
+  const [osType, setOsType] = useState<OsType>();
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const fetchData = () => {
-      const os = type();
-      setOsType(os);
+      setOsType(type());
 
-      if (os == "android" || os == "ios") {
+      if (osType == "android" || osType == "ios") {
         setIsMobile(true);
       }
     };

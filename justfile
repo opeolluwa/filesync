@@ -10,6 +10,8 @@ set dotenv-load := true
 set dotenv-path := "./.envrc"
 set export :=  true
 
+APP_NAME := "filesync"
+EXPORT_PATH := "bin"
 
 default: 
     @just --list --list-heading $'Available commands\n'
@@ -52,5 +54,13 @@ build target:
     elif [ $target = "ios" ]; then 
         npm run tauri ios build --aab
     else
-        npm run tauri bild 
+        npm run tauri build 
     fi
+
+
+export: 
+    #!/usr/bin/env sh
+    # mkdir bin 
+    cp tauri/gen/android/app/build/outputs/apk/universal/release/app-universal-release.apk $EXPORT_PATH/$APP_NAME.apk
+    cp ./tauri/gen/android/app/build/outputs/bundle/universalRelease/app-universal-release.aab $EXPORT_PATH/$APP_NAME.aab
+    cp ./tauri/target/release/bundle/dmg/filesync_0.7.13_aarch64.dmg $EXPORT_PATH/$APP_NAME.dmg
