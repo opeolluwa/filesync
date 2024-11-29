@@ -127,7 +127,7 @@ export default function Main() {
         />
       </section>
 
-      <section className="my-12">
+      <section className="my-12 hidden">
         <PageTitle styles="mb-12" title={"Quick Access"} />
         <ul className="grid grid-flow-col col-4 gap-24 items-center justify-start mt-4 px-6 ">
           {quickAccessTabs.map((tab, index) => (
@@ -149,7 +149,7 @@ export default function Main() {
         </ul>
       </section>
 
-      <section className="my-16">
+      <section className="my-16 hidden">
         <h2 className="flex justify-between mt-24 mb-4 ">
           <span className=" font-medium text-gray-400">
             <PageTitle styles="" title={"Recent Files"} />

@@ -6,6 +6,10 @@ import type { AppProps } from "next/app";
 import WifiStatus from "@/store/network";
 import "remixicon/fonts/remixicon.css";
 import DeviceInformationStore from "@/store/device";
+import { ConfigProvider } from "antd";
+import theme from "../theme/themeConfig";
+
+
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
@@ -14,7 +18,9 @@ export default function App({ Component, pageProps }: AppProps) {
         <WifiStatus>
           <DeviceInformationStore>
             <Layout>
-              <Component {...pageProps} />
+              <ConfigProvider theme={theme}>
+                <Component {...pageProps} />
+              </ConfigProvider>
             </Layout>
           </DeviceInformationStore>
         </WifiStatus>

@@ -22,7 +22,7 @@ export default function PageLayout({
   return (
     <>
       {includePageTitle && (
-        <div className="hidden sm:flex mb-10 font-medium dark:text-gray-300 justify-between items-center">
+        <div className="hidden mb-10 font-medium dark:text-gray-300 justify-between items-center">
           <ChevronLeftIcon
             className="text-gray-400 w-6 h-6 text-medium cursor-pointer mr-8"
             onClick={goToPrevPage}
