@@ -1,9 +1,8 @@
 // Prevents additional console window on Windows in release, DO NOT REMOVE!!
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
 
-extern crate uptime_lib;
-use server::http_server::HttpServer;
-use tauri::Emitter;
+
+use server::server::HttpServer;
 use tauri_plugin_sql::{Migration, MigrationKind};
 
 mod commands;
@@ -33,14 +32,14 @@ pub fn run() {
 
     // run the UI code and the IPC (internal Procedure Call functions)
     tauri::Builder::default()
-        .plugin(tauri_plugin_updater::Builder::new().build())
-        .plugin(tauri_plugin_sql::Builder::new().build())
-        .plugin(tauri_plugin_single_instance::init(|app, _argv, _cwd| {
-            app.emit("single-instance", ()).unwrap();
-        }))
+        // .plugin(tauri_plugin_updater::Builder::new().build())
+        // .plugin(tauri_plugin_sql::Builder::new().build())
+        // .plugin(tauri_plugin_single_instance::init(|app, _argv, _cwd| {
+            // app.emit("single-instance", ()).unwrap();
+        // }))
         .plugin(tauri_plugin_fs::init())
         .plugin(tauri_plugin_os::init())
-        .plugin(tauri_plugin_system_info::init())
+        // .plugin(tauri_plugin_system_info::init())
         .plugin(
             tauri_plugin_sql::Builder::default()
                 .add_migrations("sqlite:filesync.db", database_migration)

@@ -4,9 +4,7 @@ use std::{
 };
 
 use local_ip_address::local_ip;
-use mockall::predicate::*;
 use serde::{Deserialize, Serialize};
-
 use ts_rs::TS;
 
 #[derive(Debug, Deserialize, Serialize, Clone, TS)]
