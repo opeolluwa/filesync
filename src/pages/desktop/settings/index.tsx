@@ -26,10 +26,7 @@ import { invoke } from "@tauri-apps/api/core";
 import { hostname, locale } from "@tauri-apps/plugin-os";
 import { useEffect, useState } from "react";
 
-/**
- * @function helpPage -  A page responsible for guiding users on various actions
- * @returns tsx
- */
+
 
 export default function HelpPage() {
   let [systemInformation, setSystemInformation] = useState(
