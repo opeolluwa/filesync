@@ -26,6 +26,7 @@ export interface Route {
   path: string; // the path string
   isActive?: any;
   disabled?: boolean;
+  drawerIsOpen?: boolean
 }
 
 export const desktopRoutes: Route[] = [
