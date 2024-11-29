@@ -16,10 +16,12 @@
     "desktop": "npm run tauri dev"
   },
   "dependencies": {
+    "@ant-design/cssinjs": "^1.22.0",
     "@ant-design/icons": "^5.3.7",
     "@headlessui/react": "^1.7.13",
     "@heroicons/react": "^2.0.16",
     "@opeolluwa/filewindow": "^0.0.3",
+    "@tailwindcss/forms": "^0.5.3",
     "@tauri-apps/api": ">=2.0.0-beta.0",
     "@tauri-apps/plugin-barcode-scanner": "^2.0.0",
     "@tauri-apps/plugin-clipboard-manager": "^2.1.0-beta.5",
@@ -30,7 +32,7 @@
     "@tauri-apps/plugin-shell": "^2.0.0-beta.8",
     "@tauri-apps/plugin-sql": "^2.0.0",
     "@tauri-apps/plugin-updater": "^2.0.0",
-    "antd": "^5.6.2",
+    "antd": "^5.22.2",
     "axios": "^1.6.8",
     "iqons": "^1.0.4",
     "next": "^13.2.4",
@@ -38,11 +40,9 @@
     "react-dom": "^18.2.0",
     "react-qr-code": "^2.0.11",
     "react-router-dom": "^6.9.0",
-    "remixicon": "^4.3.0",
-        "@tailwindcss/forms": "^0.5.3"
+    "remixicon": "^4.3.0"
   },
   "devDependencies": {
-
     "@tauri-apps/cli": "^2.0.0-rc.18",
     "@types/node": "^18.7.10",
     "@types/react": "^18.0.15",
