@@ -28,15 +28,15 @@ export default function AboutPage() {
       <div className="p-4 rounded-lg dark:dark-900">
         <div className="block mb-4 ">
           <Image
-            src="icons/app-icon.png"
+            src="/icons/app-icon.png"
             alt="app icon"
             width={200}
             height={200}
             className="w-[50px] block mx-auto"
           />
 
-          <div className="flex flex-col rounded-lg full my-4 p-4 ">
-            <Heading className="text-center capitalize">
+          <div className="flex flex-col justify-center items-center rounded-lg full my-4 p-4 ">
+            <Heading className="text-center text-base capitalize">
               {appName} {appVersion}
             </Heading>
             <a
