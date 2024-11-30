@@ -41,9 +41,9 @@ pub fn App() -> impl IntoView {
 
     view! {
         <main class="container">
-            <h1>"Welcome to Tauri + Leptos"</h1>
+            <h1 class="bg-app">"Welcome to Tauri + Leptos"</h1>
 
-            <div class="row">
+            <div class="row hidden">
                 <a href="https://tauri.app" target="_blank">
                     <img src="public/tauri.svg" class="logo tauri" alt="Tauri logo"/>
                 </a>
