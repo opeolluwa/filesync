@@ -39,6 +39,8 @@ watch target:
         cargo tauri android dev 
     elif [ $target = "ios" ]; then 
         cargo tauri ios dev 
+    elif [ $target = "style" ]; then
+        npx tailwindcss -i ./main.css -o ./style/output.css --watch
     else
         cargo tauri dev
     fi

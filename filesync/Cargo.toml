@@ -15,3 +15,6 @@ console_error_panic_hook = "0.1.7"
 
 [workspace]
 members = ["src-tauri"]
+
+[dev-dependencies]
+concurrently = "0.3.3"
