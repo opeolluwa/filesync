@@ -2,6 +2,7 @@ use leptos::leptos_dom::ev::SubmitEvent;
 use leptos::*;
 use serde::{Deserialize, Serialize};
 use wasm_bindgen::prelude::*;
+use thaw::Button;
 
 #[wasm_bindgen]
 extern "C" {
@@ -40,6 +41,11 @@ pub fn App() -> impl IntoView {
     };
 
     view! {
+        //   <ConfigProvider>
+            <Button  class="bg-white btn text-app">
+                "Primary"
+            </Button>
+        // </ConfigProvider>
         <main class="container">
             <h1 class="bg-app">"Welcome to Tauri + Leptos"</h1>
 

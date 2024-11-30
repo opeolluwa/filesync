@@ -1683,6 +1683,21 @@ html {
   background-color: rgb(48 116 245 / var(--tw-bg-opacity, 1));
 }
 
+.bg-app-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(11 85 226 / var(--tw-bg-opacity, 1));
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+}
+
+.text-app {
+  --tw-text-opacity: 1;
+  color: rgb(48 116 245 / var(--tw-text-opacity, 1));
+}
+
 * {
   -webkit-user-select: none !important;
      -moz-user-select: none !important;
