@@ -1,5 +1,5 @@
 mod app;
-
+mod platform;
 use app::*;
 use leptos::*;
 

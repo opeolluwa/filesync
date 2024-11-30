@@ -1,43 +1,22 @@
-use leptos::leptos_dom::ev::SubmitEvent;
+use crate::platform::Platform;
+use desktop_ui::desktop_application::DesktopApplication;
 use leptos::*;
-use serde::{Deserialize, Serialize};
-use wasm_bindgen::prelude::*;
-use thaw::Button;
-
-#[wasm_bindgen]
-extern "C" {
-    #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"])]
-    async fn invoke(cmd: &str, args: JsValue) -> JsValue;
-}
-
-
-
+use mobile_ui::mobile_application::MobileApplication;
+use std::str::FromStr;
+// use os_info; 
 #[component]
 pub fn App() -> impl IntoView {
-    // let (name, set_name) = create_signal(String::new());
-    // let (greet_msg, set_greet_msg) = create_signal(String::new());
+    //TODO: remove static binding
+    let device_platform = Platform::from_str("android").unwrap_or_default();
 
-    // let update_name = move |ev| {
-    //     let v = event_target_value(&ev);
-    //     set_name.set(v);
-    // };
-
-    // let greet = move |ev: SubmitEvent| {
-    //     ev.prevent_default();
-    //     spawn_local(async move {
-    //         let name = name.get_untracked();
-    //         if name.is_empty() {
-    //             return;
-    //         }
-
-    //         let args = serde_wasm_bindgen::to_value(&GreetArgs { name: &name }).unwrap();
-    //         // Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
-    //         let new_msg = invoke("greet", args).await.as_string().unwrap();
-    //         set_greet_msg.set(new_msg);
-    //     });
-    // };
-
-    view! {
-       <button> </button>
+    match device_platform {
+        Platform::Android | Platform::Ios => {
+            view! {
+                <MobileApplication/>
+            }
+        }
+        Platform::Linux | Platform::Mac | Platform::Windows => {
+            view! {<DesktopApplication/>}
+        }
     }
 }
