@@ -8,7 +8,8 @@ edition = "2021"
 console_error_panic_hook = { workspace = true }
 js-sys = { workspace = true }
 leptos = { workspace = true, features = ["csr"] }
-os_info = { version = "3.9.0", default-features = false }
+leptos-remix-icon = { workspace = true }
+os_info = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
@@ -41,6 +42,10 @@ tauri-plugin-os = "2"
 tauri-plugin-shell = "2"
 wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4"
+leptos-remix-icon = "1.0.3"
+os_info = { version = "3.9.0", default-features = false }
+leptos_router = { version = "0.6.15", features = ["csr"] }
+
 
 [dev-dependencies]
 concurrently = { workspace = true }

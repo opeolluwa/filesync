@@ -22,7 +22,6 @@ impl ToString for Platform {
     }
 }
 
-
 #[derive(Debug, PartialEq)]
 pub struct PlatformParseError(String);
 
