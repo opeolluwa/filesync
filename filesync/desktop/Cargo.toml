@@ -14,3 +14,4 @@ console_error_panic_hook = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
 leptos-remix-icon = { workspace = true }
 leptos_router = { workspace = true, features = ["csr"] }
+leptos-use = { workspace = true }

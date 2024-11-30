@@ -9,6 +9,7 @@ console_error_panic_hook = { workspace = true }
 js-sys = { workspace = true }
 leptos = { workspace = true, features = ["csr"] }
 leptos-remix-icon = { workspace = true }
+leptos-use = { workspace = true }
 os_info = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
@@ -45,6 +46,7 @@ wasm-bindgen-futures = "0.4"
 leptos-remix-icon = "1.0.3"
 os_info = { version = "3.9.0", default-features = false }
 leptos_router = { version = "0.6.15", features = ["csr"] }
+leptos-use = "0.13.11"
 
 
 [dev-dependencies]
