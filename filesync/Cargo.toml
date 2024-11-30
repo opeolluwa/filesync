@@ -25,8 +25,12 @@ version = "*"
 path = "./mobile"
 version = "*"
 
+[dependncies.http_server]
+path = "./server"
+version = "*"
+
 [workspace]
-members = ["desktop", "mobile", "src-tauri"]
+members = ["desktop", "mobile", "tauri"]
 
 [workspace.dependencies]
 thaw = { version = "0.3.4", features = ["csr"] }
@@ -47,7 +51,6 @@ leptos-remix-icon = "1.0.3"
 os_info = { version = "3.9.0", default-features = false }
 leptos_router = { version = "0.6.15", features = ["csr"] }
 leptos-use = "0.13.11"
-
 
 [dev-dependencies]
 concurrently = { workspace = true }

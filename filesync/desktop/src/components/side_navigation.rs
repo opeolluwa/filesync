@@ -28,12 +28,10 @@ impl Route {
 
 pub fn SideNavigation() -> impl leptos::IntoView {
     let routes: Vec<Route> = vec![
-        Route::new("home", "/", "arrow-left-right-fill"),
-        // Route::new("home", "/", "time-line"),
-        Route::new("home", "/", "share-line"),
-        // Route::new("home", "/", "folder-download-line"),
-        Route::new("home", "/", "settings-5-line"),
-        Route::new("home", "/", "information-line"),
+        Route::new("transfer", "/", "arrow-left-right-fill"),
+        Route::new("share", "/share", "share-line"),
+        Route::new("settings", "/settings", "settings-5-line"),
+        Route::new("about", "/about", "information-line"),
     ];
 
     view! {
