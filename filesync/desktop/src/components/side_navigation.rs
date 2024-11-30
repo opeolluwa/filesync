@@ -33,7 +33,7 @@ pub fn SideNavigation() -> impl leptos::IntoView {
         Route::new("home", "/", "share-line"),
         // Route::new("home", "/", "folder-download-line"),
         Route::new("home", "/", "settings-5-line"),
-        Route::new("home", "/", "home-line"),
+        Route::new("home", "/", "information-line"),
     ];
 
     view! {
