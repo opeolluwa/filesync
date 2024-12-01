@@ -4,5 +4,3 @@
 /tauri.build.gradle.kts
 /proguard-tauri.pro
 /tauri.properties
-
-upload-keystore.jks

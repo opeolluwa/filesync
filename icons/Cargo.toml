@@ -1,0 +1,7 @@
+[package]
+name = "filesync_icons"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+leptos = { workspace = true, features = ["csr"] }

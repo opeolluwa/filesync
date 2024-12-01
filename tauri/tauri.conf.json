@@ -1,58 +1,36 @@
 {
+  "$schema": "https://schema.tauri.app/config/2",
   "productName": "filesync",
-  "version": "0.7.13",
+  "version": "0.1.0",
   "identifier": "com.filesync.app",
   "build": {
-    "beforeDevCommand": "npm run dev",
-    "beforeBuildCommand": "npm run build && npm run export ",
-    "frontendDist": "../out",
-    "devUrl": "http://localhost:3000"
+    "beforeDevCommand": "trunk serve",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "trunk build",
+    "frontendDist": "../dist"
   },
   "app": {
+    "withGlobalTauri": true,
     "windows": [
       {
-        "fullscreen": false,
-        "resizable": false,
-        "title": "FileSync",
-        "width": 1000,
-        "height": 800
+        "title": "filesync",
+        "width": 800,
+        "height": 600
       }
     ],
     "security": {
-      "assetProtocol": {
-        "enable": true,
-        "scope": []
-      },
-      "csp": {
-        "assets": "http://asset.localhost"
-      }
+      "csp": null
     }
   },
   "bundle": {
     "active": true,
+    "targets": "all",
     "icon": [
       "icons/32x32.png",
       "icons/128x128.png",
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ],
-    "targets": "all"
-  },
-  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
-  "plugins": {
-    "sql": {
-      "preload": ["sqlite:filesync.db"]
-    },
-    "updater":{
-      "createUpdaterArtifacts": true,
-            "windows": {
-        "installMode": "passive"
-      },
-      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDkxRDI4MDg0MDQ5OUI5M0UKUldRK3Vaa0VoSURTa1VqeEMxa3lzTjZoNjNnaEZHSmdFREx4SFQ1ZnB0ZEN2NDdpa3lkdDQ1dzkK",
-      "endpoints": [
-        "https://github.com/opeolluwa/filesync/releases/latest/download/latest.json"
-      ]
-    }
+    ]
   }
 }
