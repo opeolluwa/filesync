@@ -14,8 +14,8 @@
     "windows": [
       {
         "title": "filesync",
-        "width": 1000,
-        "height": 800
+        "width": 800,
+        "height": 600
       }
     ],
     "security": {

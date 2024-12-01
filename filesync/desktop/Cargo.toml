@@ -1,0 +1,18 @@
+[package]
+name = "desktop_ui"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+leptos = { workspace = true, features = ["csr"] }
+wasm-bindgen = { workspace = true }
+wasm-bindgen-futures = { workspace = true }
+js-sys = { workspace = true }
+serde = { workspace = true, features = ["derive"] }
+serde-wasm-bindgen = { workspace = true }
+console_error_panic_hook = { workspace = true }
+thaw = { workspace = true, features = ["csr"] }
+leptos-remix-icon = { workspace = true }
+leptos_router = { workspace = true, features = ["csr"] }
+leptos-use = { workspace = true }
+leptos_toaster = { workspace = true, features = ["csr"] }

@@ -1,4 +1,11 @@
 {
-  "cSpell.words": ["Adefemi", "Adeoye", "filesync", "fullscreen", "tauri"],
+  "cSpell.words": [
+    "Adefemi",
+    "Adeoye",
+    "filesync",
+    "fullscreen",
+    "leptos",
+    "tauri"
+  ],
   "java.configuration.updateBuildConfiguration": "interactive"
 }
