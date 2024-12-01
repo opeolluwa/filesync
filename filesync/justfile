@@ -5,11 +5,6 @@ alias b:= build
 alias l:= lint
 alias install := install-dependencies
 
-# set dotenv-required
-# set dotenv-load := true
-# set dotenv-path := "./.envrc"
-# set export :=  true
-
 APP_NAME := "filesync"
 MINIMUM_STABLE_RUST_VERSION :="1.83.0"
 EXPORT_PATH := "bin"
@@ -34,6 +29,7 @@ watch target:
     export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
+    
     if [ $target = "android" ]; then
         cargo tauri android dev 
     elif [ $target = "ios" ]; then 
