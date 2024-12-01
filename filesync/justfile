@@ -29,7 +29,6 @@ lint:
     cargo fmt && cargo clippy
 
 [doc('Run the application in watch mode')]
-[group('watch')]
 watch target:
     #!/usr/bin/env sh
     export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
@@ -40,7 +39,7 @@ watch target:
     elif [ $target = "ios" ]; then 
         cargo tauri ios dev 
     elif [ $target = "style" ]; then
-        npx tailwindcss -i ./main.css -o ./style/output.css --watch
+        npx tailwindcss -i ./main.css -o ./style/output.css --watch --minify
     else
         cargo tauri dev
     fi

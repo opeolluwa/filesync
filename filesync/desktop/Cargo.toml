@@ -16,3 +16,4 @@ leptos-remix-icon = { workspace = true }
 leptos_router = { workspace = true, features = ["csr"] }
 leptos-use = { workspace = true }
 leptos_toaster = { workspace = true, features = ["csr"] }
+filesync_icons = { path = "../icons", version = "*" }

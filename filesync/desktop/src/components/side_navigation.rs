@@ -1,54 +1,45 @@
-use leptos::{view, CollectView};
+use filesync_icons::{
+    arrow_left_right_icon::ArrowLeftRightIconSolid, info_icon::InformationIconOutline,
+    settings_icon::SettingsIconOutline, share_icon::ShareIconSolid,
+};
+use leptos::{view, IntoView};
 
-#[derive(Debug)]
-pub struct Route {
-    pub label: String,
-    pub route: String,
-    pub icon_class: String,
-    pub is_active: bool,
-}
+// use filesync_icons::icons::{
 
-impl Route {
-    pub fn new(label: &str, route: &str, icon_class: &str) -> Self {
-        Self {
-            label: label.to_string(),
-            route: route.to_string(),
-            icon_class: icon_class.to_string(),
-            is_active: false,
-        }
+#[leptos::component]
+pub fn SideNavigationRoute<F>(
+    label: &'static str,
+    href: &'static str,
+    icon: F,
+) -> impl leptos::IntoView
+where
+    F: IntoView,
+{
+    view! {
+        <a
+            href=href
+            class="text-gray-500 flex flex-col justify-center items-center dark:hover:bg-gray-700/40 hover:bg-app-50 hover:text-app p-3 w-full rounded-lg"
+        >
+            {icon}
+            <span class="sr-only">{label}</span>
+        </a>
     }
 }
 
 #[leptos::component]
 
 pub fn SideNavigation() -> impl leptos::IntoView {
-    let routes: Vec<Route> = vec![
-        Route::new("transfer", "/", "arrow-left-right-fill"),
-        Route::new("share", "/share", "share-line"),
-        Route::new("settings", "/settings", "settings-5-line"),
-        Route::new("about", "/about", "information-line"),
-    ];
+    let info_icon = InformationIconOutline();
+    let settings_icon = SettingsIconOutline();
+    let transfer_icon = ArrowLeftRightIconSolid();
+    let share_icon = ShareIconSolid();
 
     view! {
         <div class="flex flex-col relative items-center justify-center gap-y-4 px-2">
-            {routes
-                .into_iter()
-                .map(|route| {
-                    let Route { route: path, icon_class, label, .. } = route;
-                    let icon_class = format!("ri-{icon_class} ri-lg");
-                    // TODO: update the current route
-                    view! {
-                        <a
-                            href=path
-                            class="text-gray-500 flex flex-col justify-center items-center dark:hover:bg-gray-700/40 hover:bg-app-50 hover:text-app p-3 w-full rounded-lg"
-                        >
-                            <i class=icon_class></i>
-                            <span class="sr-only">{label}</span>
-                        </a>
-                    }
-                })
-                .collect_view()}
-
+            <SideNavigationRoute label="transfer" href="/transfer" icon=transfer_icon />
+            <SideNavigationRoute label="share" href="/share" icon=share_icon />
+            <SideNavigationRoute label="settings" href="/settings" icon=settings_icon />
+            <SideNavigationRoute label="about" href="/about" icon=info_icon />
         </div>
     }
 }

@@ -1,4 +1,5 @@
 use crate::components::side_navigation::SideNavigation;
+use filesync_icons::sun_icon::SunIconOutline;
 use leptos::{view, Children, SignalGet, SignalSet};
 use leptos_use::{use_color_mode, ColorMode, UseColorModeReturn};
 
@@ -29,7 +30,7 @@ pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
                     class="text-gray-500 flex flex-col justify-center items-center  p-3  rounded-lg absolute bottom-3 left-0 right-0 w-full"
                     on:click=move |_| toggle_theme()
                 >
-                    <i class="ri-sun-line ri-lg" style="box-sizing:border-box"></i>
+                    <SunIconOutline />
                     <span class="sr-only">theme</span>
                 </button>
             </nav>
