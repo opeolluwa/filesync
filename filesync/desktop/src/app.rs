@@ -4,6 +4,9 @@ use wasm_bindgen::prelude::*;
 // use leptos_router::Paren
 use crate::layout::desktop_layout::DesktopLayout;
 use crate::views::about::AboutUI;
+use crate::views::history::HistoryUI;
+use crate::views::settings::SettingsUi;
+use crate::views::share::ShareUI;
 use crate::views::transfer::TransferUI;
 
 #[wasm_bindgen]
@@ -23,6 +26,10 @@ pub fn DesktopApplication() -> impl IntoView {
                 <Routes>
                     <Route path="/" view=TransferUI />
                     <Route path="/about" view=AboutUI />
+                    <Route path="/settings" view=SettingsUi />
+                    <Route path="/share" view=ShareUI />
+                    <Route path="/about" view=HistoryUI />
+
                 </Routes>
             </Router>
         </DesktopLayout>

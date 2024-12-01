@@ -5,21 +5,16 @@ pub struct Route {
     pub label: String,
     pub route: String,
     pub icon_class: String,
+    pub is_active: bool,
 }
 
 impl Route {
-    pub fn _action<F>(&self, _closure: F) -> ()
-    where
-        F: Fn(),
-    {
-    }
-
-    /// Creates a new `Route`.
     pub fn new(label: &str, route: &str, icon_class: &str) -> Self {
         Self {
             label: label.to_string(),
             route: route.to_string(),
             icon_class: icon_class.to_string(),
+            is_active: false,
         }
     }
 }
@@ -39,11 +34,12 @@ pub fn SideNavigation() -> impl leptos::IntoView {
             {routes
                 .into_iter()
                 .map(|route| {
-                    let Route { route, icon_class, label } = route;
+                    let Route { route: path, icon_class, label, .. } = route;
                     let icon_class = format!("ri-{icon_class} ri-lg");
+                    // TODO: update the current route
                     view! {
                         <a
-                            href=route
+                            href=path
                             class="text-gray-500 flex flex-col justify-center items-center dark:hover:bg-gray-700/40 hover:bg-app-50 hover:text-app p-3 w-full rounded-lg"
                         >
                             <i class=icon_class></i>

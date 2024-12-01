@@ -33,7 +33,7 @@ pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
                     <span class="sr-only">theme</span>
                 </button>
             </nav>
-            <main class="col-span-11 pt-2 px-4 overflow-y-scroll">{children}</main>
+            <main class="col-span-11 py-4 px-4 overflow-y-scroll">{children}</main>
         </div>
     }
 }

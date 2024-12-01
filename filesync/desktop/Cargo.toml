@@ -15,3 +15,4 @@ thaw = { workspace = true, features = ["csr"] }
 leptos-remix-icon = { workspace = true }
 leptos_router = { workspace = true, features = ["csr"] }
 leptos-use = { workspace = true }
+leptos_toaster = { workspace = true, features = ["csr"] }
