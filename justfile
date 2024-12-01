@@ -30,11 +30,11 @@ watch target:
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
     
-    if [ $target = "android" ]; then
+    if [ {{target}} = "android" ]; then
         cargo tauri android dev 
-    elif [ $target = "ios" ]; then 
+    elif [ {{target}} = "ios" ]; then 
         cargo tauri ios dev 
-    elif [ $target = "style" ]; then
+    elif [ {{target}} = "style" ]; then
         npx tailwindcss -i ./main.css -o ./style/output.css --watch --minify
     else
         cargo tauri dev
