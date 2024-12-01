@@ -9,5 +9,5 @@ extern "C" {
 
 #[component]
 pub fn MobileApplication() -> impl IntoView {
-    view! { <button>mobile application</button> }
+    view! { <button>mobile applicatsdvl;wkg;ion</button> }
 }

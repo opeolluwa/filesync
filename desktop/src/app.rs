@@ -16,6 +16,7 @@ extern "C" {
 
     #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"], js_name = invoke)]
     pub async fn invoke_without_args(cmd: &str) -> JsValue;
+
 }
 
 #[component]
