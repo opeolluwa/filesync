@@ -1,6 +1,12 @@
 use crate::components::side_navigation::SideNavigation;
 use filesync_icons::sun_icon::SunIconOutline;
-use leptos::{view, Children, SignalGet, SignalSet};
+use leptos::prelude::ElementChild;
+use leptos::{
+    children::Children,
+    prelude::{ClassAttribute, OnAttribute, StyleAttribute},
+    view,
+};
+use leptos_reactive::{SignalGet, SignalSet};
 use leptos_use::{use_color_mode, ColorMode, UseColorModeReturn};
 
 #[leptos::component]

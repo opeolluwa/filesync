@@ -6,13 +6,14 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
 console_error_panic_hook = { workspace = true }
+either = "1.13.0"
 js-sys = { workspace = true }
 leptos = { workspace = true, features = ["csr"] }
 leptos-use = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
-tauri-wasm-bindgen = { path = "./tauri-wasm", version = "*" }
-
+tauri-wasm-bindgen = { workspace = true }
+thaw = { workspace = true, features = ["csr"] }
 
 [dependencies.desktop_ui]
 path = "./desktop"
@@ -30,8 +31,8 @@ version = "*"
 members = ["database", "desktop", "icons", "mobile", "tauri", "tauri-wasm"]
 
 [workspace.dependencies]
-thaw = { version = "0.3.4", features = ["csr"] }
-leptos = { version = "0.6", features = ["csr"] }
+thaw = { version = "0.4.0-beta-5", features = ["csr"] }
+leptos = { version = "0.7.0", features = ["csr"] }
 console_error_panic_hook = "0.1.7"
 js-sys = "0.3"
 serde = "1"
@@ -44,6 +45,8 @@ tauri-plugin-shell = "2"
 wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4"
 leptos-remix-icon = "1.0.3"
-leptos_router = { version = "0.6.15", features = ["csr"] }
+leptos_router = { version = "0.7.0" }
 leptos-use = "0.13.11"
 leptos_toaster = "0.1.7"
+leptos_reactive = "0.6.15"
+tauri-wasm-bindgen = { path = "./tauri-wasm", version = "*" }

@@ -13,7 +13,9 @@ serde-wasm-bindgen = { workspace = true }
 console_error_panic_hook = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
 leptos-remix-icon = { workspace = true }
-leptos_router = { workspace = true, features = ["csr"] }
+leptos_router = { workspace = true }
 leptos-use = { workspace = true }
 leptos_toaster = { workspace = true, features = ["csr"] }
 filesync_icons = { path = "../icons", version = "*" }
+leptos_reactive = { workspace = true }
+tauri-wasm-bindgen = { workspace = true }
