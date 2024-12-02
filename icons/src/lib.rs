@@ -4,3 +4,6 @@ pub mod moon_icon;
 pub mod settings_icon;
 pub mod share_icon;
 pub mod sun_icon;
+pub mod scan_qr_icon;
+pub mod menu_icon;
+pub mod home_icon;

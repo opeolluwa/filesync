@@ -4,7 +4,12 @@ const colors = require("tailwindcss/colors");
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
-  content: ["./index.html", "./src/**/*.rs" ,"./mobile/**/*.rs" ,"desktop/**/*.rs"],
+  content: [
+    "./index.html",
+    "./src/**/*.rs",
+    "./mobile/**/*.rs",
+    "desktop/**/*.rs",
+  ],
   theme: {
     colors: {
       transparent: "transparent",

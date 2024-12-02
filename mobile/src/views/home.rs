@@ -5,7 +5,7 @@ use thaw::Image;
 use thaw::{DrawerBody, DrawerPosition, OverlayDrawer};
 
 #[leptos::component]
-pub fn ScanQrCodeUI() -> impl leptos::IntoView {
+pub fn HomeUI() -> impl leptos::IntoView {
     let open = RwSignal::new(false);
     let setup_instructions = vec![
         "create Wifi Hotspot",
