@@ -1,7 +1,6 @@
 use leptos::*;
 use leptos_router::{Route, Router, Routes};
 use wasm_bindgen::prelude::*;
-// use leptos_router::Paren
 use crate::layout::desktop_layout::DesktopLayout;
 use crate::views::about::AboutUI;
 use crate::views::history::HistoryUI;
@@ -16,6 +15,7 @@ extern "C" {
 
     #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "core"], js_name = invoke)]
     pub async fn invoke_without_args(cmd: &str) -> JsValue;
+
 }
 
 #[component]
@@ -29,7 +29,6 @@ pub fn DesktopApplication() -> impl IntoView {
                     <Route path="/settings" view=SettingsUi />
                     <Route path="/share" view=ShareUI />
                     <Route path="/about" view=HistoryUI />
-
                 </Routes>
             </Router>
         </DesktopLayout>

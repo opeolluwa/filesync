@@ -11,9 +11,8 @@ leptos = { workspace = true, features = ["csr"] }
 leptos-use = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
-thaw = { workspace = true, features = ["csr"] }
-wasm-bindgen = { workspace = true }
-wasm-bindgen-futures = { workspace = true }
+tauri-wasm-bindgen = { path = "./tauri-wasm", version = "*" }
+
 
 [dependencies.desktop_ui]
 path = "./desktop"
@@ -28,7 +27,7 @@ path = "./server"
 version = "*"
 
 [workspace]
-members = [ "database","desktop", "icons", "mobile", "tauri"]
+members = ["database", "desktop", "icons", "mobile", "tauri", "tauri-wasm"]
 
 [workspace.dependencies]
 thaw = { version = "0.3.4", features = ["csr"] }

@@ -10,6 +10,7 @@
     "shell:allow-open",
     "os:default",
     "os:default",
+    "os:default",
     "os:default"
   ]
 }

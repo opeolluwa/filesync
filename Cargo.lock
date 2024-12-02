@@ -1008,9 +1008,7 @@ dependencies = [
  "mobile_ui",
  "serde",
  "serde-wasm-bindgen",
- "thaw",
- "wasm-bindgen",
- "wasm-bindgen-futures",
+ "tauri-wasm-bindgen",
 ]
 
 [[package]]
@@ -2486,8 +2484,10 @@ dependencies = [
  "console_error_panic_hook",
  "js-sys",
  "leptos",
+ "leptos_router",
  "serde",
  "serde-wasm-bindgen",
+ "tauri-wasm-bindgen",
  "thaw",
  "wasm-bindgen",
  "wasm-bindgen-futures",
@@ -4479,6 +4479,15 @@ dependencies = [
  "urlpattern",
  "uuid",
  "walkdir",
+]
+
+[[package]]
+name = "tauri-wasm-bindgen"
+version = "0.1.0"
+dependencies = [
+ "serde-wasm-bindgen",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
 ]
 
 [[package]]
