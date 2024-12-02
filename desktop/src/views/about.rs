@@ -1,15 +1,16 @@
-use leptos::{create_signal, leptos_dom::logging::console_log, spawn_local, view};
+use leptos::prelude::ClassAttribute;
+use leptos::prelude::CustomAttribute;
+use leptos::prelude::ElementChild;
+use leptos::{leptos_dom::logging::console_log, prelude::signal, task::spawn_local, view};
+use tauri_wasm_bindgen::api::invoke::invoke_tauri_command_without_args;
 use thaw::{Flex, FlexAlign, FlexJustify, Image, Text};
-
-use crate::desktop_application::invoke_without_args;
-
 #[leptos::component]
 pub fn AboutUI() -> impl leptos::IntoView {
-    let (app_name, _set_app_name) = create_signal("Filesync");
-    let (app_version, _set_app_version) = create_signal("0.7.9");
+    let (app_name, _set_app_name) = signal("Filesync");
+    let (app_version, _set_app_version) = signal("0.7.9");
 
     spawn_local(async move {
-        let app_config = invoke_without_args("get_app_config").await;
+        let app_config = invoke_tauri_command_without_args("get_app_config").await;
         console_log(&app_config.as_string().unwrap());
     });
 

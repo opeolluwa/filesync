@@ -1,4 +1,6 @@
-use leptos::{view, Children};
+use leptos::prelude::{ClassAttribute, ElementChild};
+use leptos::{children::Children, view};
+
 #[leptos::component]
 
 pub fn DefaultLayout(children: Children) -> impl leptos::IntoView {
