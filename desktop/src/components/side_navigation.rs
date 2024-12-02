@@ -5,8 +5,6 @@ use filesync_icons::{
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{view, IntoView};
 
-
-
 #[leptos::component]
 pub fn SideNavigationRoute<F>(
     label: &'static str,

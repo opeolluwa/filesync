@@ -9,7 +9,7 @@ use crate::views::settings::SettingsUi;
 use crate::views::share::ShareUI;
 
 #[component]
-pub fn MobileApplication() -> impl leptos::IntoView  {
+pub fn MobileApplication() -> impl leptos::IntoView {
     view! {
         <Router>
             <DefaultLayout>
