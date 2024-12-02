@@ -7,3 +7,4 @@ pub mod sun_icon;
 pub mod scan_qr_icon;
 pub mod menu_icon;
 pub mod home_icon;
+pub mod history_icon;

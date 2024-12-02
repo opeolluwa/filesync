@@ -1,4 +1,3 @@
-
 use leptos::prelude::{ClassAttribute, CollectView, ElementChild, RwSignal};
 use leptos::view;
 use thaw::Image;
@@ -12,11 +11,13 @@ pub fn HomeUI() -> impl leptos::IntoView {
         "Initiate connection on Filesync Desktop",
         "Scan Qr Code on desktop to begin",
     ];
-    let folders = vec!["filesync", "audio", "video", "images", "document", "more"];
-
+    let folders = vec![
+        "filesync", "audio", "video", "images", "document", "zipped", "images", "document",
+        "zipped", "recent",
+    ];
 
     view! {
-        <div class="flex flex-col gap-y-5">
+        <div class="flex flex-col gap-y-5 ">
 
             // folders
             <div class="grid grid-cols-2 gap-4 gap-x-6 items-center text-gray-600">
