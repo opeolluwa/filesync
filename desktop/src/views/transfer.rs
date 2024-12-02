@@ -1,4 +1,4 @@
-use leptos::{view, IntoView};
+use leptos::{prelude::*, view, IntoView};
 
 #[leptos::component]
 pub fn TransferUI() -> impl IntoView {

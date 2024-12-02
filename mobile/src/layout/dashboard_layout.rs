@@ -1,5 +1,6 @@
 use leptos::view;
 use thaw::Text;
+
 #[leptos::component]
 pub fn SettingsUi() -> impl leptos::IntoView {
     view! {

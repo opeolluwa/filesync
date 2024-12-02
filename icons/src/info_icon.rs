@@ -1,3 +1,4 @@
+use leptos::prelude::{ClassAttribute, CustomAttribute, ElementChild};
 use leptos::view;
 
 #[leptos::component]

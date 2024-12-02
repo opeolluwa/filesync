@@ -1,5 +1,5 @@
 use leptos::*;
-use leptos_router::{Route, Router, Routes};
+use leptos_router::{components::*, path};
 
 use crate::layout::default_layout::DefaultLayout;
 use crate::views::about::AboutUI;
@@ -13,12 +13,12 @@ pub fn MobileApplication() -> impl IntoView {
     view! {
         <DefaultLayout>
             <Router>
-                <Routes>
-                    <Route path="/" view=ScanQrCodeUI />
-                    <Route path="/about" view=AboutUI />
-                    <Route path="/settings" view=SettingsUi />
-                    <Route path="/share" view=ShareUI />
-                    <Route path="/about" view=HistoryUI />
+                <Routes fallback=|| "Page not found">
+                    <Route path=path!("/") view=ScanQrCodeUI />
+                    <Route path=path!("/about") view=AboutUI />
+                    <Route path=path!("/settings") view=SettingsUi />
+                    <Route path=path!("/share") view=ShareUI />
+                    <Route path=path!("/about") view=HistoryUI />
                 </Routes>
             </Router>
         </DefaultLayout>

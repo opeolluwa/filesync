@@ -2,6 +2,7 @@ use filesync_icons::{
     arrow_left_right_icon::ArrowLeftRightIconSolid, info_icon::InformationIconOutline,
     settings_icon::SettingsIconOutline, share_icon::ShareIconSolid,
 };
+use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{view, IntoView};
 
 // use filesync_icons::icons::{
