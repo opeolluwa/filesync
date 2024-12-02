@@ -46,9 +46,9 @@ build target:
     #!/usr/bin/env sh
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
-    if [ $target = "android" ]; then
+    if [ {{target}} = "android" ]; then
         cargo tauri android build --apk
-    elif [ $target = "ios" ]; then 
+    elif [ {{target}} = "ios" ]; then 
         cargo tauri ios build --aab
     else
         cargo tauri build 
