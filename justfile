@@ -34,7 +34,7 @@ watch target:
         cargo tauri android dev 
     elif [ {{target}} = "ios" ]; then 
         cargo tauri ios dev 
-    elif [ {{target}} = "style" ]; then
+    elif [ {{target}} = "styles" ]; then
         npx tailwindcss -i ./main.css -o ./style/output.css --watch --minify
     else
         cargo tauri dev
