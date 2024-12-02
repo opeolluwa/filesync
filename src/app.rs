@@ -15,10 +15,10 @@ pub fn App() -> impl IntoView {
 
     match device_platform {
         Platform::Android | Platform::Ios => {
-            view! { {device_operating_system} <MobileApplication /> }
+            view! { <MobileApplication /> }
         }
         Platform::Linux | Platform::Mac | Platform::Windows => {
-            view! {{device_operating_system}  <DesktopApplication /> }
+            view! { <DesktopApplication /> }
         }
     }
 }

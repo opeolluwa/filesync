@@ -12,3 +12,5 @@ serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
 console_error_panic_hook = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
+leptos_router = { workspace = true, features = ["csr"] }
+tauri-wasm-bindgen = { path = "../tauri-wasm", version = "*" }

@@ -22,5 +22,5 @@ tauri = { workspace = true, features = [] }
 tauri-plugin-shell = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
-tauri-plugin-os = "2"
+tauri-plugin-os = { workspace = true }
 
