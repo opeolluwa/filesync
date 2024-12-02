@@ -1,11 +1,11 @@
 use crate::platform::Platform;
 use desktop_ui::desktop_application::DesktopApplication;
-use leptos::control_flow::Show;
-use leptos::*;
+use leptos::prelude::{signal, Get, Set};
+use leptos::{component, control_flow::Show, view, IntoView};
 use mobile_ui::mobile_application::MobileApplication;
-use prelude::{signal, Get, Set};
 use std::str::FromStr;
 use tauri_wasm_bindgen::plugins::os::get_device_operating_system;
+use thaw::ConfigProvider;
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -15,11 +15,22 @@ pub fn App() -> impl IntoView {
 
     let device_platform = Platform::from_str(&device_operating_system.get()).unwrap_or_default();
 
-    // let App = match device_platform {
-    //     Platform::Android | Platform::Ios =>  MobileApplication(),
-    //     Platform::Linux | Platform::Mac | Platform::Windows => DesktopApplication(),
-    // };
-
-    view! {<MobileApplication/>}
-    // view! { App }
+    view! {
+        <Show
+            when=move || {
+                device_platform == Platform::Android || device_platform == Platform::Ios
+            }
+            fallback=|| {
+                view! {
+                    <ConfigProvider>
+                        <DesktopApplication />
+                    </ConfigProvider>
+                }
+            }
+        >
+            <ConfigProvider>
+                <MobileApplication />
+            </ConfigProvider>
+        </Show>
+    }
 }
