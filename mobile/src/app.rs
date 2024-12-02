@@ -9,10 +9,10 @@ use crate::views::settings::SettingsUi;
 use crate::views::share::ShareUI;
 
 #[component]
-pub fn MobileApplication() -> impl IntoView {
+pub fn MobileApplication() -> impl leptos::IntoView  {
     view! {
-        <DefaultLayout>
-            <Router>
+        <Router>
+            <DefaultLayout>
                 <Routes fallback=|| "Page not found">
                     <Route path=path!("/") view=ScanQrCodeUI />
                     <Route path=path!("/about") view=AboutUI />
@@ -20,7 +20,7 @@ pub fn MobileApplication() -> impl IntoView {
                     <Route path=path!("/share") view=ShareUI />
                     <Route path=path!("/about") view=HistoryUI />
                 </Routes>
-            </Router>
-        </DefaultLayout>
+            </DefaultLayout>
+        </Router>
     }
 }

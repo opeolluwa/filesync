@@ -11,10 +11,10 @@ use leptos_router::{
 };
 
 #[component]
-pub fn DesktopApplication() -> impl IntoView {
+pub fn DesktopApplication() -> impl leptos::IntoView {
     view! {
-        <DesktopLayout>
-            <Router>
+        <Router>
+            <DesktopLayout>
                 <Routes fallback=|| "Not found.">
                     <Route path=path!("/") view=TransferUI />
                     <Route path=path!("/about") view=AboutUI />
@@ -22,7 +22,7 @@ pub fn DesktopApplication() -> impl IntoView {
                     <Route path=path!("/share") view=ShareUI />
                     <Route path=path!("/about") view=HistoryUI />
                 </Routes>
-            </Router>
-        </DesktopLayout>
+            </DesktopLayout>
+        </Router>
     }
 }

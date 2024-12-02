@@ -1,5 +1,6 @@
 use crate::platform::Platform;
 use desktop_ui::desktop_application::DesktopApplication;
+use leptos::control_flow::Show;
 use leptos::*;
 use mobile_ui::mobile_application::MobileApplication;
 use prelude::{signal, Get, Set};
@@ -14,14 +15,11 @@ pub fn App() -> impl IntoView {
 
     let device_platform = Platform::from_str(&device_operating_system.get()).unwrap_or_default();
 
-    // match device_platform {
-    //     Platform::Android | Platform::Ios => {
-    //         view! { <MobileApplication /> }
-    //     }
-    //     Platform::Linux | Platform::Mac | Platform::Windows => {
-    //         view! { <DesktopApplication /> }
-    //     }
-    // }
+    // let App = match device_platform {
+    //     Platform::Android | Platform::Ios =>  MobileApplication(),
+    //     Platform::Linux | Platform::Mac | Platform::Windows => DesktopApplication(),
+    // };
 
-     view! { <DesktopApplication /> }
+    view! {<MobileApplication/>}
+    // view! { App }
 }

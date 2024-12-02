@@ -6,6 +6,7 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
 console_error_panic_hook = { workspace = true }
+either = "1.13.0"
 js-sys = { workspace = true }
 leptos = { workspace = true, features = ["csr"] }
 leptos-use = { workspace = true }

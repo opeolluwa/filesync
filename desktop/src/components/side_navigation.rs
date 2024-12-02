@@ -5,7 +5,7 @@ use filesync_icons::{
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{view, IntoView};
 
-// use filesync_icons::icons::{
+
 
 #[leptos::component]
 pub fn SideNavigationRoute<F>(
@@ -37,7 +37,7 @@ pub fn SideNavigation() -> impl leptos::IntoView {
 
     view! {
         <div class="flex flex-col relative items-center justify-center gap-y-4 px-2">
-            <SideNavigationRoute label="transfer" href="/transfer" icon=transfer_icon />
+            <SideNavigationRoute label="transfer" href="/" icon=transfer_icon />
             <SideNavigationRoute label="share" href="/share" icon=share_icon />
             <SideNavigationRoute label="settings" href="/settings" icon=settings_icon />
             <SideNavigationRoute label="about" href="/about" icon=info_icon />

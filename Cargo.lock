@@ -1117,6 +1117,7 @@ version = "0.1.0"
 dependencies = [
  "console_error_panic_hook",
  "desktop_ui",
+ "either",
  "js-sys",
  "leptos 0.7.0",
  "leptos-use",
