@@ -17,7 +17,7 @@ where
     view! {
         <a href=href class="flex flex-col items-center p-0 m-0  w-full rounded-lg">
             {icon}
-            <span class="sr-only">{label}</span>
+            <span class="text-sm capitalize">{label}</span>
         </a>
     }
 }
@@ -31,10 +31,10 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
     let history_icon = HistoryIcon();
 
     view! {
-        <nav class="flex items-center justify-between">
+        <nav class="flex items-center justify-between bottom-nav">
             <BottomNavigationRoute label="home" href="/" icon=home_icon />
             <BottomNavigationRoute label="share" href="/share" icon=transfer_icon />
-            <BottomNavigationRoute label="share" href="/share" icon=history_icon />
+            <BottomNavigationRoute label="history" href="/share" icon=history_icon />
             <BottomNavigationRoute label="settings" href="/settings" icon=settings_icon />
 
         </nav>
