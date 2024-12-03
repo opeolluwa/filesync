@@ -12,8 +12,8 @@ pub fn DefaultLayout(children: Children) -> impl leptos::IntoView {
     let ScanQrIcon = ScanQrIcon();
 
     view! {
-        <div class="relative h-screen overflow-y-hidden w-full">
-            <header class="flex fixed top-4 left-0 mb-5 right-0 w-full px-4 justify-between items-center text-gray-600">
+        <div class="relative h-screen overflow-y-scroll w-full">
+            <header class="flex fixed bg-white top-0 py-4 text-gray-500/90 left-0 mb-5 right-0 w-full border-b px-4 justify-between items-center text-gray-600">
                 <button>{MenuIcon}</button>
                 <button>{ScanQrIcon}</button>
             </header>
@@ -23,7 +23,7 @@ pub fn DefaultLayout(children: Children) -> impl leptos::IntoView {
             >
                 {children}
             </main>
-            <nav class="absolute pt-4 mb-0 fixed bottom-0 bg-app/90 rounded-t-lg  shadow-gray-400 w-full left-0 right-0 py-2  text-white shadow-xl py-3 ">
+            <nav class="fixed pt-4 mb-0 fixed bottom-0 z-50 bg-white border-t text-gray-500/90 shadow-gray-400 w-full left-0 right-0 py-3 ">
                 <BottomNavigation />
             </nav>
         </div>

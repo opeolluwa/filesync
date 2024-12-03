@@ -28,7 +28,7 @@ pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
             style="height:100vh; overflow-y: hidden; margin-bottom:0 dark:bg-gray-900"
         >
             <nav
-                class="col-span-1 bg-[rgba(249,250,254,255)] dark:bg-gray-900/50 px-[2px] fixed  text-gray-600 pt-4"
+                class="col-span-1  dark:bg-gray-900/50 px-[2px] fixed  text-gray-600 pt-4"
                 style="height: 100%; overflowY: hidden; position: relative"
             >
                 <SideNavigation />
