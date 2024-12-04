@@ -16,3 +16,8 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
+
+.max-contemt {
+  width: 100%!important;
+  height: 100% !important;
+}

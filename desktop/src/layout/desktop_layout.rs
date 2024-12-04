@@ -1,31 +1,18 @@
-use crate::components::side_navigation::SideNavigation;
-use filesync_icons::sun_icon::SunIconOutline;
-use leptos::leptos_dom::logging::console_log;
+use crate::components::side_navigation::{SideNavigation, SideNavigationRoute};
+use filesync_icons::{info_icon::InformationIconOutline, settings_icon::SettingsIconOutline};
 use leptos::prelude::ElementChild;
 use leptos::{
     children::Children,
-    prelude::{ClassAttribute, OnAttribute, StyleAttribute},
+    prelude::{ClassAttribute, StyleAttribute},
     view,
 };
-use leptos_reactive::{SignalGet, SignalSet};
-use leptos_use::{use_color_mode, use_preferred_dark, ColorMode, UseColorModeReturn};
 
 #[leptos::component]
 pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
     let children = children();
+    let info_icon = InformationIconOutline();
+    let settings_icon = SettingsIconOutline();
 
-    let UseColorModeReturn { mode, set_mode, .. } = use_color_mode();
-    let color_theme = mode.get();
-
-    let toggle_theme = move || {
-        if color_theme == ColorMode::Dark {
-            set_mode.set(ColorMode::Light);
-        }
-        if color_theme == ColorMode::Light {
-            set_mode.set(ColorMode::Dark);
-        }
-        console_log(&format!("color mode {:?}", color_theme));
-    };
     view! {
         <div
             class="grid grid-cols-12 mb-0 pb-0 w-[100vw] gap-x-2"
@@ -36,13 +23,11 @@ pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
                 style="height: 100%; overflowY: hidden; position: relative"
             >
                 <SideNavigation />
-                <button
-                    class="text-gray-500 flex flex-col justify-center items-center  p-3  rounded-lg absolute bottom-3 left-0 right-0 w-full"
-                    on:click=move |_| toggle_theme()
-                >
-                    <SunIconOutline />
-                    <span class="sr-only">theme</span>
-                </button>
+                <div class="divider"></div>
+                <div class="absolute bottom-3 left-0 right-0 w-full">
+                    <SideNavigationRoute label="settings" href="/settings" icon=settings_icon />
+                    <SideNavigationRoute label="about" href="/about" icon=info_icon />
+                </div>
             </nav>
             <main class="col-span-11 py-4 px-4 overflow-y-scroll">{children}</main>
         </div>

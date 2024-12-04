@@ -1,7 +1,6 @@
 use crate::platform::Platform;
 use desktop_ui::desktop_application::DesktopApplication;
-use leptos::leptos_dom::logging::console_log;
-use leptos::prelude::{signal, Get, RwSignal, Set};
+use leptos::prelude::{signal, Get, Set};
 use leptos::{component, control_flow::Show, view, IntoView};
 use mobile_ui::mobile_application::MobileApplication;
 use std::str::FromStr;
@@ -16,24 +15,16 @@ pub fn App() -> impl IntoView {
 
     let device_platform = Platform::from_str(&device_operating_system.get()).unwrap_or_default();
 
-
-
     view! {
         <Show
             when=move || {
                 device_platform == Platform::Android || device_platform == Platform::Ios
             }
             fallback=move || {
-                view! {
-                    // <ConfigProvider theme>
-                        <DesktopApplication />
-                    // </ConfigProvider>
-                }
+                view! { <DesktopApplication /> }
             }
         >
-            // <ConfigProvider theme>
-                <MobileApplication />
-            // </ConfigProvider>
+            <MobileApplication />
         </Show>
     }
 }
