@@ -1,10 +1,12 @@
-use leptos::{prelude::*, view, IntoView};
+use leptos::prelude::{CollectView, ElementChild};
+use leptos::{prelude::ClassAttribute, view, IntoView};
 use leptos_qr::QrCode;
+use thaw::Text;
 
 #[leptos::component]
 pub fn TransferUI() -> impl IntoView {
-    let sender_dialog_is_open = true;
-    let receiver_dialog_is_open = false;
+    // let sender_dialog_is_open = true;
+    // let receiver_dialog_is_open = false;
 
     // if sender_dialog_is_open == true {
     //     view! {{ SenderUi()} }
@@ -12,7 +14,8 @@ pub fn TransferUI() -> impl IntoView {
     //     view! {{ ReceiveUI()} }
     // }
 
- view!{   <DefaultUI/>}
+    //  view!{   <DefaultUI/>}
+    view! { <SenderUI /> }
 }
 
 #[leptos::component]
@@ -68,13 +71,12 @@ pub fn DefaultUI() -> impl leptos::IntoView {
                     </div>
                 </div>
             </div>
-            */
         </div>
     }
 }
 
 #[leptos::component]
-pub fn SenderUi() -> impl leptos::IntoView {
+pub fn SenderUI() -> impl leptos::IntoView {
     let send_steps = [
         "Create Wi-fi hostpot on yor phone",
         "Connect your Laptop the phone hotspot",
@@ -84,15 +86,22 @@ pub fn SenderUi() -> impl leptos::IntoView {
     ];
 
     view! {
-        <div class="text-center flex flex-col align-center justify-center items-center h-[500px]">
-            <ol>{send_steps.map(|step| view! { <li>{step}</li> }).collect_view()}</ol>
-            <QrCode
-                data="Hello, World!"
-                ecl=leptos_qr::ECL::Q
-                shape=leptos_qr::Shape::RoundedSquare
-                fg_color="#111111"
-                bg_color="#dddddd"
-            />
+        <div>
+            <Text class="font-medium leading-2 text-xl text-gray-700 dark:text-gray-400">
+                Connect mobile
+            </Text>
+            <ol class="list-decimal list-inside pl-2 ml-4 mt-4 ">
+                {send_steps.map(|step| view! { <li>{step}</li> }).collect_view()}
+            </ol>
+            <div class="w-48 h-48 hidden ">
+                <QrCode
+                    data="Hello, World!"
+                    ecl=leptos_qr::ECL::Q
+                    shape=leptos_qr::Shape::RoundedSquare
+                    fg_color="#111111"
+                    bg_color="#dddddd"
+                />
+            </div>
         </div>
     }
 }

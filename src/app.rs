@@ -20,9 +20,7 @@ pub fn App() -> impl IntoView {
                 device_platform == Platform::Android || device_platform == Platform::Ios
             }
             fallback=|| {
-                view! {
-                    <DesktopApplication />
-                }
+                view! { <DesktopApplication /> }
             }
         >
             <MobileApplication />
