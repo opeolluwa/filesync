@@ -2,7 +2,7 @@ use leptos::prelude::{ClassAttribute, CustomAttribute, ElementChild};
 use leptos::view;
 
 #[leptos::component]
-pub fn MoonIconOutline(class: String) -> impl leptos::IntoView {
+pub fn MoonIconOutline() -> impl leptos::IntoView {
     view! {
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -10,7 +10,7 @@ pub fn MoonIconOutline(class: String) -> impl leptos::IntoView {
             viewBox="0 0 24 24"
             stroke-width="1.5"
             stroke="currentColor"
-            class=format!("size-6 {class}")
+            class="size-6"
         >
             <path
                 stroke-linecap="round"

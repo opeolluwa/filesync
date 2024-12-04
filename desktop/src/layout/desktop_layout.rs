@@ -1,5 +1,6 @@
 use crate::components::side_navigation::SideNavigation;
 use filesync_icons::sun_icon::SunIconOutline;
+use leptos::leptos_dom::logging::console_log;
 use leptos::prelude::ElementChild;
 use leptos::{
     children::Children,
@@ -7,13 +8,15 @@ use leptos::{
     view,
 };
 use leptos_reactive::{SignalGet, SignalSet};
-use leptos_use::{use_color_mode, ColorMode, UseColorModeReturn};
+use leptos_use::{use_color_mode, use_preferred_dark, ColorMode, UseColorModeReturn};
 
 #[leptos::component]
 pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
     let children = children();
+
     let UseColorModeReturn { mode, set_mode, .. } = use_color_mode();
     let color_theme = mode.get();
+
     let toggle_theme = move || {
         if color_theme == ColorMode::Dark {
             set_mode.set(ColorMode::Light);
@@ -21,6 +24,7 @@ pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
         if color_theme == ColorMode::Light {
             set_mode.set(ColorMode::Dark);
         }
+        console_log(&format!("color mode {:?}", color_theme));
     };
     view! {
         <div
