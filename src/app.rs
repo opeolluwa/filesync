@@ -5,7 +5,6 @@ use leptos::{component, control_flow::Show, view, IntoView};
 use mobile_ui::mobile_application::MobileApplication;
 use std::str::FromStr;
 use tauri_wasm_bindgen::plugins::os::get_device_operating_system;
-// use thaw::{ConfigProvider, Theme};
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -20,8 +19,10 @@ pub fn App() -> impl IntoView {
             when=move || {
                 device_platform == Platform::Android || device_platform == Platform::Ios
             }
-            fallback=move || {
-                view! { <DesktopApplication /> }
+            fallback=|| {
+                view! {
+                    <DesktopApplication />
+                }
             }
         >
             <MobileApplication />

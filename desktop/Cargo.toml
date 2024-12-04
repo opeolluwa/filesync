@@ -19,4 +19,4 @@ leptos_toaster = { workspace = true, features = ["csr"] }
 filesync_icons = { path = "../icons", version = "*" }
 leptos_reactive = { workspace = true }
 tauri-wasm-bindgen = { workspace = true }
-fast_qr = { version = "0.12.6", features = ["image", "svg"] }
+leptos-qr = { git = "https://github.com/opeolluwa/leptos-qr", version = "0.2.0" }
