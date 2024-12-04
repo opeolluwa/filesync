@@ -1,4 +1,4 @@
-use crate::layout::desktop_layout::DesktopLayout;
+use crate::{layout::desktop_layout::DesktopLayout, views::home::HomeUI};
 use crate::views::about::AboutUI;
 use crate::views::history::HistoryUI;
 use crate::views::settings::SettingsUi;
@@ -17,10 +17,11 @@ pub fn DesktopApplication() -> impl leptos::IntoView {
             <DesktopLayout>
                 <Routes fallback=|| "Not found.">
                     <Route path=path!("/") view=TransferUI />
+                    <Route path=path!("/home") view=HomeUI />
                     <Route path=path!("/about") view=AboutUI />
                     <Route path=path!("/settings") view=SettingsUi />
                     <Route path=path!("/share") view=ShareUI />
-                    <Route path=path!("/about") view=HistoryUI />
+                    <Route path=path!("/history") view=HistoryUI />
                 </Routes>
             </DesktopLayout>
         </Router>
