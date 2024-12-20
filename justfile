@@ -2,7 +2,6 @@
 
 alias w:= watch
 alias b:= build
-alias l:= lint
 alias install := install-dependencies
 alias pack := package
 
@@ -24,7 +23,7 @@ install-dependencies:
 
 
 [doc('Lint')]
-lint:
+fmt:
     cargo fmt && cargo clippy
 
 [doc('Run the application in watch mode')]

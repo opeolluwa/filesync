@@ -1,9 +1,9 @@
-use crate::{layout::desktop_layout::DesktopLayout, views::home::HomeUI};
 use crate::views::about::AboutUI;
 use crate::views::history::HistoryUI;
 use crate::views::settings::SettingsUi;
 use crate::views::share::ShareUI;
 use crate::views::transfer::TransferUI;
+use crate::{layout::desktop_layout::DesktopLayout, views::home::HomeUI};
 use leptos::*;
 use leptos_router::{
     components::{Route, Router, Routes},
