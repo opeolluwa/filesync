@@ -27,7 +27,7 @@ path = "./server"
 version = "*"
 
 [workspace]
-members = ["database", "desktop", "icons", "mobile", "tauri", "tauri-wasm"]
+members = ["database", "desktop", "icons", "js_bindgen", "mobile", "tauri", "tauri-wasm"]
 
 [workspace.dependencies]
 thaw = { version = "0.4.0-beta-5", features = ["csr"] }
