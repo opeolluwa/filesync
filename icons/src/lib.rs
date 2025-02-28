@@ -1,4 +1,5 @@
 pub mod arrow_left_right_icon;
+pub mod chevron;
 pub mod history_icon;
 pub mod home_icon;
 pub mod info_icon;

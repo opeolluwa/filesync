@@ -1,14 +1,11 @@
 // return all the routes as /api/<route-path>
-
 use axum::{
     routing::{get, post},
     Router,
 };
 
-use super::routes::{
-    accept_file_upload, get_file, handle_404,
-    health_check, 
-};
+use super::routes::{accept_file_upload, get_file, handle_404, health_check};
+
 // use memory_serve::{load_assets, MemoryServe};
 
 // the app is moved here to allow sharing across test modules

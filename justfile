@@ -24,7 +24,11 @@ install-dependencies:
 
 [doc('Lint')]
 fmt:
-    cargo fmt && cargo clippy
+    cargo fmt
+    cargo clippy
+    leptosfmt .
+    cargo sort -w 
+    cargo group-imports --fix 
 
 [doc('Run the application in watch mode')]
 watch target:
