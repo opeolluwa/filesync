@@ -16,7 +16,7 @@ pub fn SendScreen() -> impl leptos::IntoView {
     ];
 
     view! {
-      <TransferLayout>
+      <TransferLayout action=shared::r#enum::TransferAction::Send>
         <div class="pl-3">
             <Text class="font-medium leading-2 text-xl text-gray-700 dark:text-gray-400">
                 Connect mobile

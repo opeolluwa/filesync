@@ -4,3 +4,4 @@ use wasm_bindgen::prelude::*;
 extern "C" {
     pub fn is_active_route(route: &str) -> bool;
 }
+

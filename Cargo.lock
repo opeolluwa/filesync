@@ -872,6 +872,7 @@ dependencies = [
  "leptos_toaster",
  "serde",
  "serde-wasm-bindgen",
+ "shared",
  "tauri-wasm-bindgen",
  "thaw",
  "wasm-bindgen",
@@ -4433,6 +4434,10 @@ dependencies = [
  "cpufeatures",
  "digest",
 ]
+
+[[package]]
+name = "shared"
+version = "0.1.0"
 
 [[package]]
 name = "shared_child"

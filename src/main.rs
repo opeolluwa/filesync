@@ -1,6 +1,7 @@
 mod app;
 mod platform;
 use app::*;
+
 use leptos::*;
 use mount::mount_to_body;
 

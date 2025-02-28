@@ -3,20 +3,23 @@ use leptos::prelude::{ClassAttribute, ElementChild, OnAttribute};
 use leptos::{prelude::Children, view};
 
 use filesync_icons::chevron::ChevronLeftIcon;
-use js_bindgen::go_to_prev_location::go_to_prev_location;
+use shared::r#enum::TransferAction;
+use thaw::Text;
 
 #[leptos::component]
-pub fn TransferLayout(children: Children) -> impl leptos::IntoView {
+pub fn TransferLayout(children: Children, action: TransferAction) -> impl leptos::IntoView {
     let children = children();
     let go_back_icon = ChevronLeftIcon();
-
+    let transfer_action = action.to_string();
     view! {
         <header
-            class="text-gray-500 flex flex-col justify-center items-center dark:hover:bg-gray-700/40 hover:bg-app-50 hover:text-app p-3 w-full rounded-lg"
+            class="text-gray-500 inline-flex  p-2 rounded"
             on:click=move |_| change_location_to("/")
         >
-            view!
-            {go_back_icon}
+
+            {go_back_icon}  <Text class="font-medium leading-2 text-xl text-gray-700 dark:text-gray-400">
+             {transfer_action}
+            </Text>
         </header>
         <main class="py-4 px-4 overflow-y-scroll h-screen">
 
