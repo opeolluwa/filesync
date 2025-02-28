@@ -1,3 +1,4 @@
+use js_bindgen::navigate::change_location_to;
 use leptos::prelude::{ClassAttribute, ElementChild, OnAttribute};
 use leptos::{prelude::Children, view};
 
@@ -12,7 +13,7 @@ pub fn TransferLayout(children: Children) -> impl leptos::IntoView {
     view! {
         <header
             class="text-gray-500 flex flex-col justify-center items-center dark:hover:bg-gray-700/40 hover:bg-app-50 hover:text-app p-3 w-full rounded-lg"
-            on:click=move |_| go_to_prev_location()
+            on:click=move |_| change_location_to("/")
         >
             view!
             {go_back_icon}

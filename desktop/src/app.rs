@@ -17,7 +17,7 @@ pub fn DesktopApplication() -> impl leptos::IntoView {
     view! {
         <Router>
             <DesktopLayout>
-                <Routes fallback=|| "Not found.">
+                <Routes transition=true fallback=|| "Not found.">
                     <Route path=path!("/") view=TransferScreen />
                     <Route path=path!("/send") view=SendScreen />
                     <Route path=path!("/receive") view=ReceiveScreen />
