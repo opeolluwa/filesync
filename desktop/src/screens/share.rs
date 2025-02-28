@@ -3,7 +3,7 @@ use leptos::view;
 use thaw::{FileList, Upload, UploadDragger};
 
 #[leptos::component]
-pub fn ShareUI() -> impl leptos::IntoView {
+pub fn ShareScreen() -> impl leptos::IntoView {
     let custom_request = move |file_list: FileList| {
         let _len = file_list.length();
         println!("heheh")

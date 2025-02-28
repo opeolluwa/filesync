@@ -1,9 +1,9 @@
-use crate::views::about::AboutUI;
-use crate::views::history::HistoryUI;
-use crate::views::settings::SettingsUi;
-use crate::views::share::ShareUI;
-use crate::views::transfer::TransferUI;
-use crate::{layout::desktop_layout::DesktopLayout, views::home::HomeUI};
+use crate::screens::about::AboutScreen;
+use crate::screens::history::HistoryScreen;
+use crate::screens::settings::SettingsScreen;
+use crate::screens::share::ShareScreen;
+use crate::screens::welcome::select_action::TransferScreen;
+use crate::{layout::desktop_layout::DesktopLayout, screens::home::HomeScreen};
 use leptos::*;
 use leptos_router::{
     components::{Route, Router, Routes},
@@ -16,12 +16,12 @@ pub fn DesktopApplication() -> impl leptos::IntoView {
         <Router>
             <DesktopLayout>
                 <Routes fallback=|| "Not found.">
-                    <Route path=path!("/") view=TransferUI />
-                    <Route path=path!("/home") view=HomeUI />
-                    <Route path=path!("/about") view=AboutUI />
-                    <Route path=path!("/settings") view=SettingsUi />
-                    <Route path=path!("/share") view=ShareUI />
-                    <Route path=path!("/history") view=HistoryUI />
+                    <Route path=path!("/") view=TransferScreen />
+                    <Route path=path!("/home") view=HomeScreen />
+                    <Route path=path!("/about") view=AboutScreen />
+                    <Route path=path!("/settings") view=SettingsScreen />
+                    <Route path=path!("/share") view=ShareScreen />
+                    <Route path=path!("/history") view=HistoryScreen />
                 </Routes>
             </DesktopLayout>
         </Router>
