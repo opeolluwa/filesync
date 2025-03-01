@@ -1,37 +1,23 @@
-use leptos::prelude::ElementChild;
-use leptos::{
-    children::Children,
-    prelude::{ClassAttribute, StyleAttribute},
-    view,
-};
+use filesync_icons::cloud::CloudUploadIcon;
+use leptos::prelude::{ClassAttribute, ElementChild, OnAttribute};
+use leptos::{prelude::Children, view};
 
-use filesync_icons::{info_icon::InformationIconOutline, settings_icon::SettingsIconOutline};
+use filesync_icons::chevron::ChevronLeftIcon;
+use js_bindgen::navigate::change_location_to;
 
-use crate::components::side_navigation::{SideNavigation, SideNavigationRoute};
+use crate::components::toolbar::Toolbar;
 
 #[leptos::component]
 pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
     let children = children();
-    let info_icon = InformationIconOutline();
-    let settings_icon = SettingsIconOutline();
-
     view! {
-        <div
-            class="grid grid-cols-12 mb-0 pb-0 w-[100vw] gap-x-2"
-            style="height:100vh; overflow-y: hidden; margin-bottom:0 dark:bg-gray-900"
-        >
-            <nav
-                class="col-span-1  dark:bg-gray-900/50 px-[2px] fixed  text-gray-600 pt-4 hidden"
-                style="height: 100%; overflowY: hidden; position: relative"
-            >
-                <SideNavigation />
-                <div class="divider"></div>
-                <div class="absolute bottom-3 left-0 right-0 w-full">
-                    <SideNavigationRoute label="settings" href="/settings" icon=settings_icon />
-                    <SideNavigationRoute label="about" href="/about" icon=info_icon />
-                </div>
-            </nav>
-            <main class="col-span-12 py-4 px-4 overflow-y-scroll h-screen">{children}</main>
-        </div>
+        <header on:click=move |_| change_location_to("/") class="flex justify-between items-center">
+            <ChevronLeftIcon />
+            <CloudUploadIcon class="animate-pulse" />
+        </header>
+        <main class="py-4 px-4 overflow-y-scroll">{children}</main>
+        <footer class="w-[60%] mx-auto rounded-full fixed bottom-10 left-0 right-0 z-50 border-gray-600 border-[0.75px] shadow-lg py-0">
+            <Toolbar />
+        </footer>
     }
 }

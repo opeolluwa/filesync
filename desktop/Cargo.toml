@@ -15,6 +15,7 @@ leptos-use = { workspace = true }
 leptos_reactive = { workspace = true }
 leptos_router = { workspace = true }
 leptos_toaster = { workspace = true, features = ["csr"] }
+rayon = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
 shared = { version = "0.1.0", path = "../shared" }
@@ -23,4 +24,3 @@ thaw = { workspace = true, features = ["csr"] }
 wasm-bindgen = { workspace = true }
 wasm-bindgen-futures = { workspace = true }
 web-sys = { workspace = true }
-rayon = { workspace = true }
