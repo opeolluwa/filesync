@@ -5,8 +5,6 @@ use leptos::{
     view,
 };
 
-
-
 #[leptos::component]
 pub fn DefaultLayout(children: Children) -> impl leptos::IntoView {
     let children = children();

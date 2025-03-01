@@ -9,12 +9,12 @@ console_error_panic_hook = { workspace = true }
 js-sys = { workspace = true }
 leptos = { workspace = true, features = ["csr"] }
 leptos-use = { workspace = true, features = ["use_active_element"] }
+# wasm-bindgen-rayon = { workspace = true, features = [], version = "^1.2" }
+rayon = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
 tauri-wasm-bindgen = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
-# wasm-bindgen-rayon = { workspace = true, features = [], version = "^1.2" }
-rayon = { workspace = true }
 
 [dependencies.desktop_ui]
 path = "./desktop"

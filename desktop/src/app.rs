@@ -1,4 +1,3 @@
-use crate::layout::desktop_layout::DesktopLayout;
 use crate::screens::about::AboutScreen;
 use crate::screens::history::HistoryScreen;
 use crate::screens::settings::SettingsScreen;
@@ -19,23 +18,17 @@ pub fn DesktopApplication() -> impl leptos::IntoView {
         <Router>
             <DefaultLayout>
                 <Routes transition=true fallback=|| "Not found.">
-                    // <Route path=path!("/") view=TransferScreen />
-                    <Route path=path!("/") view=HomeScreen />
-                </Routes>
-            </DefaultLayout>
-
-            <DesktopLayout>
-                <Routes transition=true fallback=|| "Not found.">
+                    <Route path=path!("/") view=TransferScreen />
+                    <Route path=path!("/home") view=HomeScreen />
                     <Route path=path!("/send") view=SendScreen />
                     <Route path=path!("/receive") view=ReceiveScreen />
-                    <Route path=path!("/home") view=HomeScreen />
                     <Route path=path!("/about") view=AboutScreen />
                     <Route path=path!("/settings") view=SettingsScreen />
                     <Route path=path!("/share") view=ShareScreen />
                     <Route path=path!("/history") view=HistoryScreen />
                 </Routes>
 
-            </DesktopLayout>
+            </DefaultLayout>
         </Router>
     }
 }

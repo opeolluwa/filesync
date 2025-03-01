@@ -1,3 +1,4 @@
+use js_bindgen::navigate::change_location_to;
 use leptos::prelude::{ClassAttribute, CustomAttribute, ElementChild};
 use leptos::view;
 use thaw::{FileList, Upload, UploadDragger};
@@ -13,8 +14,8 @@ pub fn SendScreen() -> impl leptos::IntoView {
         //TODO: use parallel processing
         for index in 0..=total_number_of_files {
             let file_name = file_list.item(index).unwrap().name();
-            let file_blob: js_sys::Promise = file_list.item(index).unwrap().array_buffer();
-
+            let _web_sysfile_blob: js_sys::Promise = file_list.item(index).unwrap().array_buffer();
+            change_location_to("/home");
             console::log_1(&file_name.into());
         }
 
@@ -23,7 +24,7 @@ pub fn SendScreen() -> impl leptos::IntoView {
     };
 
     view! {
-        <WelcomeScreenLayout action=shared::r#enum::TransferAction::Send>
+        <WelcomeScreenLayout label="Send">
             <Upload
                 multiple=true
                 custom_request
