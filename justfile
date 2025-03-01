@@ -6,6 +6,7 @@ alias install := install-dependencies
 alias pack := package
 
 APP_NAME := "filesync"
+APP_VERSION :="0.7.15"
 MINIMUM_STABLE_RUST_VERSION :="1.83.0"
 BINARIES_PATH := "bin"
 EXPORT_PATH := "packages"
@@ -70,7 +71,7 @@ build target:
 
 
 [doc("Export binaries into $PWD/bin")]
-export target: 
+ship target: 
     #!/usr/bin/env sh
     # mkdir bin 
     if [ {{target}} = "all" ]; then 
@@ -84,7 +85,7 @@ export target:
     elif [ {{target}} = "ios" ]; then 
         cp tauri/gen/android/app/build/outputs/bundle/universalRelease/app-universal-release.aab {{BINARIES_PATH}}/{{APP_NAME}}.aab
     elif [ {{target}} = "macos" ]; then
-        cp tauri/target/release/bundle/dmg/filesync_0.7.13_aarch64.dmg {{BINARIES_PATH}}/{{APP_NAME}}.dmg
+        cp target/release/bundle/dmg/filesync_{{APP_VERSION}}_aarch64.dmg {{BINARIES_PATH}}/{{APP_NAME}}-{{APP_VERSION}}.dmg
     else 
         echo "Unspported target"
         exit 1;

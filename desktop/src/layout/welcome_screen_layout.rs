@@ -7,7 +7,7 @@ use shared::r#enum::TransferAction;
 use thaw::Text;
 
 #[leptos::component]
-pub fn TransferLayout(children: Children, action: TransferAction) -> impl leptos::IntoView {
+pub fn WelcomeScreenLayout(children: Children, action: TransferAction) -> impl leptos::IntoView {
     let children = children();
     let go_back_icon = ChevronLeftIcon();
     let transfer_action = action.to_string();
@@ -17,8 +17,9 @@ pub fn TransferLayout(children: Children, action: TransferAction) -> impl leptos
             on:click=move |_| change_location_to("/")
         >
 
-            {go_back_icon}  <Text class="font-medium leading-2 text-xl text-gray-700 dark:text-gray-500 capitalize pl-1">
-             {transfer_action}
+            {go_back_icon}
+            <Text class="font-medium leading-2 text-xl text-gray-700 dark:text-gray-500 capitalize pl-1">
+                {transfer_action}
             </Text>
         </header>
         <main class="py-4 px-4 overflow-y-scroll">
