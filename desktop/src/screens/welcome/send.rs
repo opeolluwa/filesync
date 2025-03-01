@@ -3,6 +3,8 @@ use leptos::view;
 use thaw::{FileList, Upload, UploadDragger};
 use web_sys::console;
 
+use crate::layout::transfer_layout::TransferLayout;
+
 #[leptos::component]
 pub fn SendScreen() -> impl leptos::IntoView {
     let custom_request = move |file_list: FileList| {
@@ -21,12 +23,13 @@ pub fn SendScreen() -> impl leptos::IntoView {
     };
 
     view! {
+        <TransferLayout action=shared::r#enum::TransferAction::Send>
         <Upload
             multiple=true
             custom_request
             class="w-full border-[2px] border-app-200/50 dark:border-gray-600/50 h-full flex justify-center items-center dark:bg-gray-900/20 rounded border-dashed border"
         >
-            <UploadDragger class="flex flex-col  justify-center items-center h-inherit size-full border-app/20 border-2  w-[89vw] h-[93vh]">
+            <UploadDragger class="flex flex-col  justify-center items-center h-inherit size-full border-app/20 border-2  w-[89vw] h-[80vh]">
                 <div class="flex flex-col justify-center items-center text-gray-400">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -47,6 +50,7 @@ pub fn SendScreen() -> impl leptos::IntoView {
                 </div>
             </UploadDragger>
         </Upload>
+        </TransferLayout>
     }
 
     // let send_steps = [
