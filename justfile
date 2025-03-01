@@ -24,7 +24,11 @@ install-dependencies:
 
 [doc('Lint')]
 fmt:
-    cargo fmt && cargo clippy
+    cargo fmt
+    cargo clippy
+    leptosfmt .
+    cargo sort -w 
+    cargo group-imports --fix 
 
 [doc('Run the application in watch mode')]
 watch target:
@@ -38,7 +42,7 @@ watch target:
     elif [ {{target}} = "ios" ]; then 
         cargo tauri ios dev 
     elif [ {{target}} = "styles" ]; then
-        npx tailwindcss -i ./main.css -o ./style/output.css --watch --minify
+        npx tailwindcss -i ./style/main.css -o ./style/app.css --watch --minify
     else
         cargo tauri dev
     fi

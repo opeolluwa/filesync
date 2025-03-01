@@ -1,8 +1,10 @@
-use crate::mobile_application_components::bottom_navigation::BottomNavigation;
-use filesync_icons::menu_icon::MenuIcon;
-use filesync_icons::scan_qr_icon::ScanQrIcon;
 use leptos::prelude::{ClassAttribute, ElementChild, StyleAttribute};
 use leptos::{children::Children, view};
+
+use filesync_icons::menu_icon::MenuIcon;
+use filesync_icons::scan_qr_icon::ScanQrIcon;
+
+use crate::mobile_application_components::bottom_navigation::BottomNavigation;
 
 #[leptos::component]
 

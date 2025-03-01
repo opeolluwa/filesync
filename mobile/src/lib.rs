@@ -4,6 +4,5 @@ pub mod mobile_application;
 pub mod mobile_application_components;
 #[path = "layout/mod.rs"]
 pub mod mobile_application_layout;
-
 #[path = "views/mod.rs"]
 pub mod mobile_application_views;

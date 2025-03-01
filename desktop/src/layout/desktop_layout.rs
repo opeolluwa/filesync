@@ -1,11 +1,13 @@
-use crate::components::side_navigation::{SideNavigation, SideNavigationRoute};
-use filesync_icons::{info_icon::InformationIconOutline, settings_icon::SettingsIconOutline};
 use leptos::prelude::ElementChild;
 use leptos::{
     children::Children,
     prelude::{ClassAttribute, StyleAttribute},
     view,
 };
+
+use filesync_icons::{info_icon::InformationIconOutline, settings_icon::SettingsIconOutline};
+
+use crate::components::side_navigation::{SideNavigation, SideNavigationRoute};
 
 #[leptos::component]
 pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
@@ -19,7 +21,7 @@ pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
             style="height:100vh; overflow-y: hidden; margin-bottom:0 dark:bg-gray-900"
         >
             <nav
-                class="col-span-1  dark:bg-gray-900/50 px-[2px] fixed  text-gray-600 pt-4"
+                class="col-span-1  dark:bg-gray-900/50 px-[2px] fixed  text-gray-600 pt-4 hidden"
                 style="height: 100%; overflowY: hidden; position: relative"
             >
                 <SideNavigation />
@@ -29,7 +31,7 @@ pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
                     <SideNavigationRoute label="about" href="/about" icon=info_icon />
                 </div>
             </nav>
-            <main class="col-span-11 py-4 px-4 overflow-y-scroll">{children}</main>
+            <main class="col-span-12 py-4 px-4 overflow-y-scroll h-screen">{children}</main>
         </div>
     }
 }

@@ -13,8 +13,8 @@
     "withGlobalTauri": true,
     "windows": [
       {
-        "title": "filesync",
-        "width": 800,
+        "title": "Filesync",
+        "width": 750,
         "height": 600
       }
     ],
