@@ -36,7 +36,7 @@ watch target:
     export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
-    
+    # export RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals' 
     if [ {{target}} = "android" ]; then
         cargo tauri android dev 
     elif [ {{target}} = "ios" ]; then 

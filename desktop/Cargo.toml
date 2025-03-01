@@ -22,3 +22,5 @@ tauri-wasm-bindgen = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
 wasm-bindgen = { workspace = true }
 wasm-bindgen-futures = { workspace = true }
+web-sys = { workspace = true }
+rayon = { workspace = true }

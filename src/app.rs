@@ -9,6 +9,8 @@ use tauri_wasm_bindgen::plugins::os::get_device_operating_system;
 
 use crate::platform::Platform;
 
+// pub use wasm_bindgen_rayon::init_thread_pool;
+
 #[component]
 pub fn App() -> impl IntoView {
     let (device_operating_system, set_device_operating_system) = signal(String::new());
