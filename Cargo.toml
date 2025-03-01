@@ -1,6 +1,6 @@
 [package]
 name = "filesync-ui"
-version = "0.1.0"
+version = "0.5.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -13,11 +13,8 @@ serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
 tauri-wasm-bindgen = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
-# wasm-bindgen-rayon = {  workspace = true, features = [
-#     "atomics",
-#     "bulk-memory",
-# ] }
-# rayon = "1.10.0"
+# wasm-bindgen-rayon = { workspace = true, features = [], version = "^1.2" }
+rayon = { workspace = true }
 
 [dependencies.desktop_ui]
 path = "./desktop"
@@ -65,4 +62,4 @@ leptos_reactive = "0.6.15"
 tauri-wasm-bindgen = { path = "./tauri-wasm", version = "*" }
 web-sys = "0.3.77"
 rayon = "1.10.0"
-# wasm-bindgen-rayon = "1.3.0"
+# wasm-bindgen-rayon = "^1.2"
