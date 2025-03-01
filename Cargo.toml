@@ -13,6 +13,11 @@ serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
 tauri-wasm-bindgen = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
+# wasm-bindgen-rayon = {  workspace = true, features = [
+#     "atomics",
+#     "bulk-memory",
+# ] }
+# rayon = "1.10.0"
 
 [dependencies.desktop_ui]
 path = "./desktop"
@@ -58,3 +63,6 @@ leptos-use = "0.13.11"
 leptos_toaster = "0.1.7"
 leptos_reactive = "0.6.15"
 tauri-wasm-bindgen = { path = "./tauri-wasm", version = "*" }
+web-sys = "0.3.77"
+rayon = "1.10.0"
+# wasm-bindgen-rayon = "1.3.0"

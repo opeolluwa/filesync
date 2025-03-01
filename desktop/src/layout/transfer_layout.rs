@@ -17,11 +17,11 @@ pub fn TransferLayout(children: Children, action: TransferAction) -> impl leptos
             on:click=move |_| change_location_to("/")
         >
 
-            {go_back_icon}  <Text class="font-medium leading-2 text-xl text-gray-700 dark:text-gray-400">
+            {go_back_icon}  <Text class="font-medium leading-2 text-xl text-gray-700 dark:text-gray-400 capitalize">
              {transfer_action}
             </Text>
         </header>
-        <main class="py-4 px-4 overflow-y-scroll h-screen">
+        <main class="py-4 px-4 overflow-y-scroll">
 
             {children}
         </main>
