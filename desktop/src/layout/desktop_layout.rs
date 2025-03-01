@@ -11,7 +11,7 @@ use crate::components::toolbar::Toolbar;
 pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
     let children = children();
     view! {
-        <header on:click=move |_| change_location_to("/") class="flex space-between">
+        <header on:click=move |_| change_location_to("/") class="flex justify-between items-center">
             <ChevronLeftIcon />
             <CloudUploadIcon class="animate-pulse" />
         </header>
