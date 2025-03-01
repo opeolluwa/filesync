@@ -12,7 +12,7 @@ pub fn CloudUploadIcon(#[prop(optional)] class: &'static str) -> impl leptos::In
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class=format!("size6 {}", class)
+          class=format!("size-6 {}", class)
       >
           <path
               stroke-linecap="round"
