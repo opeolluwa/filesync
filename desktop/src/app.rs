@@ -5,7 +5,7 @@ use crate::screens::share::ShareScreen;
 use crate::screens::welcome::receive::ReceiveScreen;
 use crate::screens::welcome::select_action::TransferScreen;
 use crate::screens::welcome::send::SendScreen;
-use crate::{layout::default_layout::DefaultLayout, screens::home::HomeScreen};
+use crate::{layouts::default_layout::DefaultLayout, screens::home::HomeScreen};
 use leptos::*;
 use leptos_router::{
     components::{Route, Router, Routes},

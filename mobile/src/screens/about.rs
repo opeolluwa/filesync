@@ -4,7 +4,7 @@ use tauri_wasm_bindgen::api::invoke::invoke_tauri_command_without_args;
 use thaw::{Flex, FlexAlign, FlexJustify, Image, Text};
 
 #[leptos::component]
-pub fn AboutUI() -> impl leptos::IntoView {
+pub fn AboutScreen() -> impl leptos::IntoView {
     let (app_name, _set_app_name) = signal("Filesync");
     let (app_version, _set_app_version) = signal("0.7.9");
 

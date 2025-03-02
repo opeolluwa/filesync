@@ -2,7 +2,7 @@ use leptos::view;
 use thaw::{Upload, UploadDragger};
 
 #[leptos::component]
-pub fn ShareUI() -> impl leptos::IntoView {
+pub fn ShareScreen() -> impl leptos::IntoView {
     view! {
         <Upload multiple=true>
             <UploadDragger class="w-full h-full dark:bg-gray-900/40">

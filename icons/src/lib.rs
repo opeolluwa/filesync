@@ -12,3 +12,4 @@ pub mod share_icon;
 pub mod sun_icon;
 pub mod upload_icon;
 pub mod cloud;
+pub mod dots;

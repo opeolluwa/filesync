@@ -1,7 +1,7 @@
 use leptos::{view, IntoView};
 
 #[leptos::component]
-pub fn TransferUI() -> impl IntoView {
+pub fn TransferScreen() -> impl IntoView {
     view! {
         // <div class=" text-center flex flex-col align-center justify-center items-center h-[500px]">
         //     <div>

@@ -1,8 +1,7 @@
 #[path = "app.rs"]
 pub mod mobile_application;
-#[path = "components/mod.rs"]
-pub mod mobile_application_components;
-#[path = "layout/mod.rs"]
-pub mod mobile_application_layout;
-#[path = "views/mod.rs"]
-pub mod mobile_application_views;
+
+pub(crate) mod components;
+pub(crate) mod layouts;
+pub(crate) mod routes;
+pub(crate) mod screens;

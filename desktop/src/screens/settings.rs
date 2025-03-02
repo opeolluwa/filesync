@@ -5,7 +5,7 @@ use leptos::{leptos_dom::logging::console_log, prelude::signal, task::spawn_loca
 use tauri_wasm_bindgen::api::invoke::invoke_tauri_command_without_args;
 use thaw::{Flex, FlexAlign, FlexJustify, Image, Text};
 
-use crate::layout::welcome_screen_layout::WelcomeScreenLayout;
+use crate::layouts::welcome_screen_layout::WelcomeScreenLayout;
 
 #[leptos::component]
 pub fn SettingsScreen() -> impl leptos::IntoView {

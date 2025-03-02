@@ -4,36 +4,31 @@ use thaw::Image;
 use thaw::{DrawerBody, DrawerPosition, OverlayDrawer};
 
 #[leptos::component]
-pub fn HomeUI() -> impl leptos::IntoView {
+pub fn ScanQrCodeScreen() -> impl leptos::IntoView {
     let open = RwSignal::new(false);
     let setup_instructions = vec![
         "create Wifi Hotspot",
         "Initiate connection on Filesync Desktop",
         "Scan Qr Code on desktop to begin",
     ];
-    let folders = vec!["filesync", "audio", "video", "images", "document", "zipped"];
+    let folders = vec!["filesync", "audio", "video", "images", "document", "more"];
 
     view! {
-        <div class="flex flex-col gap-y-5 min-h-screen overflow-y-scroll">
+        <div class="flex flex-col gap-y-5">
+
             // folders
-            <h1 class="text-xl text-gray-600  font-medium leading-loose">Folders</h1>
-            <div class="items-center text-gray-600 flex flex-wrap gap-4">
+            <div class="grid grid-cols-2 gap-4 gap-x-6 items-center text-gray-600">
                 {folders
                     .into_iter()
                     .map(|folder_name| {
                         view! {
-                            <div class="flex flex flex-col items-center justify-center gap-y-1 rounded-xl">
+                            <div class="col-span-1 my-5 flex flex-col items-center justify-center gap-y-1 bg-app-50/50 py-4 rounded-xl">
                                 <Image src="/assets/folder-icon.png" class="w-[60px] block" />
                                 <span class="capitalize font-medium">{folder_name}</span>
                             </div>
                         }
                     })
                     .collect_view()}
-            </div>
-
-            <div class="mt-6 text-gray-600 ">
-                <h1 class="text-xl font-medium leading-loose">Transfer history</h1>
-
             </div>
         </div>
         <OverlayDrawer open position=DrawerPosition::Bottom>
