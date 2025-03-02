@@ -2,11 +2,11 @@
 
 alias w:= watch
 alias b:= build
-alias l:= lint
 alias install := install-dependencies
 alias pack := package
 
 APP_NAME := "filesync"
+APP_VERSION :="0.7.15"
 MINIMUM_STABLE_RUST_VERSION :="1.83.0"
 BINARIES_PATH := "bin"
 EXPORT_PATH := "packages"
@@ -24,8 +24,12 @@ install-dependencies:
 
 
 [doc('Lint')]
-lint:
-    cargo fmt && cargo clippy
+fmt:
+    cargo fmt
+    cargo clippy
+    leptosfmt .
+    cargo sort -w 
+    cargo group-imports --fix 
 
 [doc('Run the application in watch mode')]
 watch target:
@@ -33,13 +37,13 @@ watch target:
     export JAVA_HOME="/Applications/Android Studio.app/Contents/jbr/Contents/Home"
     export ANDROID_HOME="$HOME/Library/Android/sdk"
     export NDK_HOME="$ANDROID_HOME/ndk/$(ls -1 $ANDROID_HOME/ndk)"
-    
+    # export RUSTFLAGS='-C target-feature=+atomics,+bulk-memory,+mutable-globals' 
     if [ {{target}} = "android" ]; then
         cargo tauri android dev 
     elif [ {{target}} = "ios" ]; then 
         cargo tauri ios dev 
     elif [ {{target}} = "styles" ]; then
-        npx tailwindcss -i ./main.css -o ./style/output.css --watch --minify
+        npx tailwindcss -i ./style/main.css -o ./style/app.css --watch --minify
     else
         cargo tauri dev
     fi
@@ -67,7 +71,7 @@ build target:
 
 
 [doc("Export binaries into $PWD/bin")]
-export target: 
+ship target: 
     #!/usr/bin/env sh
     # mkdir bin 
     if [ {{target}} = "all" ]; then 
@@ -81,7 +85,7 @@ export target:
     elif [ {{target}} = "ios" ]; then 
         cp tauri/gen/android/app/build/outputs/bundle/universalRelease/app-universal-release.aab {{BINARIES_PATH}}/{{APP_NAME}}.aab
     elif [ {{target}} = "macos" ]; then
-        cp tauri/target/release/bundle/dmg/filesync_0.7.13_aarch64.dmg {{BINARIES_PATH}}/{{APP_NAME}}.dmg
+        cp target/release/bundle/dmg/filesync_{{APP_VERSION}}_aarch64.dmg {{BINARIES_PATH}}/{{APP_NAME}}-{{APP_VERSION}}.dmg
     else 
         echo "Unspported target"
         exit 1;

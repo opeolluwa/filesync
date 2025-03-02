@@ -1,6 +1,5 @@
 use filesync_icons::{
-    arrow_left_right_icon::ArrowLeftRightIconSolid, info_icon::InformationIconOutline,
-    settings_icon::SettingsIconOutline, share_icon::ShareIconSolid,
+    arrow_left_right_icon::ArrowLeftRightIconSolid, home_icon::HomeIcon, share_icon::ShareIconSolid,
 };
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{view, IntoView};
@@ -28,17 +27,15 @@ where
 #[leptos::component]
 
 pub fn SideNavigation() -> impl leptos::IntoView {
-    let info_icon = InformationIconOutline();
-    let settings_icon = SettingsIconOutline();
     let transfer_icon = ArrowLeftRightIconSolid();
     let share_icon = ShareIconSolid();
+    let home_icon = HomeIcon();
 
     view! {
         <div class="flex flex-col relative items-center justify-center gap-y-4 px-2">
+            <SideNavigationRoute label="transfer" href="/home" icon=home_icon />
             <SideNavigationRoute label="transfer" href="/" icon=transfer_icon />
             <SideNavigationRoute label="share" href="/share" icon=share_icon />
-            <SideNavigationRoute label="settings" href="/settings" icon=settings_icon />
-            <SideNavigationRoute label="about" href="/about" icon=info_icon />
         </div>
     }
 }

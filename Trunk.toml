@@ -1,5 +1,7 @@
 [build]
 target = "./index.html"
+filehash = false
+minify = "on_release"
 
 [watch]
 ignore = ["./tauri"]
@@ -8,3 +10,10 @@ ignore = ["./tauri"]
 port = 1420
 open = false
 ws_protocol = "ws"
+
+
+# [[hooks]]
+
+# stage = "build"
+# command = "just"
+# command_arguments = ["w", "styles"]

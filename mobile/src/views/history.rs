@@ -1,5 +1,6 @@
 use leptos::view;
 use thaw::Text;
+
 #[leptos::component]
 pub fn HistoryUI() -> impl leptos::IntoView {
     view! {

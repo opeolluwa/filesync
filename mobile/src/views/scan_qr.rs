@@ -1,4 +1,3 @@
-
 use leptos::prelude::{ClassAttribute, CollectView, ElementChild, RwSignal};
 use leptos::view;
 use thaw::Image;
@@ -13,7 +12,6 @@ pub fn ScanQrCodeUI() -> impl leptos::IntoView {
         "Scan Qr Code on desktop to begin",
     ];
     let folders = vec!["filesync", "audio", "video", "images", "document", "more"];
-
 
     view! {
         <div class="flex flex-col gap-y-5">

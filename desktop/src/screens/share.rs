@@ -1,23 +1,29 @@
 use leptos::prelude::{ClassAttribute, CustomAttribute, ElementChild};
 use leptos::view;
-use thaw::{Upload, UploadDragger};
+use thaw::{FileList, Upload, UploadDragger};
 
 #[leptos::component]
-pub fn ShareUI() -> impl leptos::IntoView {
+pub fn ShareScreen() -> impl leptos::IntoView {
+    let custom_request = move |file_list: FileList| {
+        let _len = file_list.length();
+        println!("heheh")
+    };
+
     view! {
         <Upload
             multiple=true
+            custom_request
             class="w-full border-[2px] border-app-200/50 dark:border-gray-600/50 h-full flex justify-center items-center dark:bg-gray-900/40 rounded-lg border-dashed border"
         >
-            <UploadDragger class="flex h-full border-app/20 border-2">
-                <div class="w-auto h-auto text-gray-400  flex flex-col justify-center items-center">
+            <UploadDragger class="flex flex-col  justify-center items-center h-inherit size-full border-app/20 border-2  w-[89vw] h-[93vh]">
+                <div class="flex flex-col justify-center items-center text-gray-400">
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
-                        stroke-width="1.5"
+                        stroke-width=".5"
                         stroke="currentColor"
-                        class="size-32 font-thin"
+                        class="size-32"
                     >
                         <path
                             stroke-linecap="round"
@@ -28,7 +34,6 @@ pub fn ShareUI() -> impl leptos::IntoView {
 
                     <p class="mt-4 leading">Drag and drop your files here</p>
                 </div>
-
             </UploadDragger>
         </Upload>
     }

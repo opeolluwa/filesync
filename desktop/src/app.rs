@@ -1,9 +1,11 @@
-use crate::layout::desktop_layout::DesktopLayout;
-use crate::views::about::AboutUI;
-use crate::views::history::HistoryUI;
-use crate::views::settings::SettingsUi;
-use crate::views::share::ShareUI;
-use crate::views::transfer::TransferUI;
+use crate::screens::about::AboutScreen;
+use crate::screens::history::HistoryScreen;
+use crate::screens::settings::SettingsScreen;
+use crate::screens::share::ShareScreen;
+use crate::screens::welcome::receive::ReceiveScreen;
+use crate::screens::welcome::select_action::TransferScreen;
+use crate::screens::welcome::send::SendScreen;
+use crate::{layout::default_layout::DefaultLayout, screens::home::HomeScreen};
 use leptos::*;
 use leptos_router::{
     components::{Route, Router, Routes},
@@ -14,15 +16,19 @@ use leptos_router::{
 pub fn DesktopApplication() -> impl leptos::IntoView {
     view! {
         <Router>
-            <DesktopLayout>
-                <Routes fallback=|| "Not found.">
-                    <Route path=path!("/") view=TransferUI />
-                    <Route path=path!("/about") view=AboutUI />
-                    <Route path=path!("/settings") view=SettingsUi />
-                    <Route path=path!("/share") view=ShareUI />
-                    <Route path=path!("/about") view=HistoryUI />
+            <DefaultLayout>
+                <Routes transition=true fallback=|| "Not found.">
+                    <Route path=path!("/") view=TransferScreen />
+                    <Route path=path!("/home") view=HomeScreen />
+                    <Route path=path!("/send") view=SendScreen />
+                    <Route path=path!("/receive") view=ReceiveScreen />
+                    <Route path=path!("/about") view=AboutScreen />
+                    <Route path=path!("/settings") view=SettingsScreen />
+                    <Route path=path!("/share") view=ShareScreen />
+                    <Route path=path!("/history") view=HistoryScreen />
                 </Routes>
-            </DesktopLayout>
+
+            </DefaultLayout>
         </Router>
     }
 }

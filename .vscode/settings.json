@@ -6,6 +6,7 @@
     "filesync",
     "fullscreen",
     "leptos",
+    "qrcode",
     "tauri"
   ],
   "java.configuration.updateBuildConfiguration": "interactive"

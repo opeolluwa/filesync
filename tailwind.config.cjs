@@ -41,5 +41,5 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [require("@tailwindcss/forms"), require("daisyui")],
+  plugins: [require("@tailwindcss/forms"), require("daisyui"), require("tailwind-plugin-ripple-effect")],
 };
