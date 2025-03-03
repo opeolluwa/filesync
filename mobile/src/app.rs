@@ -40,10 +40,10 @@ pub fn MobileApplication() -> impl leptos::IntoView {
         <header class="bg-app px-4 text-white">
 
             <div class="flex items-center justify-between hidden">
-                <button>
+                <button class="size-4">
                     <DotVertical />
                 </button>
-                <button>
+              <button class="size-4">
                     <ScanQrIcon />
                 </button>
 

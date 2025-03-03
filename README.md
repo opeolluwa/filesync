@@ -1,13 +1,12 @@
 # FIleSync: WiFi File Sharing Application
 
 FileSync is a file-sharing application, targeting Linux, Mac, Windows and
-Android platforms ![screenshot](./screenshots/filesync.png)
+Android platforms ![screenshot](./screenshots/filesync-0.7.16.png)
 
 ## Disclaimer
 
-_⚠️ The application is still a work in progress and was recently migrated to use
-[Tauri v2(beta)](https://v2.tauri.app/) thus some features may be inconsistent.
-To proceed anyway, see the
+_⚠️ The application is still a work in progress_
+To proceed with the preview anyway, see the
 [release page](https://github.com/opeolluwa/filesync/releases)_
 
 ## Getting Started
@@ -46,12 +45,11 @@ To see all available commands
 
 ## Roadmap
 
-- [ ] Adaptive UI `WIP`
-- [ ] Build an executable for the Mac operating system `WIP`
-- [ ] Build an executable for the Linux Operating system `WIP`
-- [ ] Build an executable for Window `WIP`
-- [ ] Support mobile devices `WIP`
-- [ ] Create a wifi hotspot on Unix Operating Systems
+- [x] Adaptive UI 
+- [x] Build an executable for the Mac operating system 
+- [x] Build an executable for the Linux Operating system 
+- [x] Build an executable for Window 
+- [ ] Support mobile devices 
 - [ ] Support dark mode
 - [ ] Add walkthrough after installation
 
