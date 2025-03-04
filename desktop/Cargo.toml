@@ -5,14 +5,12 @@ edition = "2021"
 
 [dependencies]
 console_error_panic_hook = { workspace = true }
-filesync_icons ={ path = "../common/icons" }
+filesync_icons = { path = "../common/icons" }
 js-sys = { workspace = true }
 js_bindgen = { version = "0.1.0", path = "../common/js_bindgen" }
 leptos = { workspace = true, features = ["csr"] }
-leptos-qr = { git = "https://github.com/opeolluwa/leptos-qr", version = "0.2.0" }
-leptos-remix-icon = { workspace = true }
+leptos-qr = { workspace = true }
 leptos-use = { workspace = true }
-leptos_reactive = { workspace = true }
 leptos_router = { workspace = true }
 leptos_toaster = { workspace = true, features = ["csr"] }
 rayon = { workspace = true }

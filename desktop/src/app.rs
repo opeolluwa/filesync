@@ -12,25 +12,28 @@ use leptos_router::{
     components::{Route, Router, Routes},
     path,
 };
+use thaw::ConfigProvider;
 
 #[component]
 pub fn DesktopApplication() -> impl leptos::IntoView {
     view! {
-        <Router>
-            <DefaultLayout>
-                <Routes transition=true fallback=|| "Not found.">
-                    <Route path=path!("/") view=TransferScreen />
-                    <Route path=path!("/home") view=HomeScreen />
-                    <Route path=path!("/platform") view=SelectPlatformScreen />
-                    <Route path=path!("/send") view=SendScreen />
-                    <Route path=path!("/receive") view=ReceiveScreen />
-                    <Route path=path!("/about") view=AboutScreen />
-                    <Route path=path!("/settings") view=SettingsScreen />
-                    <Route path=path!("/share") view=ShareScreen />
-                    <Route path=path!("/history") view=HistoryScreen />
-                </Routes>
+        <ConfigProvider class="dark:bg-app-950/80">
+            <Router>
+                <DefaultLayout>
+                    <Routes transition=true fallback=|| "Not found.">
+                        <Route path=path!("/") view=TransferScreen />
+                        <Route path=path!("/home") view=HomeScreen />
+                        <Route path=path!("/platform") view=SelectPlatformScreen />
+                        <Route path=path!("/send") view=SendScreen />
+                        <Route path=path!("/receive") view=ReceiveScreen />
+                        <Route path=path!("/about") view=AboutScreen />
+                        <Route path=path!("/settings") view=SettingsScreen />
+                        <Route path=path!("/share") view=ShareScreen />
+                        <Route path=path!("/history") view=HistoryScreen />
+                    </Routes>
 
-            </DefaultLayout>
-        </Router>
+                </DefaultLayout>
+            </Router>
+        </ConfigProvider>
     }
 }

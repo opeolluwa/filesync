@@ -37,7 +37,10 @@ pub fn WelcomeScreenLayout(
             </svg>
 
         </header>
-        <main class=format!("py-4 px-4 overflow-y-scroll, {}", class)>
+        <main class=format!(
+            "py-4 px-4 overflow-y-scroll, {}",
+            class,
+        )>
 
             {children}
         </main>

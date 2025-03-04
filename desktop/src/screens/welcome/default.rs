@@ -14,7 +14,7 @@ pub fn DefaultScreen() -> impl leptos::IntoView {
                 <h1 class="font-medium leading-2 text-2xl text-gray-700 dark:text-gray-400 ">
                     "What would you like to do?"
                 </h1>
-                <p class="text-base">"Do you want to send or receive files?"</p>
+                <p class="text-base dark:text-gray-500 ">"Do you want to send or receive files?"</p>
                 <div class="flex justify-center gap-x-5 items-center mt-8">
                     <button
                         class="flex flex-col items-center  "
@@ -37,7 +37,7 @@ pub fn DefaultScreen() -> impl leptos::IntoView {
                             </svg>
 
                         </div>
-                        <p class="mt-2">Send File</p>
+                        <p class="mt-2 dark:text-gray-500 ">Send File</p>
                     </button>
                     <div class="flex flex-col items-center ">
 
@@ -60,7 +60,7 @@ pub fn DefaultScreen() -> impl leptos::IntoView {
                                 />
                             </svg>
                         </button>
-                        <p class="mt-2">Receive File</p>
+                        <p class="mt-2 dark:text-gray-500 ">Receive File</p>
                     </div>
                 </div>
             </div>
