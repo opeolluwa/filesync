@@ -4,7 +4,7 @@ use leptos::view;
 
 use js_bindgen::navigate::change_location_to;
 
-use crate::routes::{RECEIVE_ROUTE, SEND_ROUTE};
+use crate::routes::{RECEIVE_ROUTE, SELECT_PLATFORM_ROUTE};
 
 #[leptos::component]
 pub fn DefaultScreen() -> impl leptos::IntoView {
@@ -18,7 +18,7 @@ pub fn DefaultScreen() -> impl leptos::IntoView {
                 <div class="flex justify-center gap-x-5 items-center mt-8">
                     <button
                         class="flex flex-col items-center  "
-                        on:click=move |_| change_location_to(SEND_ROUTE)
+                        on:click=move |_| change_location_to(SELECT_PLATFORM_ROUTE)
                     >
                         <div class="dark:bg-gray-700 bg-gray-200 text-gray-400 hover:bg-app-50 hover:text-app transition-all duration-200  p-4 rounded-xl shadow hover:shadow-none cursor-pointer dark:hover:bg-gray-700/50">
                             <svg

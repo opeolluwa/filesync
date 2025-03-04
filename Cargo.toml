@@ -26,10 +26,10 @@ version = "*"
 [workspace]
 members = [
     "common/database",
-    "desktop",
     "common/icons",
-    "common/tauri-wasm",
     "common/js_bindgen",
+    "common/tauri-wasm",
+    "desktop",
     "mobile",
     "src-tauri",
 ]

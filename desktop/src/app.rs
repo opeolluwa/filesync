@@ -2,6 +2,7 @@ use crate::screens::about::AboutScreen;
 use crate::screens::history::HistoryScreen;
 use crate::screens::settings::SettingsScreen;
 use crate::screens::share::ShareScreen;
+use crate::screens::welcome::choose_platform::SelectPlatformScreen;
 use crate::screens::welcome::receive::ReceiveScreen;
 use crate::screens::welcome::select_action::TransferScreen;
 use crate::screens::welcome::send::SendScreen;
@@ -20,6 +21,7 @@ pub fn DesktopApplication() -> impl leptos::IntoView {
                 <Routes transition=true fallback=|| "Not found.">
                     <Route path=path!("/") view=TransferScreen />
                     <Route path=path!("/home") view=HomeScreen />
+                    <Route path=path!("/platform") view=SelectPlatformScreen />
                     <Route path=path!("/send") view=SendScreen />
                     <Route path=path!("/receive") view=ReceiveScreen />
                     <Route path=path!("/about") view=AboutScreen />
