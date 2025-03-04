@@ -18,7 +18,7 @@ pub fn SettingsScreen() -> impl leptos::IntoView {
     });
 
     view! {
-        <WelcomeScreenLayout label="Settings">
+        <WelcomeScreenLayout>
             <Flex vertical=true align=FlexAlign::Center justify=FlexJustify::Center class="my-6">
                 <Image src="/images/app-icon.png" class="w-[50px] block mb-5" />
                 <Text class="text-center text-medium text-2xl  text-medium text-xl capitalize -mb-2">
