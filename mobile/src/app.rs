@@ -43,15 +43,12 @@ pub fn MobileApplication() -> impl leptos::IntoView {
                 <button class="size-4">
                     <DotVertical />
                 </button>
-              <button class="size-4">
+                <button class="size-4">
                     <ScanQrIcon />
                 </button>
 
             </div>
-            <TabList
-                selected_value
-                class="flex justify-between  pt-6 pb-2 overflow-scroll "
-            >
+            <TabList selected_value class="flex justify-between  pt-6 pb-2 overflow-scroll ">
                 {tabs
                     .into_iter()
                     .map(|tab| {
@@ -63,8 +60,7 @@ pub fn MobileApplication() -> impl leptos::IntoView {
         </header>
 
         <main class="px-4 pt-5">
-            {
-            match selected_value.get() {
+            {match selected_value.get() {
                 val if val == "app".to_string() => view! { "app" },
                 _ => "heheh",
             }}

@@ -16,7 +16,7 @@ pub fn WelcomeScreenLayout(children: Children, label: &'static str) -> impl lept
             on:click=move |_| change_location_to("/")
         >
 
-   <span class="size-4">         {go_back_icon} </span> 
+            <span class="size-4">{go_back_icon}</span>
             <Text class="font-medium leading-2 text-xl hiddne text-gray-700 dark:text-gray-500 capitalize pl-1 small">
                 {transfer_action}
             </Text>
