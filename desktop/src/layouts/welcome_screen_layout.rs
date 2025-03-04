@@ -12,12 +12,12 @@ pub fn WelcomeScreenLayout(children: Children, label: &'static str) -> impl lept
     let transfer_action = label.to_string();
     view! {
         <header
-            class="text-gray-500 inline-flex items-center p-2 rounded"
+            class="text-gray-500 inline-flex btn bg-app-500/50 items-center "
             on:click=move |_| change_location_to("/")
         >
 
-            {go_back_icon}
-            <Text class="font-medium leading-2 text-xl text-gray-700 dark:text-gray-500 capitalize pl-1">
+   <span class="size-4">         {go_back_icon} </span> 
+            <Text class="font-medium leading-2 text-xl hiddne text-gray-700 dark:text-gray-500 capitalize pl-1 small">
                 {transfer_action}
             </Text>
         </header>

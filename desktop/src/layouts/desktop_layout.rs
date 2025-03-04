@@ -15,8 +15,8 @@ pub fn DesktopLayout(children: Children) -> impl leptos::IntoView {
             <ChevronLeftIcon />
             <CloudUploadIcon class="animate-pulse" />
         </header>
-        <main class="py-4 px-4 overflow-y-scroll">{children}</main>
-        <footer class="w-[60%] mx-auto rounded-full fixed bottom-10 left-0 right-0 z-50 border-gray-600 border-[0.75px] shadow-lg py-0">
+        <main class="py-3 px-4 overflow-y-scroll">{children}</main>
+        <footer class="w-[60%] mx-auto rounded-full fixed bottom-10 left-0 right-0 z-50 border-gray-600 border-[0.25px]  shadow-xl py-0">
             <Toolbar />
         </footer>
     }

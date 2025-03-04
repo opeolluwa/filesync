@@ -4,7 +4,7 @@ filehash = false
 minify = "on_release"
 
 [watch]
-ignore = ["./tauri"]
+ignore = ["./src-tauri"]
 
 [serve]
 port = 1420
