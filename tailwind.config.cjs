@@ -4,7 +4,12 @@ const colors = require("tailwindcss/colors");
 const plugin = require("tailwindcss/plugin");
 
 module.exports = {
-  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  content: [
+    "./index.html",
+    "./src/**/*.rs",
+    "./mobile/**/*.rs",
+    "desktop/**/*.rs",
+  ],
   theme: {
     colors: {
       transparent: "transparent",
@@ -17,8 +22,8 @@ module.exports = {
       yellow: colors.yellow,
       dark: colors.neutral,
       red: colors.red,
-      accent:"rgba(226,233,252,255)",
-      card:"#f9fbfe",
+      accent: "rgba(226,233,252,255)",
+      card: "#f9fbfe",
       app: {
         DEFAULT: "#3074F5",
         50: "#DFEAFD",
@@ -36,5 +41,5 @@ module.exports = {
     },
     extend: {},
   },
-  plugins: [require("@tailwindcss/forms")],
+  plugins: [require("@tailwindcss/forms"), require("daisyui"), require("tailwind-plugin-ripple-effect")],
 };

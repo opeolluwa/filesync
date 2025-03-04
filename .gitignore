@@ -129,9 +129,6 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-filesync 
-
-
 */node_modules
 **/node_modules
 
@@ -147,3 +144,5 @@ target
 
 
 bin 
+
+old

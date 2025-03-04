@@ -1,51 +1,57 @@
 # FIleSync: WiFi File Sharing Application
 
-FileSync is a file-sharing application, targeting Linux, Mac, Windows and Android platforms
-![screenshot](./screenshots/filesync.png)
+FileSync is a file-sharing application, targeting Linux, Mac, Windows and
+Android platforms ![screenshot](./screenshots/filesync-0.7.16.png)
 
 ## Disclaimer
 
-_⚠️ The application is still a work in progress and was recently migrated to use [Tauri v2(beta)](https://v2.tauri.app/) thus some features may be inconsistent. To proceed anyway, see the [release page](https://github.com/opeolluwa/filesync/releases)_
+_⚠️ The application is still a work in progress_
+To proceed with the preview anyway, see the
+[release page](https://github.com/opeolluwa/filesync/releases)_
 
 ## Getting Started
 
 ### General Requirement
 
-To compile the application or modify it locally, you need the following dependencies:
+To compile the application or modify it locally, you need the following
+dependencies:
 
-- [Node.js](https://nodejs.org) - A JavaScript Runtime environment
-- [npm](https://npmjs.com) - A JavaScript package manager.
-- [Rust v1.70 or greater](https://www.rust-lang.org/)
-- [Android Studio](https://developer.android.com/studio?gad_source=1&gclid=CjwKCAjwnqK1BhBvEiwAi7o0XxODlu3Mk1cb2BoP1HV7g32vB5N37BVL5ab6OJ-3UAfpfkWmBM2nlRoCBfoQAvD_BwE&gclsrc=aw.ds) To build and debug the Android application to build reliable and efficient software.
+- [Rust v1.83 or greater](https://www.rust-lang.org/)'
+- [just](https://just.systems/)
+- [Android Studio](https://developer.android.com/studio?gad_source=1&gclid=CjwKCAjwnqK1BhBvEiwAi7o0XxODlu3Mk1cb2BoP1HV7g32vB5N37BVL5ab6OJ-3UAfpfkWmBM2nlRoCBfoQAvD_BwE&gclsrc=aw.ds)
+  To build and debug the Android application to build reliable and efficient
+  software.
 
-Once you have the dependencies installed, clone the project and install the required packages:
+Once you have the dependencies installed, clone the project and install the
+required packages:
 
+### Workspace Requirements
 
-### Workspace Requirements 
-
-The project may require some system requirements based on your platform see the necessary 
-[prerequisite](https://v2.tauri.app/start/prerequisites/) for your operating system.
-
+The project may require some system requirements based on your platform see the
+necessary [prerequisite](https://v2.tauri.app/start/prerequisites/) for your
+operating system.
 
 ```sh
 git clone https://github.com/opeolluwa/filesync.git
-cd filesync 
-npm run install
+
+cd filesync
+
+just install-depenencies
 ```
 
+### Running the project
 
+To see all available commands
 
 ## Roadmap
 
-- [ ] Adaptive UI `WIP`
-- [ ] Build an executable for the Mac operating system `WIP`
-- [ ] Build an executable for the Linux Operating system `WIP`
-- [ ] Build an executable for Window `WIP`
-- [ ] Support mobile devices `WIP`
-- [ ] Create a wifi hotspot on Unix Operating Systems
+- [x] Adaptive UI 
+- [x] Build an executable for the Mac operating system 
+- [x] Build an executable for the Linux Operating system 
+- [x] Build an executable for Window 
+- [ ] Support mobile devices 
 - [ ] Support dark mode
 - [ ] Add walkthrough after installation
-
 
 ## Acknowledgments
 

@@ -1,0 +1,10 @@
+[package]
+name = "tauri-wasm-bindgen"
+description = "contains the wasm bindings of tauri api and plugins"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+serde-wasm-bindgen = { workspace = true }
+wasm-bindgen = { workspace = true }
+wasm-bindgen-futures = { workspace = true }
