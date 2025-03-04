@@ -20,6 +20,8 @@ tauri-build = { workspace = true, features = [] }
 anyhow = "1.0.96"
 iroh = "0.33.0"
 iroh-base = "0.33.0"
+rand = { version = "0.9.0", features = ["small_rng"] }
+random_str = "0.1.2"
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
 tauri = { workspace = true, features = [] }

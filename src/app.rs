@@ -19,7 +19,9 @@ pub fn App() -> impl IntoView {
 
     let device_platform = Platform::from_str(&device_operating_system.get()).unwrap_or_default();
 
+    
     view! {
+        
         <Show
             when=move || {
                 device_platform == Platform::Android || device_platform == Platform::Ios
@@ -30,5 +32,6 @@ pub fn App() -> impl IntoView {
         >
             <MobileApplication />
         </Show>
+
     }
 }

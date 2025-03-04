@@ -1169,9 +1169,7 @@ dependencies = [
  "js_bindgen",
  "leptos 0.7.7",
  "leptos-qr",
- "leptos-remix-icon",
  "leptos-use",
- "leptos_reactive",
  "leptos_router",
  "leptos_toaster",
  "rayon",
@@ -1557,6 +1555,8 @@ dependencies = [
  "anyhow",
  "iroh",
  "iroh-base",
+ "rand 0.9.0",
+ "random_str",
  "serde",
  "serde_json",
  "tauri",
@@ -3250,16 +3250,6 @@ source = "git+https://github.com/opeolluwa/leptos-qr#1af55ee5d1cf3ae022b0ef4d4d7
 dependencies = [
  "fast_qr",
  "leptos 0.7.7",
-]
-
-[[package]]
-name = "leptos-remix-icon"
-version = "1.0.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6c18d6b30282f9e0dcfd95e061b6677bdf916cc831745c352a19b2e825c833e8"
-dependencies = [
- "leptos 0.6.15",
- "serde",
 ]
 
 [[package]]
@@ -5441,6 +5431,15 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "16abd0c1b639e9eb4d7c50c0b8100b0d0f849be2349829c740fe8e6eb4816429"
 dependencies = [
  "rand_core 0.5.1",
+]
+
+[[package]]
+name = "random_str"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4f680682929acbd1db498180918f82775ba6140320e8fd900f043a93fd0bb3af"
+dependencies = [
+ "rand 0.8.5",
 ]
 
 [[package]]
