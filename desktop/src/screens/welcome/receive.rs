@@ -1,7 +1,7 @@
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::view;
 
-use crate::layout::welcome_screen_layout::WelcomeScreenLayout;
+use crate::layouts::welcome_screen_layout::WelcomeScreenLayout;
 
 #[leptos::component]
 pub fn ReceiveScreen() -> impl leptos::IntoView {

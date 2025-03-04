@@ -4,7 +4,7 @@ use leptos::view;
 use thaw::{FileList, Upload, UploadDragger};
 use web_sys::console;
 
-use crate::layout::welcome_screen_layout::WelcomeScreenLayout;
+use crate::layouts::welcome_screen_layout::WelcomeScreenLayout;
 
 #[leptos::component]
 pub fn SendScreen() -> impl leptos::IntoView {

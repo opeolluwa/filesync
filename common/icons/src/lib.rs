@@ -1,0 +1,15 @@
+pub mod arrow_left_right_icon;
+pub mod chevron;
+pub mod download_icon;
+pub mod history_icon;
+pub mod home_icon;
+pub mod info_icon;
+pub mod menu_icon;
+pub mod moon_icon;
+pub mod scan_qr_icon;
+pub mod settings_icon;
+pub mod share_icon;
+pub mod sun_icon;
+pub mod upload_icon;
+pub mod cloud;
+pub mod dots;
