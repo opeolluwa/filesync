@@ -17,6 +17,9 @@ pub fn DefaultLayout(children: Children) -> impl leptos::IntoView {
             <main class="px-4" style="height:calc(100vh-10rem); overflow-y:scroll">
                 {children}
             </main>
+            <footer >
+
+            </footer>
         </div>
     }
 }

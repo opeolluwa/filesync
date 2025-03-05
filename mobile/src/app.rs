@@ -1,5 +1,6 @@
 use filesync_icons::chevron::ChevronUpDownIcon;
 use filesync_icons::dots::DotVertical;
+use filesync_icons::menu_icon::MenuIcon;
 use filesync_icons::scan_qr_icon::ScanQrIcon;
 use leptos::prelude::{CollectView, ElementChild, Get};
 use leptos::{
@@ -10,6 +11,8 @@ use leptos::{
 use leptos_router::path;
 
 use thaw::{Tab, TabList};
+
+use crate::components::toolbar::Toolbar;
 
 struct TabConfig {
     name: String,
@@ -26,8 +29,9 @@ impl TabConfig {
 }
 #[component]
 pub fn MobileApplication() -> impl leptos::IntoView {
-    let selected_value = RwSignal::new(String::from("Apps"));
+    let selected_value = RwSignal::new(String::from(""));
 
+    let tab_class_rule = "text-sm ";
     let tabs = vec![
         TabConfig::new("History"),
         TabConfig::new("Apps"),
@@ -37,22 +41,21 @@ pub fn MobileApplication() -> impl leptos::IntoView {
     ];
 
     view! {
-        <header class="bg-app px-4 text-white">
+        <header class="bg-app px-4 text-white fixed left-0 top-0 right-0 w-full pt-3">
 
-            <div class="flex items-center justify-between hidden">
+            <div class="flex items-center justify-between py-1 hidden">
                 <button class="size-4">
                     <DotVertical />
                 </button>
                 <button class="size-4">
-                    <ScanQrIcon />
+         <MenuIcon/>
                 </button>
-
             </div>
             <TabList selected_value class="flex justify-between  pt-6 pb-2 overflow-scroll ">
                 {tabs
                     .into_iter()
                     .map(|tab| {
-                        view! { <Tab value=tab.value>{tab.name}</Tab> }
+                        view! { <Tab value=tab.value class=tab_class_rule>{tab.name}</Tab> }
                     })
                     .collect_view()}
 
@@ -60,14 +63,16 @@ pub fn MobileApplication() -> impl leptos::IntoView {
         </header>
 
         <main class="px-4 pt-5">
-            {match selected_value.get() {
-                val if val == "app".to_string() => view! { "app" },
-                _ => "heheh",
-            }}
+        {selected_value.get()}
+
         </main>
 
-        <button class="fab">
+        <button class="fab hidden">
             <ChevronUpDownIcon />
         </button>
+
+         <footer class="w-[80%]  mx-auto rounded-full fixed bottom-10 left-0 right-0 z-50 border-gray-200 border-[0.25px]  shadow-xl py-0">
+            <Toolbar />
+        </footer>
     }
 }

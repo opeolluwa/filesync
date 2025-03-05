@@ -21,7 +21,6 @@ pub fn App() -> impl IntoView {
 
     
     view! {
-        
         <Show
             when=move || {
                 device_platform == Platform::Android || device_platform == Platform::Ios
@@ -32,6 +31,5 @@ pub fn App() -> impl IntoView {
         >
             <MobileApplication />
         </Show>
-
     }
 }

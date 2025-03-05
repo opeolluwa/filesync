@@ -4,7 +4,7 @@ use leptos::{view, IntoView};
 use filesync_icons::arrow_left_right_icon::ArrowLeftRightIconSolid;
 use filesync_icons::history_icon::HistoryIcon;
 use filesync_icons::home_icon::HomeIcon;
-use filesync_icons::settings_icon::SettingsIconOutline;
+use filesync_icons::cog::SettingsIconOutline;
 
 #[leptos::component]
 pub fn BottomNavigationRoute<F>(

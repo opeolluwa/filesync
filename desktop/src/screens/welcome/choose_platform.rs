@@ -1,14 +1,14 @@
+use crate::layouts::welcome_screen_layout::WelcomeScreenLayout;
 use filesync_icons::platform::{AndroidLogo, LinuxLogo, MacOsLogo, WindowsPlatformLogo};
 use leptos::leptos_dom::logging::console_log;
-use leptos::prelude::{signal, ClassAttribute, ElementChild, OnAttribute, RwSignal, Set};
+use leptos::prelude::{signal, ClassAttribute, ElementChild, Get, OnAttribute, RwSignal, Set};
 use leptos::task::spawn_local;
 use leptos::view;
 use leptos_qr::QrCode;
 use tauri_bindgen::wifi_bindgen::WifiCredentials;
+use tauri_sys::core::invoke;
 use tauri_wasm_bindgen::api::invoke::invoke_tauri_command_without_args;
-use thaw::{Dialog, DialogBody, DialogContent, DialogSurface, DialogTitle};
-use tauri_sys::tauri;
-use crate::layouts::welcome_screen_layout::WelcomeScreenLayout;
+use thaw::{Dialog, DialogBody, DialogContent, DialogSurface, DialogTitle, Theme};
 
 #[leptos::component]
 pub fn SelectPlatformScreen() -> impl leptos::IntoView {
@@ -19,22 +19,22 @@ pub fn SelectPlatformScreen() -> impl leptos::IntoView {
     let windows = WindowsPlatformLogo();
     let linux = LinuxLogo();
 
-    let (creds, set_creds) = signal<WifiCredentials>();
+    let (wifi_creds, set_wifi_creds) = signal::<WifiCredentials>(WifiCredentials::default());
     let open_android_qr_modal = RwSignal::new(false);
 
+    let _current_theme = Theme::use_rw_theme().get().name;
+
+    // let creds = wifi_creds.get();
     let manage_android_click_event = move || {
         open_android_qr_modal.set(true);
 
         spawn_local(async move {
-         let wifi_creds: WifiCredentials = tauri::invoke("generate_android_wifi_credentials", &()).await.unwrap();
-
-set_creds(wifi_creds)
-
-          
-       
+            let wifi_creds =
+                invoke::<WifiCredentials>("generate_android_wifi_credentials", &()).await;
+            set_wifi_creds.set(wifi_creds);
         });
     };
-    view! {Ç
+    view! {
         <WelcomeScreenLayout class="h-[85%]  flex flex-col align-center justify-center">
 
             <div class="text-center flex flex-col align-center justify-center items-center ">
@@ -58,21 +58,21 @@ set_creds(wifi_creds)
             </div>
 
             <Dialog open=open_android_qr_modal>
-                <DialogSurface class="dark:bg-gray-700 dark:text-gray-500">
+                <DialogSurface class="dark:bg-gray-400 dark:text-gray-500">
                     <DialogBody class="">
-                        <DialogTitle class="dark:text-gray-500">"Scan QR code to connect Android device"</DialogTitle>
+                        <DialogTitle class="dark:text-gray-500">
+                            "Scan QR code to connect Android device" 
+                        </DialogTitle>
                         <DialogContent class="flex mt-6 flex-col items-center justify-center">
-
-                           <div class="w-[175px] h-[175px]">
-                            <QrCode
-                                data="Hello, World!"
-                                ecl=leptos_qr::ECL::Q
-                                shape=leptos_qr::Shape::Square
-                                fg_color="#111111"
-                                bg_color="transparent"
-                            />
+                            <div class="w-[175px] h-[175px]">
+                                <QrCode
+                                    data="wifi_creds"
+                                    ecl=leptos_qr::ECL::Q
+                                    shape=leptos_qr::Shape::Square
+                                    fg_color="#111111"
+                                    bg_color="transparent"
+                                />
                             </div>
-creds {creds.get()}
                         </DialogContent>
 
                     </DialogBody>
