@@ -1,14 +1,14 @@
 use crate::layouts::welcome_screen_layout::WelcomeScreenLayout;
 use filesync_icons::platform::{AndroidLogo, LinuxLogo, MacOsLogo, WindowsPlatformLogo};
 use leptos::leptos_dom::logging::console_log;
-use leptos::prelude::{signal, ClassAttribute, ElementChild, OnAttribute, RwSignal, Set};
+use leptos::prelude::{signal, ClassAttribute, ElementChild, Get, OnAttribute, RwSignal, Set};
 use leptos::task::spawn_local;
 use leptos::view;
 use leptos_qr::QrCode;
 use tauri_bindgen::wifi_bindgen::WifiCredentials;
 use tauri_sys::core::invoke;
 use tauri_wasm_bindgen::api::invoke::invoke_tauri_command_without_args;
-use thaw::{Dialog, DialogBody, DialogContent, DialogSurface, DialogTitle};
+use thaw::{Dialog, DialogBody, DialogContent, DialogSurface, DialogTitle, Theme};
 
 #[leptos::component]
 pub fn SelectPlatformScreen() -> impl leptos::IntoView {
@@ -22,6 +22,8 @@ pub fn SelectPlatformScreen() -> impl leptos::IntoView {
     let (wifi_creds, set_wifi_creds) = signal::<WifiCredentials>(WifiCredentials::default());
     let open_android_qr_modal = RwSignal::new(false);
 
+    let _current_theme = Theme::use_rw_theme().get().name;
+
     // let creds = wifi_creds.get();
     let manage_android_click_event = move || {
         open_android_qr_modal.set(true);
@@ -33,7 +35,6 @@ pub fn SelectPlatformScreen() -> impl leptos::IntoView {
         });
     };
     view! {
-        Ç
         <WelcomeScreenLayout class="h-[85%]  flex flex-col align-center justify-center">
 
             <div class="text-center flex flex-col align-center justify-center items-center ">
@@ -60,7 +61,7 @@ pub fn SelectPlatformScreen() -> impl leptos::IntoView {
                 <DialogSurface class="dark:bg-gray-400 dark:text-gray-500">
                     <DialogBody class="">
                         <DialogTitle class="dark:text-gray-500">
-                            "Scan QR code to connect Android device"
+                            "Scan QR code to connect Android device" 
                         </DialogTitle>
                         <DialogContent class="flex mt-6 flex-col items-center justify-center">
                             <div class="w-[175px] h-[175px]">

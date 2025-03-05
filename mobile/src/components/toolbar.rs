@@ -1,8 +1,8 @@
-use filesync_icons::chevron::ChevronUpDownIcon;
-use filesync_icons::download_icon::DownloadIcon;
-use filesync_icons::home_icon::HomeIcon;
-use filesync_icons::settings_icon::SettingsIconOutline;
-use filesync_icons::upload_icon::UploadIcon;
+
+use filesync_icons::cloud::{CloudDownloadIconSolid, CloudUploadIconSolid};
+use filesync_icons::cog::CogSolid;
+use filesync_icons::home_icon::HomeIconSolid;
+use filesync_icons::scan_qr_icon::ScanQrIcon;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{view, IntoView};
 
@@ -22,11 +22,11 @@ where
         <a
             href=href
             class=format!(
-                "text-gray-500 flex flex-col justify-center items-center dark:hover:bg-gray-700/40 hover:bg-app-50/50 hover:text-app  p-2 ripple-effect ripple-app-500  border-r-gray-600 border-r border-r-[0.75px] {}",
+                "text-gray-500 flex flex-col justify-center items-center dark:hover:bg-gray-700/40 hover:bg-app-50/50 hover:text-app  p-2 ripple-effect ripple-app-500   {}",
                 class,
             )
         >
-            {icon}
+         <span class="size-5">   {icon} </span>
             <span class="sr-only">{label}</span>
         </a>
     }
@@ -34,14 +34,14 @@ where
 
 #[leptos::component]
 pub fn Toolbar() -> impl leptos::IntoView {
-    let home_icon = HomeIcon();
-    let settings_icon = SettingsIconOutline();
-    let upload_icon = UploadIcon();
-    let download_icon = DownloadIcon();
-    let history_icon = ChevronUpDownIcon();
+    let home_icon = HomeIconSolid();
+    let settings_icon = CogSolid();
+    let upload_icon = CloudUploadIconSolid();
+    let download_icon = CloudDownloadIconSolid();
+    let scan_icon = ScanQrIcon();
 
     view! {
-        <div class="flex items-center justify-center">
+        <div class="flex items-center justify-evenly py-2">
             <ToolbarItem label="Home" href=HOME_ROUTE icon=home_icon class="rounded-l-full" />
             <ToolbarItem label="Send" href=SEND_ROUTE icon=upload_icon />
             <ToolbarItem label="Receive" href=RECEIVE_ROUTE icon=download_icon />
@@ -49,7 +49,7 @@ pub fn Toolbar() -> impl leptos::IntoView {
             <ToolbarItem
                 label="history"
                 href=HISTORY_ROUTE
-                icon=history_icon
+                icon=scan_icon
                 class="rounded-r-full border-none"
             />
         </div>

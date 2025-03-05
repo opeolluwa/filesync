@@ -10,7 +10,7 @@ pub mod menu_icon;
 pub mod moon_icon;
 pub mod platform;
 pub mod scan_qr_icon;
-pub mod settings_icon;
+pub mod cog;
 pub mod share_icon;
 pub mod sun_icon;
 pub mod upload_icon;
