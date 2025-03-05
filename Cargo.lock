@@ -1144,7 +1144,16 @@ version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4a9b99b9cbbe49445b21764dc0625032a89b145a2642e67603e1c936f5458d05"
 dependencies = [
- "derive_more-impl",
+ "derive_more-impl 1.0.0",
+]
+
+[[package]]
+name = "derive_more"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "093242cf7570c207c83073cf82f79706fe7b8317e98620a47d5be7c3d8497678"
+dependencies = [
+ "derive_more-impl 2.0.1",
 ]
 
 [[package]]
@@ -1160,6 +1169,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "derive_more-impl"
+version = "2.0.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "bda628edc44c4bb645fbe0f758797143e4e07926f7ebf4e9bdfbd3d2ce621df3"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.99",
+]
+
+[[package]]
 name = "desktop_ui"
 version = "0.1.0"
 dependencies = [
@@ -1169,15 +1189,15 @@ dependencies = [
  "js_bindgen",
  "leptos 0.7.7",
  "leptos-qr",
- "leptos-remix-icon",
  "leptos-use",
- "leptos_reactive",
  "leptos_router",
  "leptos_toaster",
  "rayon",
  "serde",
  "serde-wasm-bindgen",
+ "tauri-sys",
  "tauri-wasm-bindgen",
+ "tauri_bindgen",
  "thaw",
  "wasm-bindgen",
  "wasm-bindgen-futures",
@@ -1557,12 +1577,15 @@ dependencies = [
  "anyhow",
  "iroh",
  "iroh-base",
+ "rand 0.9.0",
+ "random_str",
  "serde",
  "serde_json",
  "tauri",
  "tauri-build",
  "tauri-plugin-os",
  "tauri-plugin-shell",
+ "tauri_bindgen",
  "tokio",
 ]
 
@@ -3250,16 +3273,6 @@ source = "git+https://github.com/opeolluwa/leptos-qr#1af55ee5d1cf3ae022b0ef4d4d7
 dependencies = [
  "fast_qr",
  "leptos 0.7.7",
-]
-
-[[package]]
-name = "leptos-remix-icon"
-version = "1.0.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "6c18d6b30282f9e0dcfd95e061b6677bdf916cc831745c352a19b2e825c833e8"
-dependencies = [
- "leptos 0.6.15",
- "serde",
 ]
 
 [[package]]
@@ -5444,6 +5457,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "random_str"
+version = "0.1.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4f680682929acbd1db498180918f82775ba6140320e8fd900f043a93fd0bb3af"
+dependencies = [
+ "rand 0.8.5",
+]
+
+[[package]]
 name = "raw-window-handle"
 version = "0.6.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7070,6 +7092,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "tauri-sys"
+version = "0.2.2"
+source = "git+https://github.com/JonasKruckenberg/tauri-sys?branch=v2#dd9ba101f3a0db0e7fc965e695b3bd99b464386e"
+dependencies = [
+ "derive_more 2.0.1",
+ "futures",
+ "js-sys",
+ "log",
+ "serde",
+ "serde-wasm-bindgen",
+ "serde_repr",
+ "thiserror 2.0.12",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+]
+
+[[package]]
 name = "tauri-utils"
 version = "2.2.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7123,6 +7162,16 @@ checksum = "56eaa45f707bedf34d19312c26d350bc0f3c59a47e58e8adbeecdc850d2c13a0"
 dependencies = [
  "embed-resource",
  "toml",
+]
+
+[[package]]
+name = "tauri_bindgen"
+version = "0.1.0"
+dependencies = [
+ "serde",
+ "wasm-bindgen",
+ "wasm-bindgen-futures",
+ "web-sys",
 ]
 
 [[package]]

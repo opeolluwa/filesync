@@ -4,7 +4,7 @@ use leptos::view;
 
 use js_bindgen::navigate::change_location_to;
 
-use crate::routes::{RECEIVE_ROUTE, SEND_ROUTE};
+use crate::routes::{RECEIVE_ROUTE, SELECT_PLATFORM_ROUTE};
 
 #[leptos::component]
 pub fn DefaultScreen() -> impl leptos::IntoView {
@@ -14,11 +14,11 @@ pub fn DefaultScreen() -> impl leptos::IntoView {
                 <h1 class="font-medium leading-2 text-2xl text-gray-700 dark:text-gray-400 ">
                     "What would you like to do?"
                 </h1>
-                <p class="text-base">"Do you want to send or receive files?"</p>
+                <p class="text-base dark:text-gray-500 ">"Do you want to send or receive files?"</p>
                 <div class="flex justify-center gap-x-5 items-center mt-8">
                     <button
                         class="flex flex-col items-center  "
-                        on:click=move |_| change_location_to(SEND_ROUTE)
+                        on:click=move |_| change_location_to(SELECT_PLATFORM_ROUTE)
                     >
                         <div class="dark:bg-gray-700 bg-gray-200 text-gray-400 hover:bg-app-50 hover:text-app transition-all duration-200  p-4 rounded-xl shadow hover:shadow-none cursor-pointer dark:hover:bg-gray-700/50">
                             <svg
@@ -37,7 +37,7 @@ pub fn DefaultScreen() -> impl leptos::IntoView {
                             </svg>
 
                         </div>
-                        <p class="mt-2">Send File</p>
+                        <p class="mt-2 dark:text-gray-500 ">Send File</p>
                     </button>
                     <div class="flex flex-col items-center ">
 
@@ -60,7 +60,7 @@ pub fn DefaultScreen() -> impl leptos::IntoView {
                                 />
                             </svg>
                         </button>
-                        <p class="mt-2">Receive File</p>
+                        <p class="mt-2 dark:text-gray-500 ">Receive File</p>
                     </div>
                 </div>
             </div>

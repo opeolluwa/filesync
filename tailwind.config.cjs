@@ -24,6 +24,7 @@ module.exports = {
       red: colors.red,
       accent: "rgba(226,233,252,255)",
       card: "#f9fbfe",
+      slate: colors.slate,
       app: {
         DEFAULT: "#3074F5",
         50: "#DFEAFD",

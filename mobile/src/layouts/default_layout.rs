@@ -1,7 +1,6 @@
+use filesync_icons::scan_qr_icon::ScanQrIcon;
 use leptos::prelude::{ClassAttribute, ElementChild, StyleAttribute};
 use leptos::{children::Children, view};
-use filesync_icons::scan_qr_icon::ScanQrIcon;
-
 
 #[leptos::component]
 

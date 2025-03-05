@@ -26,10 +26,10 @@ version = "*"
 [workspace]
 members = [
     "common/database",
-    "desktop",
     "common/icons",
-    "common/tauri-wasm",
     "common/js_bindgen",
+    "common/tauri-wasm", "common/tauri_bindgen",
+    "desktop",
     "mobile",
     "src-tauri",
 ]
@@ -48,23 +48,13 @@ tauri-plugin-os = "2"
 tauri-plugin-shell = "2"
 wasm-bindgen = "0.2"
 wasm-bindgen-futures = "0.4"
-leptos-remix-icon = "1.0.3"
 leptos_router = { version = "0.7.0" }
 leptos-use = "0.13.11"
 leptos_toaster = "0.1.7"
 leptos_reactive = "0.6.15"
 web-sys = "0.3.77"
 rayon = "1.10.0"
-
-[workspace.dependencies.filesync_icons]
-path = "common/icons"
+leptos-qr = { git = "https://github.com/opeolluwa/leptos-qr", version = "0.2.0" }
 
 [workspace.dependencies.tauri-wasm-bindgen]
 path = "common/tauri-wasm"
-
-[workspace.dependencies.http_server]
-path = "common/server"
-
-[workspace.dependencies.js_bindgen]
-path = "common/js_bindgen"
-
