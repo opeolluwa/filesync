@@ -27,5 +27,6 @@ serde_json = { workspace = true }
 tauri = { workspace = true, features = [] }
 tauri-plugin-os = { workspace = true }
 tauri-plugin-shell = { workspace = true }
+tauri_bindgen = { version = "0.1.0", path = "../common/tauri_bindgen" }
 tokio = "1.43.0"
 

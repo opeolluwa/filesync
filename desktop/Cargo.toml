@@ -21,3 +21,5 @@ thaw = { workspace = true, features = ["csr"] }
 wasm-bindgen = { workspace = true }
 wasm-bindgen-futures = { workspace = true }
 web-sys = { workspace = true }
+tauri-sys = { git = "https://github.com/JonasKruckenberg/tauri-sys", branch = "v2",features = ["all"] } 
+tauri_bindgen = { version = "0.1.0", path = "../common/tauri_bindgen" }

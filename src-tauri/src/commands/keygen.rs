@@ -1,12 +1,6 @@
-use serde::{Deserialize, Serialize};
-
 use crate::utils::generator::{generate_passkey, generate_random_digits};
+use tauri_bindgen::wifi_bindgen::WifiCredentials;
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct WifiCredentials {
-    ssid: u16,
-    passkey: String,
-}
 #[tauri::command]
 pub fn generate_android_wifi_credentials() -> WifiCredentials {
     let ssid = generate_random_digits();

@@ -1,0 +1,15 @@
+[package]
+name = "tauri_bindgen"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+wasm-bindgen = { workspace = true }
+wasm-bindgen-futures = { workspace = true }
+web-sys = { workspace = true, version = "0.3.76", features = [
+    "Document",
+    "Window",
+    "Node",
+    "HtmlElement",
+] }
+serde = { workspace = true, features = ["derive"] }
