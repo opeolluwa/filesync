@@ -25,6 +25,8 @@
   },
   "dependencies": {
     "@tauri-apps/plugin-barcode-scanner": "^2.2.0",
-    "@tauri-apps/plugin-os": "^2.0.0"
+    "@tauri-apps/plugin-fs": "^2.2.0",
+    "@tauri-apps/plugin-os": "^2.0.0",
+    "@tauri-apps/plugin-sql": "^2.2.0"
   }
 }

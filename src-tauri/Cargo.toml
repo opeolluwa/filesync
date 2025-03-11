@@ -29,6 +29,11 @@ tauri-plugin-os = { workspace = true }
 tauri-plugin-shell = { workspace = true }
 tauri_bindgen = { version = "0.1.0", path = "../common/tauri_bindgen" }
 tokio = "1.43.0"
+thiserror = "2.0.12"
+tauri-plugin-sql = { version = "2", features = ["sqlite"] }
+uuid = { version = "1.15.1", features = ["v4"] }
+dirs = "6.0.0"
+tauri-plugin-fs = "2"
 
 [target.'cfg(any(target_os = "android", target_os = "ios"))'.dependencies]
 tauri-plugin-barcode-scanner = "2"
