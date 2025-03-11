@@ -1,6 +1,8 @@
+use crate::components::toolbar::Toolbar;
 use filesync_icons::chevron::ChevronUpDownIcon;
 use filesync_icons::dots::DotVertical;
 use filesync_icons::menu_icon::MenuIcon;
+use leptos::prelude::GlobalAttributes;
 use leptos::prelude::{CollectView, ElementChild, Get};
 use leptos::{
     component,
@@ -10,9 +12,6 @@ use leptos::{
 use leptos_router::path;
 use tauri_wasm_bindgen::plugins::barcode::scan_barcode;
 use thaw::{Tab, TabList};
-use leptos::prelude::OnAttribute;
-use crate::components::toolbar::Toolbar;
-
 struct TabConfig {
     name: String,
     value: String,
@@ -42,38 +41,61 @@ pub fn MobileApplication() -> impl leptos::IntoView {
     ];
 
     view! {
-        <header class="bg-app px-4 text-white fixed left-0 top-0 right-0 w-full pt-4">
+            <header class="bg-app px-4 text-white fixed left-0 top-0 right-0 w-full pt-4">
 
-            <div class="flex items-center justify-between py-1 hidden">
-                <button class="size-4">
-                    <DotVertical />
-                </button>
-                <button class="size-4">
-         <MenuIcon/>
-                </button>
-            </div>
-            <TabList selected_value class="flex justify-between  pt-4 pb-2 overflow-scroll ">
-                {tabs
-                    .into_iter()
-                    .map(|tab| {
-                        view! { <Tab value=tab.value class=tab_class_rule>{tab.name}</Tab> }
-                    })
-                    .collect_view()}
+                <div class="flex items-center justify-between py-1 hidden">
+                    <button class="size-4">
+                        <DotVertical />
+                    </button>
+                    <button class="size-4">
+             <MenuIcon/>
+                    </button>
+                </div>
+                <TabList selected_value class="flex justify-between  pt-4 pb-2 overflow-scroll ">
+                    {tabs
+                        .into_iter()
+                        .map(|tab| {
+                            view! { <Tab value=tab.value class=tab_class_rule>{tab.name}</Tab> }
+                        })
+                        .collect_view()}
 
-            </TabList>
-        </header>
+                </TabList>
+            </header>
 
-        <main class="px-4 pt-20">
-      ff  {active_tab}
-    "hey man ived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-        </main>
+            <main class="px-4 pt-20">
+            {active_tab}
 
-        <button class="fab flex flex-col items-center justify-center size-6" on:click=move|| scan_barcode()>
-            <ChevronUpDownIcon />
-        </button>
+       <div id="qr-reader" style="width:100%; padding-top: 800px;"></div>
+    <div id="qr-reader-results"></div>
+            </main>
 
-         <footer class="w-[80%] hidden  mx-auto rounded-full fixed bottom-10 left-0 right-0 z-50 border-gray-200 border-[0.25px]  shadow-xl py-0">
-            <Toolbar />
-        </footer>
-    }
+            <button class="fab flex flex-col items-center justify-center size-6"  id="qr-trigger">
+                <ChevronUpDownIcon />
+            </button>
+
+             <footer class="w-[80%] hidden  mx-auto rounded-full fixed bottom-10 left-0 right-0 z-50 border-gray-200 border-[0.25px]  shadow-xl py-0">
+                <Toolbar />
+            </footer>
+      <script src="https://unpkg.com/html5-qrcode"></script>
+
+      <script>
+        var resultContainer = document.getElementById("qr-reader-results");
+          var lastResult, countResults = 0;
+
+        //   function onScanSuccess(decodedText, decodedResult) {
+            // if (decodedText !== lastResult) {
+            //   ++countResults;
+            //   lastResult = decodedText;
+              // Handle on success condition with the decoded message.
+            //   console.log(`Scan result ${decodedText}`, decodedResult);
+            // }
+        //   }
+
+        //   var html5QrcodeScanner = new Html5QrcodeScanner(
+            // "qr-reader", { fps: 10, qrbox: 250 });
+        //   html5QrcodeScanner.render(onScanSuccess);
+      </script>
+
+
+        }
 }

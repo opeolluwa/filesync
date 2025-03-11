@@ -19,7 +19,6 @@ pub fn App() -> impl IntoView {
 
     let device_platform = Platform::from_str(&device_operating_system.get()).unwrap_or_default();
 
-    
     view! {
         <Show
             when=move || {

@@ -15,10 +15,29 @@
 <body class="relative">
 
   <script type="module">
+    
     // ⚠️ DO NOT REMOVE ⚠️
     // init parallel processing!
     // import { initThreadPool } from "/filesync-ui.js"
     // await initThreadPool(navigator.hardwareConcurrency);
+  </script>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+  <script>
+    var resultContainer = document.getElementById('qr-reader-results');
+      var lastResult, countResults = 0;
+
+      function onScanSuccess(decodedText, decodedResult) {
+        if (decodedText !== lastResult) {
+          ++countResults;
+          lastResult = decodedText;
+          // Handle on success condition with the decoded message.
+          console.log(`Scan result ${decodedText}`, decodedResult);
+        }
+      }
+
+      var html5QrcodeScanner = new Html5QrcodeScanner(
+        "qr-reader", { fps: 10, qrbox: 250 });
+      html5QrcodeScanner.render(onScanSuccess);
   </script>
 </body>
 

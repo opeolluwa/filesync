@@ -1,4 +1,3 @@
-
 use filesync_icons::cloud::{CloudDownloadIconSolid, CloudUploadIconSolid};
 use filesync_icons::cog::CogSolid;
 use filesync_icons::home_icon::HomeIconSolid;

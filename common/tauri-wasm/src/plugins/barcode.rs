@@ -4,5 +4,5 @@ use wasm_bindgen::{prelude::wasm_bindgen, JsValue};
 extern "C" {
 
     #[wasm_bindgen(js_namespace = ["window", "__TAURI__", "barcodeScanner"], js_name = scan)]
-    pub async fn scan_barcode() -> JsValue;
+    pub fn scan_barcode() -> JsValue;
 }
