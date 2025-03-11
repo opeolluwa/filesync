@@ -9,6 +9,7 @@
     "beforeBuildCommand": "trunk build",
     "frontendDist": "../dist"
   },
+  
   "app": {
     "withGlobalTauri": true,
     "windows": [

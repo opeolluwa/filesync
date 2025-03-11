@@ -2,15 +2,15 @@
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
   "description": "Capability for the main window",
-  "windows": [
-    "main"
-  ],
+  "windows": ["main"],
   "permissions": [
     "core:default",
     "shell:allow-open",
     "os:default",
-    "os:default",
-    "os:default",
-    "os:default"
+    "sql:allow-load",
+    "sql:allow-execute",
+    "sql:allow-select",
+    "sql:default",
+    "sql:allow-close"
   ]
 }
