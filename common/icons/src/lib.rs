@@ -1,6 +1,7 @@
 pub mod arrow_left_right_icon;
 pub mod chevron;
 pub mod cloud;
+pub mod cog;
 pub mod dots;
 pub mod download_icon;
 pub mod history_icon;
@@ -10,7 +11,6 @@ pub mod menu_icon;
 pub mod moon_icon;
 pub mod platform;
 pub mod scan_qr_icon;
-pub mod cog;
 pub mod share_icon;
 pub mod sun_icon;
 pub mod upload_icon;

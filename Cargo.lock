@@ -3956,7 +3956,6 @@ dependencies = [
  "leptos_router",
  "serde",
  "serde-wasm-bindgen",
- "tauri-sys",
  "tauri-wasm-bindgen",
  "thaw",
  "wasm-bindgen",

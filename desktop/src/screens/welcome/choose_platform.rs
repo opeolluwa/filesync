@@ -61,7 +61,7 @@ pub fn SelectPlatformScreen() -> impl leptos::IntoView {
                 <DialogSurface class="dark:bg-gray-400 dark:text-gray-500">
                     <DialogBody class="">
                         <DialogTitle class="dark:text-gray-500">
-                            "Scan QR code to connect Android device" 
+                            "Scan QR code to connect Android device"
                         </DialogTitle>
                         <DialogContent class="flex mt-6 flex-col items-center justify-center">
                             <div class="w-[175px] h-[175px]">

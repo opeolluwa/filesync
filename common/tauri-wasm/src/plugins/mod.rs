@@ -1,2 +1,2 @@
-pub mod os;
 pub mod barcode;
+pub mod os;
