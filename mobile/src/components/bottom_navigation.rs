@@ -1,3 +1,4 @@
+use filesync_icons::menu_icon::MenuIcon;
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{view, IntoView};
 
@@ -18,7 +19,7 @@ where
     view! {
         <a href=href class="flex flex-col items-center p-0 m-0  w-full rounded-lg">
             {icon}
-            <span class="text-sm capitalize">{label}</span>
+            <small class=" font-medium mt-[2px] capitalize ">{label}</small>
         </a>
     }
 }
@@ -32,10 +33,10 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
     let history_icon = HistoryIcon();
 
     view! {
-        <nav class="flex items-center justify-between bottom-nav">
-            <BottomNavigationRoute label="home" href="/" icon=home_icon />
+        <nav class="flex  items-center justify-between">
+            <BottomNavigationRoute label="home" href="/" icon=MenuIcon() />
             <BottomNavigationRoute label="share" href="/share" icon=transfer_icon />
-            <BottomNavigationRoute label="history" href="/share" icon=history_icon />
+            // <BottomNavigationRoute label="history" href="/share" icon=history_icon />
             <BottomNavigationRoute label="settings" href="/settings" icon=settings_icon />
 
         </nav>

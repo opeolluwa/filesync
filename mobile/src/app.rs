@@ -1,8 +1,6 @@
-use crate::components::toolbar::Toolbar;
-use filesync_icons::chevron::ChevronUpDownIcon;
+use crate::components::bottom_navigation::BottomNavigation;
 use filesync_icons::dots::DotVertical;
 use filesync_icons::menu_icon::MenuIcon;
-use leptos::prelude::GlobalAttributes;
 use leptos::prelude::{CollectView, ElementChild, Get};
 use leptos::{
     component,
@@ -10,7 +8,6 @@ use leptos::{
     view,
 };
 use leptos_router::path;
-use tauri_wasm_bindgen::plugins::barcode::scan_barcode;
 use thaw::{Tab, TabList};
 struct TabConfig {
     name: String,
@@ -41,7 +38,7 @@ pub fn MobileApplication() -> impl leptos::IntoView {
     ];
 
     view! {
-            <header class="bg-app px-4 text-white fixed left-0 top-0 right-0 w-full pt-4">
+            <header class="bg-app fixed px-4 text-white left-0 top-0 right-0 w-full pt-4">
 
                 <div class="flex items-center justify-between py-1 hidden">
                     <button class="size-4">
@@ -62,39 +59,20 @@ pub fn MobileApplication() -> impl leptos::IntoView {
                 </TabList>
             </header>
 
-            <main class="px-4 pt-20">
+            <main class="px-4  pt-20 h-screen overflow-y-scroll overflow-x-hidden">
             {active_tab}
 
-       <div id="qr-reader" style="width:100%; padding-top: 800px;"></div>
-    <div id="qr-reader-results"></div>
+
+    
             </main>
 
-            <button class="fab flex flex-col items-center justify-center size-6"  id="qr-trigger">
-                <ChevronUpDownIcon />
-            </button>
+ 
 
-             <footer class="w-[80%] hidden  mx-auto rounded-full fixed bottom-10 left-0 right-0 z-50 border-gray-200 border-[0.25px]  shadow-xl py-0">
-                <Toolbar />
+             <footer class="bg-gray-50 border-t border-1 border-gray-100/50  fixed text-gray-500 w-full left-0 right-0 z-50 border-gray-200 border-[0.25px]  bottom-0 py-4">
+                <BottomNavigation />
             </footer>
-      <script src="https://unpkg.com/html5-qrcode"></script>
+     
 
-      <script>
-        var resultContainer = document.getElementById("qr-reader-results");
-          var lastResult, countResults = 0;
-
-        //   function onScanSuccess(decodedText, decodedResult) {
-            // if (decodedText !== lastResult) {
-            //   ++countResults;
-            //   lastResult = decodedText;
-              // Handle on success condition with the decoded message.
-            //   console.log(`Scan result ${decodedText}`, decodedResult);
-            // }
-        //   }
-
-        //   var html5QrcodeScanner = new Html5QrcodeScanner(
-            // "qr-reader", { fps: 10, qrbox: 250 });
-        //   html5QrcodeScanner.render(onScanSuccess);
-      </script>
 
 
         }
