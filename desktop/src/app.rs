@@ -17,7 +17,7 @@ use thaw::ConfigProvider;
 #[component]
 pub fn DesktopApplication() -> impl leptos::IntoView {
     view! {
-        <ConfigProvider class="dark:bg-app-950/80">
+        // <ConfigProvider class="dark:bg-app-950/80">
             <Router>
                 <DefaultLayout>
                     <Routes transition=true fallback=|| "Not found.">
@@ -34,6 +34,6 @@ pub fn DesktopApplication() -> impl leptos::IntoView {
 
                 </DefaultLayout>
             </Router>
-        </ConfigProvider>
+        // </ConfigProvider>
     }
 }
