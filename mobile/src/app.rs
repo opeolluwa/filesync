@@ -8,7 +8,7 @@ use leptos::{
     view,
 };
 use leptos_router::path;
-use thaw::{Tab, TabList};
+use thaw::{ConfigProvider, Tab, TabList};
 struct TabConfig {
     name: String,
     value: String,
@@ -38,7 +38,7 @@ pub fn MobileApplication() -> impl leptos::IntoView {
     ];
 
     view! {
-            <header class="bg-app fixed px-4 text-white left-0 top-0 right-0 w-full pt-4">
+            <header class="bg-app fixed px-4 text-white left-0 top-0 right-0 w-full pt-4 ">
 
                 <div class="flex items-center justify-between py-1 hidden">
                     <button class="size-4">
@@ -48,15 +48,15 @@ pub fn MobileApplication() -> impl leptos::IntoView {
              <MenuIcon/>
                     </button>
                 </div>
-                <TabList selected_value class="flex justify-between  pt-4 pb-2 overflow-scroll ">
+                <div class="flex justify-between  pt-4 pb-2 overflow-scroll ">
                     {tabs
                         .into_iter()
                         .map(|tab| {
-                            view! { <Tab value=tab.value class=tab_class_rule>{tab.name}</Tab> }
+                            view! { <button >{tab.name}</button> }
                         })
                         .collect_view()}
 
-                </TabList>
+                </div>
             </header>
 
             <main class="px-4  pt-20 h-screen overflow-y-scroll overflow-x-hidden">
