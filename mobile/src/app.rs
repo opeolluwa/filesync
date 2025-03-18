@@ -68,7 +68,7 @@ pub fn MobileApplication() -> impl leptos::IntoView {
 
  
 
-             <footer class="bg-gray-50 border-t border-1 border-gray-100/50  fixed text-gray-500 w-full left-0 right-0 z-50 border-gray-200 border-[0.25px]  bottom-0 py-4">
+             <footer class="bg-gray-50 border-t border-1 border-gray-100/50  fixed text-gray-500 w-full left-0 right-0 z-50 border-gray-200 border-[0.25px]  bottom-0 py-2">
                 <BottomNavigation />
             </footer>
      
