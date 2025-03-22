@@ -14,6 +14,7 @@ use thaw::{DrawerBody, DrawerPosition, OverlayDrawer};
 #[leptos::component]
 pub fn BottomNavigationRoute<F>(
     label: &'static str,
+    #[prop(optional)]
     href: &'static str,
     icon: F,
 ) -> impl leptos::IntoView
@@ -21,10 +22,10 @@ where
     F: IntoView,
 {
     view! {
-        <a href=href class="flex flex-col items-center p-0 m-0  w-full rounded-lg">
+        <button  class="flex flex-col items-center p-0 m-0  w-full rounded-lg">
             {icon}
             <small class=" font-medium mt-[2px] capitalize ">{label}</small>
-        </a>
+        </button>
     }
 }
 
@@ -34,14 +35,16 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
     let settings_icon = SettingsIconOutline();
     let transfer_icon = ArrowLeftRightIconSolid();
 
-      let platform_logo_class_rules = "dark:bg-gray-700 bg-gray-200 text-gray-400 hover:bg-app-50 hover:text-app transition-all duration-200  p-4 rounded-xl shadow hover:shadow-none cursor-pointer dark:hover:bg-gray-700/50 size-10";
+    let platform_logo_class_rules = "dark:bg-gray-700 bg-gray-200 text-gray-400 hover:bg-app-50 hover:text-app transition-all duration-200  p-4 rounded-xl shadow hover:shadow-none cursor-pointer dark:hover:bg-gray-700/50 ";
 
     let android = AndroidLogo();
     let macOs = MacOsLogo();
     let windows = WindowsPlatformLogo();
     let linux = LinuxLogo();
-    
-    let select_action= view! {
+
+    let open = RwSignal::new(false);
+
+    let select_action = view! {
          <div class="text-center  ">
             <div>
                 <h1 class="font-medium leading-2 text-2xl text-gray-700 dark:text-gray-400 ">
@@ -99,9 +102,6 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
             </div>
         </div>
     };
-    let open = RwSignal::new(false);
-    let position = RwSignal::new(DrawerPosition::Bottom);
-
 
     let select_pltform = view! {
 
@@ -114,7 +114,7 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
                     <div class="flex justify-center items-center gap-x-5 mt-8  ">
                         <button
                             class=platform_logo_class_rules
-                          
+
                         >
                             {android}
                         </button>
@@ -126,15 +126,15 @@ pub fn BottomNavigation() -> impl leptos::IntoView {
             </div>
     };
     view! {
-          <OverlayDrawer open position>
+          <OverlayDrawer open position=DrawerPosition::Bottom>
         <DrawerBody class="flex flex-col items-center justify-center">
-          {select_action}
+          {select_pltform}
         </DrawerBody>
     </OverlayDrawer>
 
         <nav class="flex  items-center justify-between">
             <BottomNavigationRoute label="home" href="/" icon=MenuIcon() />
-            <BottomNavigationRoute label="share" href="/share" icon=transfer_icon on:click=move |_|     open.set(true) />
+            <BottomNavigationRoute label="share" href="/share" icon=transfer_icon  on:click=move |_|     open.set(true)/>
 
             <BottomNavigationRoute label="settings" href="/settings" icon=settings_icon />
 

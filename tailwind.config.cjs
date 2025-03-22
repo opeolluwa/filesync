@@ -38,9 +38,14 @@ module.exports = {
         800: "#062D77",
         900: "#031941",
         950: "#020F27",
+        dark: "#1d232a",
       },
     },
     extend: {},
   },
-  plugins: [require("@tailwindcss/forms"), require("daisyui"), require("tailwind-plugin-ripple-effect")],
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("daisyui"),
+    require("tailwind-plugin-ripple-effect"),
+  ],
 };

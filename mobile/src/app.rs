@@ -8,7 +8,7 @@ use leptos::{
     view,
 };
 use leptos_router::path;
-use thaw::{ConfigProvider, Tab, TabList};
+use thaw::{Tab, TabList};
 struct TabConfig {
     name: String,
     value: String,
@@ -28,7 +28,7 @@ pub fn MobileApplication() -> impl leptos::IntoView {
 
     let active_tab = move || selected_value.get();
 
-    let tab_class_rule = "text-sm ";
+    let tab_class_rule = "text-sm text-white capitalize";
     let tabs = vec![
         TabConfig::new("History"),
         TabConfig::new("Apps"),
@@ -38,42 +38,45 @@ pub fn MobileApplication() -> impl leptos::IntoView {
     ];
 
     view! {
-            <header class="bg-app fixed px-4 text-white left-0 top-0 right-0 w-full pt-4 ">
+        <header class="bg-app fixed px-4 text-white left-0 top-0 right-0 w-full pt-4 ">
 
-                <div class="flex items-center justify-between py-1 hidden">
-                    <button class="size-4">
-                        <DotVertical />
-                    </button>
-                    <button class="size-4">
-             <MenuIcon/>
-                    </button>
-                </div>
-                <div class="flex justify-between  pt-4 pb-2 overflow-scroll ">
-                    {tabs
-                        .into_iter()
-                        .map(|tab| {
-                            view! { <button >{tab.name}</button> }
-                        })
-                        .collect_view()}
+            <div class="flex items-center justify-between py-1 hidden">
+                <button class="size-4">
+                    <DotVertical />
+                </button>
+                <button class="size-4">
+         <MenuIcon/>
+                </button>
+            </div>
+            <div class="flex justify-between  pt-4 pb-2 overflow-scroll text-white">
+                  <TabList selected_value class="flex justify-between  pt-6 pb-2 overflow-scroll text-white">
+                {tabs
+                    .into_iter()
+                    .map(|tab| {
+                        view! { <Tab value=tab.value class=tab_class_rule>{tab.name}</Tab> }
+                    })
+                    .collect_view()}
 
-                </div>
-            </header>
+            </TabList>
 
-            <main class="px-4  pt-20 h-screen overflow-y-scroll overflow-x-hidden">
-            {active_tab}
+            </div>
+        </header>
 
-
-    
-            </main>
-
- 
-
-             <footer class="bg-gray-50 border-t border-1 border-gray-100/50  fixed text-gray-500 w-full left-0 right-0 z-50 border-gray-200 border-[0.25px]  bottom-0 py-2">
-                <BottomNavigation />
-            </footer>
-     
+        <main class="px-4  pt-20 h-screen overflow-y-scroll overflow-x-hidden">
+        {active_tab}
 
 
 
-        }
+        </main>
+
+
+
+         <footer class="bg-gray-50 border-t border-1 border-gray-100/50  fixed text-gray-500 w-full left-0 right-0 z-50 border-gray-200 border-[0.25px]  bottom-0 py-2">
+            <BottomNavigation />
+        </footer>
+
+
+
+
+    }
 }
