@@ -12,7 +12,7 @@ use thaw::{Dialog, DialogBody, DialogContent, DialogSurface, DialogTitle, Theme}
 
 #[leptos::component]
 pub fn SelectPlatformScreen() -> impl leptos::IntoView {
-    let platform_logo_class_rules = "dark:bg-gray-700 bg-gray-200 text-gray-400 hover:bg-app-50 hover:text-app transition-all duration-200  p-4 rounded-xl shadow hover:shadow-none cursor-pointer dark:hover:bg-gray-700/50";
+    let platform_logo_class_rules = "dark:bg-gray-700 bg-gray-200 text-gray-400 hover:bg-app-50 hover:text-app-600 transition-all duration-200  p-4 rounded-xl shadow hover:shadow-none cursor-pointer dark:hover:bg-gray-700/50";
 
     let android = AndroidLogo();
     let macOs = MacOsLogo();
@@ -58,7 +58,7 @@ pub fn SelectPlatformScreen() -> impl leptos::IntoView {
             </div>
 
             <Dialog open=open_android_qr_modal>
-                <DialogSurface class="dark:bg-gray-400 dark:text-gray-500">
+                <DialogSurface class="dark:bg-app-dark dark:text-gray-500">
                     <DialogBody class="">
                         <DialogTitle class="dark:text-gray-500">
                             "Scan QR code to connect Android device"
@@ -69,8 +69,8 @@ pub fn SelectPlatformScreen() -> impl leptos::IntoView {
                                     data="wifi_creds"
                                     ecl=leptos_qr::ECL::Q
                                     shape=leptos_qr::Shape::Square
-                                    fg_color="#111111"
-                                    bg_color="transparent"
+                                    fg_color="#f7f7f7"
+                                    bg_color="#1d232a"
                                 />
                             </div>
                         </DialogContent>

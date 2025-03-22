@@ -10,7 +10,6 @@ use tauri_wasm_bindgen::plugins::os::get_device_operating_system;
 use crate::platform::Platform;
 
 use thaw::ConfigProvider;
-// pub use wasm_bindgen_rayon::init_thread_pool;
 
 #[component]
 pub fn App() -> impl IntoView {
@@ -21,7 +20,7 @@ pub fn App() -> impl IntoView {
     let device_platform = Platform::from_str(&device_operating_system.get()).unwrap_or_default();
 
     view! {
-         <ConfigProvider class="">
+                <ConfigProvider class="dark:bg-[#1d232a]">
 
         <Show
             when=move || {

@@ -8,6 +8,8 @@ use crate::routes::{RECEIVE_ROUTE, SELECT_PLATFORM_ROUTE};
 
 #[leptos::component]
 pub fn DefaultScreen() -> impl leptos::IntoView {
+    let app_action_css_rule ="dark:bg-gray-700 dark:hover:bg-gray-700/50 bg-gray-200 text-gray-400 hover:bg-app-50 hover:text-app-600 transition-all duration-200 p-4 rounded-xl shadow hover:shadow-none cursor-pointer  flex flex-col ites-center justify-center";
+
     view! {
         <div class="text-center flex flex-col align-center justify-center items-center h-[90%]">
             <div>
@@ -20,7 +22,7 @@ pub fn DefaultScreen() -> impl leptos::IntoView {
                         class="flex flex-col items-center  "
                         on:click=move |_| change_location_to(SELECT_PLATFORM_ROUTE)
                     >
-                        <div class="dark:bg-gray-700 bg-gray-200 text-gray-400 hover:bg-app-50 hover:text-app transition-all duration-200  p-4 rounded-xl shadow hover:shadow-none cursor-pointer dark:hover:bg-gray-700/50">
+                        <div class=app_action_css_rule>
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
@@ -42,7 +44,7 @@ pub fn DefaultScreen() -> impl leptos::IntoView {
                     <div class="flex flex-col items-center ">
 
                         <button
-                            class=" dark:bg-gray-700 dark:hover:bg-gray-700/50 bg-gray-200 text-gray-400 hover:bg-app-50 hover:text-app transition-all duration-200 p-4 rounded-xl shadow hover:shadow-none cursor-pointer"
+                            class=app_action_css_rule
                             on:click=move |_| change_location_to(RECEIVE_ROUTE)
                         >
                             <svg

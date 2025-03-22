@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AutoImportSettings">
-    <option name="autoReloadType" value="ALL" />
+    <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="33934298-5833-4da1-b37e-0e2bec43d847" name="Changes" comment="" />
+    <list default="true" id="33934298-5833-4da1-b37e-0e2bec43d847" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/common/icons/src/arrow_left_right_icon.rs" beforeDir="false" afterPath="$PROJECT_DIR$/common/icons/src/arrow_left_right_icon.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/icons/src/menu_icon.rs" beforeDir="false" afterPath="$PROJECT_DIR$/common/icons/src/menu_icon.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/icons/src/share_icon.rs" beforeDir="false" afterPath="$PROJECT_DIR$/common/icons/src/share_icon.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/common/style/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/common/style/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/src/screens/welcome/choose_platform.rs" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/src/screens/welcome/choose_platform.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/src/screens/welcome/default.rs" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/src/screens/welcome/default.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/src/app.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/components/bottom_navigation.rs" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/src/components/bottom_navigation.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.cjs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="FormatOnSaveOptions">
     <option name="myRunOnSave" value="true" />
@@ -21,6 +35,9 @@
   </component>
   <component name="MacroExpansionManager">
     <option name="directoryName" value="x11g4h0b" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
   </component>
   <component name="OptimizeOnSaveOptions">
     <option name="myRunOnSave" value="true" />
@@ -35,9 +52,14 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
     "RunOnceActivity.rust.reset.selective.auto.import": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
     "code.cleanup.on.save": "true",
+    "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "release",
     "last_opened_file_path": "/Users/USER/Desktop/devs/filesync",
     "node.js.detected.package.eslint": "true",
