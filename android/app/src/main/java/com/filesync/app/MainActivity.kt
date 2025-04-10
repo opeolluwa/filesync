@@ -33,7 +33,7 @@ class MainActivity : ComponentActivity() {
             FileSyncAndroidTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
-                    modifier = Modifier.fillMaxSize().padding(horizontal =25.dp, vertical = 10.dp),
+                    modifier = Modifier.fillMaxSize().padding(horizontal =15.dp, vertical = 10.dp),
                     color = MaterialTheme.colorScheme.background
                 ) {
                     Greeting("Opeolluwa")
@@ -49,4 +49,10 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
         text = "Hello $name!",
         modifier = modifier
     )
+}
+
+
+@Composable
+fun Tabs(selectedTabIndex: Int, modifier: Modifier){
+
 }
