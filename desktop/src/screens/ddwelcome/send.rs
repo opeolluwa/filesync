@@ -1,8 +1,9 @@
-use js_bindgen::navigate::change_location_to;
 use leptos::prelude::{ClassAttribute, CustomAttribute, ElementChild};
 use leptos::view;
 use thaw::{FileList, Upload, UploadDragger};
 use web_sys::console;
+
+use js_bindgen::navigate::change_location_to;
 
 use crate::layouts::welcome_screen_layout::WelcomeScreenLayout;
 

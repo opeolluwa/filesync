@@ -1,5 +1,5 @@
 [build]
-target = "./assets/index.html"
+target = "./index.html"
 filehash = false
 minify = "on_release"
 

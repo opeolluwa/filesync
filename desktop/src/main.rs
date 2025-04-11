@@ -1,10 +1,8 @@
 mod app;
-
 mod components;
 mod layouts;
 mod routes;
 mod screens;
-
 use app::*;
 
 use leptos::*;
