@@ -15,9 +15,9 @@ use leptos_router::{
 use thaw::ConfigProvider;
 
 #[component]
-pub fn DesktopApplication() -> impl leptos::IntoView {
+pub fn App() -> impl leptos::IntoView {
     view! {
-        // <ConfigProvider class="dark:bg-app-950/80">
+             <ConfigProvider class="dark:bg-[#1d232a]">
             <Router>
                 <DefaultLayout>
                     <Routes transition=true fallback=|| "Not found.">
@@ -34,6 +34,6 @@ pub fn DesktopApplication() -> impl leptos::IntoView {
 
                 </DefaultLayout>
             </Router>
-        // </ConfigProvider>
+        </ConfigProvider>
     }
 }

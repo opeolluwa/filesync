@@ -5,16 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33934298-5833-4da1-b37e-0e2bec43d847" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/common/icons/src/arrow_left_right_icon.rs" beforeDir="false" afterPath="$PROJECT_DIR$/common/icons/src/arrow_left_right_icon.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/icons/src/menu_icon.rs" beforeDir="false" afterPath="$PROJECT_DIR$/common/icons/src/menu_icon.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/icons/src/share_icon.rs" beforeDir="false" afterPath="$PROJECT_DIR$/common/icons/src/share_icon.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/common/style/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/common/style/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/src/screens/welcome/choose_platform.rs" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/src/screens/welcome/choose_platform.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/src/screens/welcome/default.rs" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/src/screens/welcome/default.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/src/app.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/components/bottom_navigation.rs" beforeDir="false" afterPath="$PROJECT_DIR$/mobile/src/components/bottom_navigation.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layouts/default_layout.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layouts/desktop_layout.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layouts/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/layouts/welcome_screen_layout.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/history.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/home.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/settings.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/share.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/welcome/choose_platform.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/welcome/default.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/welcome/mod.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/welcome/receive.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/welcome/select_action.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/screens/welcome/send.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/Cargo.toml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/desktop/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/src/app.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/Cargo.toml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/app.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/components/bottom_navigation.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/components/mod.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/components/toolbar.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/toolbar.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/layouts/dashboard_layout.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/layouts/default_layout.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/layouts/mod.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/lib.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/routes.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/screens/about.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/about.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/screens/history.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/screens/home.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/screens/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/screens/scan_qr.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/screens/settings.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/screens/share.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/mobile/src/screens/transfer.rs" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.cjs" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.cjs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,6 +61,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "opeolluwa"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/opeolluwa/filesync",
+    "accountId": "1bdd2b45-e724-4bc4-8430-c312b88ee51d"
+  }
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/core/src/main.rs" root0="SKIP_INSPECTION" />
   </component>
@@ -55,15 +98,18 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "RunOnceActivity.rust.reset.selective.auto.import": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "code.cleanup.on.save": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "release",
-    "last_opened_file_path": "/Users/USER/Desktop/devs/filesync",
+    "git-widget-placeholder": "treeshake-implemendtation",
+    "last_opened_file_path": "/Users/USER/Desktop/devs/filesync/src",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "yarn",
     "org.rust.cargo.project.model.PROJECT_DISCOVERY": "true",
     "org.rust.cargo.project.model.impl.CargoExternalSystemProjectAware.subscribe.first.balloon": "",
@@ -74,6 +120,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src" />
+    </key>
+  </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
   </component>
@@ -88,10 +139,23 @@
       <workItem from="1715329946498" duration="108000" />
       <workItem from="1718140653914" duration="1197000" />
       <workItem from="1730559594322" duration="63000" />
+      <workItem from="1744356677179" duration="180000" />
+      <workItem from="1744356882813" duration="671000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.rs</url>
+          <line>7</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

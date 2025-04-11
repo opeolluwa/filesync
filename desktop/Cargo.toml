@@ -1,13 +1,23 @@
 [package]
-name = "desktop_ui"
-version = "0.1.0"
+name = "filesync-ui"
+version = "0.5.0"
 edition = "2021"
 
+[workspace]
+members = [
+    "shared/icons",
+    "shared/js_bindgen",
+    "shared/tauri-wasm",
+    "shared/tauri_bindgen",
+    "src-tauri",
+]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
 console_error_panic_hook = { workspace = true }
-filesync_icons = { path = "../common/icons" }
+filesync_icons = { workspace = true }
+js_bindgen = { workspace = true }
 js-sys = { workspace = true }
-js_bindgen = { version = "0.1.0", path = "../common/js_bindgen" }
 leptos = { workspace = true, features = ["csr"] }
 leptos-qr = { workspace = true }
 leptos-use = { workspace = true }
@@ -16,10 +26,39 @@ leptos_toaster = { workspace = true, features = ["csr"] }
 rayon = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
-tauri-wasm-bindgen = { path = "../common/tauri-wasm" }
+tauri-sys = { workspace = true, features = ["all"] }
+tauri-wasm-bindgen = { workspace = true }
+tauri_bindgen = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
 wasm-bindgen = { workspace = true }
 wasm-bindgen-futures = { workspace = true }
 web-sys = { workspace = true }
-tauri-sys = { git = "https://github.com/JonasKruckenberg/tauri-sys", branch = "v2",features = ["all"] } 
-tauri_bindgen = { version = "0.1.0", path = "../common/tauri_bindgen" }
+
+[workspace.dependencies]
+thaw = { version = "0.4.0-beta-5", features = ["csr"] }
+leptos = { version = "0.7.0", features = ["csr"] }
+console_error_panic_hook = "0.1.7"
+js-sys = "0.3"
+serde = "1"
+serde-wasm-bindgen = "0.6"
+serde_json = "1"
+tauri = "2"
+tauri-build = "2"
+tauri-plugin-os = "2"
+tauri-plugin-shell = "2"
+wasm-bindgen = "0.2"
+wasm-bindgen-futures = "0.4"
+leptos_router = { version = "0.7.0" }
+leptos-use = "0.13.11"
+leptos_toaster = "0.1.7"
+leptos_reactive = "0.6.15"
+web-sys = "0.3.77"
+rayon = "1.10.0"
+leptos-qr = { git = "https://github.com/opeolluwa/leptos-qr", version = "0.2.0" }
+tauri-sys = { git = "https://github.com/JonasKruckenberg/tauri-sys", branch = "v2", features = [
+    "all",
+] }
+js_bindgen = { version = "0.1.0", path = "./shared/js_bindgen" }
+filesync_icons = { path = "./shared/icons" }
+tauri-wasm-bindgen = { path = "./shared/tauri-wasm" }
+tauri_bindgen = { version = "0.1.0", path = "./shared/tauri_bindgen" }
