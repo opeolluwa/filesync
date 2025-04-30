@@ -1,7 +1,8 @@
-use js_bindgen::navigate::change_location_to;
 use leptos::prelude::CustomAttribute;
 use leptos::prelude::{ClassAttribute, ElementChild, OnAttribute};
 use leptos::{prelude::Children, view};
+
+use js_bindgen::navigate::change_location_to;
 
 #[leptos::component]
 pub fn WelcomeScreenLayout(
