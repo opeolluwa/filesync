@@ -3,7 +3,9 @@ package com.filesync.app
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 //import androidx.compose.foundation.layout.FlowRowScopeInstance.weight
 import androidx.compose.foundation.layout.Row
@@ -30,9 +32,13 @@ import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.Card
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.FloatingActionButtonDefaults
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.filesync.app.screens.WelcomeScreen
 import com.filesync.app.ui.theme.Accent
 
 
@@ -41,15 +47,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             FileSyncAndroidTheme {
-                // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colorScheme.background
                 ) {
-                 Column() {
-                     MemoryCard()
-//                     Tabs(0, Modifier.background(Accent))
-                 }
+                    Box {
+                        Column() {
+                            WelcomeScreen()
+                        }
+                    }
                 }
             }
         }
@@ -65,24 +70,39 @@ fun Greeting(name: String, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun Header(){
+fun Header() {
 
 }
+
 @Composable
-fun MemoryCard(modifier: Modifier= Modifier){
-Card(Modifier.padding(10.dp)) {
-    Column(Modifier.padding(vertical = 15.dp).height(100.dp).fillMaxWidth()) {
-        Text("Available memory", fontWeight = FontWeight.Bold, fontSize = 24.sp)
-        Text("25 Gb of 324 Gb")
+fun MemoryCard(modifier: Modifier = Modifier) {
+    Card(Modifier.padding(10.dp)) {
+        Column(
+            Modifier
+                .padding(vertical = 15.dp)
+                .height(100.dp)
+                .fillMaxWidth()
+        ) {
+            Text("Available memory", fontWeight = FontWeight.Bold, fontSize = 24.sp)
+            Text("25 Gb of 324 Gb")
+        }
     }
 }
-}
 
 @Composable
-fun Tabs(selectedTabIndex: Int=0, modifier: Modifier = Modifier){
-val tabs = listOf<String>("History", "Application", "Video", "Audio", "Pictures", "Document", "File manager", "Large filesÏ")
+fun Tabs(selectedTabIndex: Int = 0, modifier: Modifier = Modifier) {
+    val tabs = listOf<String>(
+        "History",
+        "Application",
+        "Video",
+        "Audio",
+        "Pictures",
+        "Document",
+        "File manager",
+        "Large filesÏ"
+    )
     Row(modifier) {
-        for (tab in tabs){
+        for (tab in tabs) {
             Text(tab, Modifier.padding(10.dp))
         }
     }

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FileSync android</string>
+    <string name="open_camera">open camera\n</string>
 </resources>
