@@ -16,8 +16,8 @@ members = [
 [dependencies]
 console_error_panic_hook = { workspace = true }
 filesync_icons = { workspace = true }
-js_bindgen = { workspace = true }
 js-sys = { workspace = true }
+js_bindgen = { workspace = true }
 leptos = { workspace = true, features = ["csr"] }
 leptos-qr = { workspace = true }
 leptos-use = { workspace = true }
@@ -26,7 +26,7 @@ leptos_toaster = { workspace = true, features = ["csr"] }
 rayon = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
-tauri-sys = { workspace = true, features = ["all"] }
+# tauri-sys = { workspace = true, features = ["all"] }
 tauri-wasm-bindgen = { workspace = true }
 tauri_bindgen = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
