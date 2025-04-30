@@ -1,5 +1,6 @@
-use crate::utils::generator::{generate_passkey, generate_random_digits};
 use tauri_bindgen::wifi_bindgen::WifiCredentials;
+
+use crate::utils::generator::{generate_passkey, generate_random_digits};
 
 #[tauri::command]
 pub fn generate_android_wifi_credentials() -> WifiCredentials {

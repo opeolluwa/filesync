@@ -55,7 +55,7 @@ To see all available commands
 
 ## Acknowledgments
 
-- [Linux Wifi Hotspot](https://github.com/lakinduakash/linux-wifi-hotspot)
+- [Linux Wifi Hotspot](https://awesomeopensource.com/project/elangosundar/awesome-README-templateshttps://github.com/lakinduakash/linux-wifi-hotspot)
 - [File Streaming](https://github.com/tokio-rs/axum/tree/main/examples/stream-to-file)
 
 ## Contributing
