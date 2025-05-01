@@ -1593,7 +1593,6 @@ dependencies = [
  "console_error_panic_hook",
  "filesync_icons",
  "js-sys",
- "js_bindgen",
  "leptos 0.7.7",
  "leptos-qr",
  "leptos-use",

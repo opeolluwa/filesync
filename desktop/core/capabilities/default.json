@@ -1,0 +1,37 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "default",
+  "description": "Capability for the main window",
+  "windows": ["main"],
+  "permissions": [
+    "core:default",
+    "shell:allow-open",
+    "os:default",
+    "sql:allow-load",
+    "sql:allow-execute",
+    "sql:allow-select",
+    "sql:default",
+    "sql:allow-close",
+    "fs:allow-app-read-recursive",
+    "fs:allow-app-meta-recursive",
+    "fs:allow-audio-read-recursive",
+    "fs:allow-audio-write-recursive",
+    "fs:allow-video-read-recursive",
+    "fs:allow-video-write-recursive",
+    "fs:allow-public-read-recursive",
+    "fs:allow-public-write-recursive",
+    "fs:allow-document-read-recursive",
+    "fs:allow-document-write-recursive",
+    {
+      "identifier": "fs:scope",
+      "allow": [
+        { "path": "$APPDATA" },
+        { "path": "$HOME" },
+        { "path": "$PUBLIC" },
+        { "path": "$AUDIO" },
+        { "path": "$VIDEO" },
+        { "path": "$DOCUMENT" }
+      ]
+    }
+  ]
+}

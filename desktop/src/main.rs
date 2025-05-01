@@ -3,6 +3,7 @@ mod components;
 mod layouts;
 mod routes;
 mod screens;
+mod js_bindgen;
 use app::*;
 
 use leptos::*;

@@ -9,7 +9,7 @@ members = [
     "shared/js_bindgen",
     "shared/tauri-wasm",
     "shared/tauri_bindgen",
-    "src-tauri",
+    "core",
 ]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
@@ -17,7 +17,6 @@ members = [
 console_error_panic_hook = { workspace = true }
 filesync_icons = { workspace = true }
 js-sys = { workspace = true }
-js_bindgen = { workspace = true }
 leptos = { workspace = true, features = ["csr"] }
 leptos-qr = { workspace = true }
 leptos-use = { workspace = true }
