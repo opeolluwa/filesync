@@ -1,8 +1,11 @@
 mod app;
 mod components;
+mod icons;
+mod js_bindgen;
 mod layouts;
 mod routes;
 mod screens;
+mod tauri_wasm_bindgen;
 use app::*;
 
 use leptos::*;

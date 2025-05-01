@@ -2,8 +2,9 @@ use leptos::prelude::ClassAttribute;
 use leptos::prelude::CustomAttribute;
 use leptos::prelude::ElementChild;
 use leptos::{leptos_dom::logging::console_log, prelude::signal, task::spawn_local, view};
-use tauri_wasm_bindgen::api::invoke::invoke_tauri_command_without_args;
 use thaw::{Flex, FlexAlign, FlexJustify, Image, Text};
+
+use crate::tauri_wasm_bindgen::invoke::invoke_tauri_command_without_args;
 #[leptos::component]
 pub fn AboutScreen() -> impl leptos::IntoView {
     let (app_name, _set_app_name) = signal("Filesync");

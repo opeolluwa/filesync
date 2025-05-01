@@ -1580,7 +1580,6 @@ dependencies = [
  "tauri-plugin-os",
  "tauri-plugin-shell",
  "tauri-plugin-sql",
- "tauri_bindgen",
  "thiserror 2.0.12",
  "tokio",
  "uuid",
@@ -1591,9 +1590,7 @@ name = "filesync-ui"
 version = "0.5.0"
 dependencies = [
  "console_error_panic_hook",
- "filesync_icons",
  "js-sys",
- "js_bindgen",
  "leptos 0.7.7",
  "leptos-qr",
  "leptos-use",
@@ -1602,19 +1599,10 @@ dependencies = [
  "rayon",
  "serde",
  "serde-wasm-bindgen",
- "tauri-wasm-bindgen",
- "tauri_bindgen",
  "thaw",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
-]
-
-[[package]]
-name = "filesync_icons"
-version = "0.1.0"
-dependencies = [
- "leptos 0.7.7",
 ]
 
 [[package]]
@@ -3189,15 +3177,6 @@ checksum = "1cfaf33c695fc6e08064efbc1f72ec937429614f25eef83af942d0e227c3a28f"
 dependencies = [
  "once_cell",
  "wasm-bindgen",
-]
-
-[[package]]
-name = "js_bindgen"
-version = "0.1.0"
-dependencies = [
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
 ]
 
 [[package]]
@@ -7533,15 +7512,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "tauri-wasm-bindgen"
-version = "0.1.0"
-dependencies = [
- "serde-wasm-bindgen",
- "wasm-bindgen",
- "wasm-bindgen-futures",
-]
-
-[[package]]
 name = "tauri-winres"
 version = "0.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -7549,16 +7519,6 @@ checksum = "56eaa45f707bedf34d19312c26d350bc0f3c59a47e58e8adbeecdc850d2c13a0"
 dependencies = [
  "embed-resource",
  "toml",
-]
-
-[[package]]
-name = "tauri_bindgen"
-version = "0.1.0"
-dependencies = [
- "serde",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "web-sys",
 ]
 
 [[package]]

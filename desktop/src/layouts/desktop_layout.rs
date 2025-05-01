@@ -1,9 +1,9 @@
 use leptos::prelude::{ClassAttribute, ElementChild, OnAttribute};
 use leptos::{prelude::Children, view};
 
-use filesync_icons::chevron::ChevronLeftIcon;
-use filesync_icons::cloud::CloudUploadIcon;
-use js_bindgen::navigate::change_location_to;
+use crate::icons::chevron::ChevronLeftIcon;
+use crate::icons::cloud::CloudUploadIcon;
+use crate::js_bindgen::navigate::change_location_to;
 
 use crate::components::toolbar::Toolbar;
 
