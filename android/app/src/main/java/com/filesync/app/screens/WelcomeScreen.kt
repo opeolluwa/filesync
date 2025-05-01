@@ -25,6 +25,9 @@ import androidx.compose.ui.unit.sp
 import com.filesync.app.R
 import com.filesync.app.components.PulsingCirclesAnimation
 import com.filesync.app.ui.theme.Accent
+import com.filesync.app.ui.theme.Accent200
+import com.filesync.app.ui.theme.Accent50
+import com.filesync.app.ui.theme.Accent600
 
 
 @Composable()
@@ -35,6 +38,19 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
+
+
+
+
+        Column(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .padding(bottom = 50.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            PulsingCirclesAnimation()
+        }
+
 
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
@@ -51,24 +67,13 @@ fun WelcomeScreen(modifier: Modifier = Modifier) {
             Text("Scan QR code on peer device to continue")
 
         }
-
-
-        Column(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .padding(bottom = 50.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            PulsingCirclesAnimation()
-        }
-
-
         Button(
             onClick = { scanQRCode() },
             shape = RoundedCornerShape(5.dp),
             colors = ButtonDefaults.buttonColors(
                 contentColor = Color.White,
                 containerColor = Accent
+
             ),
             modifier = Modifier
                 .align(Alignment.BottomCenter)

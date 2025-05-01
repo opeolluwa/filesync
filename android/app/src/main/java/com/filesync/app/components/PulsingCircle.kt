@@ -22,6 +22,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.ui.res.painterResource
 import com.filesync.app.R
+import com.filesync.app.ui.theme.Accent700
 
 @Composable()
 fun PulsingCirclesAnimation() {
@@ -89,7 +90,7 @@ fun PulsingCirclesAnimation() {
 
             drawCircle(
                 color = Accent,
-                radius = 80f,
+                radius = 60f,
                 center = center
             )
 
