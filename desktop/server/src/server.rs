@@ -9,43 +9,31 @@ use tower_http::cors::Any;
 use tower_http::cors::CorsLayer;
 use tower_http::trace::DefaultMakeSpan;
 use tower_http::trace::TraceLayer;
-use tracing_subscriber::prelude::__tracing_subscriber_SubscriberExt;
-use tracing_subscriber::util::SubscriberInitExt;
 
 use local_ip_address::local_ip;
 
 use axum::extract::DefaultBodyLimit;
 
+use crate::errors::ServerError;
 use crate::router;
 
-/**
- * @function core_server
- * the application core responsible for handling file upload to client
- *  machine and file download to the host machine
- */
-#[derive(Debug, Serialize, Deserialize)]
-///TODO:  run the sever can be created with multiple instances
-pub struct HttpServer;
+//TODO:  run the sever can be created with multiple instances or spawn threads
 
-impl HttpServer {
-    pub async fn run() {
-        tracing_subscriber::registry()
-            .with(tracing_subscriber::EnvFilter::new(
-                std::env::var("RUST_LOG")
-                    .unwrap_or_else(|_| "filesync_server=debug,tower_http=debug".into()),
-            ))
-            .with(tracing_subscriber::fmt::layer())
+#[derive(Debug, Serialize, Deserialize)]
+pub struct EmbeddedHttpServer;
+
+impl EmbeddedHttpServer {
+    pub async fn run() -> Result<(), ServerError> {
+        tracing_subscriber::fmt()
+            .with_max_level(tracing::Level::DEBUG)
             .init();
 
-        // define cors scope as any
-        // change this later to only allow get and post http verbs
-        // TODO: restrict this in the future to only sendfile proxy server for example http://sendfile/dhsdo
         let cors_layer = CorsLayer::new()
-            .allow_headers(Any)
-            .allow_methods([Method::GET, Method::POST]) // restrict methods
-            .allow_origin(Any);
+            .allow_headers(Any) //TODO: add key gen for security
+            .allow_methods([Method::GET, Method::POST])
+            .allow_origin(Any); //TODO: restrict to IP address
 
-        // define file limit layer as 10GB
+        //TODO: improve data limit it is currently set to define file limit layer as 10GB
         // see information here <https://docs.rs/axum/0.6.2/axum/extract/struct.DefaultBodyLimit.html#%E2%80%A6>
         let file_size_limit = 10 * 1024 * 1024 * 1024;
         let file_limit = DefaultBodyLimit::max(file_size_limit);
@@ -57,7 +45,7 @@ impl HttpServer {
         let ip_address = format!("{:?}:{:?}", my_local_ip, 18005);
         let ip_address = ip_address
             .parse::<std::net::SocketAddr>()
-            .expect("invalid socket address");
+            .map_err(|err| ServerError::StartUpError(err.to_string()))?;
 
         println!("my local ip is {}", ip_address);
         let app = router::app()
@@ -70,10 +58,16 @@ impl HttpServer {
             );
 
         // run it
-        let listener = tokio::net::TcpListener::bind(&ip_address).await.unwrap();
+        let listener = tokio::net::TcpListener::bind(&ip_address)
+            .await
+            .map_err(|err| ServerError::StartUpError(err.to_string()))?;
 
         tracing::debug!(" the server port is http://{}", ip_address);
 
-        axum::serve(listener, app).await.unwrap();
+        axum::serve(listener, app)
+            .await
+            .map_err(|err| ServerError::StartUpError(err.to_string()))?;
+
+        Ok(())
     }
 }
