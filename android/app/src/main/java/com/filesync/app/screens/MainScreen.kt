@@ -49,7 +49,6 @@ fun MainScreen(qrResult: String, onScanClick: () -> Unit) {
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(bottom = 48.dp)
-//                        .align(Alignment.BottomCenter)
                 ) {
                     Text(
                         "Waiting for connection...",
@@ -57,6 +56,7 @@ fun MainScreen(qrResult: String, onScanClick: () -> Unit) {
                         fontWeight = FontWeight.Medium,
                         textAlign = TextAlign.Center
                     )
+                    //TODO: use this result
                     Text(
                         text = qrResult,
                         fontSize = 14.sp,
