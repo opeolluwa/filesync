@@ -4,7 +4,7 @@ version = "0.5.0"
 edition = "2021"
 
 [workspace]
-members = ["src-tauri"]
+members = ["src-tauri", "server"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
@@ -47,3 +47,4 @@ leptos-qr = { git = "https://github.com/opeolluwa/leptos-qr", version = "0.2.0" 
 tauri-sys = { git = "https://github.com/JonasKruckenberg/tauri-sys", branch = "v2", features = [
     "all",
 ] }
+embedded_server = { path = "server" }

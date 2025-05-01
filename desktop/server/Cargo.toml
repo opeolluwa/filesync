@@ -1,5 +1,6 @@
 [package]
-name = "server"
+name = "embedded_server"
+description = "embedded http server for filesync app"
 version = "0.1.0"
 edition = "2021"
 
