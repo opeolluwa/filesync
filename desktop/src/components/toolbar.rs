@@ -1,11 +1,11 @@
 use leptos::prelude::{ClassAttribute, ElementChild};
 use leptos::{view, IntoView};
 
-use filesync_icons::chevron::ChevronUpDownIcon;
-use filesync_icons::cog::SettingsIconOutline;
-use filesync_icons::download_icon::DownloadIcon;
-use filesync_icons::home_icon::HomeIcon;
-use filesync_icons::upload_icon::UploadIcon;
+use crate::icons::chevron::ChevronUpDownIcon;
+use crate::icons::cog::SettingsIconOutline;
+use crate::icons::download_icon::DownloadIcon;
+use crate::icons::home_icon::HomeIcon;
+use crate::icons::upload_icon::UploadIcon;
 
 use crate::routes::{HISTORY_ROUTE, HOME_ROUTE, RECEIVE_ROUTE, SEND_ROUTE, SETTINGS_ROUTE};
 

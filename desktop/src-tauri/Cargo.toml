@@ -30,7 +30,6 @@ tauri-plugin-fs = "2"
 tauri-plugin-os = { workspace = true }
 tauri-plugin-shell = { workspace = true }
 tauri-plugin-sql = { version = "2", features = ["sqlite"] }
-tauri_bindgen = { workspace = true }
 thiserror = "2.0.12"
 tokio = "1.43.0"
 uuid = { version = "1.15.1", features = ["v4"] }

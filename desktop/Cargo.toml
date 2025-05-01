@@ -4,18 +4,11 @@ version = "0.5.0"
 edition = "2021"
 
 [workspace]
-members = [
-    "shared/icons",
-    "shared/js_bindgen",
-    "shared/tauri-wasm",
-    "shared/tauri_bindgen",
-    "core",
-]
+members = ["src-tauri"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
 console_error_panic_hook = { workspace = true }
-filesync_icons = { workspace = true }
 js-sys = { workspace = true }
 leptos = { workspace = true, features = ["csr"] }
 leptos-qr = { workspace = true }
@@ -25,9 +18,6 @@ leptos_toaster = { workspace = true, features = ["csr"] }
 rayon = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
-# tauri-sys = { workspace = true, features = ["all"] }
-tauri-wasm-bindgen = { workspace = true }
-tauri_bindgen = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
 wasm-bindgen = { workspace = true }
 wasm-bindgen-futures = { workspace = true }
@@ -57,7 +47,3 @@ leptos-qr = { git = "https://github.com/opeolluwa/leptos-qr", version = "0.2.0" 
 tauri-sys = { git = "https://github.com/JonasKruckenberg/tauri-sys", branch = "v2", features = [
     "all",
 ] }
-js_bindgen = { version = "0.1.0", path = "./shared/js_bindgen" }
-filesync_icons = { path = "./shared/icons" }
-tauri-wasm-bindgen = { path = "./shared/tauri-wasm" }
-tauri_bindgen = { version = "0.1.0", path = "./shared/tauri_bindgen" }

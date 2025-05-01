@@ -2,10 +2,10 @@ use leptos::prelude::ClassAttribute;
 use leptos::prelude::CustomAttribute;
 use leptos::prelude::ElementChild;
 use leptos::{leptos_dom::logging::console_log, prelude::signal, task::spawn_local, view};
-use tauri_wasm_bindgen::api::invoke::invoke_tauri_command_without_args;
 use thaw::{Flex, FlexAlign, FlexJustify, Image, Text};
 
 use crate::layouts::welcome_screen_layout::WelcomeScreenLayout;
+use crate::tauri_wasm_bindgen::invoke::invoke_tauri_command_without_args;
 
 #[leptos::component]
 pub fn SettingsScreen() -> impl leptos::IntoView {

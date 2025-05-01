@@ -1,4 +1,9 @@
-use tauri_bindgen::wifi_bindgen::WifiCredentials;
+#[derive(Debug, Serialize, Deserialize)]
+pub struct WifiCredentials {
+    pub ssid: u16,
+    pub passkey: String,
+}
+use serde::{Deserialize, Serialize};
 
 use crate::utils::generator::{generate_passkey, generate_random_digits};
 
