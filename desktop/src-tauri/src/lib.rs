@@ -4,6 +4,7 @@ mod database;
 mod error;
 mod utils;
 
+use embedded_server::server::EmbeddedHttpServer;
 use tauri_plugin_sql::{Migration, MigrationKind};
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
@@ -15,6 +16,7 @@ pub fn run() {
         kind: MigrationKind::Up,
     }];
 
+    tauri::async_runtime::spawn(EmbeddedHttpServer::run());
     tauri::Builder::default()
         .plugin(
             tauri_plugin_sql::Builder::default()

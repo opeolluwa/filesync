@@ -5,7 +5,7 @@ use leptos_router::{
 };
 use thaw::ConfigProvider;
 
-use crate::screens::about::AboutScreen;
+// use crate::screens::about::AboutScreen;
 use crate::screens::history::HistoryScreen;
 use crate::screens::settings::SettingsScreen;
 use crate::screens::share::ShareScreen;
