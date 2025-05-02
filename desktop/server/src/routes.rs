@@ -20,7 +20,6 @@ pub struct QueryParams {
     pub file_path: String,
 }
 
-// Handler that accepts a multipart form upload and streams each field to a file.
 pub async fn accept_file_upload(
     mut multipart: Multipart,
 ) -> Result<(StatusCode, Json<Value>), (StatusCode, String)> {

@@ -1,11 +1,10 @@
-use rand::random;
 use random_str as random;
 
 pub fn generate_random_digits() -> u16 {
     let min = 1000;
     let max = 9999;
     let random_digit = random::get_int(min, max);
-    return random_digit as u16;
+    random_digit as u16
 }
 
 pub fn generate_passkey() -> String {
