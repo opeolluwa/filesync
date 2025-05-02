@@ -1440,6 +1440,7 @@ version = "0.1.0"
 dependencies = [
  "dirs 6.0.0",
  "embedded_server",
+ "local-ip-address",
  "rand 0.9.1",
  "random_str",
  "serde",
