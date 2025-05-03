@@ -6,7 +6,7 @@ edition = "2024"
 [dependencies]
 serde = { workspace = true, features = ["derive"] }
 tauri-interop = { version = "2.2.2" }
-
+tauri = {workspace = true}
 
 # host target
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
