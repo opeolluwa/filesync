@@ -1,4 +1,3 @@
-// use embedded_server::config::EmbeddedServerConfig;
 // use tauri::{Manager, Runtime};
 
 // use crate::state::AppState;
@@ -8,6 +7,8 @@ pub fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
+
+// use embedded_server::config::EmbeddedServerConfig;
 // #[tauri_interop::command]
 // pub async fn extract_connection<R: Runtime>(
 //     app: tauri::AppHandle<R>,

@@ -1,2 +1,4 @@
 pub mod cmd;
-// pub mod state;
+
+#[cfg(not(target_family = "wasm"))]
+pub mod state;

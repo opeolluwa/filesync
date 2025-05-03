@@ -5353,6 +5353,7 @@ version = "0.1.0"
 dependencies = [
  "embedded_server",
  "serde",
+ "tauri",
  "tauri-interop",
 ]
 

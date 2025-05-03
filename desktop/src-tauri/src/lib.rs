@@ -42,11 +42,6 @@ pub fn run() {
         )
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
-        // .invoke_handler(tauri::generate_handler![
-        //     commands::app::get_app_config,
-        //     commands::keygen::generate_android_wifi_credentials,
-        //     commands::server::extract_connection
-        // ])
         .invoke_handler(shared::cmd::get_handlers())
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
