@@ -1,6 +1,4 @@
-#[cfg(not(target_family = "wasm"))]
-
-use embedded_server::config::EmbeddedServerConfig;
+use crate::config::EmbeddedServerConfig;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]

@@ -20,7 +20,7 @@ rand = { version = "0.9.0", features = ["small_rng"] }
 random_str = "0.1.2"
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
-shared.workspace = true
+shared = { workspace = true, features = ["config", "state"] }
 tauri = { workspace = true, features = [] }
 tauri-plugin-fs = "2"
 tauri-plugin-os = { workspace = true }

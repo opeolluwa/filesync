@@ -3,9 +3,10 @@ mod commands;
 mod database;
 mod error;
 mod utils;
-use embedded_server::{config::EmbeddedServerConfig, server::EmbeddedHttpServer};
+use embedded_server::server::EmbeddedHttpServer;
 use local_ip_address::local_ip;
-// use shared::state::AppState;
+use shared::config::EmbeddedServerConfig;
+use shared::state::AppState;
 use std::{
     net::{IpAddr, Ipv4Addr},
     sync::Arc,

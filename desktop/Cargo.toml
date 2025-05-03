@@ -15,7 +15,6 @@ leptos-qr = { workspace = true }
 leptos-use = { workspace = true }
 leptos_router = { workspace = true }
 leptos_toaster = { workspace = true, features = ["csr"] }
-rayon = { workspace = true }
 serde = { workspace = true, features = ["derive"] }
 serde-wasm-bindgen = { workspace = true }
 thaw = { workspace = true, features = ["csr"] }
@@ -46,7 +45,6 @@ leptos_router = { version = "0.7.0" }
 leptos-use = "0.13.11"
 leptos_toaster = "0.1.7"
 web-sys = "0.3.77"
-rayon = "1.10.0"
 leptos-qr = { git = "https://github.com/opeolluwa/leptos-qr", version = "0.2.0" }
 embedded_server = { path = "server" }
 thiserror = "2.0.12"
