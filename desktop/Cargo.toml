@@ -52,4 +52,4 @@ rayon = "1.10.0"
 leptos-qr = { git = "https://github.com/opeolluwa/leptos-qr", version = "0.2.0" }
 embedded_server = { path = "server" }
 thiserror = "2.0.12"
-# shared = { path = "shared" }
+shared = { path = "shared" }
