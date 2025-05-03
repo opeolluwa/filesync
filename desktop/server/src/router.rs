@@ -12,7 +12,7 @@ pub fn app() -> Router {
             "/api",
             Router::new()
                 .route("/upload", post(accept_file_upload))
-                .route("/health", post(accept_file_upload).get(health_check))
+                .route("/ping", post(accept_file_upload).get(health_check))
                 .route("/file", get(get_file)),
         )
         .fallback(handle_404)
