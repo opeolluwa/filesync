@@ -25,9 +25,8 @@ pub fn run() {
 
     let local_ip = local_ip().unwrap_or(IpAddr::from(Ipv4Addr::UNSPECIFIED));
     let app_state = AppState {
-        server_config: EmbeddedServerConfig {
-            ip_address: local_ip.to_string(),
-        },
+        server_config: EmbeddedServerConfig::default(),
+        
     };
 
     tauri::async_runtime::spawn(EmbeddedHttpServer::run(Arc::new(local_ip)));
@@ -44,6 +43,7 @@ pub fn run() {
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
         .invoke_handler(shared::cmd::get_handlers())
+        // .invoke_handler(tauri::generate_handler![])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

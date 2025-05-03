@@ -1,19 +1,18 @@
+use leptos::prelude::*;
+use leptos::task::spawn_local;
 use leptos::view;
 use leptos_qr::QrCode;
-use leptos::task::spawn_local;
-use leptos::prelude::*;
 
 #[leptos::component]
 pub fn WelcomeScreen() -> impl leptos::IntoView {
     let (greet_msg, set_greet_msg) = signal(String::new());
 
-    let gree = move |_|{
-        spawn_local( async move {
-            let result = call_greet("alex").await;
-            set_greet_msg.set(result);
-        })
-    };
-
+    // let gree = move |_|{
+    spawn_local(async move {
+        let result = call_greet("alex").await;
+        set_greet_msg.set(result);
+    });
+    // };
 
     view! {
         <div class="text-center flex flex-col align-center justify-center items-center h-[90%]">
@@ -32,7 +31,7 @@ pub fn WelcomeScreen() -> impl leptos::IntoView {
                 </p>
                           <p  class="font-medium leading-2  text-gray-700 dark:text-gray-400 mt-3 "> hey { move || greet_msg.get() }</p>
 
-               <button  class="font-medium leading-2  text-gray-700 dark:text-gray-400 mt-3 " on:click=gree> refresh  </button>
+               <button  class="font-medium leading-2  text-gray-700 dark:text-gray-400 mt-3 " > refresh  </button>
 
         </div>
     }

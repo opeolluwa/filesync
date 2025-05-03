@@ -17,7 +17,9 @@ tauri = { workspace = true }
 
 
 [features]
-
+default = ["config", "cmd"]
 state = []
 
 config = []
+
+cmd = []
