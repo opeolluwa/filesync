@@ -4,7 +4,7 @@ version = "0.5.0"
 edition = "2021"
 
 [workspace]
-members = ["src-tauri", "server"]
+members = ["src-tauri", "server", "shared"]
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 [dependencies]
@@ -22,6 +22,13 @@ thaw = { workspace = true, features = ["csr"] }
 wasm-bindgen = { workspace = true }
 wasm-bindgen-futures = { workspace = true }
 web-sys = { workspace = true }
+tauri-sys = { git = "https://github.com/opeolluwa/tauri-sys", features = [
+    "all",
+], branch = "v2" }
+
+
+# [target.'cfg(target_family = "wasm")'.dependencies]
+# shared.workspace = true
 
 [workspace.dependencies]
 thaw = { version = "0.4.0-beta-5", features = ["csr"] }
@@ -45,3 +52,4 @@ rayon = "1.10.0"
 leptos-qr = { git = "https://github.com/opeolluwa/leptos-qr", version = "0.2.0" }
 embedded_server = { path = "server" }
 thiserror = "2.0.12"
+# shared = { path = "shared" }

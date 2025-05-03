@@ -1,0 +1,14 @@
+[package]
+name = "shared"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+tauri.workspace = true
+tauri-interop = "2.2.2"
+
+# host target
+[target.'cfg(not(target_family = "wasm"))'.dependencies]
+
+# wasm target
+[target.'cfg(target_family = "wasm")'.dependencies]
