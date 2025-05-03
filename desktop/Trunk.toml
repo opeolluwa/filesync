@@ -1,0 +1,13 @@
+[build]
+target = "./index.html"
+filehash = false
+minify = "on_release"
+
+[watch]
+ignore = ["./src-tauri"]
+
+[serve]
+port = 1420
+open = false
+ws_protocol = "ws"
+

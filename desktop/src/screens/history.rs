@@ -1,7 +1,7 @@
 use leptos::{view, IntoView};
 use thaw::Text;
 
-use crate::layout::desktop_layout::DesktopLayout;
+use crate::layouts::desktop_layout::DesktopLayout;
 
 #[leptos::component]
 pub fn HistoryScreen() -> impl IntoView {
