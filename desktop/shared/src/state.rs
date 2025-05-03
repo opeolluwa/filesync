@@ -1,3 +1,5 @@
+#[cfg(not(target_family = "wasm"))]
+
 use embedded_server::config::EmbeddedServerConfig;
 use serde::{Deserialize, Serialize};
 

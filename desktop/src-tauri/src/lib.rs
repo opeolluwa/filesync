@@ -5,7 +5,7 @@ mod error;
 mod utils;
 use embedded_server::{config::EmbeddedServerConfig, server::EmbeddedHttpServer};
 use local_ip_address::local_ip;
-use shared::state::AppState;
+// use shared::state::AppState;
 use std::{
     net::{IpAddr, Ipv4Addr},
     sync::Arc,
@@ -23,16 +23,16 @@ pub fn run() {
     }];
 
     let local_ip = local_ip().unwrap_or(IpAddr::from(Ipv4Addr::UNSPECIFIED));
-    let app_state = AppState {
-        server_config: EmbeddedServerConfig {
-            ip_address: local_ip.to_string(),
-        },
-    };
+    // let app_state = AppState {
+    //     server_config: EmbeddedServerConfig {
+    //         ip_address: local_ip.to_string(),
+    //     },
+    // };
 
     tauri::async_runtime::spawn(EmbeddedHttpServer::run(Arc::new(local_ip)));
     tauri::Builder::default()
         .setup(move |app| {
-            app.manage(app_state);
+            // app.manage(app_state);
             Ok(())
         })
         .plugin(
