@@ -20,6 +20,7 @@ rand = { version = "0.9.0", features = ["small_rng"] }
 random_str = "0.1.2"
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
+shared.workspace = true
 tauri = { workspace = true, features = [] }
 tauri-plugin-fs = "2"
 tauri-plugin-os = { workspace = true }
@@ -33,4 +34,4 @@ tauri-plugin-barcode-scanner = "2"
 
 
 # [target.'cfg(not(target_family = "wasm"))'.dependencies]
-# shared ={workspace = true}
+# shared = { workspace = true }

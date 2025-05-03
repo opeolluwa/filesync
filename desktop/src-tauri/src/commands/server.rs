@@ -1,7 +1,7 @@
 use embedded_server::config::EmbeddedServerConfig;
 use tauri::{Manager, Runtime};
 
-use crate::state::AppState;
+use shared::state::AppState;
 
 #[tauri::command]
 pub async fn extract_connection<R: Runtime>(

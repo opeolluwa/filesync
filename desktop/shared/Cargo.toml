@@ -4,11 +4,13 @@ version = "0.1.0"
 edition = "2024"
 
 [dependencies]
+serde = { workspace = true, features = ["derive"] }
 tauri.workspace = true
 tauri-interop = "2.2.2"
 
 # host target
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
+embedded_server.workspace = true
 
 # wasm target
 [target.'cfg(target_family = "wasm")'.dependencies]

@@ -1474,6 +1474,7 @@ dependencies = [
  "random_str",
  "serde",
  "serde_json",
+ "shared",
  "tauri",
  "tauri-build",
  "tauri-plugin-barcode-scanner",
@@ -5370,6 +5371,8 @@ dependencies = [
 name = "shared"
 version = "0.1.0"
 dependencies = [
+ "embedded_server",
+ "serde",
  "tauri",
  "tauri-interop",
 ]

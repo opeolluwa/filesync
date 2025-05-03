@@ -25,10 +25,8 @@ web-sys = { workspace = true }
 tauri-sys = { git = "https://github.com/opeolluwa/tauri-sys", features = [
     "all",
 ], branch = "v2" }
-
-
-# [target.'cfg(target_family = "wasm")'.dependencies]
 # shared.workspace = true
+
 
 [workspace.dependencies]
 thaw = { version = "0.4.0-beta-5", features = ["csr"] }
