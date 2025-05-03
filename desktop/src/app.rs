@@ -6,9 +6,9 @@ use leptos_router::{
 use thaw::ConfigProvider;
 
 // use crate::screens::about::AboutScreen;
-use crate::screens::history::HistoryScreen;
-use crate::screens::settings::SettingsScreen;
-use crate::screens::share::ShareScreen;
+// use crate::screens::history::HistoryScreen;
+// use crate::screens::settings::SettingsScreen;
+// use crate::screens::share::ShareScreen;
 // use crate::screens::welcome::choose_platform::SelectPlatformScreen;
 // use crate::screens::welcome::receive::ReceiveScreen;
 // use crate::screens::welcome::select_action::TransferScreen;
@@ -29,9 +29,9 @@ pub fn App() -> impl leptos::IntoView {
                         // <Route path=path!("/send") view=SendScreen />
                         // <Route path=path!("/receive") view=ReceiveScreen />
                         // <Route path=path!("/about") view=AboutScreen />
-                        <Route path=path!("/settings") view=SettingsScreen />
-                        <Route path=path!("/share") view=ShareScreen />
-                        <Route path=path!("/history") view=HistoryScreen />
+                        // <Route path=path!("/settings") view=SettingsScreen />
+                        // <Route path=path!("/share") view=ShareScreen />
+                        // <Route path=path!("/history") view=HistoryScreen />
                     </Routes>
 
                 </DefaultLayout>

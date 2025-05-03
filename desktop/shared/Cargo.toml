@@ -12,14 +12,6 @@ tauri-interop = { version = "2.2.2" }
 [target.'cfg(not(target_family = "wasm"))'.dependencies]
 tauri = { workspace = true }
 
-
+#wasm target
 [target.'cfg(target_family = "wasm")'.dependencies]
 
-
-[features]
-default = ["config", "cmd"]
-state = []
-
-config = []
-
-cmd = []

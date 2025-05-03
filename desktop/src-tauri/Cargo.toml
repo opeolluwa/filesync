@@ -20,7 +20,7 @@ rand = { version = "0.9.0", features = ["small_rng"] }
 random_str = "0.1.2"
 serde = { workspace = true, features = ["derive"] }
 serde_json = { workspace = true }
-shared = { workspace = true, features = ["config", "state"] }
+shared = { workspace = true }
 tauri = { workspace = true, features = [] }
 tauri-plugin-fs = "2"
 tauri-plugin-os = { workspace = true }
@@ -31,7 +31,3 @@ tokio = "1.43.0"
 uuid = { version = "1.15.1", features = ["v4"] }
 [target.'cfg(any(target_os = "android", target_os = "ios"))'.dependencies]
 tauri-plugin-barcode-scanner = "2"
-
-
-# [target.'cfg(not(target_family = "wasm"))'.dependencies]
-# shared = { workspace = true }

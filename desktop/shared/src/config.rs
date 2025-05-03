@@ -1,11 +1,29 @@
 use local_ip_address::local_ip;
 use serde::{Deserialize, Serialize};
-use std::net::{IpAddr, Ipv4Addr};
+use std::{
+    fmt::Display,
+    net::{IpAddr, Ipv4Addr},
+};
 
 #[derive(Debug, Serialize, Deserialize, Clone)]
 pub struct EmbeddedServerConfig {
     pub ip_address: String,
     pub ports: Ports,
+}
+
+impl Display for EmbeddedServerConfig {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "host: {}, ports: {}", self.ip_address, self.ports)
+    }
+}
+
+impl EmbeddedServerConfig {
+    pub fn setup() -> Self {
+        Self {
+            ip_address: "".to_string(),
+            ports: Ports { http: 0, https: 0 },
+        }
+    }
 }
 
 impl Default for EmbeddedServerConfig {
@@ -35,5 +53,11 @@ impl Default for Ports {
             http: HTTP_PORT as u16,
             https: HTTPS_PORT as u16,
         }
+    }
+}
+
+impl Display for Ports {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "http:{}, https:{}", self.http, self.https)
     }
 }
