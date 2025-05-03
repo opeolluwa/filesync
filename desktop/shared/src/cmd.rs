@@ -1,5 +1,6 @@
-
+// #[cfg(feature = "state")]
 use crate::state::AppState;
+// #[cfg(feature = "config")]
 use crate::config::EmbeddedServerConfig;
 use tauri_interop::host_usage;
 
@@ -22,12 +23,8 @@ pub fn greet(name: &str) -> String {
 // }
 
 #[tauri_interop::command]
-pub async fn extract_connection<R: Runtime>(
-    app: tauri::AppHandle<R>,
-) -> Result<EmbeddedServerConfig, String> {
-    let data = app.state::<AppState>();
-    let AppState { server_config } = data.inner().clone();
-    Ok(server_config)
+pub async fn extract_connection() -> Result<EmbeddedServerConfig, String> {
+    Ok(EmbeddedServerConfig::default())
 }
 
 tauri_interop::collect_commands!();
