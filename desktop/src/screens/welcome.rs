@@ -20,7 +20,8 @@ pub fn WelcomeScreen() -> impl leptos::IntoView {
 
     view! {
         <div class="text-center flex flex-col align-center justify-center items-center h-[90%]">
-            <div class="w-[150px] h-[150px] block mx-auto mb-2 rounded-md bg-blend-multiply border-[1px] ">
+             
+            <div class="w-[180px] h-[180px] block mx-auto mb-2 rounded-md bg-blend-multiply">
                 <QrCode
                     data=server_config
                     ecl=leptos_qr::ECL::Q
@@ -30,16 +31,11 @@ pub fn WelcomeScreen() -> impl leptos::IntoView {
                 />
             </div>
 
-            <p class="font-medium leading-2  text-gray-700 dark:text-gray-400 mt-3 ">
+       <h6 class="font-medium leading-2 text-gray-700 dark:text-gray-400 mt-1 mb-5">
                 "Scan QR code to pair mobile device"
-            </p>
-            <p class="font-medium leading-2  text-gray-700 dark:text-gray-400 mt-3 ">
-                // hey {move || server_config.get()}
-            </p>
+            </h6>
 
-
-
-            <button class="font-medium leading-2  text-gray-700 dark:text-gray-400 mt-3 ">
+            <button class="font-medium leading-2  text-gray-700  mt-3 btn bg-app-500  capitalize shadow-md mt-2 outline-none btn-md text-white block w-[250px] hover:bg-app-400  btn-md">
                 refresh
             </button>
 
