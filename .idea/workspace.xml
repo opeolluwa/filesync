@@ -5,47 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="33934298-5833-4da1-b37e-0e2bec43d847" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/components/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/default_layout.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/desktop_layout.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/welcome_screen_layout.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/history.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/home.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/settings.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/share.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/welcome/choose_platform.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/welcome/default.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/welcome/mod.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/welcome/receive.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/welcome/select_action.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/screens/welcome/send.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/material_theme_project_new.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.lock" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/Cargo.toml" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/Cargo.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/desktop/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/desktop/src/app.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/Cargo.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/app.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/components/bottom_navigation.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/components/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/components/toolbar.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/toolbar.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/layouts/dashboard_layout.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/layouts/default_layout.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/layouts/mod.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/lib.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/routes.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/screens/about.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/about.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/screens/history.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/screens/home.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/screens/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/screens/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/screens/scan_qr.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/screens/settings.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/screens/share.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/mobile/src/screens/transfer.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/app.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/app.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/.idea/deploymentTargetSelector.xml" beforeDir="false" afterPath="$PROJECT_DIR$/android/.idea/deploymentTargetSelector.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,18 +21,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "opeolluwa"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;opeolluwa&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/opeolluwa/filesync",
-    "accountId": "1bdd2b45-e724-4bc4-8430-c312b88ee51d"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/opeolluwa/filesync&quot;,
+    &quot;accountId&quot;: &quot;1bdd2b45-e724-4bc4-8430-c312b88ee51d&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/core/src/main.rs" root0="SKIP_INSPECTION" />
   </component>
@@ -104,8 +64,9 @@
     "cidr.known.project.marker": "true",
     "code.cleanup.on.save": "true",
     "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "treeshake-implemendtation",
-    "last_opened_file_path": "/Users/USER/Desktop/devs/filesync/src",
+    "git-widget-placeholder": "support-tls",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/USER/Desktop/devs/filesync",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -116,7 +77,7 @@
     "org.rust.first.attach.projects": "true",
     "rearrange.code.on.save": "true",
     "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.settings.ide.settings.file-colors",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -146,16 +107,5 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/main.rs</url>
-          <line>7</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

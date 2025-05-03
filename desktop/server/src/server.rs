@@ -22,23 +22,8 @@ use axum::http::Method;
 use crate::errors::ServerError;
 use crate::router;
 
-const HTTP_PORT: u64 = 18005;
-const HTTPS_PORT: u64 = 18006;
-const KEY_CHAIN_PATH: &str = "certificates";
-#[derive(Clone, Copy)]
-struct Ports {
-    http: u16,
-    https: u16,
-}
-
-impl Default for Ports {
-    fn default() -> Self {
-        Self {
-            http: HTTP_PORT as u16,
-            https: HTTPS_PORT as u16,
-        }
-    }
-}
+use shared::config::Ports;
+use shared::config::KEY_CHAIN_PATH;
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct EmbeddedHttpServer;
@@ -95,7 +80,6 @@ impl EmbeddedHttpServer {
                 TraceLayer::new_for_http()
                     .make_span_with(DefaultMakeSpan::default().include_headers(true)),
             );
-
 
         tracing::debug!(" the server port is http://{}", socket_address);
         axum_server::bind_rustls(socket_address, config)

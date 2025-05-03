@@ -2,16 +2,15 @@
 mod commands;
 mod database;
 mod error;
-mod state;
 mod utils;
+use embedded_server::server::EmbeddedHttpServer;
+use local_ip_address::local_ip;
+use shared::config::EmbeddedServerConfig;
+use shared::state::AppState;
 use std::{
     net::{IpAddr, Ipv4Addr},
     sync::Arc,
 };
-
-use embedded_server::{config::EmbeddedServerConfig, server::EmbeddedHttpServer};
-use local_ip_address::local_ip;
-use state::AppState;
 use tauri::Manager;
 use tauri_plugin_sql::{Migration, MigrationKind};
 
@@ -26,9 +25,8 @@ pub fn run() {
 
     let local_ip = local_ip().unwrap_or(IpAddr::from(Ipv4Addr::UNSPECIFIED));
     let app_state = AppState {
-        server_config: EmbeddedServerConfig {
-            ip_address: local_ip.to_string(),
-        },
+        server_config: EmbeddedServerConfig::default(),
+        
     };
 
     tauri::async_runtime::spawn(EmbeddedHttpServer::run(Arc::new(local_ip)));
@@ -44,11 +42,8 @@ pub fn run() {
         )
         .plugin(tauri_plugin_os::init())
         .plugin(tauri_plugin_shell::init())
-        .invoke_handler(tauri::generate_handler![
-            commands::app::get_app_config,
-            commands::keygen::generate_android_wifi_credentials,
-            commands::server::extract_connection
-        ])
+        .invoke_handler(shared::cmd::get_handlers())
+        // .invoke_handler(tauri::generate_handler![])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

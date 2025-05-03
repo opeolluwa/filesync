@@ -1,0 +1,2 @@
+test-build:
+    cargo build --manifest-path Cargo.toml --features state,config
