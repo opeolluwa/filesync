@@ -72,11 +72,11 @@ fun MainScreen(qrResult: String, onScanClick: () -> Unit, wifiSsid: String, wifi
                 ) {
 
                     Text("Dismiss")
-                    Image(
-                        painter = painterResource(id = R.drawable.qr_code),
-                        contentDescription = "QR Code Icon",
-                        modifier = Modifier.size(24.dp)
-                    )
+//                    Image(
+//                        painter = painterResource(id = R.drawable.qr_code),
+//                        contentDescription = "QR Code Icon",
+//                        modifier = Modifier.size(24.dp)
+//                    )
                 }
             }
         }
