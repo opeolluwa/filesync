@@ -1,7 +1,8 @@
 # FIleSync: WiFi File Sharing Application
 
 FileSync is a file-sharing application, targeting Linux, Mac, Windows and
-Android platforms ![screenshot](./screenshots/filesync-0.7.16.png)
+Android platforms 
+<!-- ![screenshot](./screenshots/filesync-0.7.16.png) -->
 
 ![screenshot](./screenshots/mobile.png)
 
