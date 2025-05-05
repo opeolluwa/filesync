@@ -122,11 +122,7 @@ class MainActivity : ComponentActivity() {
                     Log.d("Hotspot", "SSID: $ssid, Password: $password")
                     wifiSsid.value = ssid
                     wifiPassword.value = password
-                    Toast.makeText(
-                        this@MainActivity,
-                        "Hotspot started\nSSID: $ssid\nPassword: $password",
-                        Toast.LENGTH_LONG
-                    ).show()
+
                 }
             },
             object : APManager.OnFailureListener {
