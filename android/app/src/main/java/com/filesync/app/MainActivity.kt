@@ -9,21 +9,24 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.ContextCompat
 import com.filesync.app.hooks.APManager
 import com.filesync.app.ui.theme.FileSyncAndroidTheme
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
-import androidx.compose.runtime.mutableStateOf
 
 class MainActivity : ComponentActivity() {
 
     private lateinit var apManager: APManager
     private val qrScanResult = mutableStateOf("")
+    private val wifiSsid = mutableStateOf("")
+    private val wifiPassword = mutableStateOf("")
 
     // QR Code Scanner Launcher
     private val qrCodeLauncher = registerForActivityResult(ScanContract()) { result ->
@@ -34,7 +37,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // Request Location Permission
+    // Location Permission Request
     private val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
@@ -50,7 +53,6 @@ class MainActivity : ComponentActivity() {
 
         apManager = APManager.getApManager(this)
 
-        // Request location permission first
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED
         ) {
@@ -64,7 +66,8 @@ class MainActivity : ComponentActivity() {
                 MainScreen(
                     qrResult = qrScanResult.value,
                     onScanClick = { checkCameraPermission(this) },
-                    onHotspotClick = { turnOnHotspot() }
+                    wifiSsid = wifiSsid.value,
+                    wifiPassword = wifiPassword.value
                 )
             }
         }
@@ -96,7 +99,6 @@ class MainActivity : ComponentActivity() {
             }
             startActivity(intent)
         } else {
-            // All permissions granted — start hotspot
             turnOnHotspot()
         }
     }
@@ -113,9 +115,13 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun turnOnHotspot() {
-        apManager.turnOnHotspot(this,
+        apManager.turnOnHotspot(
+            this,
             object : APManager.OnSuccessListener {
                 override fun onSuccess(ssid: String, password: String) {
+                    Log.d("Hotspot", "SSID: $ssid, Password: $password")
+                    wifiSsid.value = ssid
+                    wifiPassword.value = password
                     Toast.makeText(
                         this@MainActivity,
                         "Hotspot started\nSSID: $ssid\nPassword: $password",
@@ -134,7 +140,8 @@ class MainActivity : ComponentActivity() {
                         else -> "Unknown error: ${e?.message}"
                     }
 
-                    Toast.makeText(this@MainActivity, "Hotspot failed: $message", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainActivity, "Hotspot failed: $message", Toast.LENGTH_LONG)
+                        .show()
                     e?.printStackTrace()
                 }
             }
