@@ -29,10 +29,12 @@ import com.filesync.app.ui.theme.Accent
 
 
 @Composable
-fun MainScreen(qrResult: String, onScanClick: () -> Unit) {
+fun MainScreen(qrResult: String, onScanClick: () -> Unit, onHotspotClick: () -> Unit) {
     Surface(modifier = Modifier.fillMaxSize()) {
         Box {
-            Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
+            Column(modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)) {
                 Box(modifier = Modifier.weight(1f)) {
                     Column(
                         modifier = Modifier
@@ -62,6 +64,10 @@ fun MainScreen(qrResult: String, onScanClick: () -> Unit) {
                         fontSize = 14.sp,
                         modifier = Modifier.padding(top = 8.dp)
                     )
+
+                    Button(onClick = onHotspotClick) {
+                        Text("Start Hotspot")
+                    }
 
                     Button(
                         onClick = onScanClick,
