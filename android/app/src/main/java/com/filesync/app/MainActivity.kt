@@ -13,12 +13,12 @@ import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.runtime.mutableStateOf
 import androidx.core.content.ContextCompat
 import com.filesync.app.hooks.APManager
 import com.filesync.app.ui.theme.FileSyncAndroidTheme
 import com.journeyapps.barcodescanner.ScanContract
 import com.journeyapps.barcodescanner.ScanOptions
-import androidx.compose.runtime.mutableStateOf
 
 class MainActivity : ComponentActivity() {
 
@@ -49,6 +49,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         apManager = APManager.getApManager(this)
+        val wifiSsid = apManager.ssid
+        val wifiPassword = apManager.password
 
         // Request location permission first
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -61,11 +63,14 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             FileSyncAndroidTheme {
+
+
                 MainScreen(
                     qrResult = qrScanResult.value,
                     onScanClick = { checkCameraPermission(this) },
-                    onHotspotClick = { turnOnHotspot() }
+                    wifiSsid = "wifiSsid", wifiPassword = "wifiPassword"
                 )
+
             }
         }
     }
@@ -113,12 +118,13 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun turnOnHotspot() {
-        apManager.turnOnHotspot(this,
+        apManager.turnOnHotspot(
+            this,
             object : APManager.OnSuccessListener {
                 override fun onSuccess(ssid: String, password: String) {
                     Toast.makeText(
                         this@MainActivity,
-                        "Hotspot started\nSSID: $ssid\nPassword: $password",
+                        "Hotspot started\nPassword: $password\nSSID: $ssid\n",
                         Toast.LENGTH_LONG
                     ).show()
                 }
@@ -134,7 +140,8 @@ class MainActivity : ComponentActivity() {
                         else -> "Unknown error: ${e?.message}"
                     }
 
-                    Toast.makeText(this@MainActivity, "Hotspot failed: $message", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@MainActivity, "Hotspot failed: $message", Toast.LENGTH_LONG)
+                        .show()
                     e?.printStackTrace()
                 }
             }
