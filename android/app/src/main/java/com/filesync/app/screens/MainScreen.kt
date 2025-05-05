@@ -16,26 +16,79 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.filesync.app.R
 import com.filesync.app.components.PulsingCirclesAnimation
-import com.filesync.app.components.WifiConfigModal
 import com.filesync.app.ui.theme.Accent
+import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(qrResult: String, onScanClick: () -> Unit, wifiSsid: String, wifiPassword: String) {
-    val showDialog = remember { mutableStateOf(true) }
+    val sheetState = rememberModalBottomSheetState(skipPartiallyExpanded = true)
+    val coroutineScope = rememberCoroutineScope()
+    val showSheet = remember { mutableStateOf(true) }
 
-    if (showDialog.value) {
-        WifiConfigModal(
-            wifiSsid = wifiSsid,
-            wifiPassword = wifiPassword,
-            onConfirm = { showDialog.value = false },
-            onDismiss = { showDialog.value = false }
-        )
+    // Show bottom sheet if triggered
+    if (showSheet.value) {
+        ModalBottomSheet(
+            onDismissRequest = { showSheet.value = false },
+            sheetState = sheetState,
+            containerColor = MaterialTheme.colorScheme.surface,
+            contentColor = MaterialTheme.colorScheme.onSurface,
+        ) {
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(24.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Text(
+                    text = "Connect to Wifi Hotspot",
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Spacer(modifier = Modifier.height(12.dp))
+                Column(modifier = Modifier) {
+                    Text(text = "SSID: $wifiSsid", fontSize = 16.sp )
+                    Text(text = "Password: $wifiPassword", fontSize = 16.sp)
+
+                }
+                Spacer(modifier = Modifier.height(24.dp))
+                Button(
+                    onClick = {
+                        coroutineScope.launch {
+                            sheetState.hide()
+                            showSheet.value = false
+                        }
+                    },
+                    shape = RoundedCornerShape(5.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Accent,
+                        contentColor = Color.White
+                    ),
+                    border = BorderStroke(1.dp, Accent),
+                    modifier = Modifier
+                        .fillMaxWidth(0.7f)
+                        .padding(top = 12.dp)
+                        .height(48.dp)
+                ) {
+
+                    Text("Dismiss")
+                    Image(
+                        painter = painterResource(id = R.drawable.qr_code),
+                        contentDescription = "QR Code Icon",
+                        modifier = Modifier.size(24.dp)
+                    )
+                }
+            }
+        }
     }
 
     Surface(
         modifier = Modifier
             .fillMaxSize()
-            .clickable { showDialog.value = true } // Show modal on click
+            .clickable {
+                showSheet.value = true
+                coroutineScope.launch { sheetState.show() }
+            }
     ) {
         Box {
             Column(
