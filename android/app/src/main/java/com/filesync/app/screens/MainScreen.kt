@@ -1,20 +1,10 @@
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
@@ -29,14 +19,11 @@ import com.filesync.app.components.PulsingCirclesAnimation
 import com.filesync.app.components.WifiConfigModal
 import com.filesync.app.ui.theme.Accent
 
-
 @Composable
 fun MainScreen(qrResult: String, onScanClick: () -> Unit, wifiSsid: String, wifiPassword: String) {
-    val showDialog = remember { mutableStateOf(false) }
+    val showDialog = remember { mutableStateOf(true) }
 
-
-
-    if (wifiSsid.isNotBlank()) {
+    if (showDialog.value) {
         WifiConfigModal(
             wifiSsid = wifiSsid,
             wifiPassword = wifiPassword,
@@ -45,8 +32,11 @@ fun MainScreen(qrResult: String, onScanClick: () -> Unit, wifiSsid: String, wifi
         )
     }
 
-
-    Surface(modifier = Modifier.fillMaxSize()) {
+    Surface(
+        modifier = Modifier
+            .fillMaxSize()
+            .clickable { showDialog.value = true } // Show modal on click
+    ) {
         Box {
             Column(
                 modifier = Modifier
@@ -76,7 +66,6 @@ fun MainScreen(qrResult: String, onScanClick: () -> Unit, wifiSsid: String, wifi
                         fontWeight = FontWeight.Medium,
                         textAlign = TextAlign.Center
                     )
-
 
                     Button(
                         onClick = onScanClick,

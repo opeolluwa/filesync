@@ -212,7 +212,7 @@ public class APManager {
             new Random().nextBytes(bytes);
             byte[] digest = ms.digest(bytes);
             BigInteger bigInteger = new BigInteger(1, digest);
-            return bigInteger.toString(16).substring(0, 10);
+            return bigInteger.toString(16).substring(0, 6);
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();
         }

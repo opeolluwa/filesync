@@ -28,7 +28,6 @@ class MainActivity : ComponentActivity() {
     private val wifiSsid = mutableStateOf("")
     private val wifiPassword = mutableStateOf("")
 
-
     // QR Code Scanner Launcher
     private val qrCodeLauncher = registerForActivityResult(ScanContract()) { result ->
         if (result.contents == null) {
@@ -38,7 +37,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 
-    // Request Location Permission
+    // Location Permission Request
     private val locationPermissionRequest = registerForActivityResult(
         ActivityResultContracts.RequestPermission()
     ) { isGranted ->
@@ -53,10 +52,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         apManager = APManager.getApManager(this)
-        val wifiSsid = apManager.ssid
-        val wifiPassword = apManager.password
 
-        // Request location permission first
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
             != PackageManager.PERMISSION_GRANTED
         ) {
@@ -70,9 +66,9 @@ class MainActivity : ComponentActivity() {
                 MainScreen(
                     qrResult = qrScanResult.value,
                     onScanClick = { checkCameraPermission(this) },
-                    wifiSsid = "wifiSsid", wifiPassword = "wifiPassword"
+                    wifiSsid = wifiSsid.value,
+                    wifiPassword = wifiPassword.value
                 )
-
             }
         }
     }
@@ -103,7 +99,6 @@ class MainActivity : ComponentActivity() {
             }
             startActivity(intent)
         } else {
-            // All permissions granted — start hotspot
             turnOnHotspot()
         }
     }
@@ -129,7 +124,7 @@ class MainActivity : ComponentActivity() {
                     wifiPassword.value = password
                     Toast.makeText(
                         this@MainActivity,
-                        "Hotspot started\nPassword: $password\nSSID: $ssid\n",
+                        "Hotspot started\nSSID: $ssid\nPassword: $password",
                         Toast.LENGTH_LONG
                     ).show()
                 }
