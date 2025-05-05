@@ -9,6 +9,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -24,6 +25,9 @@ class MainActivity : ComponentActivity() {
 
     private lateinit var apManager: APManager
     private val qrScanResult = mutableStateOf("")
+    private val wifiSsid = mutableStateOf("")
+    private val wifiPassword = mutableStateOf("")
+
 
     // QR Code Scanner Launcher
     private val qrCodeLauncher = registerForActivityResult(ScanContract()) { result ->
@@ -63,8 +67,6 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             FileSyncAndroidTheme {
-
-
                 MainScreen(
                     qrResult = qrScanResult.value,
                     onScanClick = { checkCameraPermission(this) },
@@ -122,6 +124,9 @@ class MainActivity : ComponentActivity() {
             this,
             object : APManager.OnSuccessListener {
                 override fun onSuccess(ssid: String, password: String) {
+                    Log.d("Hotspot", "SSID: $ssid, Password: $password")
+                    wifiSsid.value = ssid
+                    wifiPassword.value = password
                     Toast.makeText(
                         this@MainActivity,
                         "Hotspot started\nPassword: $password\nSSID: $ssid\n",

@@ -36,10 +36,10 @@ fun MainScreen(qrResult: String, onScanClick: () -> Unit, wifiSsid: String, wifi
 
 
 
-    if (showDialog.value) {
+    if (wifiSsid.isNotBlank()) {
         WifiConfigModal(
-            wifiSsid = "MyHotspot",
-            wifiPassword = "superSecret123",
+            wifiSsid = wifiSsid,
+            wifiPassword = wifiPassword,
             onConfirm = { showDialog.value = false },
             onDismiss = { showDialog.value = false }
         )
