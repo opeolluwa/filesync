@@ -93,7 +93,7 @@ class MainActivity : ComponentActivity() {
     }
 
     private fun checkWriteSettingsPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.System.canWrite(this)) {
+        if (true && !Settings.System.canWrite(this)) {
             val intent = Intent(Settings.ACTION_MANAGE_WRITE_SETTINGS).apply {
                 data = Uri.parse("package:$packageName")
             }
@@ -117,30 +117,24 @@ class MainActivity : ComponentActivity() {
     private fun turnOnHotspot() {
         apManager.turnOnHotspot(
             this,
-            object : APManager.OnSuccessListener {
-                override fun onSuccess(ssid: String, password: String) {
-                    Log.d("Hotspot", "SSID: $ssid, Password: $password")
-                    wifiSsid.value = ssid
-                    wifiPassword.value = password
-
-                }
-            },
-            object : APManager.OnFailureListener {
-                override fun onFailure(failureCode: Int, e: Exception?) {
-                    val message = when (failureCode) {
-                        APManager.ERROR_GPS_PROVIDER_DISABLED -> "Enable GPS to start hotspot"
-                        APManager.ERROR_LOCATION_PERMISSION_DENIED -> "Grant location permission"
-                        APManager.ERROR_DISABLE_HOTSPOT -> "Disable existing hotspot first"
-                        APManager.ERROR_DISABLE_WIFI -> "Turn off Wi-Fi to create hotspot"
-                        APManager.ERROR_WRITE_SETTINGS_PERMISSION_REQUIRED -> "Allow modify system settings"
-                        else -> "Unknown error: ${e?.message}"
-                    }
-
-                    Toast.makeText(this@MainActivity, "Hotspot failed: $message", Toast.LENGTH_LONG)
-                        .show()
-                    e?.printStackTrace()
-                }
+            { ssid, password ->
+                Log.d("Hotspot", "SSID: $ssid, Password: $password")
+                wifiSsid.value = ssid
+                wifiPassword.value = password
             }
-        )
+        ) { failureCode, e ->
+            val message = when (failureCode) {
+                APManager.ERROR_GPS_PROVIDER_DISABLED -> "Enable GPS to start hotspot"
+                APManager.ERROR_LOCATION_PERMISSION_DENIED -> "Grant location permission"
+                APManager.ERROR_DISABLE_HOTSPOT -> "Disable existing hotspot first"
+                APManager.ERROR_DISABLE_WIFI -> "Turn off Wi-Fi to create hotspot"
+                APManager.ERROR_WRITE_SETTINGS_PERMISSION_REQUIRED -> "Allow modify system settings"
+                else -> "Unknown error: ${e?.message}"
+            }
+
+            Toast.makeText(this@MainActivity, "Hotspot failed: $message", Toast.LENGTH_LONG)
+                .show()
+            e?.printStackTrace()
+        }
     }
 }
