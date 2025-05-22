@@ -8,6 +8,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
         tools:ignore="CoarseFineLocation" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
     <uses-permission android:name="android.permission.WRITE_SETTINGS" tools:ignore="ProtectedPermissions" />
 
 
@@ -22,7 +23,7 @@
         android:theme="@style/Theme.FileSyncAndroid"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name=".screens.OldMainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.FileSyncAndroid">

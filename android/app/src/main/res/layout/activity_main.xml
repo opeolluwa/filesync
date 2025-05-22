@@ -1,0 +1,624 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="#5f71f2"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:text="File Manager"
+        android:textColor="@color/white"
+        android:textSize="28dp"
+        android:textStyle="bold"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </TextView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_margin="25dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="40dp"
+        app:cardElevation="0dp"> <!-- You can set elevation to 0dp if you don't want shadows -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            > <!-- Add padding to match the curvature of the card -->
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+
+                <TextView
+                    android:text="Storage"
+                    android:textSize="25dp"
+                    android:textStyle="bold"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="30dp"
+                    android:textColor="@color/black"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                </TextView>
+
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:padding="5dp"
+                        android:src="@drawable/storage"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent">
+                    </ImageView>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:text="Device Storage"
+                            android:textColor="@color/black"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </TextView>
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="4dp"
+                            android:outlineAmbientShadowColor="@color/black"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginBottom="2dp"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:indeterminate="false"
+                            android:max="100"
+                            android:progressDrawable="@drawable/progress_bar_custom" />
+
+
+                        <TextView
+                            android:id="@+id/storageInfoTextView"
+                            android:textColor="@color/black"
+                            android:text="Calculating..."
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                        </TextView>
+
+
+
+
+
+                    </LinearLayout>
+
+
+
+
+
+                </LinearLayout>
+
+
+
+
+                <LinearLayout
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <View
+                            android:layout_gravity="center"
+                            android:layout_marginRight="8dp"
+                            android:background="@drawable/blue_semicircle"
+                            android:layout_width="12sp"
+                            android:layout_height="25sp">
+
+                        </View>
+
+
+                        <LinearLayout
+                            android:layout_margin="5dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Images"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/imagesTextView"
+                                android:textStyle="bold"
+                                android:visibility="gone"
+                                android:textSize="16dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="loading"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <ImageView
+                                android:id="@+id/loadingiv"
+                                android:src="@drawable/loading"
+                                android:layout_width="20dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitXY"
+                                android:layout_height="20dp">
+                            </ImageView>
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <View
+                            android:layout_gravity="center"
+                            android:layout_marginRight="8dp"
+                            android:background="@drawable/yellow_semisircle"
+                            android:layout_width="12sp"
+                            android:layout_height="25sp">
+                        </View>
+
+
+                        <LinearLayout
+                            android:layout_margin="5dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Documents"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/documentsTextView"
+                                android:textStyle="bold"
+                                android:textSize="16dp"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="loading"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <ImageView
+                                android:id="@+id/loadingiv2"
+                                android:src="@drawable/loading"
+                                android:layout_width="20dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitXY"
+                                android:layout_height="20dp">
+                            </ImageView>
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <View
+                            android:layout_gravity="center"
+                            android:layout_marginRight="8dp"
+                            android:background="@drawable/semi_circle_background"
+                            android:layout_width="12sp"
+                            android:layout_height="25sp">
+
+                        </View>
+
+
+                        <LinearLayout
+                            android:layout_margin="5dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Music"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/musicTextView"
+                                android:textStyle="bold"
+                                android:visibility="gone"
+                                android:textSize="16dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="loading"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <ImageView
+                                android:id="@+id/loadingiv3"
+                                android:src="@drawable/loading"
+                                android:layout_width="20dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitXY"
+                                android:layout_height="20dp">
+                            </ImageView>
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <View
+                            android:layout_gravity="center"
+                            android:layout_marginRight="8dp"
+                            android:background="@drawable/green_semicircle"
+                            android:layout_width="12sp"
+                            android:layout_height="25sp">
+
+                        </View>
+
+
+                        <LinearLayout
+                            android:layout_margin="5dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Videos"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/videosTextView"
+                                android:textStyle="bold"
+                                android:textSize="16dp"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="loading"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <ImageView
+                                android:id="@+id/loadingiv4"
+                                android:src="@drawable/loading"
+                                android:layout_width="20dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitXY"
+                                android:layout_height="20dp">
+                            </ImageView>
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <View
+                            android:layout_gravity="center"
+                            android:layout_marginRight="8dp"
+                            android:background="@drawable/purple_semicirlce"
+                            android:layout_width="12sp"
+                            android:layout_height="25sp">
+
+                        </View>
+
+
+                        <LinearLayout
+                            android:layout_margin="5dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Zipped"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/ZippedTextView"
+                                android:textStyle="bold"
+                                android:textSize="16dp"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="loading"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <ImageView
+                                android:id="@+id/loadingiv5"
+                                android:src="@drawable/loading"
+                                android:layout_width="20dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitXY"
+                                android:layout_height="20dp">
+                            </ImageView>
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_margin="10dp"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+
+                        <View
+                            android:layout_gravity="center"
+                            android:layout_marginRight="8dp"
+                            android:background="@drawable/gray_semisircle"
+                            android:layout_width="12sp"
+                            android:layout_height="25sp">
+
+                        </View>
+
+
+                        <LinearLayout
+                            android:layout_margin="5dp"
+                            android:orientation="vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="Unknkown"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <TextView
+                                android:id="@+id/unknownTextView"
+                                android:textStyle="bold"
+                                android:textSize="16dp"
+                                android:visibility="gone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:text="loading"
+                                android:textColor="@color/black">
+                            </TextView>
+
+                            <ImageView
+                                android:id="@+id/loadingiv6"
+                                android:src="@drawable/loading"
+                                android:layout_width="20dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_gravity="center"
+                                android:scaleType="fitXY"
+                                android:layout_height="20dp">
+                            </ImageView>
+
+
+                        </LinearLayout>
+
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/custom_card_background"
+        android:orientation="vertical">
+
+
+
+        <LinearLayout
+            android:layout_marginTop="50dp"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:text="My Files"
+                android:textColor="@color/black"
+                android:textSize="25dp"
+                android:textStyle="bold">
+            </TextView>
+
+            <TextView
+                android:id="@+id/tv_view_all"
+                android:text="View All"
+                android:textSize="18dp"
+                android:textColor="#4d59f2"
+                android:textAlignment="textEnd"
+                android:layout_marginRight="28dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+        </LinearLayout>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvFileList"
+            android:layout_margin="20dp"
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            />
+
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:background="#C85F71F2"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+
+
+
+            <Button
+                android:id="@+id/btnDestails"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/details" />
+
+
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/delete" />
+
+            <Button
+                android:id="@+id/btnRename"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/rename" />
+
+
+
+            <Button
+                android:id="@+id/btnCancelSelection"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/cancel" />
+
+            <Button
+                android:id="@+id/btnCopy"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/copy"
+                android:onClick="onCopyButtonClick" />
+
+
+            <Button
+                android:id="@+id/btnPaste"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/paste"
+                android:onClick="onPasteButtonClick" />
+
+
+            <Button
+                android:id="@+id/btnMove"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/move" />
+
+            <Button
+                android:id="@+id/btnSelectALl"
+                android:layout_width="30sp"
+                android:layout_height="30sp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/selectall" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
