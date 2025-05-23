@@ -1,0 +1,62 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:background="@color/white"
+    android:layout_height="wrap_content"
+    android:padding="8dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/fileIconImageView"
+            android:src="@drawable/folder"
+            android:layout_gravity="center"
+            android:layout_width="40dp"
+            android:layout_height="40dp">
+        </ImageView>
+
+        <LinearLayout
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/fileNameTextView"
+                android:layout_width="match_parent"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:padding="8dp"
+                android:text="folder name"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:textAppearance="?android:attr/textAppearanceListItem" />
+
+
+            <TextView
+                android:id="@+id/fileDetailsTextView"
+                android:textColor="@color/black"
+                android:text="Calculating..."
+                android:layout_marginLeft="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </TextView>
+
+        </LinearLayout>
+
+
+        <CheckBox
+            android:id="@+id/checkboxx"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true" />
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>
